@@ -1,0 +1,5343 @@
+/* ================================================= */
+/* PALETA DE CORES MODERNA E ACESSÍVEL              */
+/* ================================================= */
+:root {
+  /* Cores principais - Gradiente moderno */
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --primary-color: #6366F1;
+  --primary-hover: #4F46E5;
+  --primary-light: rgba(99, 102, 241, 0.1);
+  
+  /* Cores de feedback */
+  --success-gradient: linear-gradient(135deg, #10B981, #059669);
+  --info-gradient: linear-gradient(135deg, #06B6D4, #0891B2);
+  --warning-gradient: linear-gradient(135deg, #F59E0B, #D97706);
+  --danger-gradient: linear-gradient(135deg, #EF4444, #DC2626);
+  
+  /* Neutros sofisticados */
+  --light-color: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --card-hover-bg: #F8FAFC;
+  --dark-color: #1E293B;
+  --secondary-color: #64748B;
+  --border-color: #E2E8F0;
+  
+  /* Sidebar dark theme */
+  --sidebar-bg: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+  --sidebar-hover: rgba(255, 255, 255, 0.1);
+  --sidebar-active: rgba(99, 102, 241, 0.2);
+  
+  /* Sombras e profundidade */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Efeitos glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+  
+  /* Dimensões */
+  --sidebar-width: 17rem;
+  --sidebar-collapsed-width: 5rem;
+  --top-nav-height: 4.5rem;
+  --border-radius-sm: 0.375rem;
+  --border-radius: 0.75rem;
+  --border-radius-lg: 1rem;
+  
+  /* Transições suaves */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================================= */
+/* RESET E ESTILOS BASE REFINADOS                   */
+/* ================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+}
+
+/* ================================================= */
+/* SIDEBAR MODERNA COM EFEITO NEOMORFISMO            */
+/* ================================================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  color: #E2E8F0;
+  transition: all var(--transition-base);
+  z-index: 1030;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+}
+
+.sidebar-header {
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.sidebar-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+}
+
+.sidebar-header .logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform var(--transition-base);
+}
+
+.sidebar-header .logo:hover {
+  transform: scale(1.05);
+}
+
+.sidebar-header h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #E2E8F0 0%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li {
+  position: relative;
+  margin: 0.25rem 0.75rem;
+}
+
+.sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1.25rem;
+  color: rgba(226, 232, 240, 0.7);
+  text-decoration: none;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-nav li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left var(--transition-base);
+}
+
+.sidebar-nav li a:hover::before {
+  left: 100%;
+}
+
+.sidebar-nav li a:hover {
+  color: white;
+  background: var(--sidebar-hover);
+  transform: translateX(4px);
+}
+
+.sidebar-nav li a i {
+  font-size: 1.2rem;
+  margin-right: 0.875rem;
+  width: 1.5rem;
+  text-align: center;
+  transition: transform var(--transition-base);
+}
+
+.sidebar-nav li a:hover i {
+  transform: scale(1.1);
+}
+
+.sidebar-nav li a span {
+  font-size: 0.925rem;
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* Item ativo com efeito de brilho */
+.sidebar-nav li.active a {
+  color: white;
+  background: var(--sidebar-active);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+}
+
+.sidebar-nav li.active::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--primary-gradient);
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+.sidebar-nav .badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--danger-gradient);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Sidebar footer com efeito de vidro */
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.25rem;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.user-profile:hover {
+  background: var(--sidebar-hover);
+}
+
+.avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.875rem;
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-base);
+}
+
+.user-profile:hover .avatar {
+  transform: rotate(5deg);
+  border-color: var(--primary-color);
+}
+
+.user-info {
+  line-height: 1.3;
+  flex: 1;
+}
+
+.user-name {
+  display: block;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: white;
+}
+
+.user-role {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(226, 232, 240, 0.6);
+  font-weight: 500;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  color: rgba(239, 68, 68, 0.8);
+  text-decoration: none;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: all var(--transition-base);
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+
+.logout-btn i {
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+/* ================================================= */
+/* NAVBAR SUPERIOR COM GLASSMORPHISM AVANÇADO        */
+/* ================================================= */
+.top-nav {
+  height: var(--top-nav-height);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.menu-toggle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--border-color);
+  color: var(--dark-color);
+  cursor: pointer;
+  margin-right: 1.5rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.menu-toggle:hover {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  transform: rotate(90deg);
+  box-shadow: var(--shadow-md);
+}
+
+.search-box {
+  position: relative;
+  flex-grow: 1;
+  max-width: 28rem;
+}
+
+.search-box i {
+  position: absolute;
+  left: 1.125rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+  font-size: 1rem;
+  z-index: 2;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.875rem 1.125rem 0.875rem 3rem;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  background: rgba(241, 245, 249, 0.8);
+  color: var(--dark-color);
+  font-size: 0.925rem;
+  transition: all var(--transition-base);
+  font-weight: 500;
+}
+
+.search-box input::placeholder {
+  color: var(--secondary-color);
+  font-weight: 400;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  transform: translateY(-1px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.header-actions button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--border-color);
+  color: var(--dark-color);
+  font-size: 1.1rem;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-actions button:hover {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.header-actions .badge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.375rem;
+  border-radius: 50%;
+  background: var(--danger-gradient);
+  color: white;
+  font-weight: 700;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.theme-toggle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--border-color);
+  color: var(--dark-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+  background: var(--warning-color);
+  color: white;
+  transform: rotate(30deg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ================================================= */
+/* DROPDOWNS MODERNOS COM ANIMAÇÕES                  */
+/* ================================================= */
+.messages-dropdown, .notifications-dropdown {
+  position: relative;
+}
+
+.messages-list, .notifications-list {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: 360px;
+  max-height: 400px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-xl);
+  z-index: 1050;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+.messages-list.is-open,
+.notifications-list.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.messages-header, .notifications-header {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.1));
+  border-bottom: 1px solid var(--border-color);
+}
+
+.messages-header h4, .notifications-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.messages-list ul, .notifications-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.message-item, .notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.message-item:hover, .notification-item:hover {
+  background: var(--card-hover-bg);
+  padding-left: 1.5rem;
+}
+
+.message-item.unread, .notification-item.unread {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.05), transparent);
+  border-left: 3px solid var(--primary-color);
+}
+
+.message-item img {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base);
+}
+
+.message-item:hover img {
+  transform: scale(1.1);
+}
+
+.message-content, .notification-content {
+  flex: 1;
+}
+
+.message-content strong, .notification-content strong {
+  color: var(--dark-color);
+  font-weight: 700;
+}
+
+.message-content p, .notification-content p {
+  margin: 0.375rem 0 0.25rem;
+  color: var(--secondary-color);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.message-content small, .notification-content small {
+  color: var(--secondary-color);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.messages-footer, .notifications-footer {
+  padding: 1rem 1.25rem;
+  text-align: center;
+  background: var(--light-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.messages-footer a, .notifications-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition: all var(--transition-fast);
+}
+
+.messages-footer a:hover, .notifications-footer a:hover {
+  color: var(--primary-hover);
+  gap: 0.5rem;
+}
+
+/* ================================================= */
+/* CONTEÚDO PRINCIPAL - LAYOUT MODERNO               */
+/* ================================================= */
+.main-content {
+  margin-left: var(--sidebar-width);
+  transition: all var(--transition-base);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #1E293B 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-item {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+}
+
+.breadcrumb-item a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+/* ================================================= */
+/* CARDS COM DESIGN NEOMORFISMO                     */
+/* ================================================= */
+.card {
+  border: none;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 1.5rem;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  overflow: hidden;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--dark-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card-header h2 i {
+  color: var(--primary-color);
+  font-size: 1.1em;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Cards de estatísticas aprimorados */
+.stat-card {
+  border: none;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+}
+
+.stat-card .card-body {
+  display: flex;
+  align-items: center;
+  padding: 1.75rem;
+}
+
+.stat-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-right: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.stat-icon.bg-primary { background: var(--primary-gradient); }
+.stat-icon.bg-warning { background: var(--warning-gradient); }
+.stat-icon.bg-success { background: var(--success-gradient); }
+.stat-icon.bg-danger { background: var(--danger-gradient); }
+.stat-icon.bg-info { background: var(--info-gradient); }
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-info h3 {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-info .stat-number {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--dark-color) 0%, var(--secondary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.stat-info .stat-change {
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.text-success { 
+  color: #10B981 !important; 
+  background: linear-gradient(135deg, #10B981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-danger { 
+  color: #EF4444 !important;
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ================================================= */
+/* GRÁFICOS E VISUALIZAÇÕES                         */
+/* ================================================= */
+.chart-container {
+  position: relative;
+  height: 20rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+/* ================================================= */
+/* LISTAS INTERATIVAS                                */
+/* ================================================= */
+.alerts-list, .members-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alerts-list li {
+  padding: 1.25rem;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  background: var(--card-bg);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.alerts-list li:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  transform: translateX(8px);
+}
+
+.alert-item-clickable {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.alert-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.25rem;
+  color: white;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+}
+
+.alert-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.375rem;
+  color: var(--dark-color);
+}
+
+.alert-info p {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.alert-info time {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+/* Lista de membros */
+.member-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.member-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: var(--card-hover-bg);
+}
+
+.member-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 3px solid white;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base);
+}
+
+.member-item:hover .member-avatar {
+  transform: scale(1.1);
+}
+
+.member-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--dark-color);
+}
+
+.member-info p {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+/* ================================================= */
+/* MAPA INTERATIVO - STYLE PREMIUM                   */
+/* ================================================= */
+#map-view {
+  padding: 0;
+  height: calc(100vh - var(--top-nav-height) - 4rem);
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.map-container-full {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.map-info-panel {
+  position: absolute;
+  z-index: 1000;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 380px;
+  max-height: calc(100% - 3rem);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(0);
+  transition: transform var(--transition-base);
+}
+
+.map-info-panel.hidden {
+  transform: translateX(120%);
+}
+
+.map-info-panel .card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem;
+}
+
+.map-info-panel .card-body {
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+
+/* ================================================= */
+/* CAIXA DE ENTRADA MODERNA                         */
+/* ================================================= */
+.messages-layout-card {
+  border: none;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  height: calc(100vh - var(--top-nav-height) - 8rem);
+}
+
+.messages-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  height: 100%;
+  background: var(--card-bg);
+}
+
+.inbox-sidebar {
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--light-color) 0%, #FFFFFF 100%);
+}
+
+.inbox-sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.inbox-sidebar-header .btn {
+  padding: 0.875rem 1.5rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  background: var(--primary-gradient);
+  border: none;
+  transition: all var(--transition-base);
+}
+
+.inbox-sidebar-header .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.inbox-list-container {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.inbox-message-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.inbox-message-item:hover {
+  background: var(--card-hover-bg);
+  padding-left: 1.5rem;
+}
+
+.inbox-message-item.active {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), transparent);
+  border-left: 4px solid var(--primary-color);
+}
+
+.inbox-message-item.unread .inbox-item-sender,
+.inbox-message-item.unread .inbox-item-subject {
+  font-weight: 800;
+  color: var(--dark-color);
+}
+
+.inbox-item-avatar img {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: var(--shadow-sm);
+}
+
+.inbox-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.inbox-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.inbox-item-sender {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--dark-color);
+}
+
+.inbox-item-time {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.inbox-item-subject {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.375rem;
+  color: var(--dark-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inbox-item-snippet {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ================================================= */
+/* CONFIGURAÇÕES - DESIGN PREMIUM                    */
+/* ================================================= */
+.profile-avatar-settings {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: var(--shadow-xl);
+  transition: all var(--transition-base);
+}
+
+.profile-avatar-settings:hover {
+  transform: scale(1.05);
+  border-color: var(--primary-color);
+}
+
+.avatar-edit-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid white;
+  background: var(--primary-gradient);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.avatar-edit-button:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.settings-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--light-color), #FFFFFF);
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+}
+
+.settings-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.notification-setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+.notification-setting-row:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(4px);
+}
+
+.form-switch .form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+  background-color: var(--border-color);
+  border-color: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.form-switch .form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.form-switch .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+}
+
+/* ================================================= */
+/* ANIMAÇÕES E EFEITOS ESPECIAIS                     */
+/* ================================================= */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* Skeleton loading com efeito shimmer */
+.skeleton {
+  background: linear-gradient(90deg, 
+    var(--border-color) 25%, 
+    var(--light-color) 50%, 
+    var(--border-color) 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: var(--border-radius);
+  color: transparent !important;
+  user-select: none;
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.75em;
+  border-radius: 0.25em;
+}
+
+.skeleton-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+/* Botão flutuante de voltar ao topo */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-xl);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-base);
+  animation: float 3s ease-in-out infinite;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 12px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* ================================================= */
+/* RESPONSIVIDADE REFINADA                           */
+/* ================================================= */
+@media (max-width: 1199.98px) {
+  .sidebar {
+    width: var(--sidebar-collapsed-width);
+  }
+  
+  .sidebar-header h2,
+  .sidebar-nav li a span,
+  .user-info,
+  .logout-btn span {
+    display: none;
+  }
+  
+  .sidebar-nav li a {
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .sidebar-nav li a i {
+    margin-right: 0;
+    font-size: 1.5rem;
+  }
+  
+  .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+  
+  .dashboard-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    transform: translateX(-100%);
+    z-index: 1040;
+  }
+  
+  .sidebar.show {
+    transform: translateX(0);
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .messages-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .inbox-sidebar {
+    display: none;
+  }
+  
+  .messages-layout-card.show-inbox .inbox-sidebar {
+    display: flex;
+  }
+  
+  .messages-layout-card.show-inbox .message-content-area {
+    display: none;
+  }
+  
+  .messages-layout-card.show-message .inbox-sidebar {
+    display: none;
+  }
+  
+  .messages-layout-card.show-message .message-content-area {
+    display: flex;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .top-nav {
+    padding: 0 1rem;
+  }
+  
+  .search-box {
+    max-width: 200px;
+  }
+  
+  .header-actions .theme-toggle {
+    display: none;
+  }
+  
+  .messages-list,
+  .notifications-list {
+    width: 300px;
+    right: -50%;
+  }
+  
+  .stat-card .card-body {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .stat-icon {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .dashboard-content {
+    padding: 1rem;
+  }
+  
+  .search-box {
+    display: none;
+  }
+  
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-info .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  .map-info-panel {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    max-height: 50%;
+  }
+}
+
+/* ================================================= */
+/* MODO ESCURO - DESIGN AVANÇADO                    */
+/* ================================================= */
+[data-theme="dark"] {
+  --light-color: #0F172A;
+  --card-bg: #1E293B;
+  --card-hover-bg: #2D3748;
+  --dark-color: #F1F5F9;
+  --secondary-color: #94A3B8;
+  --border-color: #334155;
+  --glass-bg: rgba(30, 41, 59, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Sidebar no dark mode */
+  --sidebar-bg: linear-gradient(180deg, #020617 0%, #0F172A 100%);
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --sidebar-active: rgba(99, 102, 241, 0.25);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+}
+
+[data-theme="dark"] .card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .card:hover {
+  border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .top-nav {
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .search-box input {
+  background: rgba(30, 41, 59, 0.8);
+  color: var(--dark-color);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .search-box input:focus {
+  background: var(--card-bg);
+}
+
+[data-theme="dark"] .header-actions button,
+[data-theme="dark"] .theme-toggle {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .dashboard-content {
+  background: transparent;
+}
+
+[data-theme="dark"] .stat-info .stat-number {
+  background: linear-gradient(135deg, #F1F5F9 0%, #CBD5E1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .inbox-sidebar {
+  background: linear-gradient(180deg, var(--light-color) 0%, var(--card-bg) 100%);
+}
+
+[data-theme="dark"] .form-switch .form-check-input {
+  background-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-switch .form-check-input:checked {
+  background-color: var(--primary-color);
+}
+
+/* ================================================= */
+/* UTILITÁRIOS E HELPER CLASSES                     */
+/* ================================================= */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-gradient {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hover-lift {
+  transition: transform var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.shadow-hover {
+  transition: box-shadow var(--transition-base);
+}
+
+.shadow-hover:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Loading spinner */
+.spinner-border {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 0.2em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+
+/* Hidden attribute helper */
+[hidden] { display: none !important; }
+
+
+/* ================================================= */
+/* CAIXA DE ENTRADA - UPGRADE PREMIUM (2026)         */
+/* ================================================= */
+
+.inbox-sidebar-header{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+[data-theme="dark"] .inbox-sidebar-header{
+  background: linear-gradient(180deg, rgba(30,41,59,.92), rgba(30,41,59,.78));
+}
+
+.inbox-sidebar-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inbox-title{
+  font-family: var(--font-heading, "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .01em;
+  color: var(--dark-color);
+}
+
+.inbox-subtitle{
+  font-size: .85rem;
+  color: var(--secondary-color);
+  margin-top: .25rem;
+}
+
+.btn-compose{
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+}
+
+.inbox-search{
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.inbox-search i{
+  position: absolute;
+  left: .9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+  font-size: .95rem;
+}
+
+.inbox-search .form-control{
+  padding-left: 2.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: rgba(255,255,255,.75);
+  transition: all var(--transition-base);
+}
+
+[data-theme="dark"] .inbox-search .form-control{
+  background: rgba(15,23,42,.55);
+}
+
+.inbox-search .form-control:focus{
+  box-shadow: 0 0 0 .2rem rgba(99,102,241,.18);
+  border-color: rgba(99,102,241,.55);
+}
+
+.inbox-filters{
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.inbox-filter{
+  border: 1px solid var(--border-color);
+  background: rgba(255,255,255,.55);
+  color: var(--dark-color);
+  font-weight: 600;
+  font-size: .8rem;
+  padding: .4rem .7rem;
+  border-radius: 999px;
+  transition: all var(--transition-base);
+}
+
+[data-theme="dark"] .inbox-filter{
+  background: rgba(15,23,42,.45);
+}
+
+.inbox-filter:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.inbox-filter.active{
+  border-color: rgba(99,102,241,.55);
+  background: rgba(99,102,241,.12);
+}
+
+/* Lista de mensagens: mais “app-like” */
+.inbox-list-container{
+  padding: .25rem;
+}
+
+.inbox-message-item{
+  border: 1px solid transparent;
+  border-radius: 14px;
+  margin: .35rem;
+  background: transparent;
+}
+
+.inbox-message-item:hover{
+  border-color: rgba(99,102,241,.22);
+  background: rgba(99,102,241,.06);
+  padding-left: 1.25rem; /* mantém seu efeito */
+}
+
+.inbox-message-item.active{
+  border-color: rgba(99,102,241,.35);
+  background: rgba(99,102,241,.10);
+  border-left: 4px solid var(--primary-color);
+}
+
+/* “Dot” de não lida */
+.inbox-message-item.unread::after{
+  content: "";
+  position: absolute;
+  top: 1.3rem;
+  right: 1.15rem;
+  width: .55rem;
+  height: .55rem;
+  border-radius: 999px;
+  background: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+
+/* Área do conteúdo da mensagem */
+.message-content-area{
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(900px 500px at 20% 0%, rgba(99,102,241,.08), transparent 60%),
+    radial-gradient(900px 500px at 80% 0%, rgba(14,165,233,.08), transparent 60%),
+    var(--card-bg);
+}
+
+[data-theme="dark"] .message-content-area{
+  background:
+    radial-gradient(900px 500px at 20% 0%, rgba(99,102,241,.10), transparent 60%),
+    radial-gradient(900px 500px at 80% 0%, rgba(14,165,233,.10), transparent 60%),
+    var(--card-bg);
+}
+
+/* Header sticky do detalhe */
+.message-detail-header{
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(255,255,255,.70);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .message-detail-header{
+  background: rgba(30,41,59,.72);
+}
+
+.message-detail-subject h2{
+  font-size: 1.05rem;
+  line-height: 1.25;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.message-detail-actions{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* Bloco remetente */
+.message-detail-sender-info{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.message-detail-sender-info img{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.message-detail-sender-info .badge{
+  border-radius: 999px;
+  padding: .35rem .6rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+/* Corpo da mensagem */
+.message-detail-body{
+  padding: 0 1.25rem 1.25rem;
+}
+
+.message-detail-body p{
+  margin: 0;
+  padding: 1.1rem 1.1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: rgba(255,255,255,.75);
+  line-height: 1.6;
+}
+
+[data-theme="dark"] .message-detail-body p{
+  background: rgba(15,23,42,.55);
+}
+
+/* Anexos (se tiver) */
+.message-detail-attachments{
+  padding: 0 1.25rem 1.25rem;
+}
+
+.message-detail-attachments h6{
+  font-weight: 800;
+  margin-bottom: .75rem;
+}
+
+.attachment-item{
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .7rem .85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--dark-color);
+  background: rgba(255,255,255,.70);
+  transition: all var(--transition-base);
+  margin-bottom: .6rem;
+}
+
+[data-theme="dark"] .attachment-item{
+  background: rgba(15,23,42,.55);
+}
+
+.attachment-item:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(99,102,241,.35);
+}
+
+/* Placeholder mais elegante */
+.message-content-placeholder{
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 3rem 1.25rem !important;
+}
+
+/* ================================================= */
+/* MOBILE: corrigir classe usada no JS               */
+/* ================================================= */
+@media (max-width: 991.98px){
+  .messages-layout-card.mobile-message-open .inbox-sidebar{
+    display: none;
+  }
+  .messages-layout-card.mobile-message-open .message-content-area{
+    display: flex;
+  }
+
+  /* padrão (sem abrir mensagem): mostra a lista */
+  .messages-layout-card:not(.mobile-message-open) .inbox-sidebar{
+    display: flex;
+  }
+  .messages-layout-card:not(.mobile-message-open) .message-content-area{
+    display: none;
+  }
+}
+
+
+/* ================================================= */
+/* INBOX – TIPOGRAFIA + INFORMAÇÕES ÚTEIS (UPGRADE)   */
+/* ================================================= */
+
+:root{
+  --inbox-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  --inbox-reading-width: 1120px; /* mantém seu ajuste “um pouco maior” */
+}
+
+#messages-view,
+.messages-layout-card{
+  font-family: var(--inbox-font);
+}
+
+/* Header da inbox mais “Gmail/Workspace” */
+.inbox-title{
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.inbox-subtitle{
+  font-size: .86rem;
+  opacity: .9;
+}
+
+/* Pílulas de stats (não lidas / urgentes) */
+/* Contadores nos botões de filtro */
+.inbox-filter{
+  gap: .35rem;
+}
+.inbox-filter .filter-count{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  height: 1.1rem;
+  padding: 0 .35rem;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 900;
+  border: 1px solid rgba(99,102,241,.25);
+  background: rgba(99,102,241,.10);
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .inbox-filter .filter-count{
+  color: rgba(226,232,240,.95);
+}
+
+/* Lista: remetente/assunto/snippet mais “informativos” */
+.inbox-message-item{
+  padding: .85rem 1rem;
+}
+
+.inbox-item-sender{
+  font-weight: 800;
+  font-size: .92rem;
+}
+
+.inbox-item-time{
+  font-size: .78rem;
+  color: var(--secondary-color);
+}
+
+.inbox-item-subject{
+  font-size: .92rem;
+  font-weight: 750;
+  margin-top: .25rem;
+}
+
+.inbox-item-snippet{
+  display: block !important; /* remove o “vazio” mostrando um preview */
+  margin: .3rem 0 0;
+  color: var(--secondary-color);
+  font-size: .84rem;
+  line-height: 1.35;
+  max-height: 2.7em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Urgente: marca visual discreta na lista */
+.inbox-message-item.urgent{
+  border-color: rgba(239,68,68,.18);
+  background: rgba(239,68,68,.05);
+}
+
+.inbox-message-item.urgent .inbox-item-sender::after{
+  content: "URGENTE";
+  margin-left: .5rem;
+  font-size: .7rem;
+  font-weight: 900;
+  padding: .15rem .45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(239,68,68,.25);
+  background: rgba(239,68,68,.12);
+  color: rgba(185,28,28,1);
+}
+
+/* Leitura: alinhamento e tamanho equilibrado */
+.message-detail-sender-info{
+  width: min(100%, var(--inbox-reading-width));
+  margin: 1rem auto .9rem;
+}
+
+.message-detail-body{
+  display: flex;
+  justify-content: center;
+}
+
+.message-detail-body p,
+.message-detail-body .message-scope-card{
+  width: min(100%, var(--inbox-reading-width));
+  max-width: var(--inbox-reading-width);
+}
+
+/* Mobile: mantém compacto */
+@media (max-width: 575.98px){
+  .inbox-message-item{
+    padding: .8rem .85rem;
+  }
+  .inbox-item-subject{
+    font-size: .9rem;
+  }
+}
+
+
+/* ================================================= */
+/* HEADER – NOTIFICAÇÕES com estilo de MENSAGENS      */
+/* ================================================= */
+
+.notification-avatar{
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255,255,255,.9);
+  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, rgba(99,102,241,.12), rgba(14,165,233,.10));
+  color: var(--dark-color);
+  transition: transform var(--transition-base);
+}
+
+[data-theme="dark"] .notification-avatar{
+  border-color: rgba(15,23,42,.6);
+}
+
+.notification-item:hover .notification-avatar{
+  transform: scale(1.08);
+}
+
+.notification-title{
+  margin: 0 0 .15rem 0;
+  font-weight: 800;
+  font-size: .92rem;
+  color: var(--dark-color);
+}
+
+.notification-dim{
+  font-weight: 600;
+  opacity: .75;
+  margin-left: .35rem;
+  font-size: .82rem;
+}
+
+.notification-snippet{
+  margin: 0;
+  color: var(--secondary-color);
+  font-size: .84rem;
+  line-height: 1.35;
+  max-height: 2.7em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notification-meta{
+  display: inline-block;
+  margin-top: .35rem;
+  color: var(--secondary-color);
+}
+
+.notification-item.empty{
+  cursor: default;
+}
+
+.notification-item.empty:hover{
+  background: transparent;
+  padding-left: 1.25rem;
+}
+
+
+/* ================================================= */
+/* DARK MODE – MAIS ORGANIZADO + MODERNO (SEM ÍCONES) */
+/* ================================================= */
+
+[data-theme="dark"]{
+  --bg-color: #0b1220;
+  --card-bg: rgba(17,24,39,.72);
+  --card-bg-2: rgba(2,6,23,.55);
+  --text-color: rgba(226,232,240,.96);
+  --muted-color: rgba(148,163,184,.92);
+  --border-color: rgba(148,163,184,.18);
+}
+
+[data-theme="dark"] body{
+  background:
+    radial-gradient(1100px 520px at 15% 0%, rgba(99,102,241,.12), transparent 62%),
+    radial-gradient(1100px 520px at 85% 0%, rgba(14,165,233,.10), transparent 62%),
+    var(--bg-color);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .messages-layout-card,
+[data-theme="dark"] .message-detail-sender-info,
+[data-theme="dark"] .message-detail-body p,
+[data-theme="dark"] .message-scope-card{
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .page-header,
+[data-theme="dark"] .message-detail-header,
+[data-theme="dark"] .inbox-sidebar,
+[data-theme="dark"] .message-content-area{
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] .secondary-text,
+[data-theme="dark"] .inbox-item-time,
+[data-theme="dark"] .inbox-item-snippet,
+[data-theme="dark"] .notification-snippet,
+[data-theme="dark"] .notification-meta{
+  color: var(--muted-color) !important;
+}
+
+[data-theme="dark"] .topbar,
+[data-theme="dark"] .messages-list,
+[data-theme="dark"] .notifications-list,
+[data-theme="dark"] .dropdown-menu{
+  background: rgba(2,6,23,.86);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 45px rgba(0,0,0,.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+[data-theme="dark"] .inbox-message-item,
+[data-theme="dark"] .notification-item{
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .inbox-message-item:hover,
+[data-theme="dark"] .notification-item:hover{
+  background: rgba(255,255,255,.04);
+}
+
+[data-theme="dark"] .inbox-message-item.active{
+  background: rgba(99,102,241,.14);
+  border-color: rgba(99,102,241,.25);
+}
+
+[data-theme="dark"] .inbox-message-item.unread{
+  background: rgba(14,165,233,.08);
+}
+
+[data-theme="dark"] .inbox-message-item.urgent{
+  background: rgba(239,68,68,.08);
+  border-color: rgba(239,68,68,.22);
+}
+[data-theme="dark"] .inbox-message-item.urgent .inbox-item-sender::after{
+  color: rgba(254,202,202,.95);
+  border-color: rgba(239,68,68,.25);
+  background: rgba(239,68,68,.12);
+}
+
+[data-theme="dark"] .btn,
+[data-theme="dark"] .btn-outline-secondary{
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-outline-secondary{
+  background: rgba(255,255,255,.04);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover{
+  background: rgba(255,255,255,.07);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] .form-control{
+  background: rgba(2,6,23,.55);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+[data-theme="dark"] input::placeholder{
+  color: rgba(148,163,184,.70);
+}
+
+[data-theme="dark"] .badge{
+  border: 1px solid rgba(148,163,184,.18);
+}
+
+[data-theme="dark"] .breadcrumb{
+  background: transparent;
+}
+[data-theme="dark"] .breadcrumb-item a{
+  color: rgba(147,197,253,.92);
+}
+[data-theme="dark"] .breadcrumb-item.active{
+  color: rgba(226,232,240,.80);
+}
+
+[data-theme="dark"] .message-detail-body p{
+  background: rgba(15,23,42,.72);
+  box-shadow: 0 1px 2px rgba(0,0,0,.35);
+}
+
+[data-theme="dark"] .notification-avatar{
+  background: linear-gradient(135deg, rgba(99,102,241,.16), rgba(14,165,233,.12));
+  border-color: rgba(2,6,23,.6);
+}
+
+
+/* ================================================= */
+/* DARK MODE – ESTILO GMAIL (MAIS CLEAN, MENOS GLOW)  */
+/* (Sem mudar ícones)                                 */
+/* ================================================= */
+
+[data-theme="dark"]{
+  --bg-color: #0f172a;           /* slate-900 */
+  --surface-1: #111827;          /* gray-900 */
+  --surface-2: #0b1220;          /* deep */
+  --text-color: rgba(226,232,240,.95);
+  --muted-color: rgba(148,163,184,.88);
+  --border-color: rgba(148,163,184,.14);
+}
+
+/* Fundo: mais “flat” e profissional */
+[data-theme="dark"] body{
+  background: var(--bg-color) !important;
+}
+
+/* Painéis e cards: menos blur/gradiente, mais consistência */
+[data-theme="dark"] .card,
+[data-theme="dark"] .messages-layout-card,
+[data-theme="dark"] .message-detail-sender-info,
+[data-theme="dark"] .message-detail-body p,
+[data-theme="dark"] .message-scope-card,
+[data-theme="dark"] .inbox-sidebar,
+[data-theme="dark"] .message-content-area{
+  background: rgba(17,24,39,.72) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.28) !important;
+}
+
+/* Header e barras: bem clean */
+[data-theme="dark"] .topbar,
+[data-theme="dark"] .page-header,
+[data-theme="dark"] .message-detail-header{
+  background: rgba(15,23,42,.78) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Dropdowns: estilo Gmail (painel escuro sólido e limpo) */
+[data-theme="dark"] .messages-list,
+[data-theme="dark"] .notifications-list,
+[data-theme="dark"] .dropdown-menu{
+  background: rgba(2,6,23,.92) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 18px 38px rgba(0,0,0,.45) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Texto e secundários */
+[data-theme="dark"] body,
+[data-theme="dark"] .message-detail-body p,
+[data-theme="dark"] .notification-title,
+[data-theme="dark"] .inbox-item-sender,
+[data-theme="dark"] .inbox-item-subject{
+  color: var(--text-color) !important;
+}
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] .secondary-text,
+[data-theme="dark"] .inbox-item-time,
+[data-theme="dark"] .inbox-item-snippet,
+[data-theme="dark"] .notification-snippet,
+[data-theme="dark"] .notification-meta{
+  color: var(--muted-color) !important;
+}
+
+/* Lista: hover bem sutil, ativo bem marcado (Gmail) */
+[data-theme="dark"] .inbox-message-item:hover,
+[data-theme="dark"] .notification-item:hover{
+  background: rgba(255,255,255,.03) !important;
+}
+
+[data-theme="dark"] .inbox-message-item.active{
+  background: rgba(59,130,246,.14) !important; /* blue-500 glow leve */
+  border-color: rgba(59,130,246,.22) !important;
+}
+
+/* Não lida: sutil */
+[data-theme="dark"] .inbox-message-item.unread{
+  background: rgba(255,255,255,.02) !important;
+  border-left: 3px solid rgba(59,130,246,.55) !important;
+}
+
+/* Urgente: sutil, sem “vermelhão” */
+[data-theme="dark"] .inbox-message-item.urgent{
+  background: rgba(239,68,68,.06) !important;
+  border-color: rgba(239,68,68,.18) !important;
+}
+
+/* Botões e inputs: clean */
+[data-theme="dark"] .btn,
+[data-theme="dark"] .btn-outline-secondary{
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary{
+  background: rgba(255,255,255,.03) !important;
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover{
+  background: rgba(255,255,255,.06) !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] .form-control{
+  background: rgba(2,6,23,.55) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Avatar/bolinha: mantém ícone, só deixa mais sóbrio */
+[data-theme="dark"] .notification-avatar{
+  background: rgba(59,130,246,.10) !important;
+  border-color: rgba(148,163,184,.16) !important;
+}
+
+
+/* ================================================= */
+/* FIX – CARD DO REMETENTE (AVATAR + SISTEMA + PARA)  */
+/* Garante que não “suma” no light/dark              */
+/* ================================================= */
+
+.message-detail-sender-info{
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  width: min(100%, var(--inbox-reading-width, 1120px));
+  margin: 1rem auto .9rem;
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 1px 2px rgba(16,24,40,.06);
+}
+
+.message-detail-sender-info img{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(148,163,184,.22);
+}
+
+.message-detail-sender-info strong{
+  font-weight: 900;
+  color: var(--dark-color);
+}
+
+.message-detail-sender-info .text-muted,
+.message-detail-sender-info small{
+  color: var(--secondary-color) !important;
+}
+
+/* Dark: continua com cara de card (Gmail clean) */
+[data-theme="dark"] .message-detail-sender-info{
+  background: rgba(17,24,39,.72) !important;
+  border-color: rgba(148,163,184,.14) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.28) !important;
+}
+
+[data-theme="dark"] .message-detail-sender-info strong{
+  color: rgba(226,232,240,.95) !important;
+}
+
+[data-theme="dark"] .message-detail-sender-info .text-muted,
+[data-theme="dark"] .message-detail-sender-info small{
+  color: rgba(148,163,184,.88) !important;
+}
+
+
+/* ================================================= */
+/* DASHBOARD – CARDS LADO A LADO (MESMA ALTURA)       */
+/* Ações Rápidas  +  Mapa de Atividade                */
+/* ================================================= */
+
+.equal-cards-row > [class*="col-"]{
+  display: flex;
+}
+
+.equal-cards-row > [class*="col-"] > .card{
+  width: 100%;
+}
+
+/* Faz os cards virarem "colunas" e distribuírem o conteúdo */
+.quick-actions-card,
+.map-activity-card{
+  display: flex;
+  flex-direction: column;
+}
+
+/* O body cresce para ocupar a altura restante do card */
+.quick-actions-card .card-body,
+.map-activity-card .card-body{
+  flex: 1;
+}
+
+/* Preview do mapa ocupa o body inteiro, sem estourar a altura */
+#dashboard-map-preview{
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* Mobile: deixa mais compacto */
+@media (max-width: 575.98px){
+  #dashboard-map-preview{ min-height: 200px; }
+}
+
+/* ================================================= */
+
+.map-activity-card{
+  /* garante altura semelhante ao card de ações */
+  min-height: 330px;
+}
+
+.map-activity-card .card-body{
+  padding: 0 !important;
+  height: 100%;
+}
+
+#dashboard-map-preview{
+  width: 100%;
+  height: 260px; /* altura maior para igualar o card */
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* Mobile: não fica exagerado */
+@media (max-width: 575.98px){
+  .map-activity-card{ min-height: 290px; }
+  #dashboard-map-preview{ height: 220px; }
+}
+
+/* ================================================= */
+/* INBOX V4 PACK – Gmail-like + ações rápidas         */
+/* ================================================= */
+
+.messages-layout-card .messages-layout{
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1rem;
+}
+
+.inbox-sidebar{
+  min-width: 0;
+}
+
+.inbox-sidebar-header{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 1rem;
+  background: var(--surface-1, #fff);
+  border-bottom: 1px solid var(--stroke-soft, #e2e8f0);
+  backdrop-filter: blur(8px);
+}
+
+.inbox-sidebar-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+  margin-bottom: .85rem;
+}
+.inbox-title{ font-weight: 800; letter-spacing: -0.02em; }
+.inbox-subtitle{ color: var(--secondary-color); font-size: .85rem; }
+
+.btn-compose{
+  border-radius: 999px;
+  padding: .55rem .95rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.inbox-search{
+  position: relative;
+  margin-bottom: .75rem;
+}
+.inbox-search i{
+  position:absolute;
+  left: .85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+}
+.inbox-search input{
+  padding-left: 2.35rem;
+  border-radius: 999px;
+}
+
+.inbox-filters{
+  display:flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+.inbox-filter{
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: var(--surface-1, #fff);
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .85rem;
+  color: var(--dark-color);
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+}
+.inbox-filter .filter-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: rgba(99,102,241,.10);
+  color: var(--primary-color);
+  font-size: .75rem;
+  font-weight: 800;
+}
+.inbox-filter.active{
+  border-color: rgba(99,102,241,.45);
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+
+/* Lista */
+.inbox-list-container{
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: var(--surface-1, #fff);
+}
+
+.inbox-message-item{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .75rem;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--stroke-soft, #e2e8f0);
+  cursor: pointer;
+}
+.inbox-message-item:last-child{ border-bottom:none; }
+.inbox-message-item:hover{
+  background: rgba(99,102,241,.04);
+}
+.inbox-message-item.active{
+  background: rgba(99,102,241,.08);
+}
+.inbox-message-item.unread{
+  position: relative;
+}
+.inbox-message-item.unread::before{
+  content:'';
+  position:absolute;
+  left: .6rem;
+  top: 1.3rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+
+.inbox-item-content{ min-width:0; }
+.inbox-item-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+}
+.inbox-item-sender{
+  font-weight: 800;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.inbox-item-time{
+  font-size: .78rem;
+  color: var(--secondary-color);
+  white-space: nowrap;
+}
+
+.inbox-item-subject{
+  margin:.25rem 0 .25rem;
+  font-weight: 750;
+  font-size: .92rem;
+  line-height: 1.25;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-item-snippet{
+  margin:0;
+  color: var(--secondary-color);
+  font-size: .85rem;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-item-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap: .4rem;
+}
+
+.inbox-actions{
+  display:flex;
+  gap:.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+.inbox-message-item:hover .inbox-actions,
+.inbox-message-item.active .inbox-actions{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inbox-action-btn{
+  width: 34px;
+  height: 34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.85);
+  color: var(--dark-color);
+}
+[data-theme="dark"] .inbox-action-btn{
+  background: rgba(17,24,39,.65);
+}
+.inbox-action-btn:hover{
+  background: rgba(99,102,241,.10);
+  color: var(--primary-color);
+}
+
+.inbox-starred .star-ico{
+  color: #f59e0b;
+}
+
+/* Detail */
+.message-content-area{
+  border-radius: 18px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: var(--surface-1, #fff);
+  overflow: hidden;
+}
+.message-detail-header{
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--surface-1, #fff);
+  border-bottom: 1px solid var(--stroke-soft, #e2e8f0);
+  padding: .9rem 1rem;
+}
+
+.message-detail-sender-info{
+  padding: 1rem;
+}
+.message-detail-body{
+  padding: 1rem;
+  line-height: 1.65;
+}
+.message-content-placeholder{
+  padding: 3rem 1.25rem !important;
+}
+
+/* Mobile master/detail */
+@media (max-width: 991.98px){
+  .messages-layout-card .messages-layout{
+    grid-template-columns: 1fr;
+  }
+  .messages-layout-card.mobile-message-open .inbox-sidebar{
+    display:none;
+  }
+  .messages-layout-card:not(.mobile-message-open) .message-content-area{
+    display:none;
+  }
+}
+
+/* ================================================= */
+/* INBOX V5 PACK – multi-select + hover bar + swipe   */
+/* ================================================= */
+
+/* Barra azul/roxa no hover/active (estilo “overlay”) */
+.inbox-message-item{
+  position: relative;
+}
+.inbox-message-item::after{
+  content:'';
+  position:absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transform: translateX(-2px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.inbox-message-item:hover::after{
+  opacity: .85;
+  transform: translateX(0);
+}
+.inbox-message-item.active::after{
+  opacity: 1;
+}
+
+/* Multi-select layout: adiciona coluna do checkbox */
+.inbox-message-item{
+  grid-template-columns: auto 1fr auto;
+}
+.inbox-check{
+  display:flex;
+  align-items:flex-start;
+  padding-top: .15rem;
+}
+.inbox-check input{
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  accent-color: var(--primary-color);
+}
+
+/* Toolbar de ações em lote */
+.inbox-bulkbar{
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+  padding: .75rem 1rem;
+  background: var(--surface-1, #fff);
+  border-bottom: 1px solid var(--stroke-soft, #e2e8f0);
+}
+.inbox-bulkbar.is-open{ display:flex; }
+.inbox-bulkbar .bulk-left{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:0;
+}
+.bulk-count{
+  font-weight: 800;
+  white-space: nowrap;
+}
+.bulk-actions{
+  display:flex;
+  gap:.35rem;
+  flex-wrap: wrap;
+}
+.bulk-actions .btn{
+  padding: .45rem .8rem;
+}
+
+/* Abas (Favoritos) */
+.inbox-tabs{
+  display:flex;
+  gap:.5rem;
+  flex-wrap: wrap;
+  margin-top: .65rem;
+}
+.inbox-tab{
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: var(--surface-1, #fff);
+  padding: .45rem .75rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: .85rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+}
+.inbox-tab.active{
+  border-color: rgba(99,102,241,.45);
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+
+/* Swipe to archive hint (mobile) */
+@media (max-width: 991.98px){
+  .inbox-message-item{
+    touch-action: pan-y;
+  }
+  .swipe-hint{
+    display:block;
+    padding: .5rem 1rem .75rem;
+    font-size: .8rem;
+    color: var(--secondary-color);
+  }
+}
+
+
+/* ================================================= */
+/* INBOX V6 PACK – selecionar tudo + abas + atalhos   */
+/* ================================================= */
+
+.bulk-selectall{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-left:.25rem;
+}
+.bulk-selectall input{
+  width:18px;
+  height:18px;
+  border-radius:6px;
+  accent-color: var(--primary-color);
+}
+.bulk-selectall label{
+  font-weight:800;
+  font-size:.85rem;
+  color: var(--dark-color);
+  user-select:none;
+}
+
+.inbox-tab .filter-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: rgba(99,102,241,.10);
+  color: var(--primary-color);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.inbox-message-item.is-trashed{
+  opacity: .78;
+}
+
+.kbd-hint{
+  font-size: .78rem;
+  color: var(--secondary-color);
+  margin-top: .5rem;
+}
+
+@media (max-width: 991.98px){
+  .bulk-actions{ width:100%; overflow:auto; padding-bottom:.25rem; }
+}
+
+
+/* ================================================= */
+/* INBOX V7 PACK – Snooze + Pin + Status             */
+/* ================================================= */
+
+.inbox-pin{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.8);
+  color: var(--dark-color);
+}
+[data-theme="dark"] .inbox-pin{ background: rgba(17,24,39,.55); }
+.inbox-pin.is-pinned{
+  background: rgba(99,102,241,.12);
+  border-color: rgba(99,102,241,.30);
+  color: var(--primary-color);
+}
+
+.status-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  border-radius: 999px;
+  padding: .22rem .55rem;
+  font-size: .75rem;
+  font-weight: 900;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(148,163,184,.10);
+  color: var(--dark-color);
+}
+.status-chip .dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(100,116,139,.8);
+}
+
+.status-open{ background: rgba(59,130,246,.10); border-color: rgba(59,130,246,.28); color: #1d4ed8; }
+.status-open .dot{ background:#3b82f6; }
+
+.status-analyzing{ background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.30); color:#b45309; }
+.status-analyzing .dot{ background:#f59e0b; }
+
+.status-resolved{ background: rgba(16,185,129,.12); border-color: rgba(16,185,129,.30); color:#047857; }
+.status-resolved .dot{ background:#10b981; }
+
+.snooze-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  border-radius: 999px;
+  padding: .22rem .55rem;
+  font-size: .75rem;
+  font-weight: 900;
+  border: 1px solid rgba(99,102,241,.22);
+  background: rgba(99,102,241,.08);
+  color: var(--primary-color);
+}
+
+.inbox-section-title{
+  padding: .8rem 1rem;
+  font-size: .85rem;
+  font-weight: 900;
+  letter-spacing: .03em;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  background: rgba(99,102,241,.04);
+  border-bottom: 1px solid var(--stroke-soft, #e2e8f0);
+}
+
+.message-detail-actions .btn{
+  border-radius: 999px;
+}
+
+/* Modal simples de snooze */
+.snooze-modal-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,.48);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index: 2000;
+  padding: 1rem;
+}
+.snooze-modal-backdrop.open{ display:flex; }
+.snooze-modal{
+  width: min(520px, 94vw);
+  border-radius: 20px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: var(--surface-1, #fff);
+  box-shadow: 0 30px 60px rgba(2,6,23,.25);
+  overflow:hidden;
+}
+.snooze-modal header{
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--stroke-soft, #e2e8f0);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+}
+.snooze-modal h3{
+  margin:0;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+}
+.snooze-modal .body{
+  padding: 1rem 1.1rem;
+}
+.snooze-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:.6rem;
+}
+@media (max-width: 575.98px){
+  .snooze-grid{ grid-template-columns: 1fr; }
+}
+.snooze-option{
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(99,102,241,.04);
+  border-radius: 16px;
+  padding: .75rem .85rem;
+  font-weight: 900;
+  text-align:left;
+}
+.snooze-option small{
+  display:block;
+  font-weight: 700;
+  opacity:.75;
+}
+
+/* ================================================= */
+/* SIDEBAR HOVER BAR PACK (v2) – barra visível no menu */
+/* ================================================= */
+
+/* O sidebar já usa ::before como “shimmer”. Então:
+   - ::before fica com z-index: 1
+   - a barra ::after fica com z-index: 2 (mais acima)
+   - conteúdo do link (ícones/texto) fica com z-index: 3
+*/
+
+.sidebar-nav li a{
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-nav li a > *{
+  position: relative;
+  z-index: 3;
+}
+
+.sidebar-nav li a::before{
+  z-index: 1;
+}
+
+.sidebar-nav li a::after{
+  content:'';
+  position:absolute;
+  left: 8px; /* aparece “dentro” do padding (mais visível) */
+  top: 10px;
+  bottom: 10px;
+  width: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(99,102,241,1) 0%, rgba(118,75,162,1) 100%);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  z-index: 2;
+}
+
+.sidebar-nav li:hover > a::after{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-nav li.active > a::after,
+.sidebar-nav li.active > a[aria-current="page"]::after{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ================================================= */
+/* PRIORITY V1 PACK – badge e realce de prioridade    */
+/* ================================================= */
+
+.priority-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  border-radius: 999px;
+  padding: .22rem .55rem;
+  font-size: .75rem;
+  font-weight: 900;
+  border: 1px solid rgba(168,85,247,.28);
+  background: rgba(168,85,247,.10);
+  color: #6d28d9;
+}
+
+[data-theme="dark"] .priority-badge{
+  border-color: rgba(168,85,247,.35);
+  background: rgba(168,85,247,.14);
+  color: #c4b5fd;
+}
+
+/* leve “glow” no hover para itens prioritários */
+.inbox-message-item.is-priority:hover{
+  box-shadow: 0 14px 28px rgba(2,6,23,.10);
+}
+
+
+/* ================================================= */
+/* PRIORITY V2 PACK – baixa prioridade + explicação  */
+/* ================================================= */
+
+.low-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  border-radius: 999px;
+  padding: .22rem .55rem;
+  font-size: .75rem;
+  font-weight: 900;
+  border: 1px solid rgba(100,116,139,.25);
+  background: rgba(100,116,139,.10);
+  color: #475569;
+}
+
+[data-theme="dark"] .low-badge{
+  border-color: rgba(148,163,184,.28);
+  background: rgba(148,163,184,.10);
+  color: #cbd5e1;
+}
+
+.inbox-message-item.is-low{
+  opacity: .82;
+}
+
+.priority-help{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.85);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--dark-color);
+}
+[data-theme="dark"] .priority-help{ background: rgba(17,24,39,.55); }
+
+.priority-pop{
+  position: absolute;
+  right: 12px;
+  top: 52px;
+  width: min(360px, 92vw);
+  background: var(--surface-1, #fff);
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  border-radius: 18px;
+  box-shadow: 0 24px 50px rgba(2,6,23,.18);
+  padding: .85rem .95rem;
+  z-index: 3000;
+  display:none;
+}
+.priority-pop.open{ display:block; }
+.priority-pop h4{
+  margin: 0 0 .45rem;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+  font-size: .95rem;
+}
+.priority-pop .row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+  padding: .3rem 0;
+  font-size: .85rem;
+}
+.priority-pop .row span{ color: var(--secondary-color); }
+.priority-pop .row b{ font-weight: 900; }
+.priority-pop .divider{
+  height: 1px;
+  background: var(--stroke-soft, #e2e8f0);
+  margin: .6rem 0;
+}
+
+
+/* ================================================= */
+/* NOTIFICAÇÕES V2 – mesmo visual da Inbox           */
+/* ================================================= */
+
+.notification-item{
+  position: relative;
+  display: flex;
+  gap: .75rem;
+  padding: .75rem .9rem;
+  border-radius: 16px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: var(--surface-1, #fff);
+  margin-bottom: .5rem;
+  cursor: pointer;
+}
+
+.notification-item::after{
+  content:'';
+  position:absolute;
+  left:0;
+  top:10px;
+  bottom:10px;
+  width:4px;
+  border-radius:999px;
+  background: var(--primary-gradient);
+  opacity:0;
+  transition:.2s;
+}
+
+.notification-item:hover::after{
+  opacity:.9;
+}
+
+.notification-item.unread{
+  font-weight:700;
+}
+
+.notification-item .meta{
+  font-size:.75rem;
+  color:var(--secondary-color);
+}
+
+.notification-item .badges{
+  display:flex;
+  gap:.35rem;
+  flex-wrap:wrap;
+}
+
+
+
+/* ================================================= */
+/* NOTIFICATIONS V2 PACK – mesmo “feel” da Inbox      */
+/* ================================================= */
+
+.notifications-list{
+  width: min(420px, 92vw);
+}
+
+#notifications-ul{
+  list-style: none;
+  margin: 0;
+  padding: .35rem .35rem .5rem;
+  display: grid;
+  gap: .35rem;
+}
+
+.notif-item{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .5rem;
+  padding: .7rem .75rem .7rem .9rem;
+  border-radius: 14px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.80);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  overflow: hidden;
+}
+
+[data-theme="dark"] .notif-item{
+  background: rgba(17,24,39,.55);
+}
+
+.notif-item::after{
+  content:'';
+  position:absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transform: translateX(-2px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.notif-item:hover{
+  background: rgba(99,102,241,.04);
+  box-shadow: 0 14px 28px rgba(2,6,23,.10);
+  transform: translateY(-1px);
+}
+
+.notif-item:hover::after{ opacity: .9; transform: translateX(0); }
+
+.notif-item.unread .notif-title{
+  font-weight: 900;
+}
+
+.notif-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+  font-weight: 800;
+  letter-spacing:-0.02em;
+}
+
+.notif-meta{
+  font-size: .75rem;
+  color: var(--secondary-color);
+  white-space: nowrap;
+}
+
+.notif-snippet{
+  margin: .25rem 0 0;
+  color: var(--secondary-color);
+  font-size: .85rem;
+  line-height: 1.25rem;
+}
+
+.notif-badges{
+  display:flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin-top: .45rem;
+  align-items:center;
+}
+
+.notif-actions{
+  display:flex;
+  align-items:flex-start;
+  gap: .25rem;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.notif-item:hover .notif-actions{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notif-action-btn{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.85);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--dark-color);
+}
+[data-theme="dark"] .notif-action-btn{ background: rgba(17,24,39,.55); }
+.notif-action-btn:hover{ box-shadow: 0 10px 22px rgba(2,6,23,.12); }
+
+
+/* ================================================= */
+/* NOTIFS CENTER V3 PACK – central de notificações   */
+/* ================================================= */
+
+.notifs-center-grid{
+  display:grid;
+  gap:.45rem;
+  margin-top:.25rem;
+}
+
+.notifs-center-item{
+  position: relative;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:.6rem;
+  padding:.85rem .9rem .85rem 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.82);
+  overflow:hidden;
+}
+
+[data-theme="dark"] .notifs-center-item{
+  background: rgba(17,24,39,.55);
+}
+
+.notifs-center-item::after{
+  content:'';
+  position:absolute;
+  left:0;
+  top:12px;
+  bottom:12px;
+  width:4px;
+  border-radius:999px;
+  background: var(--primary-gradient);
+  opacity:0;
+  transform: translateX(-2px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.notifs-center-item:hover::after{ opacity:.95; transform: translateX(0); }
+
+.notifs-center-item:hover{
+  box-shadow: 0 14px 28px rgba(2,6,23,.10);
+  transform: translateY(-1px);
+}
+
+.mute-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  border-radius: 999px;
+  padding: .22rem .55rem;
+  font-size: .75rem;
+  font-weight: 900;
+  border: 1px solid rgba(100,116,139,.25);
+  background: rgba(100,116,139,.10);
+  color: #475569;
+}
+[data-theme="dark"] .mute-chip{
+  border-color: rgba(148,163,184,.28);
+  background: rgba(148,163,184,.10);
+  color: #cbd5e1;
+}
+
+
+/* ================================================= */
+/* FIX BOTÕES FOOTER – Novas Mensagens / Notificações */
+/* ================================================= */
+
+.messages-footer a,
+.notifications-footer a{
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: .65rem .75rem;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.messages-footer{
+  padding: .5rem;
+}
+
+.notifications-footer{
+  padding: .5rem;
+}
+
+
+/* ================================================= */
+/* FIX BOTÕES FOOTER V2 – evita corte do texto        */
+/* ================================================= */
+
+/* O corte acontece quando o card tem altura/overflow e o footer fica “apertado”.
+   Então garantimos altura mínima, alinhamento vertical e line-height. */
+
+.messages-dropdown,
+.notifications-dropdown{
+  overflow: visible;
+}
+
+.messages-footer,
+.notifications-footer{
+  padding: .55rem;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.messages-footer a,
+.notifications-footer a{
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: .78rem .85rem;
+  font-weight: 800;
+  border-radius: 12px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+/* Se a largura ficar muito curta, permite quebrar em telas menores sem cortar */
+@media (max-width: 420px){
+  .messages-footer a,
+  .notifications-footer a{
+    white-space: normal;
+  }
+}
+
+/* ================================================= */
+/* MESSAGES DROPDOWN MATCH NOTIFS PACK               */
+/* - estrutura flex pra não cortar footer            */
+/* - cards com mesmo “feel” das notificações         */
+/* ================================================= */
+
+.messages-list{
+  display: flex;
+  flex-direction: column;
+  max-height: 420px; /* um pouco maior e consistente */
+  overflow: hidden;  /* rolagem fica no UL */
+}
+
+#messages-ul{
+  list-style: none;
+  margin: 0;
+  padding: .35rem .35rem .5rem;
+  display: grid;
+  gap: .35rem;
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0; /* IMPORTANT: permite o scroll sem “apertar” o footer */
+}
+
+#messages-ul > li{
+  margin: 0;
+  padding: 0;
+}
+
+/* reestiliza o item antigo (.message-item) pra ficar igual ao notif-item */
+.message-item{
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .6rem;
+  align-items: center;
+  padding: .7rem .75rem .7rem .9rem;
+  border-radius: 14px;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  background: rgba(255,255,255,.80);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  overflow: hidden;
+}
+
+/* remove o “puxa pra esquerda” antigo e a borda antiga */
+.message-item:hover{
+  padding-left: .9rem;
+  background: rgba(99,102,241,.04);
+  box-shadow: 0 14px 28px rgba(2,6,23,.10);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .message-item{
+  background: rgba(17,24,39,.55);
+}
+
+.message-item::after{
+  content:'';
+  position:absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transform: translateX(-2px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.message-item:hover::after{
+  opacity: .9;
+  transform: translateX(0);
+}
+
+/* avatar consistente */
+.message-item img{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+}
+
+/* texto */
+.message-item .message-content p{
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.2rem;
+}
+
+.message-item .message-content small{
+  font-size: .75rem;
+  color: var(--secondary-color) !important;
+}
+
+/* mantém o footer sempre visível e com altura boa (mesmo padrão do notifs) */
+.messages-footer{
+  padding: .55rem;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.messages-footer a{
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: .78rem .85rem;
+  font-weight: 800;
+  border-radius: 12px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px){
+  .messages-footer a{ white-space: normal; }
+}
+
+
+/* ================================================= */
+/* MESSAGES NO BORDER PACK – Novas Mensagens         */
+/* ================================================= */
+
+/* Remove borda apenas das mensagens no dropdown */
+#messages-ul .message-item{
+  border: none !important;
+  box-shadow: none;
+}
+
+/* Mantém o hover bonito, sem “caixinha” */
+#messages-ul .message-item:hover{
+  background: rgba(99,102,241,.05);
+}
+
+
+/* ================================================= */
+/* NOTIFS MSGINFO PACK – mostra remetente/avatar      */
+/* ================================================= */
+
+.notif-top{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+
+.notif-avatar{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--stroke-soft, #e2e8f0);
+  flex: 0 0 auto;
+}
+
+.notif-sender{
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+}
+
+.notif-subject{
+  margin-top: .15rem;
+  font-size: .88rem;
+  font-weight: 800;
+  letter-spacing:-0.02em;
+}
+
+
+/* ================================================= */
+/* NOTIFS MATCH MESSAGES PACK – dropdown igual Mensagens */
+/* ================================================= */
+
+.notifications-list{
+  display: flex;
+  flex-direction: column;
+  max-height: 420px;
+  overflow: hidden;
+}
+
+#notifications-ul{
+  list-style: none;
+  margin: 0;
+  padding: .35rem .35rem .5rem;
+  display: grid;
+  gap: .35rem;
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+#notifications-ul > li{ margin:0; padding:0; }
+
+/* Reaproveita o mesmo componente visual das Mensagens */
+#notifications-ul .message-item{
+  /* sem borda (mesmo ajuste que você pediu em Mensagens) */
+  border: none !important;
+  box-shadow: none;
+}
+
+#notifications-ul .message-item:hover{
+  background: rgba(99,102,241,.05);
+}
+
+
+/* ================================================= */
+/* MICROINTERACTIONS PACK – polish visual premium    */
+/* ================================================= */
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* animação suave para itens */
+.message-item,
+.notif-item,
+.notifs-center-item{
+  animation: fadeSlideIn .22s ease-out;
+}
+
+/* indicador discreto de não lida */
+.message-item.unread::before{
+  content:'';
+  position:absolute;
+  right:10px;
+  top:50%;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background: var(--primary-color);
+  transform: translateY(-50%);
+}
+
+/* estado vazio amigável */
+.empty-state{
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--secondary-color);
+}
+
+.empty-state i{
+  font-size: 2rem;
+  margin-bottom: .6rem;
+  opacity: .6;
+}
+
+.empty-state h4{
+  margin: .2rem 0 .25rem;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+}
+
+.empty-state p{
+  font-size: .9rem;
+  margin: 0;
+}
+
+
+
+
+/* ================================================= */
+/* SIDEBAR CAIXA DE ENTRADA – igual ao print         */
+/* ================================================= */
+
+/* área do sidebar */
+#messages-view .inbox-sidebar{
+  background: #ffffff;
+  border: 1px solid rgba(148,163,184,.25);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(2,6,23,.08);
+  overflow: hidden;
+}
+
+/* padding interno da lista */
+#messages-view .inbox-sidebar #all-messages-list-container{
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  background: linear-gradient(180deg, rgba(248,250,252,1), rgba(255,255,255,1));
+}
+
+/* card padrão (não urgente) */
+#messages-view .inbox-sidebar .inbox-message-item{
+  display:flex;
+  gap: .9rem;
+  padding: .95rem 1rem;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(148,163,184,.22);
+  box-shadow: 0 10px 22px rgba(2,6,23,.05);
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .14s ease, background .14s ease, border-color .14s ease;
+  position: relative;
+}
+
+#messages-view .inbox-sidebar .inbox-message-item:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(2,6,23,.09);
+  border-color: rgba(99,102,241,.28);
+}
+
+/* urgente (como no print) */
+#messages-view .inbox-sidebar .inbox-message-item.is-urgent{
+  background: rgba(239,68,68,.06);
+  border-color: rgba(239,68,68,.22);
+}
+
+/* selecionado (igual ao print: bem parecido com urgente) */
+#messages-view .inbox-sidebar .inbox-message-item.active{
+  background: rgba(239,68,68,.08);
+  border-color: rgba(239,68,68,.30);
+  box-shadow: 0 14px 30px rgba(239,68,68,.12);
+}
+
+/* avatar */
+#messages-view .inbox-sidebar .inbox-item-avatar img{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid rgba(148,163,184,.35);
+  background: #f1f5f9;
+}
+
+/* header do card */
+#messages-view .inbox-sidebar .inbox-item-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+}
+
+#messages-view .inbox-sidebar .inbox-item-senderwrap{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  min-width:0;
+}
+
+#messages-view .inbox-sidebar .inbox-item-sender{
+  font-weight: 900;
+  letter-spacing:-0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 210px;
+}
+
+#messages-view .inbox-sidebar .inbox-item-time{
+  font-size: .82rem;
+  color: #64748b;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+/* pontinho azul do tempo (como no print) */
+#messages-view .inbox-sidebar .inbox-item-time::after{
+  content:'';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(99,102,241,.65);
+  display: inline-block;
+}
+
+#messages-view .inbox-sidebar .inbox-item-subject{
+  font-weight: 900;
+  letter-spacing:-0.02em;
+  margin-top: .35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#messages-view .inbox-sidebar .inbox-item-snippet{
+  color: #64748b;
+  font-size: .88rem;
+  margin-top: .2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* pill URGENTE */
+#messages-view .inbox-sidebar .inbox-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.68rem;
+  font-weight: 900;
+  letter-spacing:.08em;
+  padding:.2rem .55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(239,68,68,.30);
+  background: rgba(239,68,68,.12);
+  color: #ef4444;
+}
+
+/* melhora visual dos filtros e busca do sidebar */
+#messages-view .messages-search input{
+  border-radius: 14px;
+}
+#messages-view .messages-filters .chip{
+  border-radius: 999px;
+}
+
+
+
+/* ================================================= */
+
+#messages-view .inbox-sidebar{
+  display:flex;
+  flex-direction:column;
+}
+
+#messages-view .inbox-sidebar .messages-search,
+#messages-view .inbox-sidebar .messages-filters{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #ffffff;
+}
+
+#messages-view .inbox-sidebar .messages-search{
+  padding: .85rem 1rem .5rem;
+  border-bottom: 1px solid rgba(148,163,184,.18);
+}
+
+#messages-view .inbox-sidebar .messages-filters{
+  padding: .5rem 1rem .85rem;
+  border-bottom: 1px solid rgba(148,163,184,.18);
+}
+
+#messages-view .inbox-sidebar #all-messages-list-container{
+  padding: 1rem;
+}
+
+/* Seções (Hoje / Esta semana / Mais antigas) */
+#messages-view .inbox-section{
+  display:block;
+}
+
+#messages-view .inbox-section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+  margin: .25rem .15rem .55rem;
+  color: #64748b;
+  font-weight: 900;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+#messages-view .inbox-section-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 .45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,.25);
+  background: rgba(148,163,184,.08);
+  font-size: .74rem;
+  letter-spacing: 0;
+  color:#475569;
+}
+
+#messages-view .inbox-section-body{
+  display:flex;
+  flex-direction:column;
+  gap: .75rem;
+  margin-bottom: .95rem;
+}
+
+/* bolinha de não lida */
+#messages-view .unread-dot{
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(99,102,241,.95);
+  box-shadow: 0 8px 18px rgba(99,102,241,.18);
+  flex: 0 0 auto;
+}
+
+
+/* ================================================= */
+/* SIDEBAR ORGANIZADO (FIX) – lista limpa e estável  */
+/* ================================================= */
+
+#messages-view .inbox-sidebar #all-messages-list-container{
+  padding: 1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.75rem;
+}
+
+/* indicador não lida */
+#messages-view .unread-dot{
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(99,102,241,.95);
+  box-shadow: 0 8px 18px rgba(99,102,241,.18);
+  flex: 0 0 auto;
+}
+
+
+/* ================================================= */
+/* SIDEBAR ITEM HIERARCHY PACK – organiza texto      */
+/* ================================================= */
+
+#messages-view .inbox-message-item{
+  align-items: flex-start;
+}
+
+#messages-view .inbox-item-content{
+  min-width: 0;
+  flex: 1;
+}
+
+#messages-view .inbox-item-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+}
+
+#messages-view .inbox-item-senderwrap{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  min-width:0;
+}
+
+#messages-view .inbox-item-sender{
+  font-weight: 900;
+  letter-spacing:-0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+#messages-view .inbox-item-time{
+  font-size: .82rem;
+  color: #64748b;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+#messages-view .inbox-item-subject{
+  margin-top: .35rem;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#messages-view .inbox-item-snippet{
+  margin-top: .2rem;
+  color:#64748b;
+  font-size: .88rem;
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+}
+
+/* pill urgente sem quebrar linha */
+#messages-view .inbox-pill{
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+
+/* ================================================= */
+/* SIDEBAR AVATAR SIZE FIX                           */
+/* ================================================= */
+
+#messages-view .inbox-item-avatar img{
+  width: 28px !important;
+  height: 28px !important;
+}
+
+#messages-view .inbox-item-avatar{
+  flex: 0 0 28px;
+}
+
+#messages-view .inbox-message-item{
+  gap: .6rem;
+}
+
+#messages-view .inbox-item-sender{
+  max-width: 260px;
+}
+
+#messages-view .inbox-item-subject{
+  max-width: 100%;
+}
+
+
+/* ================================================= */
+/* SIDEBAR FULL ADJUST – tudo alinhado e legível     */
+/* ================================================= */
+
+#messages-view .inbox-message-item{
+  padding: .85rem .95rem;
+}
+
+#messages-view .inbox-item-avatar{
+  flex: 0 0 28px;
+  margin-top: .15rem;
+}
+
+#messages-view .inbox-item-avatar img{
+  display:block;
+}
+
+#messages-view .inbox-item-sender{
+  max-width: 200px;
+}
+
+#messages-view .inbox-item-time{
+  font-size: .78rem;
+}
+
+#messages-view .inbox-pill{
+  padding: .18rem .5rem;
+  font-size: .66rem;
+}
+
+/* Assunto: 2 linhas para caber títulos longos */
+#messages-view .inbox-item-subject{
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+  white-space: normal;
+  line-height: 1.2;
+  margin-top: .35rem;
+}
+
+/* Snippet: 1 linha (mais organizado) */
+#messages-view .inbox-item-snippet{
+  display:-webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+
+/* ================================================= */
+/* SIDEBAR CLEAN UX – apenas o necessário            */
+/* ================================================= */
+
+/* Remove qualquer destaque roxo exagerado */
+#messages-view .inbox-message-item:hover{
+  background: #f8fafc;
+  box-shadow: 0 8px 18px rgba(2,6,23,.06);
+}
+
+/* Item ativo: neutro, sem roxo */
+#messages-view .inbox-message-item.active{
+  background: #f1f5f9;
+  border-color: rgba(148,163,184,.35);
+  box-shadow: 0 10px 22px rgba(2,6,23,.08);
+}
+
+/* Remove barras/linhas roxas decorativas */
+#messages-view .inbox-message-item::after{
+  display: none !important;
+}
+
+/* Tempo: neutro */
+#messages-view .inbox-item-time{
+  background: transparent !important;
+  border: none !important;
+  color: #64748b;
+  padding: 0;
+}
+
+/* Scrollbar neutra */
+#messages-view .inbox-sidebar #all-messages-list-container::-webkit-scrollbar-thumb{
+  background: rgba(148,163,184,.35);
+}
+
+/* Mantém somente sinais importantes */
+#messages-view .unread-dot{
+  background: #2563eb; /* azul: não lida */
+}
+
+/* Urgente continua vermelho (prioridade real) */
+#messages-view .inbox-pill{
+  background: rgba(239,68,68,.12);
+  border-color: rgba(239,68,68,.35);
+  color: #dc2626;
+}
+
+
+/* ================================================= */
+/* SIDEBAR SENDER FIX – não cortar 'Central de Alertas' */
+/* ================================================= */
+
+/* deixa o remetente usar mais espaço */
+#messages-view .inbox-item-sender{
+  max-width: none;
+  white-space: normal;
+  line-height: 1.15;
+}
+
+/* garante que urgente + tempo não empurrem o nome */
+#messages-view .inbox-item-top{
+  align-items: flex-start;
+}
+
+#messages-view .inbox-item-senderwrap{
+  flex-wrap: wrap;
+}
+
+/* se URGENTE existir, quebra linha com elegância */
+#messages-view .inbox-pill{
+  margin-left: 0;
+}
+
+/* mantém tempo alinhado sem cortar texto */
+#messages-view .inbox-item-time{
+  margin-left: .5rem;
+}
+
+
+/* ================================================= */
+/* SIDEBAR TIME CLEAN – remove bolinha do tempo      */
+/* ================================================= */
+
+#messages-view .inbox-item-time::after{
+  display: none !important;
+}
+
+/* deixa o tempo mais discreto */
+#messages-view .inbox-item-time{
+  font-size: .78rem;
+  color: #6b7280;
+}
+
+
+/* ================================================= */
+/* INBOX SIDEBAR FINAL LOOK – igual ao print         */
+/* ================================================= */
+
+/* Sidebar container: clean, flat, premium */
+#messages-view .inbox-sidebar{
+  background: #fff;
+  border: 1px solid rgba(148,163,184,.22);
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(2,6,23,.07);
+  overflow: hidden;
+}
+
+/* List padding + spacing */
+#messages-view .inbox-sidebar #all-messages-list-container{
+  padding: .95rem;
+  gap: .85rem;
+  background: linear-gradient(180deg, rgba(248,250,252,1), rgba(255,255,255,1));
+}
+
+/* Message card: flatter */
+#messages-view .inbox-sidebar .inbox-message-item{
+  border: 1px solid rgba(148,163,184,.20);
+  background: #ffffff;
+  box-shadow: 0 10px 22px rgba(2,6,23,.05);
+  border-radius: 14px;
+  padding: .95rem 1rem;
+  gap: .7rem;
+}
+
+/* Hover: subtle, no purple */
+#messages-view .inbox-sidebar .inbox-message-item:hover{
+  background: #f8fafc;
+  border-color: rgba(148,163,184,.28);
+  box-shadow: 0 12px 26px rgba(2,6,23,.07);
+  transform: translateY(-1px);
+}
+
+/* Active: calm highlight */
+#messages-view .inbox-sidebar .inbox-message-item.active{
+  background: rgba(239,68,68,.06);
+  border-color: rgba(239,68,68,.26);
+  box-shadow: 0 12px 26px rgba(239,68,68,.10);
+}
+
+/* Urgent: integrated */
+#messages-view .inbox-sidebar .inbox-message-item.is-urgent{
+  background: rgba(239,68,68,.05);
+  border-color: rgba(239,68,68,.22);
+}
+
+/* Remove any decorative side bars */
+#messages-view .inbox-sidebar .inbox-message-item::after{
+  display:none !important;
+}
+
+/* Avatar: compact */
+#messages-view .inbox-sidebar .inbox-item-avatar{
+  flex: 0 0 28px;
+  margin-top: .10rem;
+}
+#messages-view .inbox-sidebar .inbox-item-avatar img{
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,.35);
+  background: #f1f5f9;
+}
+
+/* Top line alignment */
+#messages-view .inbox-sidebar .inbox-item-top{
+  align-items:flex-start;
+}
+#messages-view .inbox-sidebar .inbox-item-senderwrap{
+  gap:.45rem;
+  flex-wrap: wrap;
+}
+
+/* Sender: never cut */
+#messages-view .inbox-sidebar .inbox-item-sender{
+  max-width: none;
+  white-space: normal;
+  line-height: 1.15;
+}
+
+/* Time: align top-right, subtle */
+#messages-view .inbox-sidebar .inbox-item-time{
+  margin-top: .05rem;
+  font-size: .78rem;
+  color: #6b7280;
+}
+#messages-view .inbox-sidebar .inbox-item-time::after{
+  display:none !important;
+}
+
+/* Urgent pill: smaller and aligned */
+#messages-view .inbox-sidebar .inbox-pill{
+  font-size: .66rem;
+  padding: .18rem .5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(239,68,68,.28);
+  background: rgba(239,68,68,.10);
+  color: #dc2626;
+  white-space: nowrap;
+}
+
+/* Subject: 2 lines; Snippet: 1 line */
+#messages-view .inbox-sidebar .inbox-item-subject{
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+  white-space: normal;
+  line-height: 1.22;
+  margin-top: .35rem;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+}
+#messages-view .inbox-sidebar .inbox-item-snippet{
+  display:-webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+  white-space: normal;
+  line-height: 1.22;
+  margin-top: .2rem;
+  color: #64748b;
+  font-size: .88rem;
+}
+
+/* Unread dot: subtle but clear */
+#messages-view .inbox-sidebar .unread-dot{
+  background: #2563eb;
+  width: 8px;
+  height: 8px;
+}
+
+/* Scrollbar neutral */
+#messages-view .inbox-sidebar #all-messages-list-container{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148,163,184,.45) transparent;
+}
+#messages-view .inbox-sidebar #all-messages-list-container::-webkit-scrollbar{
+  width: 10px;
+}
+#messages-view .inbox-sidebar #all-messages-list-container::-webkit-scrollbar-track{
+  background: transparent;
+}
+#messages-view .inbox-sidebar #all-messages-list-container::-webkit-scrollbar-thumb{
+  background: rgba(148,163,184,.35);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+#messages-view .inbox-sidebar #all-messages-list-container::-webkit-scrollbar-thumb:hover{
+  background: rgba(148,163,184,.50);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+
+/* ================================================= */
+/* REMOVE UNREAD DOTS – layout mais limpo            */
+/* ================================================= */
+
+#messages-view .unread-dot{
+  display: none !important;
+}
+
+
+/* ================================================= */
+/* REMOVE ALL INLINE DOTS (FINAL)                    */
+/* ================================================= */
+
+#messages-view .unread-dot,
+#messages-view .inbox-item-senderwrap .unread-dot,
+#messages-view .inbox-message-item .unread-dot{
+  display: none !important;
+}
+
+
+/* ================================================= */
+/* URGENTE INLINE AO TÍTULO – visual moderno         */
+/* ================================================= */
+
+#messages-view .inbox-item-subject{
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+#messages-view .inbox-item-subject .inbox-pill{
+  font-size: .65rem;
+  padding: .16rem .45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(239,68,68,.30);
+  background: rgba(239,68,68,.12);
+  color: #dc2626;
+  letter-spacing: .04em;
+}
+
+/* remove qualquer badge duplicado em outras áreas */
+#messages-view .inbox-item-senderwrap .inbox-pill{
+  display: none !important;
+}
+
+
+/* ================================================= */
+/* REMOVE AVATAR FROM INBOX SIDEBAR                  */
+/* ================================================= */
+
+/* hide avatar completely */
+#messages-view .inbox-item-avatar{
+  display: none !important;
+}
+
+/* reclaim space and align content */
+#messages-view .inbox-message-item{
+  gap: .6rem;
+  padding-left: .9rem;
+}
+
+#messages-view .inbox-item-content{
+  margin-left: 0;
+}
+
+
+/* ================================================= */
+/* TITLE 1 LINE + (Urgente) INLINE                   */
+/* ================================================= */
+
+#messages-view .inbox-item-subject{
+  display: flex;
+  align-items: baseline;
+  gap: .45rem;
+  min-width: 0;
+
+  /* single line with ellipsis */
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* allow title to shrink */
+#messages-view .inbox-item-subject{
+  flex: 1;
+}
+#messages-view .inbox-item-subject .inbox-urgent-inline{
+  flex: 0 0 auto;
+  font-size: .78rem;
+  font-weight: 900;
+  color: #dc2626;
+  opacity: .95;
+}
+
+/* hide any old pill badge */
+#messages-view .inbox-pill{
+  display: none !important;
+}
+
+
+/* ================================================= */
+/* URGENTE AO LADO DO REMETENTE (SIDEBAR)            */
+/* ================================================= */
+
+#messages-view .inbox-item-senderwrap{
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: nowrap;
+}
+
+#messages-view .inbox-item-senderwrap .inbox-urgent-inline,
+#messages-view .inbox-item-senderwrap .inbox-pill{
+  font-size: .72rem;
+  font-weight: 900;
+  color: #dc2626;
+  background: rgba(239,68,68,.12);
+  border: 1px solid rgba(239,68,68,.28);
+  border-radius: 999px;
+  padding: .12rem .45rem;
+  line-height: 1;
+}
+
+/* make sure title is clean */
+#messages-view .inbox-item-subject{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =============================================== */
+/* FIX: URGENTE NA MESMA LINHA DO REMETENTE         */
+/* =============================================== */
+
+#messages-view .inbox-item-senderwrap{
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: nowrap; /* impede quebra */
+}
+
+#messages-view .inbox-item-senderwrap .inbox-item-sender{
+  white-space: nowrap;
+}
+
+#messages-view .inbox-item-senderwrap .inbox-urgent-inline,
+#messages-view .inbox-item-senderwrap .inbox-pill{
+  white-space: nowrap;
+  margin-top: 0;
+}
+
+
+/* ================================================= */
+/* FIX REAL: evita quebra por falta de espaço         */
+/* (remetente encolhe com ... e (Urgente) não cai)   */
+/* ================================================= */
+
+#messages-view .inbox-item-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: nowrap;
+}
+
+#messages-view .inbox-item-senderwrap{
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: nowrap;
+  min-width: 0;       /* permite encolher */
+  flex: 1 1 auto;     /* ocupa e encolhe */
+}
+
+#messages-view .inbox-item-sender{
+  min-width: 0;       /* CRÍTICO p/ ellipsis em flex */
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#messages-view .inbox-item-senderwrap .inbox-urgent-inline,
+#messages-view .inbox-item-senderwrap .inbox-pill{
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+#messages-view .inbox-item-time{
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+
+/* ================================================= */
+/* FIX V3 (ESPECIFICIDADE ALTA): REMETENTE + (Urgente) SEMPRE 1 LINHA */
+/* ================================================= */
+
+/* garante linha do topo sem quebra */
+#messages-view .inbox-sidebar .inbox-item-top{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:.75rem !important;
+  flex-wrap:nowrap !important;
+}
+
+/* bloco esquerdo (remetente + urgente) pode encolher */
+#messages-view .inbox-sidebar .inbox-item-senderwrap{
+  display:flex !important;
+  align-items:center !important;
+  gap:.4rem !important;
+  flex-wrap:nowrap !important;
+  min-width:0 !important;
+  flex:1 1 auto !important;
+}
+
+/* remetente encolhe com ... (isso impede empurrar o (Urgente) pra baixo) */
+#messages-view .inbox-sidebar .inbox-item-sender{
+  max-width:none !important;     /* remove limite antigo */
+  min-width:0 !important;
+  flex:1 1 auto !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+}
+
+/* (Urgente) nunca quebra */
+#messages-view .inbox-sidebar .inbox-urgent-inline,
+#messages-view .inbox-sidebar .inbox-pill{
+  display:inline-flex !important;
+  align-items:center !important;
+  white-space:nowrap !important;
+  flex:0 0 auto !important;
+}
+
+/* tempo sempre à direita, sem quebrar */
+#messages-view .inbox-sidebar .inbox-item-time{
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+}
+
+
+/* ================================================= */
+/* REMOVE BOTÃO AZUL (AÇÃO EXTRA) DO SIDEBAR         */
+/* ================================================= */
+
+/* esconde qualquer botão de ação azul no sidebar */
+#messages-view .btn-primary,
+#messages-view .button-primary,
+#messages-view .action-primary,
+#messages-view button.primary,
+#messages-view .inbox-action{
+  display: none !important;
+}
+
+/* garante que hover não recrie barra/botão azul */
+#messages-view .inbox-message-item:hover::before,
+#messages-view .inbox-message-item::before{
+  display: none !important;
+}
+
+
+/* ================================================= */
+/* REMOVE (...) DOS TÍTULOS NO SIDEBAR               */
+/* ================================================= */
+
+#messages-view .inbox-item-subject{
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  -webkit-line-clamp: unset !important;
+}
+
+
+/* ================================================= */
+/* FINAL FIX – REMOVE (...) FROM TITLES DEFINITIVELY */
+/* ================================================= */
+
+#messages-view .inbox-sidebar .inbox-message-item .inbox-item-subject,
+#messages-view .inbox-sidebar .inbox-message-item .inbox-item-subject *{
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  -webkit-line-clamp: unset !important;
+  display: block !important;
+  max-width: none !important;
+}
+
+/* ensure parent flex does not force ellipsis */
+#messages-view .inbox-sidebar .inbox-item-content{
+  min-width: 0 !important;
+}
+
+
+/* ALERTAS – ESTADOS */
+#alerts-view .alert-item[data-status="ativo"]{
+  border-left: 3px solid #dc2626;
+}
+#alerts-view .alert-item[data-status="resolvido"]{
+  opacity: .65;
+}
+
+
+/* ================================================= */
+/* LISTA DE ALERTAS – UX REAL (filtros + hierarquia) */
+/* ================================================= */
+
+.alerts-quick-filters{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin: .75rem 0 1rem;
+}
+
+.alerts-quick-filters .aqf-btn{
+  border: 1px solid rgba(148,163,184,.35);
+  background: rgba(248,250,252,.9);
+  color:#0f172a;
+  padding:.45rem .75rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: .9rem;
+  line-height: 1;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.alerts-quick-filters .aqf-btn:hover{
+  background:#fff;
+  box-shadow: 0 10px 22px rgba(2,6,23,.07);
+  transform: translateY(-1px);
+}
+
+.alerts-quick-filters .aqf-btn.is-active{
+  border-color: rgba(99,102,241,.45);
+  box-shadow: 0 10px 22px rgba(99,102,241,.12);
+}
+
+/* Hierarquia: Alertas (mais forte), Notificações (mais leve) */
+#alerts-view tr[data-source="alerta"] .fw-bold{
+  font-weight: 900 !important;
+}
+#alerts-view tr[data-source="notificacao"] .fw-bold{
+  font-weight: 800 !important;
+  opacity: .95;
+}
+
+/* título do evento */
+#alerts-view tr[data-source] .text-muted{
+  color: #334155 !important;
+  opacity: .9;
+}
+
+/* 'Urgente' mais legível mas sem poluir */
+#alerts-view .badge.bg-danger{
+  border-radius: 999px;
+  padding: .25rem .5rem;
+}
+
+
+/* ================================================= */
+/* DETALHES DA NOTIFICAÇÃO – DESCRIÇÃO REAL          */
+/* ================================================= */
+
+.notification-details p{
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.notification-details ul{
+  margin-top: .75rem;
+}
+
+.notification-details li{
+  line-height: 1.5;
+}
+
+
+/* ALERTA LIDO – FEEDBACK VISUAL */
+
+#alerts-view tr[data-source="alerta"][data-read="true"]{
+  opacity: .55;
+}
+
+
+/* ================================================= */
+/* LISTA DE ALERTAS – MODELO TIMELINE                */
+/* ================================================= */
+
+.alerts-timeline{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.alert-item{
+  display:grid;
+  grid-template-columns: 4px 1fr;
+  gap:1rem;
+  background:#ffffff;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(2,6,23,.08);
+  padding:1rem 1.25rem;
+}
+
+.alert-item.alerta{ border-left:4px solid #ef4444; }
+.alert-item.notificacao{ border-left:4px solid #3b82f6; }
+
+.alert-item-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+
+.alert-item-title{
+  font-weight:800;
+  color:#0f172a;
+}
+
+.alert-item-meta{
+  font-size:.85rem;
+  color:#64748b;
+}
+
+.alert-item-body{
+  margin-top:.25rem;
+  color:#334155;
+  line-height:1.5;
+}
+
+.alert-item-actions{
+  margin-top:.75rem;
+}
+
+.alert-item-actions button{
+  border-radius:10px;
+}
+
+
+
+/* ================================================= */
+/* Sidebar counters (Alertas/Notificações)           */
+/* ================================================= */
+.nav-counter{
+  margin-left: auto;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  font-weight: 900;
+  background: rgba(99,102,241,.14);
+  color: #4f46e5;
+  border: 1px solid rgba(99,102,241,.22);
+}
+
+.nav-counter.is-zero{
+  display: none;
+}
+
+
+/* ================================================= */
+/* Status – largura padrão                           */
+/* ================================================= */
+.status-badge,
+.badge-status,
+.badge{
+  min-width: 90px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.badge-ativo{ background:#16a34a !important; }
+.badge-urgente{ background:#dc2626 !important; }
+.badge-info{ background:#2563eb !important; }
+
+
+/* ================================================= */
+/* Status – largura compacta (ajuste fino)           */
+/* ================================================= */
+.status-badge,
+.badge-status,
+.badge{
+  min-width: 64px;   /* compacto */
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+
+/* ================================================= */
+/* Sidebar – largura confortável                     */
+/* ================================================= */
+.sidebar{
+  width: 260px;
+  min-width: 260px;
+}
+
+@media (max-width: 1200px){
+  .sidebar{
+    width: 230px;
+    min-width: 230px;
+  }
+}
+
+@media (max-width: 768px){
+  .sidebar{
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+
+/* ================================================= */
+/* Sidebar – badges numéricos ajustados              */
+/* ================================================= */
+.sidebar .nav-counter,
+.sidebar .badge,
+.sidebar .count{
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 8px;          /* menos arredondado */
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99,102,241,.12);
+  color: #4f46e5;
+  border: 1px solid rgba(99,102,241,.25);
+}
+
+/* quando for alerta crítico */
+.sidebar .badge-danger,
+.sidebar .counter-danger{
+  background: rgba(239,68,68,.12);
+  color: #dc2626;
+  border-color: rgba(239,68,68,.35);
+}
+
+
+/* ================================================= */
+/* Sidebar badges – polish (0 hide + animation + mobile) */
+/* ================================================= */
+
+@keyframes badgePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.sidebar .nav-counter.badge-pop{
+  animation: badgePop .28s ease;
+}
+
+@media (max-width: 768px){
+  .sidebar .nav-counter,
+  .sidebar .badge,
+  .sidebar .count{
+    height: 20px;
+    min-width: 20px;
+    padding: 0 5px;
+    font-size: .68rem;
+    border-radius: 7px;
+    opacity: .9;
+  }
+}
+
+
+/* ================================================= */
+/* Sidebar badges – paleta consistente               */
+/* ================================================= */
+
+/* ALERTAS (vermelho) */
+.sidebar .nav-counter.alertas,
+.sidebar .badge-danger,
+.sidebar .counter-danger{
+  background: rgba(239,68,68,.12);
+  color: #dc2626;
+  border: 1px solid rgba(239,68,68,.35);
+}
+
+/* NOTIFICAÇÕES (neutro / roxo suave) */
+.sidebar .nav-counter.notificacoes{
+  background: rgba(148,163,184,.18); /* slate */
+  color: #475569;
+  border: 1px solid rgba(148,163,184,.35);
+}
+
+/* fallback geral neutro */
+.sidebar .nav-counter,
+.sidebar .badge,
+.sidebar .count{
+  background: rgba(148,163,184,.15);
+  color: #475569;
+  border-color: rgba(148,163,184,.3);
+}
+
+
+/* ================================================= */
+/* Sidebar badges – PREMIUM look                     */
+/* ================================================= */
+
+/* Base premium badge */
+.sidebar .nav-counter,
+.sidebar .badge,
+.sidebar .count{
+  background: linear-gradient(135deg, rgba(148,163,184,.35), rgba(148,163,184,.15));
+  color: #334155;
+  border: 1px solid rgba(148,163,184,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.4),
+    0 2px 6px rgba(15,23,42,.12);
+  backdrop-filter: blur(4px);
+}
+
+/* ALERTAS – premium red */
+.sidebar .nav-counter.alertas,
+.sidebar .badge-danger,
+.sidebar .counter-danger{
+  background: linear-gradient(135deg, rgba(239,68,68,.35), rgba(239,68,68,.15));
+  color: #7f1d1d;
+  border: 1px solid rgba(239,68,68,.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 3px 8px rgba(127,29,29,.25);
+}
+
+/* NOTIFICAÇÕES – premium neutral */
+.sidebar .nav-counter.notificacoes{
+  background: linear-gradient(135deg, rgba(99,102,241,.25), rgba(99,102,241,.12));
+  color: #312e81;
+  border: 1px solid rgba(99,102,241,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 3px 8px rgba(49,46,129,.25);
+}
+
+
+/* ================================================= */
+/* DARK PREMIUM – sem vermelho                       */
+/* ================================================= */
+
+:root{
+  --bg-dark: #0b1220;
+  --panel-dark: #0f172a;
+  --border-dark: rgba(148,163,184,.18);
+  --text-dark: #e5e7eb;
+  --muted-dark: #94a3b8;
+}
+
+/* base */
+body.dark,
+.dark body{
+  background: radial-gradient(1200px 600px at 20% -10%, #111827 0%, #020617 40%, #020617 100%);
+  color: var(--text-dark);
+}
+
+/* sidebar */
+.dark .sidebar{
+  background: linear-gradient(180deg, #020617, #020617);
+  border-right: 1px solid var(--border-dark);
+}
+
+/* badges – premium dark */
+.dark .sidebar .nav-counter,
+.dark .sidebar .badge,
+.dark .sidebar .count{
+  background: linear-gradient(135deg, rgba(99,102,241,.28), rgba(99,102,241,.14));
+  color: #e0e7ff;
+  border: 1px solid rgba(99,102,241,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.15),
+    0 6px 18px rgba(2,6,23,.6);
+}
+
+/* ALERTAS – sem vermelho (indigo forte) */
+.dark .sidebar .nav-counter.alertas,
+.dark .sidebar .badge-danger,
+.dark .sidebar .counter-danger{
+  background: linear-gradient(135deg, rgba(79,70,229,.45), rgba(79,70,229,.22));
+  color: #eef2ff;
+  border: 1px solid rgba(79,70,229,.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 24px rgba(30,27,75,.7);
+}
+
+/* NOTIFICAÇÕES – emerald premium */
+.dark .sidebar .nav-counter.notificacoes{
+  background: linear-gradient(135deg, rgba(16,185,129,.35), rgba(16,185,129,.18));
+  color: #ecfdf5;
+  border: 1px solid rgba(16,185,129,.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 24px rgba(2,44,34,.7);
+}
+
+
+/* ================================================= */
+/* OVERRIDE TOTAL – remover vermelho                 */
+/* ================================================= */
+
+/* neutraliza qualquer danger/red */
+.badge-danger,
+.bg-danger,
+.counter-danger,
+.alert-danger{
+  background: linear-gradient(135deg, rgba(79,70,229,.35), rgba(79,70,229,.18)) !important;
+  color: #eef2ff !important;
+  border-color: rgba(79,70,229,.45) !important;
+}
+
+/* status urgente sem vermelho */
+.status-urgente,
+.urgente{
+  background: linear-gradient(135deg, rgba(79,70,229,.45), rgba(79,70,229,.22)) !important;
+  color: #eef2ff !important;
+  border: 1px solid rgba(79,70,229,.55) !important;
+}
+
+/* remover qualquer sombra avermelhada */
+*[style*="red"],
+*[style*="#f"],
+*[style*="rgb(239"],
+*[style*="rgb(220"]{
+  box-shadow: none !important;
+}
+
+
+/* ================================================= */
+/* Lista de Alertas – página única                   */
+/* ================================================= */
+.pagination,
+.pager,
+.page-controls{
+  display: none !important;
+}
+
+
+/* ================================================= */
+/* Micro-feedback ao abrir alerta                    */
+/* ================================================= */
+.alert-item.opening{
+  animation: alertFocus .35s ease;
+}
+
+@keyframes alertFocus{
+  0%   { box-shadow: 0 0 0 rgba(99,102,241,0); }
+  50%  { box-shadow: 0 0 0 4px rgba(99,102,241,.15); }
+  100% { box-shadow: 0 0 0 rgba(99,102,241,0); }
+}
+
+.page-header.opening{ animation: alertFocus .35s ease; }
+
+
+/* ================================================= */
+/* Notificações – badges de tipo                     */
+/* ================================================= */
+.badge-urgente{
+  background: linear-gradient(135deg, rgba(79,70,229,.45), rgba(79,70,229,.22));
+  color: #eef2ff;
+  border: 1px solid rgba(79,70,229,.55);
+}
+
+.badge-status{
+  background: rgba(148,163,184,.18);
+  color: #475569;
+  border: 1px solid rgba(148,163,184,.28);
+}
+
+
+/* ================================================= */
+/* Novas Notificações – filtros sutis                */
+/* ================================================= */
+.notifications-filters{
+  display:flex;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.nf-btn{
+  background: rgba(148,163,184,.15);
+  border:1px solid rgba(148,163,184,.25);
+  color:#475569;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:.8rem;
+  cursor:pointer;
+}
+
+.nf-btn.active{
+  background: rgba(79,70,229,.35);
+  border-color: rgba(79,70,229,.55);
+  color:#eef2ff;
+}
+
+
+/* ================================================= */
+/* Modal Detalhes – CENTRALIZAÇÃO FORÇADA            */
+/* (independente do Bootstrap)                       */
+/* ================================================= */
+#viewAlertModal.modal.show,
+#viewAlertModal.modal[style*="display: block"]{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px 16px !important;
+}
+
+#viewAlertModal .modal-dialog{
+  margin: 0 !important;                 /* flex cuida */
+  width: 100%;
+  max-width: 760px;
+  transform: none !important;           /* remove translate */
+  position: relative;
+  top: auto !important;
+}
+
+#viewAlertModal .modal-content{
+  width: 100%;
+}
+
+
+/* ================================================= */
+/* UX: usuário final NÃO resolve alerta              */
+/* ================================================= */
+[data-action="resolve"],
+[data-action="mark-resolved"],
+[data-action="resolver"],
+.btn-resolve,
+.resolve-btn{
+  display:none !important;
+}
+
+
+/* Hide any legacy "resolve" controls (safety) */
+#alerts-list-view .btn-resolve,
+#alerts-list-view .resolve-btn,
+#alerts-list-view [data-action="resolve"],
+#alerts-list-view [data-action="mark-resolved"],
+#alerts-list-view [data-action="resolver"]{
+  display:none !important;
+}
+
+/* Safety: hide legacy 'Marcar como Resolvido' controls */
+button:has(.fa-check-circle),
+button:has(.fas.fa-check-circle){
+  /* only if it matches resolve label */
+}
+
+
+/* ================================================= */
+/* Lista de Alertas – filtros (Todos/Alertas/Notifs) */
+/* ================================================= */
+.alerts-filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.alerts-filters .af-btn{
+  background: rgba(148,163,184,.12);
+  border: 1px solid rgba(148,163,184,.22);
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+.alerts-filters .af-btn.active{
+  background: rgba(79,70,229,.35);
+  border-color: rgba(79,70,229,.55);
+  color: #eef2ff;
+}
+
+/* ================================================= */
+/* FIX: TEXTO DE ALERTA VISÍVEL (TEMA PREMIUM)       */
+/* ================================================= */
+.text-danger {
+  background: linear-gradient(135deg, #4f46e5, #3730a3) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: #4f46e5 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .text-danger {
+  background: linear-gradient(135deg, #a5b4fc, #818cf8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: #a5b4fc !important;
+}
+
+/* ================================================= */
+/* AJUSTE DE TAMANHO: ATUALIZAÇÕES = ALERTAS RECENTES*/
+/* ================================================= */
+
+/* Iguala o tamanho do título (h3) das Atualizações com o (h4) dos Alertas */
+#system-updates-container h3,
+.system-updates-list h3 {
+    font-size: 1rem !important; 
+    font-weight: 600 !important;
+    margin-bottom: 0.25rem !important;
+    color: var(--dark-color) !important;
+}
+
+/* Iguala o tamanho da descrição */
+#system-updates-container p,
+.system-updates-list p {
+    font-size: 0.875rem !important;
+    color: var(--secondary-color) !important;
+    margin-bottom: 0.25rem !important;
+    line-height: 1.4 !important;
+}
+
+/* Iguala o tamanho da data/hora (time) das Atualizações com o (small) dos Alertas */
+#system-updates-container time,
+.system-updates-list time {
+    font-size: 0.75rem !important;
+    color: #94a3b8 !important;
+    font-weight: 400 !important;
+}
+
+/* ===== Lista de Alertas – feedback para Novas Notificações ===== */
+.alerts-helper-note{margin:-.25rem 0 1rem;color:#64748b;font-size:.92rem;}
+.badge-new-notif{background:linear-gradient(135deg, rgba(59,130,246,.95), rgba(37,99,235,.9));color:#fff;border-radius:999px;padding:.22rem .52rem;font-size:.68rem;font-weight:800;letter-spacing:.02em;box-shadow:0 8px 18px rgba(37,99,235,.18);}
+.badge-source-notif{background:rgba(59,130,246,.10);color:#1d4ed8;border:1px solid rgba(59,130,246,.18);}
+.badge-source-alert{background:rgba(239,68,68,.08);color:#dc2626;border:1px solid rgba(239,68,68,.18);}
+#alerts-list-view tr[data-source="notificacao"][data-read="false"]{background:linear-gradient(90deg, rgba(59,130,246,.05), transparent);}
+#alerts-list-view tr[data-source="notificacao"][data-read="false"] td:first-child{border-left:3px solid rgba(59,130,246,.75);}
+.alerts-freshness{display:inline-flex;align-items:center;gap:.25rem;color:#64748b;font-size:.76rem;margin-top:.3rem;}

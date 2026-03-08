@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Dashboard - Comunidade Alerta</title>
+  
+  <meta name="description" content="Painel de controle da Comunidade Alerta - Monitoramento e segurança comunitária">
+  <meta name="keywords" content="segurança comunitária, alertas, vizinhança, monitoramento, Rio de Janeiro">
+  <meta name="author" content="Comunidade Alerta">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://comunidadealerta.com/dashboard">
+  <meta property="og:title" content="Dashboard - Comunidade Alerta">
+  <meta property="og:description" content="Painel de controle para monitoramento de segurança comunitária">
+  <meta property="og:image" content="https://comunidadealerta.com/img/logo.svg">
+  <meta property="og:image:alt" content="Logo Comunidade Alerta">
+  <meta property="og:site_name" content="Comunidade Alerta">
+  <meta property="og:locale" content="pt_BR">
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://comunidadealerta.com/dashboard">
+  <meta property="twitter:title" content="Dashboard - Comunidade Alerta">
+  <meta property="twitter:description" content="Painel de controle para monitoramento de segurança comunitária">
+  <meta property="twitter:image" content="https://comunidadealerta.com/img/logo.svg">
+  <meta property="twitter:image:alt" content="Logo Comunidade Alerta">
+  
+  <link rel="canonical" href="https://comunidadealerta.com/dashboard">
+  
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  
+  <link rel="preload" href="css/dashboard.css" as="style">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/css/shepherd.css"/>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/dashboard.css" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <noscript>
+    <link rel="stylesheet" href="css/dashboard.css">
+  </noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Comunidade Alerta",
+    "description": "Plataforma de monitoramento e segurança comunitária",
+    "url": "https://comunidadealerta.com",
+    "applicationCategory": "SafetyApplication",
+    "operatingSystem": "Any"
+  }
+  </script>
+
+  <style>
+    .nav-heading {
+      padding: 1.5rem 1.5rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      pointer-events: none; /* Garante que o título não pareça clicável */
+    }
+    
+    /* Skip navigation for accessibility */
+    .skip-nav {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #0d6efd;
+      color: white;
+      padding: 8px;
+      z-index: 9999;
+      text-decoration: none;
+    }
+    
+    .skip-nav:focus {
+      top: 0;
+    }
+  </style>
+
+</head>
+<body id="top">
+  <a href="#main-content" class="skip-nav visually-hidden-focusable">
+    Pular para conteúdo principal
+  </a>
+
+  <aside class="sidebar" id="sidebar" aria-label="Barra lateral de navegação">
+    <div class="sidebar-header">
+      <img src="img/logo.svg" alt="Logo da Comunidade Alerta" class="logo" loading="lazy" width="40" height="40">
+      <h2>Comunidade Alerta</h2>
+    </div>
+    
+    <nav class="sidebar-nav" aria-label="Navegação principal">
+      <ul>
+        <li class="nav-heading">Principal</li>
+        <li class="active">
+          <a href="#" data-view="dashboard" aria-current="page">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-view="alerts-list" onclick="if(window.showView) window.showView('alerts-list'); return false;">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+            <span>Alertas</span>
+            <span id="sidebar-alerts-badge" class="badge bg-danger" aria-live="polite"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-view="messages">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <span>Caixa de Entrada</span>
+            <span id="sidebar-messages-badge" class="badge bg-danger" aria-live="polite"></span>
+          </a>
+        </li>
+        
+        <li class="nav-heading">Análise</li>
+        <li>
+          <a href="#" data-view="map">
+            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+            <span>Mapa Interativo</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-view="community">
+            <i class="fas fa-network-wired" aria-hidden="true"></i>
+            <span>Rede</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-view="statistics">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+            <span>Estatísticas</span>
+          </a>
+        </li>
+        
+        <li class="nav-heading">Conta</li>
+        <li>
+          <a href="#" data-view="settings">
+            <i class="fas fa-cog" aria-hidden="true"></i>
+            <span>Configurações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="logout-btn">
+            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+            <span>Sair</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <img src="img/user-avatar.svg" alt="Foto de perfil de Jefferson Goulart" class="avatar" loading="lazy" width="40" height="40">
+        <div class="user-info">
+          <span class="user-name">Jefferson Goulart</span>
+          <span class="user-role">Usuário</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="top-nav">
+      <button class="menu-toggle" aria-label="Alternar menu" aria-controls="sidebar" aria-expanded="false">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      
+      <div class="search-box">
+        <label for="search-input" class="visually-hidden">Pesquisa Global</label>
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input type="search" id="search-input" placeholder="Pesquisar em alertas..." aria-label="Pesquisar em alertas">
+      </div>
+      
+      <div class="header-actions">
+        
+        <div class="notifications-dropdown">
+          <button class="notification-btn" id="notification-btn" aria-label="Notificações" aria-expanded="false" aria-haspopup="true">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+            <span id="header-notifications-badge" class="badge" aria-live="polite"></span>
+          </button>
+          
+          <div class="notifications-list" id="notifications-list" hidden>
+            
+            <div class="notifications-header">
+              <h4>Novas Notificações</h4>
+            </div>
+            <ul id="notifications-ul">
+            </ul>
+            <div class="notifications-footer">
+              <a href="#" id="open-notifs-center" onclick="if(window.showView) window.showView('alerts-list'); return false;">Ver todos os alertas</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="messages-dropdown">
+          <button class="message-btn" id="message-btn" aria-label="Mensagens" aria-expanded="false" aria-haspopup="true">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <span id="header-messages-badge" class="badge" aria-live="polite"></span>
+          </button>
+          <div class="messages-list" id="messages-list" hidden>
+            <div class="messages-header">
+              <h4>Novas Mensagens</h4>
+            </div>
+            <ul id="messages-ul">
+              </ul>
+            <div class="messages-footer">
+              <a href="#" data-view="messages">Ver todas as mensagens</a>
+            </div>
+          </div>
+        </div>
+
+        <button class="theme-toggle" aria-label="Alternar tema entre claro e escuro">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+    
+    <main id="main-content" class="dashboard-content">
+      
+      <div id="dashboard-view" class="view-section">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+          </nav>
+        </div>
+        
+        <section class="row stats-cards" aria-labelledby="stats-heading">
+          <h2 id="stats-heading" class="visually-hidden">Estatísticas Gerais</h2>
+          
+          <div class="col-md-6 col-xl-3">
+            <article class="card stat-card" id="tour-step-1" aria-labelledby="stats-members">
+              <div class="card-body">
+                <div class="stat-icon bg-primary">
+                  <i class="fas fa-users" aria-hidden="true"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Cadastros</h3>
+                  <p class="stat-number">1,310</p>
+                  <p class="stat-change text-success">
+                    <i class="fas fa-arrow-up" aria-hidden="true"></i> 62 este mês
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <article class="card stat-card" aria-labelledby="stats-resolved">
+              <div class="card-body">
+                <div class="stat-icon bg-success">
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Finalizadas</h3>
+                  <p class="stat-number" id="resolvedCount">0</p>
+                  <p class="stat-change text-success">
+                    <i class="fas fa-check" aria-hidden="true"></i> Atualizado
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <article class="card stat-card" aria-labelledby="stats-alerts">
+              <div class="card-body">
+                <div class="stat-icon bg-warning">
+                  <i class="fas fa-bell" aria-hidden="true"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Alertas (Mês)</h3>
+                  <p class="stat-number">152</p>
+                  <p class="stat-change text-danger">
+                    <i class="fas fa-arrow-up" aria-hidden="true"></i> 5 últimas 24h
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <article class="card stat-card" aria-labelledby="stats-incidents">
+              <div class="card-body">
+                <div class="stat-icon bg-danger">
+                  <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                </div>
+                <div class="stat-info">
+                  <h3>Alertas Ativos</h3>
+                  <p class="stat-number">15</p>
+                  <p class="stat-change text-success">
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i> 3 a menos que ontem
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <div class="row equal-cards-row">
+            <div class="col-12 col-lg-6">
+                <article class="card mb-4 quick-actions-card" id="tour-step-2">
+                    <div class="card-header">
+                        <h2><i class="fas fa-bolt text-warning me-2"></i>Ações Rápidas</h2>
+                    </div>
+                    <div class="card-body d-grid gap-2">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoAlertaModal"><i class="fas fa-plus-circle me-2"></i>Novo Alerta</button>
+                        <button class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#emitirComunicadoModal"><i class="fas fa-bullhorn me-2"></i>Emitir Comunicado Genérico</button>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#convidarMembroModal"><i class="fas fa-user-plus me-2"></i>Convidar Participante</button>
+                    </div>
+                </article>
+            </div>
+            <div class="col-12 col-lg-6">
+                <article class="card mb-4 map-activity-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0"><i class="fas fa-map text-success me-2"></i>Mapa de Atividade</h2>
+                        <button class="btn btn-sm btn-outline-primary" data-view="map">Ver mapa completo</button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="dashboard-map-preview"></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-8">
+            <article class="card" id="tour-step-3">
+              <div class="card-header">
+                <h2><i class="fas fa-chart-area text-primary me-2"></i>Atividade Recente</h2>
+                <div class="card-actions">
+                  <select id="activity-period" class="form-select" aria-label="Período de atividade">
+                    <option>Últimos 7 dias</option>
+                    <option>Últimos 30 dias</option>
+                    <option selected>Este ano</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="height: 350px;">
+                  <canvas id="activityChart" 
+                          aria-label="Gráfico de linha de atividade recente nos últimos 30 dias" 
+                          role="img"
+                          aria-describedby="activityChartDesc"></canvas>
+                </div>
+                <div id="activityChartDesc" class="visually-hidden">
+                  Gráfico mostrando picos de atividade aos finais de semana com média de 15 alertas por dia.
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-lg-4">
+            <article class="card">
+              <div class="card-header">
+                <h2><i class="fas fa-chart-pie text-info me-2"></i>Tipos de Alertas</h2>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="height: 350px;">
+                  <canvas id="alertTypesChart" 
+                          aria-label="Gráfico de rosca mostrando a proporção dos tipos de alerta" 
+                          role="img"
+                          aria-describedby="alertTypesChartDesc"></canvas>
+                </div>
+                <div id="alertTypesChartDesc" class="visually-hidden">
+                  Distribuição: 40% crimes, 25% atividades suspeitas, 20% incidentes urbanos, 15% outros.
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <article class="card">
+              <div class="card-header">
+                <h2><i class="fas fa-chart-line text-danger me-2"></i>Tendência de Crimes</h2>
+                <div class="card-actions">
+                    <button class="btn btn-sm btn-outline-secondary crime-period-btn active" data-period="month">Mês</button>
+                    <button class="btn btn-sm btn-outline-secondary crime-period-btn" data-period="week">Semana</button>
+                    <button class="btn btn-sm btn-outline-secondary crime-period-btn" data-period="year">Ano</button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="height: 400px;">
+                  <canvas id="crimeTrendsChart" 
+                          aria-label="Gráfico de tendência de crimes" 
+                          role="img"
+                          aria-describedby="crimeTrendsChartDesc"></canvas>
+                </div>
+                <div id="crimeTrendsChartDesc" class="visually-hidden">
+                  Tendência de crimes mostrando redução de 15% nos últimos 6 meses.
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        
+        <div class="row equal-cards-row">
+          
+          <div class="col-lg-6 d-flex">
+            <article class="card w-100 shadow-sm d-flex flex-column mb-4">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="mb-0 d-flex align-items-center">
+                  <i class="fas fa-exclamation-circle text-danger me-2"></i>Alertas Recentes
+                </h2>
+                <a href="#" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius: 8px;" data-view="alerts-list">Ver todos</a>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                <ul class="alerts-list m-0 p-0 flex-grow-1 d-flex flex-column" id="recent-alerts-container" aria-label="Lista de alertas recentes">
+                  <li class="flex-grow-1 d-flex">
+                    <a href="#" class="alert-item-clickable w-100" data-bs-toggle="modal" data-bs-target="#viewAlertModal">
+                      <div class="alert-icon bg-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                      </div>
+                      <div class="alert-info">
+                        <h3>Arrastão em Copacabana</h3>
+                        <p>Praia de Copacabana, próximo ao Posto 6</p>
+                        <time datetime="2024-03-15T18:30:00">Há 45 minutos</time>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-lg-6 d-flex">
+            <article class="card w-100 shadow-sm d-flex flex-column mb-4">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="mb-0 d-flex align-items-center">
+                  <i class="fas fa-sync-alt text-info me-2"></i>Atualizações
+                </h2>
+                <a href="#" class="btn btn-sm btn-outline-secondary fw-bold" style="border-radius: 8px;">Ver histórico</a>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                <ul class="alerts-list system-updates-list m-0 p-0 flex-grow-1 d-flex flex-column" id="system-updates-container" aria-label="Lista de atualizações do sistema">
+                  <li class="flex-grow-1 d-flex">
+                    <a href="#" class="alert-item-clickable w-100">
+                      <div class="alert-icon bg-info">
+                        <i class="fas fa-map-marked-alt"></i>
+                      </div>
+                      <div class="alert-info">
+                        <h3>Nova funcionalidade de Mapa</h3>
+                        <p>Filtros avançados e visão de calor agora disponíveis na plataforma.</p>
+                        <time datetime="2024-03-15T10:00:00">Hoje, 10:00</time>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+        </div>
+        </div>
+
+      <div id="map-view" class="view-section d-none">
+        <div class="map-container-full" id="full-map-container">
+            </div>
+        <div class="map-info-panel card" id="map-info-panel" style="display: none;"> 
+            <div class="card-header">
+                <h3 id="map-info-title" class="h6 mb-0">Pontos de Interesse</h3>
+                <button type="button" class="btn-close" aria-label="Fechar painel" id="close-map-panel"></button>
+            </div>
+            <div class="card-body" id="map-info-body">
+                </div>
+        </div>
+      </div>
+
+      <div id="alerts-list-view" class="view-section d-none">
+        <div class="page-header">
+          <h1>Lista de Alertas</h1>
+           <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Alertas</li>
+            </ol>
+          </nav>
+        </div>
+        <div id="alerts-quick-filters" class="alerts-quick-filters" role="group" aria-label="Filtros rápidos de alertas">
+          <button type="button" class="aqf-btn is-active" data-aqf="all">Todos</button>
+          <button type="button" class="aqf-btn" data-aqf="alerta">🚨 Alertas</button>
+          <button type="button" class="aqf-btn" data-aqf="notificacao">🔔 Notificações</button>
+        </div>
+        <div class="alerts-helper-note">Itens vindos de <strong>Novas Notificações</strong> aparecem com selo <strong>Nova</strong> por até 24 horas.</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="row gy-2 gy-md-0 align-items-center">
+              <div class="col-12 col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                  <input type="search" id="alert-search-input" class="form-control" placeholder="Pesquisar por local ou título...">
+                </div>
+              </div>
+              <div class="col-12 col-md-7">
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                     <select id="alert-type-filter" class="form-select">
+                      <option value="all" selected>Filtrar por Tipo</option>
+                      <option value="crime">Crime (Geral)</option>
+                      <option value="arrastao">Arrastão</option>
+                      <option value="tiroteio">Tiroteio / Disparos</option>
+                      <option value="warning">Acidente / Trânsito</option>
+                      <option value="info">Atitude Suspeita</option>
+                      <option value="ordem">Perturbação da Ordem</option>
+                      <option value="policial">Ação Policial</option>
+                      <option value="success">Incidente Resolvido</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-sm-6 mt-2 mt-sm-0">
+                     <select id="alert-status-filter" class="form-select">
+                      <option value="all" selected>Filtrar por Status</option>
+                      <option value="novo">Novo</option>
+                      <option value="confirmado">Confirmado</option>
+                      <option value="investigando">Em Investigação</option>
+                      <option value="resolvido">Resolvido</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" class="ps-3">Alerta</th>
+                    <th scope="col">Data/Hora</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="full-alerts-table-body">
+                  </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer d-flex justify-content-end">
+             <nav aria-label="Paginação da lista de alertas">
+              <ul class="pagination mb-0">
+                <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div id="community-view" class="view-section d-none">
+        <div class="page-header">
+          <h1>Visão Geral da Rede</h1>
+           <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Rede</li>
+            </ol>
+          </nav>
+        </div>
+        
+        <section class="row stats-cards" aria-labelledby="community-stats-heading">
+          <h2 id="community-stats-heading" class="visually-hidden">Estatísticas da Rede</h2>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-primary"><i class="fas fa-users"></i></div>
+                      <div class="stat-info">
+                          <h3>Total de Cadastros</h3>
+                          <p class="stat-number">1,310</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-success"><i class="fas fa-user-check"></i></div>
+                      <div class="stat-info">
+                          <h3>Cadastros Ativos</h3>
+                          <p class="stat-number">980</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-info"><i class="fas fa-user-plus"></i></div>
+                      <div class="stat-info">
+                          <h3>Novos (Mês)</h3>
+                          <p class="stat-number">62</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-secondary"><i class="fas fa-map-marked-alt"></i></div>
+                      <div class="stat-info">
+                          <h3>Bairros Cobertos</h3>
+                          <p class="stat-number">5</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+        </section>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <article class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">Engajamento da Rede</h2>
+                <i class="fas fa-info-circle text-muted" 
+                   data-bs-toggle="tooltip" 
+                   data-bs-placement="top" 
+                   title="Compara o número de novos cadastros com o total de alertas gerados na rede ao longo do tempo."></i>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="height: 320px;">
+                  <canvas id="networkEngagementChart" 
+                          aria-label="Gráfico de linha do engajamento da rede" 
+                          role="img"
+                          aria-describedby="networkEngagementChartDesc"></canvas>
+                </div>
+                <div id="networkEngagementChartDesc" class="visually-hidden">
+                  Gráfico mostrando crescimento constante de engajamento com pico nos meses de verão.
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-lg-4">
+            <article class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Contatos de Emergência</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-muted small mb-3">Acesse rapidamente os principais números de serviços de emergência.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <i class="fas fa-shield-alt text-primary fa-fw me-2"></i>
+                                <strong>Polícia Militar</strong>
+                            </div>
+                            <a href="tel:190" class="btn btn-outline-primary btn-sm">Ligar 190</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <i class="fas fa-ambulance text-danger fa-fw me-2"></i>
+                                <strong>SAMU (Ambulância)</strong>
+                            </div>
+                            <a href="tel:192" class="btn btn-outline-danger btn-sm">Ligar 192</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <i class="fas fa-fire-extinguisher text-warning fa-fw me-2"></i>
+                                <strong>Corpo de Bombeiros</strong>
+                            </div>
+                            <a href="tel:193" class="btn btn-outline-warning btn-sm text-dark">Ligar 193</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <i class="fas fa-house-damage text-info fa-fw me-2"></i>
+                                <strong>Defesa Civil</strong>
+                            </div>
+                            <a href="tel:199" class="btn btn-outline-info btn-sm">Ligar 199</a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <article class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">Distribuição e Atividade</h2>
+                        <i class="fas fa-info-circle text-muted"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           title="Mostra a distribuição de cadastros e o volume de alertas por bairro, com um indicador do nível de engajamento em cada área."></i>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="distribution-activity-body" class="activity-list-modern">
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+      </div>
+
+      <div id="statistics-view" class="view-section d-none">
+        <div class="page-header">
+          <h1>Painel de Estatísticas</h1>
+           <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Estatísticas</li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="mb-0">Filtros de Análise</h2>
+          </div>
+          <div class="card-body">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-6 col-lg-4">
+                <label for="stats-period-filter" class="form-label">Período</label>
+                <select id="stats-period-filter" class="form-select">
+                  <option value="7">Últimos 7 dias</option>
+                  <option value="30" selected>Últimos 30 dias</option>
+                  <option value="90">Últimos 90 dias</option>
+                  <option value="365">Último Ano</option>
+                </select>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <label for="stats-neighborhood-filter" class="form-label">Bairro / Região</label>
+                <select id="stats-neighborhood-filter" class="form-select">
+                  <option value="all" selected>Todos os bairros</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="row stats-cards">
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-primary"><i class="fas fa-bell"></i></div>
+                      <div class="stat-info">
+                          <h3>Total de Alertas</h3>
+                          <p class="stat-number" id="stats-total-alerts">--</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-info"><i class="fas fa-calendar-day"></i></div>
+                      <div class="stat-info">
+                          <h3>Média Diária</h3>
+                          <p class="stat-number" id="stats-daily-average">--</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-danger"><i class="fas fa-clock"></i></div>
+                      <div class="stat-info">
+                          <h3>Horário de Pico</h3>
+                          <p class="stat-number" id="stats-peak-hour">--</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+              <article class="card stat-card">
+                  <div class="card-body">
+                      <div class="stat-icon bg-warning"><i class="fas fa-map-marker-alt"></i></div>
+                      <div class="stat-info">
+                          <h3>Bairro Mais Ativo</h3>
+                          <p class="stat-number" id="stats-top-neighborhood">--</p>
+                      </div>
+                  </div>
+              </article>
+          </div>
+        </section>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <article class="card">
+              <div class="card-header"><h2>Alertas por Hora do Dia</h2></div>
+              <div class="card-body">
+                <canvas id="alertsByHourChart" 
+                        aria-label="Gráfico de barras mostrando distribuição de alertas por hora do dia" 
+                        role="img"
+                        aria-describedby="alertsByHourChartDesc"></canvas>
+                <div id="alertsByHourChartDesc" class="visually-hidden">
+                  Pico de alertas entre 18h e 22h, com menor atividade entre 4h e 6h.
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-lg-6">
+            <article class="card">
+              <div class="card-header"><h2>Alertas por Dia da Semana</h2></div>
+              <div class="card-body">
+                <canvas id="alertsByDayChart" 
+                        aria-label="Gráfico de barras mostrando distribuição de alertas por dia da semana" 
+                        role="img"
+                        aria-describedby="alertsByDayChartDesc"></canvas>
+                <div id="alertsByDayChartDesc" class="visually-hidden">
+                  Sexta-feira e sábado são os dias com maior número de alertas.
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-8">
+            <article class="card">
+              <div class="card-header"><h2>Tipos de Alerta por Bairro</h2></div>
+              <div class="card-body">
+                <canvas id="alertsByTypeAndNeighborhoodChart" 
+                        aria-label="Gráfico de barras agrupadas mostrando tipos de alerta por bairro" 
+                        role="img"
+                        aria-describedby="alertsByTypeAndNeighborhoodChartDesc"></canvas>
+                <div id="alertsByTypeAndNeighborhoodChartDesc" class="visually-hidden">
+                  Leblon tem mais alertas de crimes, Copacabana mais atividades suspeitas.
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-lg-4">
+            <article class="card">
+              <div class="card-header"><h2>Status das Ocorrências</h2></div>
+              <div class="card-body">
+                <canvas id="alertsStatusChart" 
+                        aria-label="Gráfico de pizza mostrando distribuição de status dos alertas" 
+                        role="img"
+                        aria-describedby="alertsStatusChartDesc"></canvas>
+                <div id="alertsStatusChartDesc" class="visually-hidden">
+                  45% resolvidos, 30% em investigação, 15% confirmados, 10% novos.
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div id="messages-view" class="view-section d-none">
+        <div class="page-header">
+          <h1>Caixa de Entrada</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Mensagens</li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="card messages-layout-card">
+            <div class="messages-layout">
+                <div class="inbox-sidebar">
+                    <div class="inbox-sidebar-header">
+  <div class="inbox-bulkbar" id="inbox-bulkbar" aria-live="polite">
+    <div class="bulk-left">
+      <button class="btn btn-sm btn-outline-secondary" id="bulk-cancel" type="button"><i class="fas fa-xmark me-1"></i>Cancelar</button>
+      <div class="bulk-selectall">
+        <input type="checkbox" id="bulk-selectall" aria-label="Selecionar todas as mensagens visíveis">
+        <label for="bulk-selectall">Selecionar tudo</label>
+      </div>
+      <span class="bulk-count" id="bulk-count">0 selecionadas</span>
+    </div>
+    <div class="bulk-actions">
+      <button class="btn btn-sm btn-outline-primary" id="bulk-mark-read" type="button"><i class="fas fa-envelope-open me-1"></i>Lida</button>
+      <button class="btn btn-sm btn-outline-primary" id="bulk-mark-unread" type="button"><i class="fas fa-envelope me-1"></i>Não lida</button>
+      <button class="btn btn-sm btn-outline-secondary" id="bulk-star" type="button"><i class="fas fa-star me-1"></i>Favoritar</button>
+      <button class="btn btn-sm btn-outline-secondary" id="bulk-archive" type="button"><i class="fas fa-box-archive me-1"></i>Arquivar</button>
+      <button class="btn btn-sm btn-outline-danger" id="bulk-delete" type="button"><i class="fas fa-trash me-1"></i>Excluir</button>
+    </div>
+  </div>
+
+  <div class="inbox-sidebar-top">
+    <div>
+      <h3 class="inbox-title mb-0">Mensagens</h3>
+      <p class="inbox-subtitle mb-0">Central &amp; Comunidade</p>
+    </div>
+
+    <button class="btn btn-primary btn-compose" type="button">
+      <i class="fas fa-pen-to-square me-2" aria-hidden="true"></i>
+      <span>Escrever</span>
+    </button>
+  </div>
+
+  <label class="visually-hidden" for="inbox-search-input">Buscar mensagens</label>
+  <div class="inbox-search">
+    <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+    <input
+      id="inbox-search-input"
+      class="form-control"
+      type="search"
+      placeholder="Buscar por assunto ou remetente..."
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="inbox-filters" role="tablist" aria-label="Filtros de mensagens">
+    <button class="inbox-filter active" data-filter="all" type="button" aria-pressed="true">Todas <span class="filter-count" data-count="all"></span></button>
+    <button class="inbox-filter" data-filter="unread" type="button" aria-pressed="false">Não lidas <span class="filter-count" data-count="unread"></span></button>
+    <button class="inbox-filter" data-filter="urgent" type="button" aria-pressed="false">Urgentes <span class="filter-count" data-count="urgent"></span></button>
+  </div>
+</div>
+
+<div class="inbox-list-container" id="all-messages-list-container">
+                        </div>
+                </div>
+                <div class="message-content-area" id="message-detail-view-container">
+                    </div>
+            </div>
+        </div>
+      </div>
+
+      <div id="settings-view" class="view-section d-none">
+        <div class="page-header">
+            <h1>Configurações</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Configurações</li>
+                </ol>
+            </nav>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="true">
+                    <i class="fas fa-user-circle me-2"></i>Perfil
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications-tab-pane" type="button" role="tab" aria-controls="notifications-tab-pane" aria-selected="false">
+                    <i class="fas fa-bell me-2"></i>Notificações
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security-tab-pane" type="button" role="tab" aria-controls="security-tab-pane" aria-selected="false">
+                    <i class="fas fa-shield-alt me-2"></i>Segurança
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="settingsTabsContent">
+            <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                <form id="profile-form" class="card">
+                    <div class="card-body">
+                        <div class="settings-profile-header">
+                            <div class="position-relative">
+                                <img src="img/user-avatar.svg" alt="Foto de perfil de Jefferson Goulart" class="profile-avatar-settings" width="80" height="80">
+                                <button type="button" class="btn btn-light btn-sm rounded-circle avatar-edit-button" aria-label="Alterar foto">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                            </div>
+                            <div class="profile-header-info">
+                                <h3 class="h5 mb-0">Jefferson Goulart</h3>
+                                <p class="text-muted mb-2">teste@gmail.com</p>
+                                <span class="badge bg-primary">Usuário</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4 class="settings-section-title">Informações Gerais</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="profileName" class="form-label">Nome Completo</label>
+                                <input type="text" class="form-control" id="profileName" value="Jefferson Goulart">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="profilePhone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="profilePhone" value="(21) 99999-8888">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="profileBio" class="form-label">Biografia</label>
+                            <textarea class="form-control" id="profileBio" rows="3">Administrador da rede e morador do Leblon. Focado em melhorar a segurança e a comunicação na nossa comunidade.</textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="profileLocation" class="form-label">Bairro Principal</label>
+                                <input type="text" class="form-control" id="profileLocation" value="Leblon" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="profileMemberSince" class="form-label">Membro Desde</label>
+                                <input type="text" class="form-control" id="profileMemberSince" value="15 de Janeiro de 2024" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary"><span class="btn-text">Salvar Alterações</span><span class="spinner-border spinner-border-sm btn-spinner" role="status" aria-hidden="true"></span></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="notifications-tab-pane" role="tabpanel" aria-labelledby="notifications-tab" tabindex="0">
+                <form id="notifications-form" class="card">
+                    <div class="card-body">
+                        <h4 class="settings-section-title">Notificações por E-mail</h4>
+                        <div class="notification-setting-row">
+                            <div>
+                                <strong>Alertas de Crime</strong>
+                                <p class="mb-0 small text-muted">Quando um alerta de alto risco (assalto, furto) for criado.</p>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" 
+                                     type="checkbox" 
+                                     role="switch" 
+                                     id="crimeAlertsSwitch"
+                                     aria-label="Ativar notificações de alertas de crime"
+                                     checked>
+                            </div>
+                        </div>
+                        <div class="notification-setting-row">
+                            <div>
+                                <strong>Alertas de Atividade Suspeita</strong>
+                                <p class="mb-0 small text-muted">Quando um alerta de risco moderado for criado na sua área.</p>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" 
+                                     type="checkbox" 
+                                     role="switch" 
+                                     id="suspiciousActivitySwitch"
+                                     aria-label="Ativar notificações de atividades suspeitas"
+                                     checked>
+                            </div>
+                        </div>
+                         <div class="notification-setting-row">
+                            <div>
+                                <strong>Resumo de Atividades</strong>
+                                <p class="mb-0 small text-muted">Frequência com que você recebe o resumo geral de atividades.</p>
+                            </div>
+                            <select class="form-select w-auto" aria-label="Frequência do resumo de atividades">
+                                <option>Diário</option>
+                                <option selected>Semanal</option>
+                                <option>Mensal</option>
+                                <option>Nunca</option>
+                            </select>
+                        </div>
+                        
+                        <hr>
+                        <h4 class="settings-section-title">Notificações Push (App)</h4>
+                        <div class="notification-setting-row">
+                            <div>
+                                <strong>Todos os Novos Alertas</strong>
+                                <p class="mb-0 small text-muted">Receba notificações em tempo real no seu dispositivo móvel.</p>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" 
+                                     type="checkbox" 
+                                     role="switch" 
+                                     id="allAlertsSwitch"
+                                     aria-label="Ativar notificações push para todos os alertas"
+                                     checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                         <button type="submit" class="btn btn-primary"><span class="btn-text">Salvar Preferências</span><span class="spinner-border spinner-border-sm btn-spinner" role="status" aria-hidden="true"></span></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="security-tab-pane" role="tabpanel" aria-labelledby="security-tab" tabindex="0">
+                <form id="password-form" class="card mb-4">
+                    <div class="card-header"><h2 class="mb-0">Alterar Senha</h2></div>
+                    <div class="card-body">
+                        <div class="mb-3"><label for="currentPassword" class="form-label">Senha Atual</label><input type="password" class="form-control" id="currentPassword"></div>
+                        <div class="mb-3"><label for="newPassword" class="form-label">Nova Senha</label><input type="password" class="form-control" id="newPassword"></div>
+                        <div class="mb-3"><label for="confirmPassword" class="form-label">Confirmar Nova Senha</label><input type="password" class="form-control" id="confirmPassword"></div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary"><span class="btn-text">Atualizar Senha</span><span class="spinner-border spinner-border-sm btn-spinner" role="status" aria-hidden="true"></span></button>
+                    </div>
+                </form>
+                
+                <div class="card mb-4">
+                    <div class="card-header"><h2 class="mb-0">Autenticação de Dois Fatores (2FA)</h2></div>
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Status: Desativado</strong>
+                            <p class="mb-0 text-muted">Adicione uma camada extra de segurança à sua conta.</p>
+                        </div>
+                        <button class="btn btn-outline-success"><i class="fas fa-shield-alt me-2"></i>Ativar 2FA</button>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header"><h2 class="mb-0">Sessões Ativas</h2></div>
+                    <ul class="list-group list-group-flush" id="active-sessions-list">
+                        <li class="list-group-item session-item">
+                            <div class="session-info">
+                                <i class="fas fa-desktop fa-2x me-3 text-muted"></i>
+                                <div>
+                                    <strong>Este navegador</strong> <span class="badge bg-success">Ativo agora</span>
+                                    <p class="mb-0 small text-muted">São Paulo, Brasil • Chrome em macOS</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary">Desconectar</button>
+                        </li>
+                        <li class="list-group-item session-item">
+                            <div class="session-info">
+                                <i class="fas fa-mobile-alt fa-2x me-3 text-muted"></i>
+                                <div>
+                                    <strong>iPhone 15 de Jefferson</strong>
+                                    <p class="mb-0 small text-muted">Rio de Janeiro, Brasil • App Comunidade Alerta</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary btn-disconnect">Desconectar</button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card border-danger">
+                    <div class="card-header bg-danger bg-opacity-10"><h2 class="mb-0 text-danger">Zona de Perigo</h2></div>
+                    <div class="card-body">
+                        <strong>Desativar minha conta</strong>
+                        <p class="mb-3 text-muted">Esta ação é irreversível. Você perderá o acesso à plataforma e todos os seus dados serão removidos.</p>
+                        <div id="deactivate-form">
+                            <label for="deactivate-confirm" class="form-label fw-bold">Para confirmar, digite "DESATIVAR" no campo abaixo:</label>
+                            <input type="text" class="form-control mb-3" placeholder="DESATIVAR" id="deactivate-confirm">
+                            <button class="btn btn-danger" id="deactivate-btn" disabled>Desativar Conta Permanentemente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+      <a href="#top" class="back-to-top" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+      </a>
+    
+<section id="alerts-view"></section>
+
+<section id="notifications-view" style="display:none"></section>
+</main>
+    
+    <footer class="dashboard-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <p>&copy; <time datetime="2025">2025</time> Comunidade Alerta. Todos os direitos reservados.</p>
+          </div>
+          <div class="col-md-6 text-md-end footer-links">
+            <a href="#">Termos de Serviço</a>
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Contato</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="actionToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="fas fa-check-circle text-success me-2"></i>
+        <strong class="me-auto">Sucesso</strong>
+        <small>Agora</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
+      <div class="toast-body">
+        Ação realizada com sucesso!
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="viewAlertModal" tabindex="-1" aria-labelledby="viewAlertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h1 class="modal-title fs-5" id="viewAlertModalLabel">Detalhes do Alerta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body pt-0">
+          
+          <div class="d-flex align-items-center p-3 mb-3 bg-light rounded">
+            <div class="alert-icon bg-danger me-3">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="flex-grow-1">
+              <div class="fw-bold fs-5">Arrastão em Copacabana</div>
+              <small class="text-muted">Alerta de alto risco • Praia de Copacabana, próximo ao Posto 6</small>
+            </div>
+            <div>
+              <span class="badge bg-danger">Crítico</span>
+            </div>
+          </div>
+  
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Informações</h6>
+                </div>
+                <div class="card-body">
+                  <p><strong>Tipo:</strong> Arrastão</p>
+                  <p><strong>Localização:</strong> Praia de Copacabana, Posto 6</p>
+                  <p><strong>Bairro:</strong> Copacabana</p>
+                  <p><strong>Horário:</strong> 18:30</p>
+                  <p><strong>Status:</strong> <span class="badge bg-warning">Em investigação</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0"><i class="fas fa-user-shield me-2"></i>Responsável</h6>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <img src="img/user-avatar.svg" alt="Avatar" class="rounded-circle me-3" width="48" height="48">
+                    <div>
+                      <p class="mb-0"><strong>Carlos Silva</strong></p>
+                      <p class="mb-0 text-muted small">Morador local</p>
+                      <p class="mb-0 text-muted small">Reportado há 45 minutos</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0"><i class="fas fa-file-alt me-2"></i>Descrição</h6>
+            </div>
+            <div class="card-body">
+              <p>Grupo de aproximadamente 5 indivíduos realizando arrastão na praia de Copacabana, próximo ao Posto 6. Os suspeitos estão em uma moto e abordam banhistas descuidados. Já foram relatadas 3 vítimas na área. A Polícia Militar foi acionada e está a caminho.</p>
+              
+              <div class="alert alert-warning mt-3">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Atenção:</strong> Evite a área até que a situação seja controlada pela polícia.
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header bg-light">
+              <h6 class="mb-0"><i class="fas fa-comments me-2"></i>Atualizações</h6>
+            </div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-marker bg-danger"></div>
+                  <div class="timeline-content">
+                    <h6 class="mb-1">Alerta criado</h6>
+                    <p class="mb-1 small">Carlos Silva reportou o incidente</p>
+                    <small class="text-muted">Há 45 minutos</small>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-marker bg-warning"></div>
+                  <div class="timeline-content">
+                    <h6 class="mb-1">PM acionada</h6>
+                    <p class="mb-1 small">Viatura a caminho do local</p>
+                    <small class="text-muted">Há 30 minutos</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="novoAlertaModal" tabindex="-1" aria-labelledby="novoAlertaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="novoAlertaModalLabel">Criar Novo Alerta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <form id="novoAlertaForm">
+          <div class="modal-body">
+              <div class="mb-3">
+                <label for="alertaTipo" class="form-label">Tipo de Alerta</label>
+                <select class="form-select" id="alertaTipo" required>
+                  <option value="" selected disabled>Selecione...</option>
+                  <optgroup label="Crimes e Violência">
+                    <option value="crime">Crime (Assalto, Furto, etc.)</option>
+                    <option value="arrastao">Arrastão</option>
+                    <option value="tiroteio">Tiroteio / Disparos</option>
+                  </optgroup>
+                  <optgroup label="Atividades Suspeitas">
+                    <option value="suspeito">Pessoa ou Veículo Suspeito</option>
+                  </optgroup>
+                  <optgroup label="Incidentes Urbanos">
+                    <option value="acidente">Acidente de Trânsito</option>
+                    <option value="ordem">Perturbação da Ordem (Som Alto)</option>
+                    <option value="policial">Ação Policial em Andamento</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="alertaBairro" class="form-label">Bairro</label>
+                <select class="form-select" id="alertaBairro" required>
+                  <option value="" selected disabled>Selecione...</option>
+                  <option>Leblon</option>
+                  <option>Copacabana</option>
+                  <option>Ipanema</option>
+                  <option>Jardim Botânico</option>
+                  <option>Barra da Tijuca</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="alertaEndereco" class="form-label">Endereço e Ponto de Referência</label>
+                <input type="text" class="form-control" id="alertaEndereco" placeholder="Ex: Rua Dias Ferreira, em frente ao n° 123" required>
+              </div>
+              <div class="mb-3">
+                <label for="alertaDescricao" class="form-label">Descrição (Opcional)</label>
+                <textarea class="form-control" id="alertaDescricao" rows="3"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Enviar Alerta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="emitirComunicadoModal" tabindex="-1" aria-labelledby="emitirComunicadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="emitirComunicadoModalLabel">Comunicado</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          
+          <div id="comunicadoResumoContainer">
+            </div>
+  
+          <div id="comunicadoFormContainer">
+            <form id="emitirComunicadoForm">
+              <div class="mb-3">
+                <label class="form-label">Ocorrência Original</label>
+                <div id="comunicadoOcorrenciaOriginal" class="p-2 bg-light border rounded">Selecione um alerta da lista para começar ou emita um comunicado genérico.</div>
+              </div>
+              <hr>
+              <div class="mb-3">
+                <label for="comunicadoTemplate" class="form-label">Templates Rápidos (Opcional)</label>
+                <select class="form-select" id="comunicadoTemplate">
+                  <option value="">Nenhum template</option>
+                  <option value="arrastao">Alerta de Arrastão na Praia</option>
+                  <option value="tiroteio_comunidade">Atenção: Relato de Tiroteio em Comunidade Próxima</option>
+                  <option value="transito_operacao">Trânsito Interditado por Operação Policial</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="comunicadoBo" class="form-label">Nº do Boletim de Ocorrência (B.O.)</label>
+                  <input type="text" class="form-control" id="comunicadoBo" placeholder="Ex: 1234-2025/DPR">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="comunicadoStatus" class="form-label">Atualizar Status do Alerta</label>
+                  <select class="form-select" id="comunicadoStatus">
+                    <option value="novo">Manter como Novo</option>
+                    <option value="confirmado">Confirmado</option>
+                    <option value="investigando">Em Investigação</option>
+                    <option value="resolvido">Resolvido</option>
+                    <option value="falso">Alerta Falso</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="comunicadoMensagem" class="form-label">Mensagem do Comunicado</label>
+                <textarea class="form-control" id="comunicadoMensagem" rows="4" placeholder="Escreva uma atualização para a comunidade..."></textarea>
+              </div>
+            </form>
+          </div>
+
+          <hr id="comunicado-chat-divider" class="d-none">
+          <div id="comunicado-chat-container" class="d-none">
+            <h3 class="fs-6 fw-bold">Discussão Interna de Moderadores</h3>
+            <div class="chat-box border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+              <p class="small"><strong>Beatriz:</strong> Recebi vídeo do local, parece sério. Já acionando a PM. <span class="text-muted">(há 2 min)</span></p>
+              <p class="small"><strong>Roberto:</strong> Confirmado, é na altura do Posto 9 mesmo. Evitem a área. <span class="text-muted">(há 1 min)</span></p>
+            </div>
+            <div class="input-group mt-2">
+              <input type="text" class="form-control" placeholder="Adicionar comentário...">
+              <button class="btn btn-outline-secondary" type="button">Enviar</button>
+            </div>
+          </div>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="submit" form="emitirComunicadoForm" class="btn btn-info text-white" id="submit-comunicado">Emitir Comunicado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="convidarMembroModal" tabindex="-1" aria-labelledby="convidarMembroModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="convidarMembroModalLabel">Convidar Novo Participante</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <form id="convidarMembroForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="membroEmail" class="form-label">Email do novo participante</label>
+              <input type="email" class="form-control" id="membroEmail" placeholder="nome@exemplo.com" required>
+            </div>
+            <p class="form-text">Um convite será enviado para o email informado para que a pessoa possa se cadastrar na plataforma.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Convidar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="viewMessageModal" tabindex="-1" aria-labelledby="viewMessageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h1 class="modal-title fs-5" id="viewMessageModalLabel"></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body pt-0">
+          
+          <div class="d-flex align-items-center p-3 mb-3 bg-light rounded">
+            <img id="message-sender-avatar" src="" alt="Avatar do remetente" class="member-avatar me-3" width="48" height="48">
+            <div class="flex-grow-1">
+              <div id="message-sender-name-role" class="fw-bold"></div>
+              <small id="message-timestamp" class="text-muted"></small>
+            </div>
+            <div id="message-type-badge-container"></div>
+          </div>
+  
+          <div class="message-body-content p-3">
+            <p id="message-full-text" style="white-space: pre-wrap;"></p>
+          </div>
+  
+          <div id="message-attachments-container" class="mt-4" style="display: none;">
+            <h6 class="border-bottom pb-2 mb-2">Anexos</h6>
+            <ul id="message-attachments-list" class="list-unstyled">
+              </ul>
+          </div>
+  
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary"><i class="fas fa-reply me-2"></i>Responder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+          crossorigin=""
+          defer></script>
+  
+  <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/js/shepherd.min.js" async></script>
+
+  <script type="application/javascript" src="js/dashboard.js"></script>
+  
+
+  <div class="snooze-modal-backdrop" id="snooze-backdrop" role="dialog" aria-modal="true" aria-labelledby="snooze-title">
+    <div class="snooze-modal" id="snooze-modal">
+      <header>
+        <h3 id="snooze-title">Lembrar depois</h3>
+        <button class="btn btn-sm btn-outline-secondary" id="snooze-close" type="button" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+      </header>
+      <div class="body">
+        <div class="snooze-grid">
+          <button class="snooze-option" type="button" data-snooze="30m">Em 30 min<small>Para ver ainda hoje</small></button>
+          <button class="snooze-option" type="button" data-snooze="2h">Em 2 horas<small>Bom pra acompanhamento</small></button>
+          <button class="snooze-option" type="button" data-snooze="tonight">Hoje à noite<small>20:00</small></button>
+          <button class="snooze-option" type="button" data-snooze="tomorrow">Amanhã<small>08:00</small></button>
+          <button class="snooze-option" type="button" data-snooze="nextweek">Semana que vem<small>Seg 08:00</small></button>
+          <button class="snooze-option" type="button" data-snooze="custom">Escolher data<small>Você define</small></button>
+        </div>
+        <div class="mt-3" id="snooze-custom" style="display:none">
+          <label class="form-label fw-bold" for="snooze-datetime">Data e hora</label>
+          <input class="form-control" id="snooze-datetime" type="datetime-local">
+          <button class="btn btn-primary mt-2" id="snooze-apply-custom" type="button">Aplicar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="snooze-modal-backdrop" id="notifs-center-backdrop" role="dialog" aria-modal="true" aria-labelledby="notifs-center-title">
+    <div class="snooze-modal" id="notifs-center-modal" style="width:min(860px,96vw)">
+      <header>
+        <div>
+          <h3 id="notifs-center-title">Central de Notificações</h3>
+          <div class="text-muted" style="font-size:.85rem">Acompanhe mensagens e alertas em um só lugar</div>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" id="notifs-center-close" type="button" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+      </header>
+      <div class="body">
+        <div class="row g-2 align-items-end">
+          <div class="col-12 col-md-4">
+            <label class="form-label fw-bold" for="notifs-filter-type">Tipo</label>
+            <select class="form-select" id="notifs-filter-type">
+              <option value="all">Todos</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label fw-bold" for="notifs-filter-neighborhood">Bairro</label>
+            <select class="form-select" id="notifs-filter-neighborhood">
+              <option value="all">Todos</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4 d-flex gap-2 justify-content-md-end">
+            <button class="btn btn-outline-secondary" id="notifs-toggle-unread" type="button"><i class="fas fa-circle me-1"></i>Somente não lidas</button>
+            <button class="btn btn-primary" id="notifs-markall-read" type="button"><i class="fas fa-check-double me-1"></i>Marcar tudo como lido</button>
+          </div>
+        </div>
+
+        <div class="mt-3" id="notifs-center-list"></div>
+
+        <div class="mt-3 d-flex flex-wrap gap-2">
+          <button class="btn btn-outline-secondary" id="mute-current-type" type="button"><i class="fas fa-bell-slash me-1"></i>Silenciar tipo</button>
+          <button class="btn btn-outline-secondary" id="mute-current-neighborhood" type="button"><i class="fas fa-location-dot me-1"></i>Silenciar bairro</button>
+          <button class="btn btn-outline-secondary" id="manage-mutes" type="button"><i class="fas fa-sliders me-1"></i>Gerenciar silêncios</button>
+        </div>
+
+        <div class="mt-2 text-muted" style="font-size:.85rem" id="notifs-mute-hint"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
