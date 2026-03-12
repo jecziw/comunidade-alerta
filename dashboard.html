@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f8fbff">
   <title>Dashboard - Comunidade Alerta</title>
   
   <meta name="description" content="Painel de controle da Comunidade Alerta - Monitoramento e segurança comunitária">
@@ -71,7 +72,7 @@
       color: var(--secondary-color);
       text-transform: uppercase;
       letter-spacing: .08em;
-      pointer-events: none; /* Garante que o título não pareça clicável */
+      pointer-events: none; /* Título visual do grupo de navegação */
     }
     
     /* Skip navigation for accessibility */
@@ -165,9 +166,9 @@
     
     <div class="sidebar-footer">
       <div class="user-profile">
-        <img src="img/user-avatar.svg" alt="Foto de perfil de Jefferson Goulart" class="avatar" loading="lazy" width="40" height="40">
+        <img src="img/user-avatar.svg" alt="Foto de perfil de Jeferson Goulart" class="avatar" loading="lazy" width="40" height="40">
         <div class="user-info">
-          <span class="user-name">Jefferson Goulart</span>
+          <span class="user-name">Jeferson Goulart</span>
           <span class="user-role">Usuário</span>
         </div>
       </div>
@@ -224,8 +225,14 @@
           </div>
         </div>
 
-        <button class="theme-toggle" aria-label="Alternar tema entre claro e escuro">
-          <i class="fas fa-moon" aria-hidden="true"></i>
+        <button class="theme-toggle modern-theme-toggle" id="theme-toggle" aria-label="Alternar tema" type="button" title="Alternar tema">
+          <span class="theme-toggle-track" aria-hidden="true">
+            <span class="theme-toggle-stars"></span>
+            <span class="theme-toggle-thumb">
+              <i class="fas fa-moon theme-icon theme-icon-moon" aria-hidden="true"></i>
+              <i class="fas fa-sun theme-icon theme-icon-sun" aria-hidden="true"></i>
+            </span>
+          </span>
         </button>
       </div>
     </header>
@@ -242,6 +249,95 @@
             </ol>
           </nav>
         </div>
+
+        <section class="saas-command-hero card mb-4" aria-labelledby="saas-command-title">
+          <div class="card-body">
+            <div class="saas-command-copy">
+              <span class="saas-command-badge">
+                <i class="fas fa-sparkles" aria-hidden="true"></i>
+                SaaS production-level
+              </span>
+              <h2 id="saas-command-title">Centro operacional premium para alertas, monitoramento e inteligência da comunidade</h2>
+              <p>
+                Uma interface mais madura, refinada e pronta para parecer produto real:
+                métricas claras, leitura rápida, visual consistente e foco total em tomada de decisão.
+              </p>
+
+              <div class="saas-command-actions">
+                <button class="btn btn-primary saas-hero-btn">
+                  <i class="fas fa-shield-halved me-2"></i>Monitoramento Premium
+                </button>
+                <button class="btn btn-outline-secondary saas-hero-btn">
+                  <i class="fas fa-bolt me-2"></i>Ver Operação
+                </button>
+              </div>
+            </div>
+
+            <div class="saas-command-metrics">
+              <article class="saas-command-stat">
+                <span class="label">Ambiente</span>
+                <strong>Estável</strong>
+                <small>infra visual pronta para crescimento</small>
+              </article>
+              <article class="saas-command-stat">
+                <span class="label">Nível do painel</span>
+                <strong>Production</strong>
+                <small>acabamento premium da interface</small>
+              </article>
+              <article class="saas-command-stat">
+                <span class="label">Leitura operacional</span>
+                <strong>Rápida</strong>
+                <small>cards e status mais legíveis</small>
+              </article>
+              <article class="saas-command-stat">
+                <span class="label">Experiência</span>
+                <strong>Moderna</strong>
+                <small>visual SaaS mais refinado</small>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="saas-live-kpis row g-4 mb-4" aria-label="Indicadores premium">
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card saas-premium-kpi w-100">
+              <div class="card-body">
+                <span class="saas-kpi-label">Alertas priorizados</span>
+                <strong class="saas-kpi-value" data-kpi="priorizados">12</strong>
+                <small class="saas-kpi-meta">+3 em relação à última hora</small>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card saas-premium-kpi w-100">
+              <div class="card-body">
+                <span class="saas-kpi-label">Tempo de resposta</span>
+                <strong class="saas-kpi-value" data-kpi="resposta">6 min</strong>
+                <small class="saas-kpi-meta">melhor janela operacional do dia</small>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card saas-premium-kpi w-100">
+              <div class="card-body">
+                <span class="saas-kpi-label">Incidentes resolvidos</span>
+                <strong class="saas-kpi-value" data-kpi="resolvidos">28</strong>
+                <small class="saas-kpi-meta">78% da fila encerrada</small>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card saas-premium-kpi w-100">
+              <div class="card-body">
+                <span class="saas-kpi-label">Cobertura ativa</span>
+                <strong class="saas-kpi-value" data-kpi="cobertura">9 bairros</strong>
+                <small class="saas-kpi-meta">monitoramento contínuo da rede</small>
+              </div>
+            </article>
+          </div>
+        </section>
+            
+        
         
         <section class="row stats-cards" aria-labelledby="stats-heading">
           <h2 id="stats-heading" class="visually-hidden">Estatísticas Gerais</h2>
@@ -254,7 +350,7 @@
                 </div>
                 <div class="stat-info">
                   <h3>Cadastros</h3>
-                  <p class="stat-number">1,310</p>
+                  <p class="stat-number">0</p>
                   <p class="stat-change text-success">
                     <i class="fas fa-arrow-up" aria-hidden="true"></i> 62 este mês
                   </p>
@@ -288,7 +384,7 @@
                 </div>
                 <div class="stat-info">
                   <h3>Alertas (Mês)</h3>
-                  <p class="stat-number">152</p>
+                  <p class="stat-number">0</p>
                   <p class="stat-change text-danger">
                     <i class="fas fa-arrow-up" aria-hidden="true"></i> 5 últimas 24h
                   </p>
@@ -305,7 +401,7 @@
                 </div>
                 <div class="stat-info">
                   <h3>Alertas Ativos</h3>
-                  <p class="stat-number">15</p>
+                  <p class="stat-number">0</p>
                   <p class="stat-change text-success">
                     <i class="fas fa-arrow-down" aria-hidden="true"></i> 3 a menos que ontem
                   </p>
@@ -568,153 +664,265 @@
         </div>
       </div>
 
+      
       <div id="community-view" class="view-section d-none">
         <div class="page-header">
           <h1>Visão Geral da Rede</h1>
-           <nav aria-label="breadcrumb">
+          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Rede</li>
             </ol>
           </nav>
         </div>
-        
-        <section class="row stats-cards" aria-labelledby="community-stats-heading">
-          <h2 id="community-stats-heading" class="visually-hidden">Estatísticas da Rede</h2>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-primary"><i class="fas fa-users"></i></div>
-                      <div class="stat-info">
-                          <h3>Total de Cadastros</h3>
-                          <p class="stat-number">1,310</p>
-                      </div>
-                  </div>
-              </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-success"><i class="fas fa-user-check"></i></div>
-                      <div class="stat-info">
-                          <h3>Cadastros Ativos</h3>
-                          <p class="stat-number">980</p>
-                      </div>
-                  </div>
-              </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-info"><i class="fas fa-user-plus"></i></div>
-                      <div class="stat-info">
-                          <h3>Novos (Mês)</h3>
-                          <p class="stat-number">62</p>
-                      </div>
-                  </div>
-              </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-secondary"><i class="fas fa-map-marked-alt"></i></div>
-                      <div class="stat-info">
-                          <h3>Bairros Cobertos</h3>
-                          <p class="stat-number">5</p>
-                      </div>
-                  </div>
-              </article>
+
+        <section class="network-command-hero card mb-4" aria-labelledby="network-command-title">
+          <div class="card-body">
+            <div class="network-command-copy">
+              <span class="network-command-badge">
+                <i class="fas fa-wave-square" aria-hidden="true"></i>
+                Central inteligente da comunidade
+              </span>
+              <h2 id="network-command-title">Centro de monitoramento da rede em tempo real</h2>
+              <p>
+                Um panorama mais moderno para acompanhar cobertura, engajamento, alertas prioritários
+                e o pulso operacional da comunidade em uma única tela.
+              </p>
+
+              
+<div class="network-command-status">
+  <div class="command-status-item">
+    <span class="dot online"></span>
+    Rede operacional
+  </div>
+  <div class="command-status-item">
+    <span class="dot sync"></span>
+    Sincronização ativa
+  </div>
+  <div class="command-status-item">
+    <span class="dot shield"></span>
+    Monitoramento contínuo
+  </div>
+</div>
+
+<div class="network-command-actions">
+                <button id="btn-monitoramento" class="btn btn-primary network-action-btn">
+                  <i class="fas fa-satellite-dish me-2"></i>Monitoramento Ativo <span class='network-live-indicator'>LIVE</span>
+                </button>
+                <button id="btn-tendencias" class="btn btn-outline-secondary network-action-btn">
+                  <i class="fas fa-chart-line me-2"></i>Ver Tendências
+                </button>
+              </div>
+            </div>
+
+            <div class="network-hero-panel">
+              <div class="network-hero-grid">
+                <article class="network-hero-stat glass-card">
+                  <span class="eyebrow">Cobertura</span>
+                  <strong>0 bairros</strong>
+                  <small>rede pronta para expansão</small>
+                </article>
+
+                <article class="network-hero-stat glass-card">
+                  <span class="eyebrow">Resposta média</span>
+                  <strong>0 min</strong>
+                  <small>aguardando novos eventos</small>
+                </article>
+
+                <article class="network-hero-stat glass-card">
+                  <span class="eyebrow">Ocorrências críticas</span>
+                  <strong>0</strong>
+                  <small>nenhum ponto em alerta</small>
+                </article>
+
+                <article class="network-hero-stat glass-card">
+                  <span class="eyebrow">Participação</span>
+                  <strong>0%</strong>
+                  <small>engajamento inicial</small>
+                </article>
+              </div>
+            </div>
           </div>
         </section>
 
-        <div class="row">
-          <div class="col-lg-8">
-            <article class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Engajamento da Rede</h2>
-                <i class="fas fa-info-circle text-muted" 
-                   data-bs-toggle="tooltip" 
-                   data-bs-placement="top" 
-                   title="Compara o número de novos cadastros com o total de alertas gerados na rede ao longo do tempo."></i>
+        <section class="row stats-cards network-main-stats" aria-labelledby="community-stats-heading">
+          <h2 id="community-stats-heading" class="visually-hidden">Estatísticas da Rede</h2>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card stat-card network-stat-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-primary"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                  <h3>Total de Participantes</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-user-plus"></i> base inicial da comunidade</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card stat-card network-stat-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-success"><i class="fas fa-user-shield"></i></div>
+                <div class="stat-info">
+                  <h3>Participantes Ativos</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-bolt"></i> aguardando atividade</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card stat-card network-stat-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-warning"><i class="fas fa-triangle-exclamation"></i></div>
+                <div class="stat-info">
+                  <h3>Alertas Críticos</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-shield-heart"></i> ambiente estável</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card stat-card network-stat-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-info"><i class="fas fa-map-location-dot"></i></div>
+                <div class="stat-info">
+                  <h3>Bairros Cobertos</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-location-crosshairs"></i> cobertura configurável</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="row network-feature-row">
+          <div class="col-lg-8 d-flex">
+            <article class="card network-analytics-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-chart-area me-2"></i>Engajamento da Rede</h2>
+                  <small class="network-card-subtitle">Evolução de cadastros, participação e comunicação da comunidade</small>
+                </div>
+                <span class="network-pill">Visão estratégica</span>
               </div>
               <div class="card-body">
-                <div class="chart-container" style="height: 320px;">
-                  <canvas id="networkEngagementChart" 
-                          aria-label="Gráfico de linha do engajamento da rede" 
+                <div class="chart-container network-chart-shell" style="height: 320px;">
+                  <canvas id="networkEngagementChart"
+                          aria-label="Gráfico de linha do engajamento da rede"
                           role="img"
                           aria-describedby="networkEngagementChartDesc"></canvas>
                 </div>
                 <div id="networkEngagementChartDesc" class="visually-hidden">
-                  Gráfico mostrando crescimento constante de engajamento com pico nos meses de verão.
+                  Gráfico mostrando a evolução da atividade e do engajamento da rede.
                 </div>
               </div>
             </article>
           </div>
-          <div class="col-lg-4">
-            <article class="card">
-                <div class="card-header">
-                    <h2 class="mb-0">Contatos de Emergência</h2>
-                </div>
-                <div class="card-body">
-                    <p class="card-text text-muted small mb-3">Acesse rapidamente os principais números de serviços de emergência.</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <i class="fas fa-shield-alt text-primary fa-fw me-2"></i>
-                                <strong>Polícia Militar</strong>
-                            </div>
-                            <a href="tel:190" class="btn btn-outline-primary btn-sm">Ligar 190</a>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <i class="fas fa-ambulance text-danger fa-fw me-2"></i>
-                                <strong>SAMU (Ambulância)</strong>
-                            </div>
-                            <a href="tel:192" class="btn btn-outline-danger btn-sm">Ligar 192</a>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <i class="fas fa-fire-extinguisher text-warning fa-fw me-2"></i>
-                                <strong>Corpo de Bombeiros</strong>
-                            </div>
-                            <a href="tel:193" class="btn btn-outline-warning btn-sm text-dark">Ligar 193</a>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <i class="fas fa-house-damage text-info fa-fw me-2"></i>
-                                <strong>Defesa Civil</strong>
-                            </div>
-                            <a href="tel:199" class="btn btn-outline-info btn-sm">Ligar 199</a>
-                        </li>
-                    </ul>
-                </div>
-            </article>
-        </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <article class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2 class="mb-0">Distribuição e Atividade</h2>
-                        <i class="fas fa-info-circle text-muted"
-                           data-bs-toggle="tooltip"
-                           data-bs-placement="top"
-                           title="Mostra a distribuição de cadastros e o volume de alertas por bairro, com um indicador do nível de engajamento em cada área."></i>
-                    </div>
-                    <div class="card-body p-0">
-                        <div id="distribution-activity-body" class="activity-list-modern">
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
+          <div class="col-lg-4 d-flex">
+            <article class="card network-status-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-signal me-2"></i>Status Operacional</h2>
+                  <small class="network-card-subtitle">Resumo rápido do momento atual da plataforma</small>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="network-status-item">
+                  <div>
+                    <span class="status-label">Rede online</span>
+                    <strong>Pronta para uso</strong>
+                  </div>
+                  <span class="status-pill success">ok</span>
+                </div>
+
+                <div class="network-status-item">
+                  <div>
+                    <span class="status-label">Canal prioritário</span>
+                    <strong>Central de Alertas</strong>
+                  </div>
+                  <span class="status-pill info">ativo</span>
+                </div>
+
+                <div class="network-status-item">
+                  <div>
+                    <span class="status-label">Comunicados urgentes</span>
+                    <strong>0 enviados</strong>
+                  </div>
+                  <span class="status-pill warning">baixo</span>
+                </div>
+
+                <div class="network-status-item">
+                  <div>
+                    <span class="status-label">Tempo de estabilização</span>
+                    <strong>0 min</strong>
+                  </div>
+                  <span class="status-pill neutral">inicial</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="row network-insight-grid">
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card network-insight-card w-100">
+              <div class="card-body">
+                <span class="insight-kicker">Eficiência</span>
+                <h3>Tempo de resposta</h3>
+                <strong class="insight-value">0 min</strong>
+                <p>Tempo entre o alerta recebido e a primeira atualização da rede.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card network-insight-card w-100">
+              <div class="card-body">
+                <span class="insight-kicker">Engajamento</span>
+                <h3>Taxa de leitura</h3>
+                <strong class="insight-value">0%</strong>
+                <p>Mensagens lidas pelos participantes ativos da comunidade.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card network-insight-card w-100">
+              <div class="card-body">
+                <span class="insight-kicker">Cobertura</span>
+                <h3>Pontos monitorados</h3>
+                <strong class="insight-value">0</strong>
+                <p>Locais estratégicos preparados para monitoramento e expansão.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card network-insight-card w-100">
+              <div class="card-body">
+                <span class="insight-kicker">Prioridade</span>
+                <h3>Ocorrências críticas</h3>
+                <strong class="insight-value">0</strong>
+                <p>Nenhuma ocorrência crítica em aberto neste momento.</p>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
 
+
+      
       <div id="statistics-view" class="view-section d-none">
         <div class="page-header">
           <h1>Painel de Estatísticas</h1>
-           <nav aria-label="breadcrumb">
+          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Estatísticas</li>
@@ -722,13 +930,58 @@
           </nav>
         </div>
 
-        <div class="card">
+        <section class="stats-command-hero card mb-4" aria-labelledby="stats-command-title">
+          <div class="card-body">
+            <div class="stats-command-copy">
+              <span class="stats-command-badge">
+                <i class="fas fa-chart-simple" aria-hidden="true"></i>
+                Inteligência analítica
+              </span>
+              <h2 id="stats-command-title">Leitura estratégica da operação em um painel mais moderno</h2>
+              <p>
+                Analise padrões, volume de incidentes, distribuição por bairro e desempenho operacional
+                com uma experiência visual mais clara, profissional e pronta para crescer com seus dados.
+              </p>
+            </div>
+
+            <div class="stats-hero-grid">
+              <article class="stats-hero-mini-card">
+                <span class="label">Incidentes analisados</span>
+                <strong>0</strong>
+                <small>base pronta para integração</small>
+              </article>
+
+              <article class="stats-hero-mini-card">
+                <span class="label">Bairros em análise</span>
+                <strong>0</strong>
+                <small>monitoramento configurável</small>
+              </article>
+
+              <article class="stats-hero-mini-card">
+                <span class="label">Resposta média</span>
+                <strong>0 min</strong>
+                <small>aguardando eventos</small>
+              </article>
+
+              <article class="stats-hero-mini-card">
+                <span class="label">Taxa de resolução</span>
+                <strong>0%</strong>
+                <small>indicador inicial</small>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="card stats-filter-card mb-4">
           <div class="card-header">
-            <h2 class="mb-0">Filtros de Análise</h2>
+            <div>
+              <h2 class="mb-0"><i class="fas fa-sliders me-2"></i>Filtros de Análise</h2>
+              <small class="stats-card-subtitle">Personalize o período e recorte visual dos indicadores</small>
+            </div>
           </div>
           <div class="card-body">
-            <div class="row g-3 align-items-center">
-              <div class="col-md-6 col-lg-4">
+            <div class="row g-3 align-items-end">
+              <div class="col-md-6 col-lg-3">
                 <label for="stats-period-filter" class="form-label">Período</label>
                 <select id="stats-period-filter" class="form-select">
                   <option value="7">Últimos 7 dias</option>
@@ -737,125 +990,189 @@
                   <option value="365">Último Ano</option>
                 </select>
               </div>
-              <div class="col-md-6 col-lg-4">
-                <label for="stats-neighborhood-filter" class="form-label">Bairro / Região</label>
+              <div class="col-md-6 col-lg-3">
+                <label for="stats-neighborhood-filter" class="form-label">Bairro</label>
                 <select id="stats-neighborhood-filter" class="form-select">
                   <option value="all" selected>Todos os bairros</option>
-                  </select>
+                  <option value="leblon">Leblon</option>
+                  <option value="ipanema">Ipanema</option>
+                  <option value="jardim-botanico">Jardim Botânico</option>
+                  <option value="lagoa">Lagoa</option>
+                </select>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                <label for="stats-type-filter" class="form-label">Tipo</label>
+                <select id="stats-type-filter" class="form-select">
+                  <option value="all" selected>Todos os tipos</option>
+                  <option value="crime">Crime</option>
+                  <option value="suspeito">Suspeito</option>
+                  <option value="transito">Trânsito</option>
+                  <option value="urbano">Urbano</option>
+                </select>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                <button type="button" class="btn btn-primary w-100 stats-refresh-btn">
+                  <i class="fas fa-arrows-rotate me-2"></i>Atualizar Painel
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <section class="row stats-cards">
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-primary"><i class="fas fa-bell"></i></div>
-                      <div class="stat-info">
-                          <h3>Total de Alertas</h3>
-                          <p class="stat-number" id="stats-total-alerts">--</p>
-                      </div>
-                  </div>
-              </article>
+        <section class="row stats-kpi-row">
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article id="stats-kpi-total" class="card stat-card stats-kpi-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-primary"><i class="fas fa-chart-column"></i></div>
+                <div class="stat-info">
+                  <h3>Total de Ocorrências</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-database"></i> base analítica inicial</p>
+                </div>
+              </div>
+            </article>
           </div>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-info"><i class="fas fa-calendar-day"></i></div>
-                      <div class="stat-info">
-                          <h3>Média Diária</h3>
-                          <p class="stat-number" id="stats-daily-average">--</p>
-                      </div>
-                  </div>
-              </article>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article id="stats-kpi-resolvidas" class="card stat-card stats-kpi-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-success"><i class="fas fa-check-double"></i></div>
+                <div class="stat-info">
+                  <h3>Ocorrências Resolvidas</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-circle-check"></i> indicador pronto</p>
+                </div>
+              </div>
+            </article>
           </div>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-danger"><i class="fas fa-clock"></i></div>
-                      <div class="stat-info">
-                          <h3>Horário de Pico</h3>
-                          <p class="stat-number" id="stats-peak-hour">--</p>
-                      </div>
-                  </div>
-              </article>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article id="stats-kpi-tempo" class="card stat-card stats-kpi-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
+                <div class="stat-info">
+                  <h3>Tempo Médio</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-gauge-high"></i> performance de resposta</p>
+                </div>
+              </div>
+            </article>
           </div>
-          <div class="col-md-6 col-xl-3">
-              <article class="card stat-card">
-                  <div class="card-body">
-                      <div class="stat-icon bg-warning"><i class="fas fa-map-marker-alt"></i></div>
-                      <div class="stat-info">
-                          <h3>Bairro Mais Ativo</h3>
-                          <p class="stat-number" id="stats-top-neighborhood">--</p>
-                      </div>
-                  </div>
-              </article>
+
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article id="stats-kpi-bairros" class="card stat-card stats-kpi-card w-100">
+              <div class="card-body">
+                <div class="stat-icon bg-info"><i class="fas fa-location-dot"></i></div>
+                <div class="stat-info">
+                  <h3>Bairros Monitorados</h3>
+                  <p class="stat-number">0</p>
+                  <p class="stat-change"><i class="fas fa-map"></i> cobertura em expansão</p>
+                </div>
+              </div>
+            </article>
           </div>
         </section>
 
-        <div class="row">
-          <div class="col-lg-6">
-            <article class="card">
-              <div class="card-header"><h2>Alertas por Hora do Dia</h2></div>
+        <section class="row stats-modern-grid">
+          <div class="col-lg-8 d-flex">
+            <article id="stats-chart-volume" class="card stats-chart-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-chart-line me-2"></i>Volume de Ocorrências ao Longo do Tempo</h2>
+                  <small class="stats-card-subtitle">Visualização principal para identificar picos e tendências</small>
+                </div>
+                <span class="stats-tag">Tendência</span>
+              </div>
               <div class="card-body">
-                <canvas id="alertsByHourChart" 
-                        aria-label="Gráfico de barras mostrando distribuição de alertas por hora do dia" 
-                        role="img"
-                        aria-describedby="alertsByHourChartDesc"></canvas>
-                <div id="alertsByHourChartDesc" class="visually-hidden">
-                  Pico de alertas entre 18h e 22h, com menor atividade entre 4h e 6h.
+                <div class="chart-container stats-chart-shell" style="height: 320px;">
+                  <canvas id="alertsByDayChart" aria-label="Gráfico de ocorrências ao longo do tempo" role="img"></canvas>
                 </div>
               </div>
             </article>
           </div>
-          <div class="col-lg-6">
-            <article class="card">
-              <div class="card-header"><h2>Alertas por Dia da Semana</h2></div>
+
+          <div class="col-lg-4 d-flex">
+            <article id="stats-radar-operacional" class="card stats-side-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-radar me-2"></i>Radar Operacional</h2>
+                  <small class="stats-card-subtitle">Resumo visual da saúde analítica do painel</small>
+                </div>
+              </div>
               <div class="card-body">
-                <canvas id="alertsByDayChart" 
-                        aria-label="Gráfico de barras mostrando distribuição de alertas por dia da semana" 
-                        role="img"
-                        aria-describedby="alertsByDayChartDesc"></canvas>
-                <div id="alertsByDayChartDesc" class="visually-hidden">
-                  Sexta-feira e sábado são os dias com maior número de alertas.
+                <div class="stats-radar-item">
+                  <div>
+                    <span class="stats-radar-label">Qualidade dos dados</span>
+                    <strong>Inicial</strong>
+                  </div>
+                  <span class="stats-radar-pill neutral">0%</span>
+                </div>
+
+                <div class="stats-radar-item">
+                  <div>
+                    <span class="stats-radar-label">Integração</span>
+                    <strong>Pronta para backend</strong>
+                  </div>
+                  <span class="stats-radar-pill info">API</span>
+                </div>
+
+                <div class="stats-radar-item">
+                  <div>
+                    <span class="stats-radar-label">Cobertura temporal</span>
+                    <strong>0 períodos analisados</strong>
+                  </div>
+                  <span class="stats-radar-pill warning">base</span>
+                </div>
+
+                <div class="stats-radar-item">
+                  <div>
+                    <span class="stats-radar-label">Maturidade</span>
+                    <strong>Painel em construção</strong>
+                  </div>
+                  <span class="stats-radar-pill success">ok</span>
                 </div>
               </div>
             </article>
           </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-lg-8">
-            <article class="card">
-              <div class="card-header"><h2>Tipos de Alerta por Bairro</h2></div>
+        </section>
+
+        <section class="row stats-modern-grid">
+          <div class="col-lg-6 d-flex">
+            <article id="stats-chart-tipos-bairro" class="card stats-chart-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-chart-pie me-2"></i>Tipos de Alerta por Bairro</h2>
+                  <small class="stats-card-subtitle">Comparativo entre categorias de incidente por região</small>
+                </div>
+              </div>
               <div class="card-body">
-                <canvas id="alertsByTypeAndNeighborhoodChart" 
-                        aria-label="Gráfico de barras agrupadas mostrando tipos de alerta por bairro" 
-                        role="img"
-                        aria-describedby="alertsByTypeAndNeighborhoodChartDesc"></canvas>
-                <div id="alertsByTypeAndNeighborhoodChartDesc" class="visually-hidden">
-                  Leblon tem mais alertas de crimes, Copacabana mais atividades suspeitas.
+                <div class="chart-container stats-chart-shell" style="height: 320px;">
+                  <canvas id="alertsByTypeAndNeighborhoodChart" aria-label="Gráfico de tipos de alerta por bairro" role="img"></canvas>
                 </div>
               </div>
             </article>
           </div>
-          <div class="col-lg-4">
-            <article class="card">
-              <div class="card-header"><h2>Status das Ocorrências</h2></div>
+
+          <div class="col-lg-6 d-flex">
+            <article id="stats-chart-status-ocorrencias" class="card stats-chart-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-layer-group me-2"></i>Status das Ocorrências</h2>
+                  <small class="stats-card-subtitle">Distribuição atual por estágio operacional</small>
+                </div>
+              </div>
               <div class="card-body">
-                <canvas id="alertsStatusChart" 
-                        aria-label="Gráfico de pizza mostrando distribuição de status dos alertas" 
-                        role="img"
-                        aria-describedby="alertsStatusChartDesc"></canvas>
-                <div id="alertsStatusChartDesc" class="visually-hidden">
-                  45% resolvidos, 30% em investigação, 15% confirmados, 10% novos.
+                <div class="chart-container stats-chart-shell" style="height: 320px;">
+                  <canvas id="alertsStatusChart" aria-label="Gráfico do status das ocorrências" role="img"></canvas>
                 </div>
               </div>
             </article>
           </div>
-        </div>
+        </section>
       </div>
+
+
+      
 
       <div id="messages-view" class="view-section d-none">
         <div class="page-header">
@@ -1151,7 +1468,8 @@
 <section id="alerts-view"></section>
 
 <section id="notifications-view" style="display:none"></section>
-</main>
+
+      </main>
     
     <footer class="dashboard-footer">
       <div class="container-fluid">
@@ -1559,6 +1877,45 @@
       </div>
     </div>
   </div>
+
+
+<script>
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  function getPreferredTheme() {
+    try {
+      return localStorage.getItem('dashboard-theme')
+        || localStorage.getItem('theme')
+        || root.getAttribute('data-theme')
+        || 'light';
+    } catch (e) {
+      return root.getAttribute('data-theme') || 'light';
+    }
+  }
+
+  function applyTheme(theme) {
+    const finalTheme = theme === 'dark' ? 'dark' : 'light';
+    root.setAttribute('data-theme', finalTheme);
+    document.body.classList.toggle('dark-theme', finalTheme === 'dark');
+    btn.setAttribute('aria-label', finalTheme === 'dark' ? 'Tema escuro ativo' : 'Tema claro ativo');
+    btn.setAttribute('data-mode', finalTheme);
+    try {
+      localStorage.setItem('dashboard-theme', finalTheme);
+      localStorage.setItem('theme', finalTheme);
+    } catch (e) {}
+  }
+
+  applyTheme(getPreferredTheme());
+
+  btn.addEventListener('click', function () {
+    const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
 
 </body>
 </html>
