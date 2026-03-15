@@ -166,10 +166,10 @@
     
     <div class="sidebar-footer">
       <div class="user-profile">
-        <img src="img/user-avatar.svg" alt="Foto de perfil de Jeferson Goulart" class="avatar" loading="lazy" width="40" height="40">
+        <img src="img/user-avatar.svg" alt="Foto de perfil de Jeferson Goulart" class="avatar" loading="lazy" width="40" height="40" id="sidebar-profile-img">
         <div class="user-info">
-          <span class="user-name">Jeferson Goulart</span>
-          <span class="user-role">Usuário</span>
+          <span class="user-name" id="sidebar-profile-name">Jeferson Goulart</span>
+          <span class="user-role" id="sidebar-profile-role">Usuário</span>
         </div>
       </div>
     </div>
@@ -188,6 +188,10 @@
       </div>
       
       <div class="header-actions">
+        <div class="premium-live-chip" id="premium-live-chip" aria-label="Sistema em monitoramento">
+          <span class="live-dot"></span>
+          <span>Live</span>
+        </div>
         
         <div class="notifications-dropdown">
           <button class="notification-btn" id="notification-btn" aria-label="Notificações" aria-expanded="false" aria-haspopup="true">
@@ -350,7 +354,7 @@
                 </div>
                 <div class="stat-info">
                   <h3>Cadastros</h3>
-                  <p class="stat-number">0</p>
+                  <p class="stat-number">1,310</p>
                   <p class="stat-change text-success">
                     <i class="fas fa-arrow-up" aria-hidden="true"></i> 62 este mês
                   </p>
@@ -367,7 +371,7 @@
                 </div>
                 <div class="stat-info">
                   <h3>Finalizadas</h3>
-                  <p class="stat-number" id="resolvedCount">0</p>
+                  <p class="stat-number" id="resolvedCount">28</p>
                   <p class="stat-change text-success">
                     <i class="fas fa-check" aria-hidden="true"></i> Atualizado
                   </p>
@@ -383,8 +387,8 @@
                   <i class="fas fa-bell" aria-hidden="true"></i>
                 </div>
                 <div class="stat-info">
-                  <h3>Alertas (Mês)</h3>
-                  <p class="stat-number">0</p>
+                  <h3>Alertas (30d)</h3>
+                  <p class="stat-number">152</p>
                   <p class="stat-change text-danger">
                     <i class="fas fa-arrow-up" aria-hidden="true"></i> 5 últimas 24h
                   </p>
@@ -401,7 +405,7 @@
                 </div>
                 <div class="stat-info">
                   <h3>Alertas Ativos</h3>
-                  <p class="stat-number">0</p>
+                  <p class="stat-number">15</p>
                   <p class="stat-change text-success">
                     <i class="fas fa-arrow-down" aria-hidden="true"></i> 3 a menos que ontem
                   </p>
@@ -458,7 +462,7 @@
                           aria-describedby="activityChartDesc"></canvas>
                 </div>
                 <div id="activityChartDesc" class="visually-hidden">
-                  Gráfico mostrando picos de atividade aos finais de semana com média de 15 alertas por dia.
+                  Gráfico mostrando picos de atividade aos finais de semana, com maior volume entre sexta e domingo e média aproximada de 15 alertas por dia.
                 </div>
               </div>
             </article>
@@ -476,7 +480,7 @@
                           aria-describedby="alertTypesChartDesc"></canvas>
                 </div>
                 <div id="alertTypesChartDesc" class="visually-hidden">
-                  Distribuição: 40% crimes, 25% atividades suspeitas, 20% incidentes urbanos, 15% outros.
+                  Distribuição: 40% crimes, 25% atividades suspeitas, 20% incidentes urbanos e 15% outros.
                 </div>
               </div>
             </article>
@@ -1079,7 +1083,7 @@
               <div class="card-header">
                 <div>
                   <h2><i class="fas fa-chart-line me-2"></i>Volume de Ocorrências ao Longo do Tempo</h2>
-                  <small class="stats-card-subtitle">Visualização principal para identificar picos e tendências</small>
+                  <small class="stats-card-subtitle">Visualização principal para identificar picos, sazonalidade e volume operacional.</small>
                 </div>
                 <span class="stats-tag">Tendência</span>
               </div>
@@ -1096,7 +1100,7 @@
               <div class="card-header">
                 <div>
                   <h2><i class="fas fa-radar me-2"></i>Radar Operacional</h2>
-                  <small class="stats-card-subtitle">Resumo visual da saúde analítica do painel</small>
+                  <small class="stats-card-subtitle">Resumo visual com sinais da operação, integração e maturidade do monitoramento.</small>
                 </div>
               </div>
               <div class="card-body">
@@ -1142,7 +1146,7 @@
               <div class="card-header">
                 <div>
                   <h2><i class="fas fa-chart-pie me-2"></i>Tipos de Alerta por Bairro</h2>
-                  <small class="stats-card-subtitle">Comparativo entre categorias de incidente por região</small>
+                  <small class="stats-card-subtitle">Comparativo demo entre categorias de incidente por região monitorada.</small>
                 </div>
               </div>
               <div class="card-body">
@@ -1158,7 +1162,7 @@
               <div class="card-header">
                 <div>
                   <h2><i class="fas fa-layer-group me-2"></i>Status das Ocorrências</h2>
-                  <small class="stats-card-subtitle">Distribuição atual por estágio operacional</small>
+                  <small class="stats-card-subtitle">Distribuição demo das ocorrências por estágio operacional.</small>
                 </div>
               </div>
               <div class="card-body">
@@ -1247,227 +1251,320 @@
         </div>
       </div>
 
+      
       <div id="settings-view" class="view-section d-none">
         <div class="page-header">
-            <h1>Configurações</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Configurações</li>
-                </ol>
-            </nav>
+          <h1>Configurações</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#" data-view="dashboard">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Configurações</li>
+            </ol>
+          </nav>
         </div>
 
-        <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="true">
-                    <i class="fas fa-user-circle me-2"></i>Perfil
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications-tab-pane" type="button" role="tab" aria-controls="notifications-tab-pane" aria-selected="false">
-                    <i class="fas fa-bell me-2"></i>Notificações
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security-tab-pane" type="button" role="tab" aria-controls="security-tab-pane" aria-selected="false">
-                    <i class="fas fa-shield-alt me-2"></i>Segurança
-                </button>
-            </li>
-        </ul>
-
-        <div class="tab-content" id="settingsTabsContent">
-            <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                <form id="profile-form" class="card">
-                    <div class="card-body">
-                        <div class="settings-profile-header">
-                            <div class="position-relative">
-                                <img src="img/user-avatar.svg" alt="Foto de perfil de Jefferson Goulart" class="profile-avatar-settings" width="80" height="80">
-                                <button type="button" class="btn btn-light btn-sm rounded-circle avatar-edit-button" aria-label="Alterar foto">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
-                            </div>
-                            <div class="profile-header-info">
-                                <h3 class="h5 mb-0">Jefferson Goulart</h3>
-                                <p class="text-muted mb-2">teste@gmail.com</p>
-                                <span class="badge bg-primary">Usuário</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <h4 class="settings-section-title">Informações Gerais</h4>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="profileName" class="form-label">Nome Completo</label>
-                                <input type="text" class="form-control" id="profileName" value="Jefferson Goulart">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="profilePhone" class="form-label">Telefone</label>
-                                <input type="tel" class="form-control" id="profilePhone" value="(21) 99999-8888">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="profileBio" class="form-label">Biografia</label>
-                            <textarea class="form-control" id="profileBio" rows="3">Administrador da rede e morador do Leblon. Focado em melhorar a segurança e a comunicação na nossa comunidade.</textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="profileLocation" class="form-label">Bairro Principal</label>
-                                <input type="text" class="form-control" id="profileLocation" value="Leblon" disabled>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="profileMemberSince" class="form-label">Membro Desde</label>
-                                <input type="text" class="form-control" id="profileMemberSince" value="15 de Janeiro de 2024" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button type="submit" class="btn btn-primary"><span class="btn-text">Salvar Alterações</span><span class="spinner-border spinner-border-sm btn-spinner" role="status" aria-hidden="true"></span></button>
-                    </div>
-                </form>
+        <section class="settings-hero card mb-4" aria-labelledby="settings-hero-title">
+          <div class="card-body">
+            <div class="settings-hero-copy">
+              <span class="settings-hero-badge">
+                <i class="fas fa-sliders" aria-hidden="true"></i>
+                Controle do ambiente
+              </span>
+              <h2 id="settings-hero-title">Centro de preferências da plataforma</h2>
+              <p>
+                Gerencie perfil, tema, notificações, segurança da conta e preferências do sistema
+                em uma área mais organizada, clara e com aparência de produto SaaS maduro.
+              </p>
             </div>
 
-            <div class="tab-pane fade" id="notifications-tab-pane" role="tabpanel" aria-labelledby="notifications-tab" tabindex="0">
-                <form id="notifications-form" class="card">
-                    <div class="card-body">
-                        <h4 class="settings-section-title">Notificações por E-mail</h4>
-                        <div class="notification-setting-row">
-                            <div>
-                                <strong>Alertas de Crime</strong>
-                                <p class="mb-0 small text-muted">Quando um alerta de alto risco (assalto, furto) for criado.</p>
-                            </div>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" 
-                                     type="checkbox" 
-                                     role="switch" 
-                                     id="crimeAlertsSwitch"
-                                     aria-label="Ativar notificações de alertas de crime"
-                                     checked>
-                            </div>
-                        </div>
-                        <div class="notification-setting-row">
-                            <div>
-                                <strong>Alertas de Atividade Suspeita</strong>
-                                <p class="mb-0 small text-muted">Quando um alerta de risco moderado for criado na sua área.</p>
-                            </div>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" 
-                                     type="checkbox" 
-                                     role="switch" 
-                                     id="suspiciousActivitySwitch"
-                                     aria-label="Ativar notificações de atividades suspeitas"
-                                     checked>
-                            </div>
-                        </div>
-                         <div class="notification-setting-row">
-                            <div>
-                                <strong>Resumo de Atividades</strong>
-                                <p class="mb-0 small text-muted">Frequência com que você recebe o resumo geral de atividades.</p>
-                            </div>
-                            <select class="form-select w-auto" aria-label="Frequência do resumo de atividades">
-                                <option>Diário</option>
-                                <option selected>Semanal</option>
-                                <option>Mensal</option>
-                                <option>Nunca</option>
-                            </select>
-                        </div>
-                        
-                        <hr>
-                        <h4 class="settings-section-title">Notificações Push (App)</h4>
-                        <div class="notification-setting-row">
-                            <div>
-                                <strong>Todos os Novos Alertas</strong>
-                                <p class="mb-0 small text-muted">Receba notificações em tempo real no seu dispositivo móvel.</p>
-                            </div>
-                            <div class="form-check form-switch">
-                              <input class="form-check-input" 
-                                     type="checkbox" 
-                                     role="switch" 
-                                     id="allAlertsSwitch"
-                                     aria-label="Ativar notificações push para todos os alertas"
-                                     checked>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                         <button type="submit" class="btn btn-primary"><span class="btn-text">Salvar Preferências</span><span class="spinner-border spinner-border-sm btn-spinner" role="status" aria-hidden="true"></span></button>
-                    </div>
-                </form>
+            <div class="settings-hero-grid">
+              <article class="settings-hero-mini">
+                <span class="label">Perfil</span>
+                <strong>Ativo</strong>
+                <small>informações principais configuradas</small>
+              </article>
+              <article class="settings-hero-mini">
+                <span class="label">Tema</span>
+                <strong>Dinâmico</strong>
+                <small>compatível com light e dark mode</small>
+              </article>
+              <article class="settings-hero-mini">
+                <span class="label">Segurança</span>
+                <strong>Pronta</strong>
+                <small>controles de senha e proteção disponíveis</small>
+              </article>
+              <article class="settings-hero-mini">
+                <span class="label">Notificações</span>
+                <strong>Centralizadas</strong>
+                <small>preferências em um só lugar</small>
+              </article>
             </div>
+          </div>
+        </section>
 
-            <div class="tab-pane fade" id="security-tab-pane" role="tabpanel" aria-labelledby="security-tab" tabindex="0">
-                <form id="password-form" class="card mb-4">
-                    <div class="card-header"><h2 class="mb-0">Alterar Senha</h2></div>
-                    <div class="card-body">
-                        <div class="mb-3"><label for="currentPassword" class="form-label">Senha Atual</label><input type="password" class="form-control" id="currentPassword"></div>
-                        <div class="mb-3"><label for="newPassword" class="form-label">Nova Senha</label><input type="password" class="form-control" id="newPassword"></div>
-                        <div class="mb-3"><label for="confirmPassword" class="form-label">Confirmar Nova Senha</label><input type="password" class="form-control" id="confirmPassword"></div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button type="submit" class="btn btn-primary"><span class="btn-text">Atualizar Senha</span><span class="spinner-border spinner-border-sm btn-spinner" role="status" aria-hidden="true"></span></button>
-                    </div>
-                </form>
+        <section class="row settings-kpi-row">
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card settings-kpi-card w-100">
+              <div class="card-body">
+                <span class="settings-kpi-label">Status da conta</span>
+                <strong class="settings-kpi-value">Ativa</strong>
+                <small class="settings-kpi-meta">uso normal do sistema</small>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card settings-kpi-card w-100">
+              <div class="card-body">
+                <span class="settings-kpi-label">Tema aplicado</span>
+                <strong class="settings-kpi-value">Automático</strong>
+                <small class="settings-kpi-meta">sincronizado com preferências</small>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card settings-kpi-card w-100">
+              <div class="card-body">
+                <span class="settings-kpi-label">Alertas ativos</span>
+                <strong class="settings-kpi-value">3 canais</strong>
+                <small class="settings-kpi-meta">push, inbox e sistema</small>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3 d-flex">
+            <article class="card settings-kpi-card w-100">
+              <div class="card-body">
+                <span class="settings-kpi-label">Proteção</span>
+                <strong class="settings-kpi-value">Elevada</strong>
+                <small class="settings-kpi-meta">regras de acesso habilitadas</small>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="row settings-grid">
+          <div class="col-lg-8 d-flex">
+            <article class="card settings-main-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-user-gear me-2"></i>Preferências da Conta</h2>
+<div class="profile-photo-section">
+  <div class="profile-photo-preview">
+    <img id="profile-photo-img" src="https://i.pravatar.cc/120?img=12" alt="Foto do perfil">
+  </div>
+  <div class="profile-photo-actions">
+    <input type="file" id="profile-photo-input" accept="image/*" hidden>
+    <button type="button" class="btn btn-outline-primary btn-sm" id="profile-photo-upload-btn">Alterar foto</button>
+    <button type="button" class="btn btn-outline-secondary btn-sm" id="profile-photo-remove-btn">Remover</button>
+  </div>
+</div>
+
+                  <small class="settings-card-subtitle">Ajuste informações pessoais, aparência e comportamento do painel</small>
+                </div>
+                <span class="settings-chip">Perfil</span>
+              </div>
+              <div class="card-body">
+                <div class="settings-account-form-shell">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <label class="form-label" for="settings-name">Nome</label>
+                    <input id="settings-name" class="form-control" type="text" value="Jeferson Goulart">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="settings-email">E-mail</label>
+                    <input id="settings-email" class="form-control" type="email" value="jeferson@email.com">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="settings-city">Cidade</label>
+                    <input id="settings-city" class="form-control" type="text" value="Garopaba - SC">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="settings-role">Perfil no sistema</label>
+                    <select id="settings-role" class="form-select">
+                      <option selected>Administrador</option>
+                      <option>Moderador</option>
+                      <option>Analista</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="settings-theme">Tema preferido</label>
+                    <select id="settings-theme" class="form-select">
+                      <option>Automático</option>
+                      <option>Claro</option>
+                      <option>Escuro</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="settings-language">Idioma</label>
+                    <select id="settings-language" class="form-select">
+                      <option selected>Português (Brasil)</option>
+                      <option>English</option>
+                      <option>Español</option>
+                    </select>
+                  </div>
+                </div>
+
                 
-                <div class="card mb-4">
-                    <div class="card-header"><h2 class="mb-0">Autenticação de Dois Fatores (2FA)</h2></div>
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Status: Desativado</strong>
-                            <p class="mb-0 text-muted">Adicione uma camada extra de segurança à sua conta.</p>
-                        </div>
-                        <button class="btn btn-outline-success"><i class="fas fa-shield-alt me-2"></i>Ativar 2FA</button>
+                <div class="settings-account-shell">
+                  <div class="settings-account-topbar">
+                    <div class="settings-account-avatar-wrap">
+                      <div class="settings-account-avatar-ring">
+                        <img id="settings-account-avatar-preview" src="https://i.pravatar.cc/120?img=12" alt="Avatar de Jeferson Goulart">
+                      </div>
+                      <div class="settings-account-identity">
+                        <span class="settings-account-eyebrow">SaaS production-level</span>
+                        <strong>Jeferson Goulart</strong>
+                        <small>Usuário da Comunidade · Garopaba, SC</small>
+                      </div>
                     </div>
+                    <div class="settings-account-status">
+                      <span class="settings-status-dot"></span>
+                      Conta operacional
+                    </div>
+                  </div>
+                  <div class="settings-account-note">
+                    Perfil principal da plataforma com identidade visual premium, alinhado ao padrão SaaS do Dashboard.
+                  </div>
+                </div>
                 </div>
 
-                <div class="card mb-4">
-                    <div class="card-header"><h2 class="mb-0">Sessões Ativas</h2></div>
-                    <ul class="list-group list-group-flush" id="active-sessions-list">
-                        <li class="list-group-item session-item">
-                            <div class="session-info">
-                                <i class="fas fa-desktop fa-2x me-3 text-muted"></i>
-                                <div>
-                                    <strong>Este navegador</strong> <span class="badge bg-success">Ativo agora</span>
-                                    <p class="mb-0 small text-muted">São Paulo, Brasil • Chrome em macOS</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-sm btn-outline-secondary">Desconectar</button>
-                        </li>
-                        <li class="list-group-item session-item">
-                            <div class="session-info">
-                                <i class="fas fa-mobile-alt fa-2x me-3 text-muted"></i>
-                                <div>
-                                    <strong>iPhone 15 de Jefferson</strong>
-                                    <p class="mb-0 small text-muted">Rio de Janeiro, Brasil • App Comunidade Alerta</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-sm btn-outline-secondary btn-disconnect">Desconectar</button>
-                        </li>
-                    </ul>
+                <div class="settings-actions mt-4 settings-actions-refined">
+                  <button class="btn btn-primary settings-save-btn" type="button">
+                    <i class="fas fa-floppy-disk me-2"></i>Salvar alterações
+                  </button>
+                  <button class="btn btn-outline-secondary settings-secondary-btn" type="button">
+                    <i class="fas fa-rotate-left me-2"></i>Restaurar padrão
+                  </button>
                 </div>
-                
-                <div class="card border-danger">
-                    <div class="card-header bg-danger bg-opacity-10"><h2 class="mb-0 text-danger">Zona de Perigo</h2></div>
-                    <div class="card-body">
-                        <strong>Desativar minha conta</strong>
-                        <p class="mb-3 text-muted">Esta ação é irreversível. Você perderá o acesso à plataforma e todos os seus dados serão removidos.</p>
-                        <div id="deactivate-form">
-                            <label for="deactivate-confirm" class="form-label fw-bold">Para confirmar, digite "DESATIVAR" no campo abaixo:</label>
-                            <input type="text" class="form-control mb-3" placeholder="DESATIVAR" id="deactivate-confirm">
-                            <button class="btn btn-danger" id="deactivate-btn" disabled>Desativar Conta Permanentemente</button>
-                        </div>
-                    </div>
+
+                <div class="settings-feedback" id="settings-feedback" hidden>
+                  Preferências atualizadas com sucesso.
                 </div>
-            </div>
-        </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-lg-4 d-flex">
+            <article class="card settings-side-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-bell me-2"></i>Preferências rápidas</h2>
+                  <small class="settings-card-subtitle">Ative os canais mais importantes do sistema</small>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-toggle-item">
+                  <div>
+                    <span class="settings-toggle-label">Notificações em tempo real</span>
+                    <small>Receber comunicados instantâneos</small>
+                  </div>
+                  <label class="settings-switch">
+                    <input type="checkbox" checked>
+                    <span></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-item">
+                  <div>
+                    <span class="settings-toggle-label">Resumo diário</span>
+                    <small>Consolidação automática das ocorrências</small>
+                  </div>
+                  <label class="settings-switch">
+                    <input type="checkbox" checked>
+                    <span></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-item">
+                  <div>
+                    <span class="settings-toggle-label">Alertas críticos</span>
+                    <small>Prioridade máxima na inbox e no topo</small>
+                  </div>
+                  <label class="settings-switch">
+                    <input type="checkbox" checked>
+                    <span></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-item">
+                  <div>
+                    <span class="settings-toggle-label">Modo silencioso</span>
+                    <small>Reduz interrupções fora do horário</small>
+                  </div>
+                  <label class="settings-switch">
+                    <input type="checkbox">
+                    <span></span>
+                  </label>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="row settings-grid">
+          <div class="col-lg-6 d-flex">
+            <article class="card settings-security-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-shield-halved me-2"></i>Segurança</h2>
+                  <small class="settings-card-subtitle">Aumente a proteção da sua conta e da operação</small>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-security-item">
+                  <div>
+                    <span class="settings-security-title">Troca de senha</span>
+                    <small>Atualize sua credencial principal regularmente</small>
+                  </div>
+                  <button id="security-change-password-btn" class="btn btn-outline-secondary btn-sm settings-security-btn" type="button">Alterar</button>
+                </div>
+                <div class="settings-security-item">
+                  <div>
+                    <span class="settings-security-title">Sessões ativas</span>
+                    <small>Gerencie dispositivos conectados ao sistema</small>
+                  </div>
+                  <button id="security-sessions-btn" class="btn btn-outline-secondary btn-sm settings-security-btn" type="button">Revisar</button>
+                </div>
+                <div class="settings-security-item">
+                  <div>
+                    <span class="settings-security-title">Autenticação em duas etapas</span>
+                    <small>Adicione uma camada extra de verificação</small>
+                  </div>
+                  <button id="security-2fa-btn" class="btn btn-outline-secondary btn-sm settings-security-btn" type="button">Ativar</button>
+                </div>
+              
+                <div class="settings-security-feedback" id="security-feedback" hidden>Operação concluída com sucesso.</div>
+</div>
+            </article>
+          </div>
+
+          <div class="col-lg-6 d-flex">
+            <article class="card settings-system-card w-100">
+              <div class="card-header">
+                <div>
+                  <h2><i class="fas fa-server me-2"></i>Sistema</h2>
+                  <small class="settings-card-subtitle">Saúde operacional e opções gerais da plataforma</small>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-system-item">
+                  <span class="settings-system-label">Versão do painel</span>
+                  <strong>Production Demo</strong>
+                </div>
+                <div class="settings-system-item">
+                  <span class="settings-system-label">Status da sincronização</span>
+                  <strong>Operacional</strong>
+                </div>
+                <div class="settings-system-item">
+                  <span class="settings-system-label">Última atualização</span>
+                  <strong>Hoje, 18:40</strong>
+                </div>
+                <div class="settings-system-item">
+                  <span class="settings-system-label">Modo de execução</span>
+                  <strong>Estável</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
 
-
-      <a href="#top" class="back-to-top" aria-label="Voltar ao topo">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
-      </a>
-    
-<section id="alerts-view"></section>
-
-<section id="notifications-view" style="display:none"></section>
 
       </main>
     
