@@ -208,10 +208,9 @@ Este projeto foi desenvolvido com objetivo de:
 
 # 👨‍💻 Autor
 
-**Jeferson Barcellos Goulart**
+**Jeferson Goulart**
 
-📍 Garopaba — SC  
-🎓 Sistemas de Informação — Unisul  
+📍 Santa Catarina
 
 Interesses:
 
