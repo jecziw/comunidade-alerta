@@ -1,9 +1,12 @@
 
 <p align="center">
-  <h1 align="center">🚨 Comunidade Alerta</h1>
-  <p align="center">
-    SaaS Dashboard para monitoramento e inteligência da comunidade
-  </p>
+  <img src="https://img.shields.io/badge/Comunidade%20Alerta-SaaS%20Dashboard-6366F1?style=for-the-badge" />
+</p>
+
+<h1 align="center">🚨 Comunidade Alerta</h1>
+
+<p align="center">
+Dashboard SaaS para monitoramento, análise e comunicação de alertas comunitários em tempo real.
 </p>
 
 <p align="center">
@@ -19,50 +22,39 @@
 
 # 🧠 Sobre o Projeto
 
-**Comunidade Alerta** é um dashboard inspirado em **produtos SaaS profissionais**, criado para monitorar ocorrências comunitárias, analisar dados operacionais e facilitar a comunicação entre participantes da rede.
+**Comunidade Alerta** é um **dashboard SaaS inspirado em plataformas profissionais** de monitoramento operacional.
 
-O projeto simula um **centro operacional de alertas**, com interface moderna focada em:
+O objetivo é criar um **centro de inteligência comunitária**, permitindo:
 
-- análise de ocorrências
-- monitoramento da rede
-- inteligência de dados
-- comunicação em tempo real
+• monitoramento de ocorrências  
+• análise de dados operacionais  
+• comunicação entre participantes  
+• visualização de alertas em tempo real  
 
-A interface segue padrões visuais usados por produtos como:
+Este projeto foi desenvolvido como **projeto de portfólio profissional**.
 
-- Linear
+Inspirado em produtos como:
+
 - Datadog
+- Linear
 - Vercel
 - Supabase
-- Notion analytics
+- Notion Analytics
 
 ---
 
-# 🖥️ Preview
+# 🖥️ Interface do Sistema
 
-## Dashboard Operacional
+## Dashboard
 
-Painel principal com leitura rápida da situação da rede.
+Centro operacional com leitura rápida da situação da rede.
 
-Principais indicadores:
-
-• alertas priorizados  
-• tempo de resposta  
-• incidentes resolvidos  
-• cobertura da rede  
-
----
-
-# ⚙️ Funcionalidades
-
-## 📊 Dashboard
-
-Centro de controle com visão geral da operação.
+Indicadores principais:
 
 - alertas priorizados
 - tempo médio de resposta
 - incidentes resolvidos
-- cobertura ativa da rede
+- cobertura da rede
 - atividade recente
 
 ---
@@ -78,63 +70,42 @@ Monitoramento da comunidade conectada.
 
 ---
 
-## 📈 Estatísticas
+## 📊 Estatísticas
 
-Visualização de dados e tendências.
+Análise de dados e tendências.
 
 - volume de ocorrências
 - tipos de alerta
-- status das ocorrências
 - radar operacional
+- status das ocorrências
 - filtros analíticos
 
 ---
 
 ## ✉️ Caixa de Entrada
 
-Central de notificações e comunicados.
+Sistema de mensagens internas.
 
 - alertas urgentes
-- mudanças operacionais
-- mensagens da comunidade
+- comunicados da comunidade
+- notificações operacionais
 
 ---
 
 ## ⚙️ Configurações
 
-Gerenciamento da conta do usuário.
+Gerenciamento de conta.
 
 - foto de perfil
-- preferências da conta
-- sessões ativas
+- preferências do usuário
+- segurança da conta
 - autenticação em duas etapas
 
 ---
 
-# 🛠️ Tecnologias
+# 🏗️ Arquitetura do Projeto
 
-Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-
-Bibliotecas
-
-- Chart.js
-- Font Awesome
-
-Arquitetura preparada para futura integração com:
-
-- Node.js
-- Express
-- API REST
-- JWT Authentication
-- Banco de dados
-
----
-
-# 📂 Estrutura do Projeto
+Estrutura atual:
 
 ```
 dashboard/
@@ -154,11 +125,51 @@ dashboard/
     └── layout
 ```
 
+Arquitetura preparada para:
+
+```
+Frontend
+   │
+   ├── Dashboard UI
+   ├── Charts
+   └── Alert Interface
+
+Backend (planejado)
+   │
+   ├── Node.js
+   ├── Express API
+   ├── JWT Auth
+   └── Database
+```
+
+---
+
+# 🛠️ Tecnologias
+
+Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+
+Bibliotecas
+
+- Chart.js
+- Font Awesome
+
+Futuras integrações:
+
+- Node.js
+- Express
+- API REST
+- JWT Authentication
+- Banco de dados
+
 ---
 
 # 🚀 Como Executar
 
-Clone o projeto:
+Clone o repositório:
 
 ```bash
 git clone https://github.com/seu-usuario/comunidade-alerta
@@ -170,7 +181,7 @@ Entre na pasta:
 cd comunidade-alerta
 ```
 
-Abra o arquivo:
+Abra:
 
 ```
 dashboard.html
@@ -182,52 +193,51 @@ no navegador.
 
 # 📍 Roadmap
 
-Evoluções planejadas para o projeto:
+Próximas evoluções planejadas:
 
 - [ ] Backend Node.js
 - [ ] API de alertas
-- [ ] Autenticação JWT
-- [ ] Banco de dados
-- [ ] Mapa em tempo real
-- [ ] Sistema de reputação da comunidade
-- [ ] Notificações push
-- [ ] Painel administrativo
+- [ ] autenticação JWT
+- [ ] banco de dados
+- [ ] mapa em tempo real
+- [ ] notificações push
+- [ ] painel administrativo
+- [ ] sistema de reputação da comunidade
 
 ---
 
-# 🎯 Objetivo
+# 🎯 Objetivo do Projeto
 
-Este projeto foi desenvolvido com objetivo de:
+Este projeto foi criado para:
 
-- demonstrar design de dashboards SaaS
-- criar uma interface moderna e escalável
-- simular um produto real de monitoramento comunitário
-- compor portfólio profissional de desenvolvimento
+- demonstrar habilidades em desenvolvimento web
+- construir dashboards SaaS modernos
+- simular um produto real de tecnologia
+- compor portfólio profissional
 
 ---
 
 # 👨‍💻 Autor
 
-**Jeferson Goulart**
+**Jeferson Barcellos Goulart**
 
-📍 Santa Catarina
+📍 Garopaba — SC  
+🎓 Sistemas de Informação — Unisul  
 
 Interesses:
 
 - desenvolvimento web
 - arquitetura de software
 - produtos SaaS
-- tecnologia e inovação
+- inovação tecnológica
 
 ---
 
 # ⭐ Contribuição
 
-Contribuições são bem-vindas.
+Contribuições são bem‑vindas.
 
-Se quiser melhorar o projeto:
-
-1. Fork o repositório
+1. Fork o projeto
 2. Crie uma branch
 3. Envie um Pull Request
 
@@ -235,4 +245,4 @@ Se quiser melhorar o projeto:
 
 # 📄 Licença
 
-Este projeto está sob licença MIT.
+Este projeto está sob licença **MIT**.
