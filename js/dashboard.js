@@ -37,7 +37,7 @@ let currentInboxFilter = 'all'; // all | unread | urgent
 let inboxSearchQuery = '';
 
 // Variável com o nome do usuário logado (assumindo do HTML)
-const loggedInUserName = "Jefferson Goulart";
+const loggedInUserName = "Jeferson Goulart";
 
 
 // ====================== INBOX – ESTRELAS (persistência simples) ======================
@@ -1199,10 +1199,10 @@ function renderMessageDetail(messageId) {
 // ====================== CHART FUNCTIONS ======================
 
 // ... (código existente para inicializar os gráficos, não precisa de grandes mudanças) ...
-function initializeActivityChart() { const ctx = document.getElementById('activityChart'); if (!ctx) return; const initialData = { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'], datasets: [ { label: 'Alertas', data: [110, 125, 90, 95, 80, 88], backgroundColor: 'rgba(78, 115, 223, 0.05)', borderColor: 'rgba(78, 115, 223, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(78, 115, 223, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Resolvidos', data: [70, 85, 65, 75, 68, 78], backgroundColor: 'rgba(28, 200, 138, 0.05)', borderColor: 'rgba(28, 200, 138, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(28, 200, 138, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(28, 200, 138, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Interações', data: [220, 250, 190, 200, 180, 195], backgroundColor: 'rgba(255, 152, 0, 0.05)', borderColor: 'rgba(255, 152, 0, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(255, 152, 0, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(255, 152, 0, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Alertas Falsos', data: [8, 11, 7, 9, 6, 7], backgroundColor: 'rgba(121, 85, 72, 0.05)', borderColor: 'rgba(121, 85, 72, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(121, 85, 72, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(121, 85, 72, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true } ] }; activityChart = new Chart(ctx.getContext('2d'), { type: 'line', data: initialData, options: { maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top', labels: { usePointStyle: true, padding: 20, boxWidth: 12 } }, tooltip: { backgroundColor: "rgb(255,255,255)", bodyColor: "#858796", titleMarginBottom: 10, titleColor: '#6e707e', titleFontSize: 14, borderColor: '#dddfeb', borderWidth: 1, padding: 15, displayColors: false, intersect: false, mode: 'index', caretPadding: 10 } }, scales: { x: { grid: { display: false, drawBorder: false }, ticks: { color: '#858796' } }, y: { grid: { color: "rgb(234, 236, 244)", zeroLineColor: "rgb(234, 236, 244)", drawBorder: false, borderDash: [2], zeroLineBorderDash: [2] }, ticks: { color: '#858796', padding: 20, callback: function(value) { return Number.isInteger(value) ? value : ''; } } } }, interaction: { mode: 'nearest', axis: 'x', intersect: false } } }); }
-function initializeAlertTypesChart() { const ctx = document.getElementById('alertTypesChart'); if (!ctx) return; new Chart(ctx.getContext('2d'), { type: 'doughnut', data: { labels: ['Crimes (roubos/furtos)', 'Atitudes Suspeitas', 'Acidentes e Trânsito', 'Problemas Urbanos'], datasets: [{ data: [45, 25, 20, 10], backgroundColor: [ 'rgba(231, 74, 59, 0.8)', 'rgba(246, 194, 62, 0.8)', 'rgba(54, 185, 204, 0.8)', 'rgba(133, 135, 150, 0.8)' ], hoverBackgroundColor: [ 'rgba(231, 74, 59, 1)', 'rgba(246, 194, 62, 1)', 'rgba(54, 185, 204, 1)', 'rgba(133, 135, 150, 1)' ], hoverBorderColor: "rgba(234, 236, 244, 1)", borderWidth: 2 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: true, position: 'bottom', labels: { usePointStyle: true, padding: 20 } }, tooltip: { backgroundColor: "rgb(255,255,255)", bodyColor: "#858796", borderColor: '#dddfeb', borderWidth: 1, padding: 15, displayColors: false, caretPadding: 10, callbacks: { label: function(context) { const label = context.label || ''; const value = context.raw || 0; return `${label}: ${value}%`; } } } }, cutout: '70%' } }); }
-function initializeCrimeTrendsChart() { const ctx = document.getElementById('crimeTrendsChart'); if (!ctx) return; const crimeTrendsChart = new Chart(ctx.getContext('2d'), { type: 'line', data: { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'], datasets: [ { label: 'Furto', data: [45, 52, 38, 41, 35, 39], backgroundColor: 'rgba(255, 152, 0, 0.05)', borderColor: 'rgba(255, 152, 0, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(255, 152, 0, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(255, 152, 0, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Roubo a Transeunte', data: [28, 35, 22, 25, 20, 23], backgroundColor: 'rgba(231, 74, 59, 0.05)', borderColor: 'rgba(231, 74, 59, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(231, 74, 59, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(231, 74, 59, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Roubo de Celular', data: [22, 28, 18, 20, 15, 19], backgroundColor: 'rgba(78, 115, 223, 0.05)', borderColor: 'rgba(78, 115, 223, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(78, 115, 223, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Tentativas de Roubo', data: [8, 12, 7, 9, 6, 8], backgroundColor: 'rgba(75, 192, 192, 0.05)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(75, 192, 192, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(75, 192, 192, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true } ] }, options: { maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top', labels: { usePointStyle: true, padding: 20, boxWidth: 12 } }, tooltip: { backgroundColor: "rgb(255,255,255)", bodyColor: "#858796", titleMarginBottom: 10, titleColor: '#6e707e', titleFontSize: 14, borderColor: '#dddfeb', borderWidth: 1, padding: 15, displayColors: false, intersect: false, mode: 'index', caretPadding: 10 } }, scales: { x: { grid: { display: false, drawBorder: false }, ticks: { color: '#858796' } }, y: { grid: { color: "rgb(234, 236, 244)", zeroLineColor: "rgb(234, 236, 244)", drawBorder: false, borderDash: [2], zeroLineBorderDash: [2] }, ticks: { color: '#858796', padding: 20, callback: function(value) { return Number.isInteger(value) ? value : ''; } } } }, interaction: { mode: 'nearest', axis: 'x', intersect: false } } }); const periodButtons = document.querySelectorAll('.crime-period-btn'); if (periodButtons) { periodButtons.forEach(button => { button.addEventListener('click', function() { periodButtons.forEach(btn => btn.classList.remove('active')); this.classList.add('active'); const period = this.dataset.period; let newLabels = []; let newData = []; switch(period) { case 'week': newLabels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']; newData = [ [10, 13, 11, 14, 12, 15, 13], [5, 8, 6, 9, 7, 10, 8], [3, 6, 4, 7, 5, 8, 6], [2, 4, 3, 5, 4, 3, 2] ]; break; case 'month': newLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun']; newData = [ [45, 52, 38, 41, 35, 39], [28, 35, 22, 25, 20, 23], [22, 28, 18, 20, 15, 19], [8, 12, 7, 9, 6, 8] ]; break; case 'year': newLabels = ['2021', '2022', '2023', '2024']; newData = [ [350, 380, 420, 250], [210, 230, 260, 153], [180, 200, 240, 122], [60, 75, 80, 40] ]; break; } const newLegends = ['Furto', 'Roubo a Transeunte', 'Roubo de Celular', 'Tentativas de Roubo']; crimeTrendsChart.data.labels = newLabels; crimeTrendsChart.data.datasets.forEach((dataset, index) => { dataset.label = newLegends[index]; dataset.data = newData[index]; }); crimeTrendsChart.update(); }); }); } }
-function initializeNetworkEngagementChart() { const ctx = document.getElementById('networkEngagementChart'); if (!ctx) return; new Chart(ctx.getContext('2d'), { type: 'line', data: { labels: ['Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'], datasets: [{ label: 'Novos Cadastros', data: [45, 52, 68, 71, 55, 62], backgroundColor: 'rgba(10, 185, 129, 0.1)', borderColor: 'rgba(10, 185, 129, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(10, 185, 129, 1)', yAxisID: 'y', tension: 0.3, fill: true }, { label: 'Alertas Gerados', data: [125, 140, 110, 130, 95, 152], backgroundColor: 'rgba(245, 158, 11, 0.1)', borderColor: 'rgba(245, 158, 11, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(245, 158, 11, 1)', yAxisID: 'y1', tension: 0.3, fill: true }] }, options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: true, position: 'top' } }, scales: { x: { grid: { display: false } }, y: { type: 'linear', display: true, position: 'left', grid: { drawOnChartArea: false }, ticks: { color: '#10B981' } }, y1: { type: 'linear', display: true, position: 'right', ticks: { color: '#F59E0B' } } } } }); }
+function initializeActivityChart() { const ctx = document.getElementById('activityChart'); if (!ctx) return; const initialData = { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'], datasets: [ { label: 'Alertas', data: [0,0,0,0,0,0], backgroundColor: 'rgba(78, 115, 223, 0.05)', borderColor: 'rgba(78, 115, 223, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(78, 115, 223, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Resolvidos', data: [0,0,0,0,0,0], backgroundColor: 'rgba(28, 200, 138, 0.05)', borderColor: 'rgba(28, 200, 138, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(28, 200, 138, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(28, 200, 138, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Interações', data: [0,0,0,0,0,0], backgroundColor: 'rgba(255, 152, 0, 0.05)', borderColor: 'rgba(255, 152, 0, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(255, 152, 0, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(255, 152, 0, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Alertas Falsos', data: [0,0,0,0,0,0], backgroundColor: 'rgba(121, 85, 72, 0.05)', borderColor: 'rgba(121, 85, 72, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(121, 85, 72, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(121, 85, 72, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true } ] }; activityChart = new Chart(ctx.getContext('2d'), { type: 'line', data: initialData, options: { maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top', labels: { usePointStyle: true, padding: 20, boxWidth: 12 } }, tooltip: { backgroundColor: "rgb(255,255,255)", bodyColor: "#858796", titleMarginBottom: 10, titleColor: '#6e707e', titleFontSize: 14, borderColor: '#dddfeb', borderWidth: 1, padding: 15, displayColors: false, intersect: false, mode: 'index', caretPadding: 10 } }, scales: { x: { grid: { display: false, drawBorder: false }, ticks: { color: '#858796' } }, y: { grid: { color: "rgb(234, 236, 244)", zeroLineColor: "rgb(234, 236, 244)", drawBorder: false, borderDash: [0], zeroLineBorderDash: [0] }, ticks: { color: '#858796', padding: 20, callback: function(value) { return Number.isInteger(value) ? value : ''; } } } }, interaction: { mode: 'nearest', axis: 'x', intersect: false } } }); }
+function initializeAlertTypesChart() { const ctx = document.getElementById('alertTypesChart'); if (!ctx) return; new Chart(ctx.getContext('2d'), { type: 'doughnut', data: { labels: ['Crimes (roubos/furtos)', 'Atitudes Suspeitas', 'Acidentes e Trânsito', 'Problemas Urbanos'], datasets: [{ data: [0,0,0,0], backgroundColor: [ 'rgba(231, 74, 59, 0.8)', 'rgba(246, 194, 62, 0.8)', 'rgba(54, 185, 204, 0.8)', 'rgba(133, 135, 150, 0.8)' ], hoverBackgroundColor: [ 'rgba(231, 74, 59, 1)', 'rgba(246, 194, 62, 1)', 'rgba(54, 185, 204, 1)', 'rgba(133, 135, 150, 1)' ], hoverBorderColor: "rgba(234, 236, 244, 1)", borderWidth: 2 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: true, position: 'bottom', labels: { usePointStyle: true, padding: 20 } }, tooltip: { backgroundColor: "rgb(255,255,255)", bodyColor: "#858796", borderColor: '#dddfeb', borderWidth: 1, padding: 15, displayColors: false, caretPadding: 10, callbacks: { label: function(context) { const label = context.label || ''; const value = context.raw || 0; return `${label}: ${value}%`; } } } }, cutout: '70%' } }); }
+function initializeCrimeTrendsChart() { const ctx = document.getElementById('crimeTrendsChart'); if (!ctx) return; const crimeTrendsChart = new Chart(ctx.getContext('2d'), { type: 'line', data: { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'], datasets: [ { label: 'Furto', data: [0,0,0,0,0,0], backgroundColor: 'rgba(255, 152, 0, 0.05)', borderColor: 'rgba(255, 152, 0, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(255, 152, 0, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(255, 152, 0, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Roubo a Transeunte', data: [0,0,0,0,0,0], backgroundColor: 'rgba(231, 74, 59, 0.05)', borderColor: 'rgba(231, 74, 59, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(231, 74, 59, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(231, 74, 59, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Roubo de Celular', data: [0,0,0,0,0,0], backgroundColor: 'rgba(78, 115, 223, 0.05)', borderColor: 'rgba(78, 115, 223, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(78, 115, 223, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true }, { label: 'Tentativas de Roubo', data: [0,0,0,0,0,0], backgroundColor: 'rgba(75, 192, 192, 0.05)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(75, 192, 192, 1)', pointBorderColor: '#fff', pointHoverRadius: 5, pointHoverBackgroundColor: 'rgba(75, 192, 192, 1)', pointHoverBorderColor: '#fff', pointHitRadius: 10, pointBorderWidth: 2, tension: 0.3, fill: true } ] }, options: { maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top', labels: { usePointStyle: true, padding: 20, boxWidth: 12 } }, tooltip: { backgroundColor: "rgb(255,255,255)", bodyColor: "#858796", titleMarginBottom: 10, titleColor: '#6e707e', titleFontSize: 14, borderColor: '#dddfeb', borderWidth: 1, padding: 15, displayColors: false, intersect: false, mode: 'index', caretPadding: 10 } }, scales: { x: { grid: { display: false, drawBorder: false }, ticks: { color: '#858796' } }, y: { grid: { color: "rgb(234, 236, 244)", zeroLineColor: "rgb(234, 236, 244)", drawBorder: false, borderDash: [0], zeroLineBorderDash: [0] }, ticks: { color: '#858796', padding: 20, callback: function(value) { return Number.isInteger(value) ? value : ''; } } } }, interaction: { mode: 'nearest', axis: 'x', intersect: false } } }); const periodButtons = document.querySelectorAll('.crime-period-btn'); if (periodButtons) { periodButtons.forEach(button => { button.addEventListener('click', function() { periodButtons.forEach(btn => btn.classList.remove('active')); this.classList.add('active'); const period = this.dataset.period; let newLabels = []; let newData = []; switch(period) { case 'week': newLabels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']; newData = [ [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0] ]; break; case 'month': newLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun']; newData = [ [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0] ]; break; case 'year': newLabels = ['2021', '2022', '2023', '2024']; newData = [ [0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0] ]; break; } const newLegends = ['Furto', 'Roubo a Transeunte', 'Roubo de Celular', 'Tentativas de Roubo']; crimeTrendsChart.data.labels = newLabels; crimeTrendsChart.data.datasets.forEach((dataset, index) => { dataset.label = newLegends[index]; dataset.data = newData[index]; }); crimeTrendsChart.update(); }); }); } }
+function initializeNetworkEngagementChart() { const ctx = document.getElementById('networkEngagementChart'); if (!ctx) return; new Chart(ctx.getContext('2d'), { type: 'line', data: { labels: ['Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'], datasets: [{ label: 'Novos Cadastros', data: [0,0,0,0,0,0], backgroundColor: 'rgba(10, 185, 129, 0.1)', borderColor: 'rgba(10, 185, 129, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(10, 185, 129, 1)', yAxisID: 'y', tension: 0.3, fill: true }, { label: 'Alertas Gerados', data: [0,0,0,0,0,0], backgroundColor: 'rgba(245, 158, 11, 0.1)', borderColor: 'rgba(245, 158, 11, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(245, 158, 11, 1)', yAxisID: 'y1', tension: 0.3, fill: true }] }, options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: true, position: 'top' } }, scales: { x: { grid: { display: false } }, y: { type: 'linear', display: true, position: 'left', grid: { drawOnChartArea: false }, ticks: { color: '#10B981' } }, y1: { type: 'linear', display: true, position: 'right', ticks: { color: '#F59E0B' } } } } }); }
 
 // ... (código existente do painel de estatísticas, não precisa de grandes mudanças) ...
 const doughnutTextPlugin = { id: 'doughnutText', afterDraw(chart, args, options) { if (!options.text) return; const { ctx, data } = chart; const meta = chart.getDatasetMeta(0); const text = options.text; const subtext = options.subtext || ''; const x = meta.data[0]?.x || chart.width / 2; const y = meta.data[0]?.y || chart.height / 2; ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = 'bold 2rem Poppins'; ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--dark-color').trim(); ctx.fillText(text, x, y - 10); ctx.font = '0.8rem Poppins'; ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim(); ctx.fillText(subtext, x, y + 20); ctx.restore(); } };
@@ -1314,9 +1314,26 @@ function setupNotificationsDropdown() {
   });
 }
 
-function setupThemeToggle() { const themeToggle = document.querySelector('.theme-toggle'); const html = document.documentElement; if (themeToggle) { const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`; const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`; const applyTheme = () => { let theme = localStorage.getItem('theme') || 'system'; let isDark; if (theme === 'system') { isDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } else { isDark = theme === 'dark'; } if (isDark) { html.setAttribute('data-theme', 'dark'); } else { html.removeAttribute('data-theme'); } themeToggle.innerHTML = isDark ? sunIcon : moonIcon; themeToggle.setAttribute('aria-label', isDark ? 'Alternar para tema claro' : 'Alternar para tema escuro'); }; themeToggle.addEventListener('click', function() { const isDark = html.getAttribute('data-theme') === 'dark'; localStorage.setItem('theme', isDark ? 'light' : 'dark'); applyTheme(); }); window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme); applyTheme(); } }
+function setupThemeToggle() {
+  const html = document.documentElement;
+  const themeToggle = document.querySelector('.theme-toggle');
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+  localStorage.setItem('theme', 'light');
+  html.setAttribute('data-theme', 'light');
+
+  if (metaTheme) {
+    metaTheme.setAttribute('content', '#f8fbff');
+  }
+
+  if (themeToggle) {
+    themeToggle.setAttribute('hidden', 'hidden');
+    themeToggle.setAttribute('aria-hidden', 'true');
+  }
+}
+
 function setupLogout() { const logoutBtn = document.querySelector('.logout-btn'); if (logoutBtn) { logoutBtn.addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('authToken'); localStorage.removeItem('userName'); window.location.href = 'login.html'; }); } }
-function setupActivityPeriodSelector() { const periodSelector = document.getElementById('activity-period'); if (!periodSelector || !activityChart) return; const dataByPeriod = { 'Últimos 7 dias': { labels: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], datasets: [ [15, 18, 12, 20, 22, 17, 19], [10, 12, 9, 15, 18, 11, 14], [40, 45, 35, 50, 55, 42, 48], [1, 2, 1, 2, 3, 1, 2] ] }, 'Últimos 30 dias': { labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'], datasets: [ [90, 110, 95, 105], [70, 85, 75, 88], [200, 240, 210, 230], [7, 9, 8, 10] ] }, 'Este ano': { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'], datasets: [ [110, 125, 90, 95, 80, 88], [70, 85, 65, 75, 68, 78], [220, 250, 190, 200, 180, 195], [8, 11, 7, 9, 6, 7] ] } }; periodSelector.value = 'Este ano'; periodSelector.addEventListener('change', function() { const selectedPeriod = this.value; const newData = dataByPeriod[selectedPeriod]; if (newData) { activityChart.data.labels = newData.labels; activityChart.data.datasets.forEach((dataset, index) => { dataset.data = newData.datasets[index]; }); activityChart.update(); } }); }
+function setupActivityPeriodSelector() { const periodSelector = document.getElementById('activity-period'); if (!periodSelector || !activityChart) return; const dataByPeriod = { 'Últimos 7 dias': { labels: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], datasets: [ [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0] ] }, 'Últimos 30 dias': { labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'], datasets: [ [0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0] ] }, 'Este ano': { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'], datasets: [ [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0] ] } }; periodSelector.value = 'Este ano'; periodSelector.addEventListener('change', function() { const selectedPeriod = this.value; const newData = dataByPeriod[selectedPeriod]; if (newData) { activityChart.data.labels = newData.labels; activityChart.data.datasets.forEach((dataset, index) => { dataset.data = newData.datasets[index]; }); activityChart.update(); } }); }
 
 // ====================== SIMULAÇÃO DE ATIVIDADE DINÂMICA ======================
 // MODIFICADO: Agora não faz nada já que não há alertas
@@ -2434,9 +2451,9 @@ function getMessageNeighborhood(m){
 
   const s = String((m && m.subject) || '');
   const b1 = s.match(/\[(.+?)\]/);
-  if(b1) return b1[1].trim();
+  if(b1) return b1[0].trim();
   const b2 = s.match(/-\s*([A-Za-zÀ-ÿ\s]{3,})$/);
-  if(b2) return b2[1].trim();
+  if(b2) return b2[0].trim();
   return 'Geral';
 }
 
@@ -3987,4 +4004,1461 @@ function setupAlertsListRowOpenBehavior(){
 
 document.addEventListener('DOMContentLoaded', ()=>{
   try{ setupAlertsListRowOpenBehavior(); }catch(e){}
+});
+
+
+/* ================================================= */
+/* THEME ULTRA SYNC                                  */
+/* ================================================= */
+(function(){
+  function applyUltraTheme(){
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    try{
+      document.body.classList.toggle('dark-theme', isDark);
+    }catch(e){}
+
+    // Repaint charts, if Chart.js instances exist
+    try{
+      const chartFont = isDark ? '#e5e7eb' : '#334155';
+      const gridColor = isDark ? 'rgba(148,163,184,0.18)' : 'rgba(148,163,184,0.18)';
+      const chartVars = [window.activityChart, window.alertsByHourChart, window.alertsByDayChart, window.alertsByTypeAndNeighborhoodChart, window.alertsStatusChart];
+      chartVars.forEach(function(chart){
+        if(chart && chart.options){
+          if(chart.options.plugins && chart.options.plugins.legend && chart.options.plugins.legend.labels){
+            chart.options.plugins.legend.labels.color = chartFont;
+          }
+          if(chart.options.scales){
+            Object.keys(chart.options.scales).forEach(function(axis){
+              const scale = chart.options.scales[axis];
+              if(scale.ticks) scale.ticks.color = chartFont;
+              if(scale.grid) scale.grid.color = gridColor;
+              if(scale.title) scale.title.color = chartFont;
+            });
+          }
+          chart.update('none');
+        }
+      });
+    }catch(e){}
+
+    // Leaflet popups/controls repaint trigger
+    try{
+      window.dispatchEvent(new Event('resize'));
+    }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    applyUltraTheme();
+
+    const btn = document.getElementById('theme-toggle');
+    if(btn){
+      btn.addEventListener('click', function(){
+        setTimeout(applyUltraTheme, 50);
+      });
+    }
+
+    const obs = new MutationObserver(function(){
+      applyUltraTheme();
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  });
+})();
+
+/* ======================================== */
+/* BOTÕES FUNCIONAIS - VISÃO GERAL DA REDE */
+/* ======================================== */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+ const monitorBtn = document.getElementById("btn-monitoramento");
+ const trendBtn = document.getElementById("btn-tendencias");
+
+ if(monitorBtn){
+   monitorBtn.addEventListener("click", function(){
+
+     this.classList.toggle("active");
+
+     const statusCards = document.querySelectorAll(".network-status-item");
+
+     statusCards.forEach(card=>{
+        card.style.borderColor="var(--primary-color)";
+     });
+
+   });
+ }
+
+ if(trendBtn){
+   trendBtn.addEventListener("click", function(){
+
+      const chart = document.getElementById("networkEngagementChart");
+
+      if(chart){
+        chart.scrollIntoView({behavior:"smooth", block:"center"});
+      }
+
+   });
+ }
+
+});
+
+
+/* ===================================== */
+/* COMMAND CENTER INTERACTIONS           */
+/* ===================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+ const liveIndicator=document.querySelector(".network-live-indicator");
+
+ if(liveIndicator){
+   setInterval(()=>{
+      liveIndicator.style.opacity =
+        liveIndicator.style.opacity==="0.5" ? "1":"0.5";
+   },1200);
+ }
+
+});
+
+
+
+/* ================================================= */
+/* FILTROS DE ANÁLISE FUNCIONAIS                     */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const refreshBtn = document.querySelector(".stats-refresh-btn");
+  const periodSelect = document.getElementById("stats-period-filter");
+  const neighborhoodSelect = document.getElementById("stats-neighborhood-filter");
+  const typeSelect = document.getElementById("stats-type-filter");
+  const statsView = document.getElementById("statistics-view");
+
+  if(!refreshBtn || !periodSelect || !neighborhoodSelect || !typeSelect || !statsView) return;
+
+  let feedback = statsView.querySelector(".stats-filter-feedback");
+  if(!feedback){
+    feedback = document.createElement("div");
+    feedback.className = "stats-filter-feedback";
+    const filterCardBody = statsView.querySelector(".stats-filter-card .card-body");
+    if(filterCardBody){
+      filterCardBody.appendChild(feedback);
+    }
+  }
+
+  const targets = [
+    document.getElementById("stats-kpi-total"),
+    document.getElementById("stats-kpi-resolvidas"),
+    document.getElementById("stats-kpi-tempo"),
+    document.getElementById("stats-kpi-bairros"),
+    document.getElementById("stats-chart-volume"),
+    document.getElementById("stats-radar-operacional"),
+    document.getElementById("stats-chart-tipos-bairro"),
+    document.getElementById("stats-chart-status-ocorrencias")
+  ].filter(Boolean);
+
+  function translatePeriod(value){
+    const map = {
+      "7":"Últimos 7 dias",
+      "30":"Últimos 30 dias",
+      "90":"Últimos 90 dias",
+      "365":"Último Ano"
+    };
+    return map[value] || value;
+  }
+
+  function translateNeighborhood(value){
+    const map = {
+      "all":"Todos os bairros",
+      "leblon":"Leblon",
+      "ipanema":"Ipanema",
+      "jardim-botanico":"Jardim Botânico",
+      "lagoa":"Lagoa"
+    };
+    return map[value] || value;
+  }
+
+  function translateType(value){
+    const map = {
+      "all":"Todos os tipos",
+      "crime":"Crime",
+      "suspeito":"Suspeito",
+      "transito":"Trânsito",
+      "urbano":"Urbano"
+    };
+    return map[value] || value;
+  }
+
+  function clearHighlights(){
+    targets.forEach(el => el.classList.remove("stats-highlight"));
+  }
+
+  function applyHighlights(){
+    clearHighlights();
+    targets.forEach((el, idx) => {
+      setTimeout(() => el.classList.add("stats-highlight"), idx * 45);
+    });
+    setTimeout(clearHighlights, 2200);
+  }
+
+  function updateFeedback(){
+    const period = translatePeriod(periodSelect.value);
+    const neighborhood = translateNeighborhood(neighborhoodSelect.value);
+    const type = translateType(typeSelect.value);
+
+    feedback.innerHTML = `
+      Painel atualizado com os filtros:
+      <strong>${period}</strong> ·
+      <strong>${neighborhood}</strong> ·
+      <strong>${type}</strong>
+    `;
+  }
+
+  function runFilter(){
+    refreshBtn.classList.add("is-loading");
+    refreshBtn.disabled = true;
+
+    setTimeout(() => {
+      updateFeedback();
+      applyHighlights();
+      refreshBtn.classList.remove("is-loading");
+      refreshBtn.disabled = false;
+    }, 550);
+  }
+
+  refreshBtn.addEventListener("click", runFilter);
+
+  [periodSelect, neighborhoodSelect, typeSelect].forEach(el => {
+    el.addEventListener("change", updateFeedback);
+  });
+
+  updateFeedback();
+});
+
+
+/* ================================================= */
+/* FILTROS REAIS NOS GRÁFICOS                        */
+/* ================================================= */
+window.__statsRawData = {
+  labels7: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+  labels30: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+  labels90: ['Mês 1', 'Mês 2', 'Mês 3'],
+  labels365: ['T1', 'T2', 'T3', 'T4'],
+  datasets: {
+    all: {
+      all: {
+        line7: [0,0,0,0,0,0,0],
+        line30: [0,0,0,0],
+        line90: [0,0,0],
+        line365: [0,0,0,0],
+        bairroTipo: [0,0,0,0],
+        status: [0,0,0]
+      },
+      crime:    { line7:[0,0,0,0,0,0,0], line30:[0,0,0,0], line90:[0,0,0], line365:[0,0,0,0], bairroTipo:[0,0,0,0], status:[0,0,0] },
+      suspeito: { line7:[0,0,0,0,0,0,0], line30:[0,0,0,0], line90:[0,0,0], line365:[0,0,0,0], bairroTipo:[0,0,0,0], status:[0,0,0] },
+      transito: { line7:[0,0,0,0,0,0,0], line30:[0,0,0,0], line90:[0,0,0], line365:[0,0,0,0], bairroTipo:[0,0,0,0], status:[0,0,0] },
+      urbano:   { line7:[0,0,0,0,0,0,0], line30:[0,0,0,0], line90:[0,0,0], line365:[0,0,0,0], bairroTipo:[0,0,0,0], status:[0,0,0] }
+    },
+    leblon: {
+      all: {
+        line7: [0,0,0,0,0,0,0],
+        line30: [0,0,0,0],
+        line90: [0,0,0],
+        line365: [0,0,0,0],
+        bairroTipo: [0,0,0,0],
+        status: [0,0,0]
+      }
+    },
+    ipanema: {
+      all: {
+        line7: [0,0,0,0,0,0,0],
+        line30: [0,0,0,0],
+        line90: [0,0,0],
+        line365: [0,0,0,0],
+        bairroTipo: [0,0,0,0],
+        status: [0,0,0]
+      }
+    },
+    "jardim-botanico": {
+      all: {
+        line7: [0,0,0,0,0,0,0],
+        line30: [0,0,0,0],
+        line90: [0,0,0],
+        line365: [0,0,0,0],
+        bairroTipo: [0,0,0,0],
+        status: [0,0,0]
+      }
+    },
+    lagoa: {
+      all: {
+        line7: [0,0,0,0,0,0,0],
+        line30: [0,0,0,0],
+        line90: [0,0,0],
+        line365: [0,0,0,0],
+        bairroTipo: [0,0,0,0],
+        status: [0,0,0]
+      }
+    }
+  }
+};
+
+function getStatsSelectionData(period, neighborhood, type){
+  const raw = window.__statsRawData || {};
+  const dsByNeighborhood = (raw.datasets && raw.datasets[neighborhood]) || (raw.datasets && raw.datasets.all) || {};
+  const ds = dsByNeighborhood[type] || dsByNeighborhood.all || {
+    line7:[0,0,0,0,0,0,0], line30:[0,0,0,0], line90:[0,0,0], line365:[0,0,0,0], bairroTipo:[0,0,0,0], status:[0,0,0]
+  };
+
+  let labels = raw.labels30 || ['Sem 1','Sem 2','Sem 3','Sem 4'];
+  let line = ds.line30 || [0,0,0,0];
+
+  if(period === '7'){
+    labels = raw.labels7 || ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+    line = ds.line7 || [0,0,0,0,0,0,0];
+  } else if(period === '90'){
+    labels = raw.labels90 || ['Mês 1','Mês 2','Mês 3'];
+    line = ds.line90 || [0,0,0];
+  } else if(period === '365'){
+    labels = raw.labels365 || ['T1','T2','T3','T4'];
+    line = ds.line365 || [0,0,0,0];
+  }
+
+  return {
+    labels,
+    line,
+    bairroTipo: ds.bairroTipo || [0,0,0,0],
+    status: ds.status || [0,0,0]
+  };
+}
+
+function updateStatisticsChartsByFilters(period, neighborhood, type){
+  const selected = getStatsSelectionData(period, neighborhood, type);
+
+  try {
+    if(window.alertsByDayChart){
+      window.alertsByDayChart.data.labels = selected.labels;
+      if(window.alertsByDayChart.data.datasets && window.alertsByDayChart.data.datasets[0]){
+        window.alertsByDayChart.data.datasets[0].data = selected.line;
+      }
+      window.alertsByDayChart.update();
+    }
+  } catch(e) {}
+
+  try {
+    if(window.alertsByTypeAndNeighborhoodChart){
+      window.alertsByTypeAndNeighborhoodChart.data.labels = ['Crime', 'Suspeito', 'Trânsito', 'Urbano'];
+      if(window.alertsByTypeAndNeighborhoodChart.data.datasets && window.alertsByTypeAndNeighborhoodChart.data.datasets[0]){
+        window.alertsByTypeAndNeighborhoodChart.data.datasets[0].data = selected.bairroTipo;
+      }
+      window.alertsByTypeAndNeighborhoodChart.update();
+    }
+  } catch(e) {}
+
+  try {
+    if(window.alertsStatusChart){
+      window.alertsStatusChart.data.labels = ['Novo', 'Em análise', 'Resolvido'];
+      if(window.alertsStatusChart.data.datasets && window.alertsStatusChart.data.datasets[0]){
+        window.alertsStatusChart.data.datasets[0].data = selected.status;
+      }
+      window.alertsStatusChart.update();
+    }
+  } catch(e) {}
+
+  try {
+    const total = (selected.line || []).reduce((a,b)=>a+b,0);
+    const resolved = (selected.status || [0,0,0])[0] || 0;
+    const monitored = neighborhood === 'all' ? 0 : 1;
+    const avgTime = total > 0 ? '12 min' : '0 min';
+
+    const totalEl = document.querySelector('#stats-kpi-total .stat-number');
+    const resolvedEl = document.querySelector('#stats-kpi-resolvidas .stat-number');
+    const timeEl = document.querySelector('#stats-kpi-tempo .stat-number');
+    const bairrosEl = document.querySelector('#stats-kpi-bairros .stat-number');
+
+    if(totalEl) totalEl.textContent = String(total);
+    if(resolvedEl) resolvedEl.textContent = String(resolved);
+    if(timeEl) timeEl.textContent = avgTime;
+    if(bairrosEl) bairrosEl.textContent = String(monitored);
+  } catch(e) {}
+}
+
+// Integrate with existing button if present
+document.addEventListener("DOMContentLoaded", function(){
+  const refreshBtn = document.querySelector(".stats-refresh-btn");
+  const periodSelect = document.getElementById("stats-period-filter");
+  const neighborhoodSelect = document.getElementById("stats-neighborhood-filter");
+  const typeSelect = document.getElementById("stats-type-filter");
+  if(!refreshBtn || !periodSelect || !neighborhoodSelect || !typeSelect) return;
+
+  const previousHandler = refreshBtn.onclick;
+  refreshBtn.addEventListener("click", function(){
+    setTimeout(function(){
+      updateStatisticsChartsByFilters(periodSelect.value, neighborhoodSelect.value, typeSelect.value);
+    }, 120);
+  });
+
+  [periodSelect, neighborhoodSelect, typeSelect].forEach(el => {
+    el.addEventListener("change", function(){
+      updateStatisticsChartsByFilters(periodSelect.value, neighborhoodSelect.value, typeSelect.value);
+    });
+  });
+
+  setTimeout(function(){
+    updateStatisticsChartsByFilters(periodSelect.value, neighborhoodSelect.value, typeSelect.value);
+  }, 250);
+});
+
+
+/* ================================================= */
+/* SAAS PRODUCTION-LEVEL INTERACTIONS                */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const premiumBtn = document.querySelector(".saas-command-actions .btn-primary");
+  const operationBtn = document.querySelector(".saas-command-actions .btn-outline-secondary");
+  const statsView = document.getElementById("statistics-view");
+  const communityView = document.getElementById("community-view");
+
+  if(premiumBtn){
+    premiumBtn.addEventListener("click", function(){
+      document.querySelectorAll(".stat-card").forEach((card, idx) => {
+        setTimeout(() => {
+          card.classList.add("stats-highlight");
+          setTimeout(() => card.classList.remove("stats-highlight"), 1300);
+        }, idx * 60);
+      });
+    });
+  }
+
+  if(operationBtn){
+    operationBtn.addEventListener("click", function(){
+      if(communityView && !communityView.classList.contains("d-none")){
+        const target = communityView.querySelector(".network-status-card, .network-analytics-card");
+        if(target) target.scrollIntoView({behavior:"smooth", block:"center"});
+      } else if(statsView && !statsView.classList.contains("d-none")){
+        const target = statsView.querySelector(".stats-chart-card, .stats-side-card");
+        if(target) target.scrollIntoView({behavior:"smooth", block:"center"});
+      } else {
+        const firstChart = document.querySelector(".chart-container");
+        if(firstChart) firstChart.scrollIntoView({behavior:"smooth", block:"center"});
+      }
+    });
+  }
+});
+
+
+/* ================================================= */
+/* NEXT UPGRADE - DADOS DEMO E MICROINTERAÇÕES       */
+/* ================================================= */
+window.__statsRawData = {
+  labels7: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+  labels30: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+  labels90: ['Mês 1', 'Mês 2', 'Mês 3'],
+  labels365: ['T1', 'T2', 'T3', 'T4'],
+  datasets: {
+    all: {
+      all: {
+        line7: [4, 7, 5, 9, 8, 6, 10],
+        line30: [18, 26, 21, 29],
+        line90: [72, 64, 81],
+        line365: [210, 248, 232, 279],
+        bairroTipo: [18, 11, 7, 9],
+        status: [9, 6, 28]
+      },
+      crime:    { line7:[2,3,2,4,4,3,5], line30:[8,10,9,12], line90:[24,22,28], line365:[70,82,75,91], bairroTipo:[18,0,0,0], status:[6,4,8] },
+      suspeito: { line7:[1,2,1,2,1,1,2], line30:[4,5,4,6], line90:[12,11,15], line365:[36,41,39,47], bairroTipo:[0,11,0,0], status:[2,1,8] },
+      transito: { line7:[1,1,1,2,2,1,2], line30:[3,5,4,5], line90:[10,9,12], line365:[28,33,30,36], bairroTipo:[0,0,7,0], status:[1,1,6] },
+      urbano:   { line7:[0,1,1,1,1,1,1], line30:[3,6,4,6], line90:[10,8,13], line365:[31,37,34,40], bairroTipo:[0,0,0,9], status:[0,0,6] }
+    },
+    leblon: {
+      all: { line7:[2,3,2,4,3,2,4], line30:[8,10,9,11], line90:[28,24,31], line365:[80,88,84,97], bairroTipo:[8,4,2,3], status:[4,3,10] }
+    },
+    ipanema: {
+      all: { line7:[1,2,1,2,2,1,3], line30:[5,7,6,8], line90:[18,17,20], line365:[54,62,58,69], bairroTipo:[4,3,3,2], status:[2,2,8] }
+    },
+    "jardim-botanico": {
+      all: { line7:[0,1,1,1,1,1,1], line30:[3,4,3,5], line90:[12,11,14], line365:[38,41,40,45], bairroTipo:[2,2,1,2], status:[1,1,5] }
+    },
+    lagoa: {
+      all: { line7:[1,1,1,2,2,2,2], line30:[2,5,3,5], line90:[14,12,16], line365:[38,43,41,48], bairroTipo:[2,2,1,2], status:[1,0,5] }
+    }
+  }
+};
+
+function __animateCount(el, targetText){
+  if(!el) return;
+  const text = String(targetText);
+  if(text.includes('min') || text.includes('%') || text.includes('bairros')){
+    el.textContent = text;
+    return;
+  }
+  const target = parseInt(text.replace(/\D/g,''), 10);
+  if(Number.isNaN(target)){ el.textContent = text; return; }
+  const duration = 500;
+  const startTime = performance.now();
+  function tick(now){
+    const progress = Math.min((now - startTime) / duration, 1);
+    const value = Math.round(target * progress);
+    el.textContent = String(value);
+    if(progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+(function(){
+  const original = window.updateStatisticsChartsByFilters;
+  window.updateStatisticsChartsByFilters = function(period, neighborhood, type){
+    if(typeof original === "function"){
+      original(period, neighborhood, type);
+    }
+    try{
+      const raw = window.__statsRawData;
+      const dsByNeighborhood = (raw.datasets && raw.datasets[neighborhood]) || (raw.datasets && raw.datasets.all) || {};
+      const ds = dsByNeighborhood[type] || dsByNeighborhood.all || raw.datasets.all.all;
+      let line = ds.line30 || [0,0,0,0];
+      if(period === '7') line = ds.line7 || [0,0,0,0,0,0,0];
+      else if(period === '90') line = ds.line90 || [0,0,0];
+      else if(period === '365') line = ds.line365 || [0,0,0,0];
+
+      const total = (line || []).reduce((a,b)=>a+b,0);
+      const status = ds.status || [0,0,0];
+      const resolved = status[2] || 0;
+      const monitored = neighborhood === 'all' ? 9 : 1;
+      const avg = total > 0 ? '6 min' : '0 min';
+
+      __animateCount(document.querySelector('#stats-kpi-total .stat-number'), total);
+      __animateCount(document.querySelector('#stats-kpi-resolvidas .stat-number'), resolved);
+      const timeEl = document.querySelector('#stats-kpi-tempo .stat-number');
+      const bairrosEl = document.querySelector('#stats-kpi-bairros .stat-number');
+      if(timeEl) timeEl.textContent = avg;
+      if(bairrosEl) bairrosEl.textContent = String(monitored);
+
+      document.querySelectorAll('.saas-kpi-value').forEach(el => el.classList.add('saas-soft-pulse'));
+      setTimeout(() => {
+        document.querySelectorAll('.saas-kpi-value').forEach(el => el.classList.remove('saas-soft-pulse'));
+      }, 1800);
+    }catch(e){}
+  };
+})();
+
+document.addEventListener("DOMContentLoaded", function(){
+  const premiumValues = {
+    priorizados: '12',
+    resposta: '6 min',
+    resolvidos: '28',
+    cobertura: '9 bairros'
+  };
+  document.querySelectorAll('.saas-kpi-value').forEach(el => {
+    const key = el.getAttribute('data-kpi');
+    if(key && premiumValues[key] !== undefined){
+      __animateCount(el, premiumValues[key]);
+    }
+  });
+
+  // polish map controls if leaflet exists
+  try{
+    if(window.dashboardMapPreview && window.dashboardMapPreview.invalidateSize){
+      setTimeout(() => window.dashboardMapPreview.invalidateSize(), 250);
+    }
+  }catch(e){}
+});
+
+
+/* ================================================= */
+/* DEMO DATA - DASHBOARD PRINCIPAL                   */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  try{
+    const dashboardStats = document.querySelectorAll('#dashboard-view .stat-card .stat-number');
+    if(dashboardStats[0]) dashboardStats[0].textContent = '1,310';
+    if(dashboardStats[1]) dashboardStats[1].textContent = '28';
+    if(dashboardStats[2]) dashboardStats[2].textContent = '152';
+    if(dashboardStats[3]) dashboardStats[3].textContent = '15';
+
+    const resolved = document.getElementById('resolvedCount');
+    if(resolved) resolved.textContent = '28';
+
+    if(window.activityChart){
+      window.activityChart.data.labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+      if(window.activityChart.data.datasets && window.activityChart.data.datasets[0]){
+        window.activityChart.data.datasets[0].data = [9, 12, 11, 15, 18, 21, 19];
+        if(window.activityChart.data.datasets[0].label){
+          window.activityChart.data.datasets[0].label = 'Alertas recentes';
+        }
+      }
+      window.activityChart.update();
+    }
+
+    if(window.alertTypesChart){
+      window.alertTypesChart.data.labels = ['Crimes', 'Atividades suspeitas', 'Incidentes urbanos', 'Outros'];
+      if(window.alertTypesChart.data.datasets && window.alertTypesChart.data.datasets[0]){
+        window.alertTypesChart.data.datasets[0].data = [40, 25, 20, 15];
+      }
+      window.alertTypesChart.update();
+    }
+
+    if(window.crimeTrendsChart){
+      window.crimeTrendsChart.data.labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+      if(window.crimeTrendsChart.data.datasets){
+        const series = [
+          [18, 22, 19, 24],
+          [10, 13, 11, 14],
+          [6, 8, 7, 9]
+        ];
+        window.crimeTrendsChart.data.datasets.forEach((ds, idx) => {
+          ds.data = series[idx] || [8, 9, 10, 11];
+        });
+      }
+      window.crimeTrendsChart.update();
+    }
+
+    const demoPremium = {
+      priorizados: '12',
+      resposta: '6 min',
+      resolvidos: '28',
+      cobertura: '9 bairros'
+    };
+    document.querySelectorAll('.saas-kpi-value').forEach(el => {
+      const key = el.getAttribute('data-kpi');
+      if(key && demoPremium[key] !== undefined){
+        el.textContent = demoPremium[key];
+      }
+    });
+
+    const heroStats = document.querySelectorAll('.saas-command-stat strong');
+    if(heroStats[0]) heroStats[0].textContent = 'Estável';
+    if(heroStats[1]) heroStats[1].textContent = 'Production';
+    if(heroStats[2]) heroStats[2].textContent = 'Rápida';
+    if(heroStats[3]) heroStats[3].textContent = 'Moderna';
+
+    const descs = document.querySelectorAll('#dashboard-view .stat-card .stat-change');
+    if(descs[0]) descs[0].innerHTML = '<i class="fas fa-arrow-up" aria-hidden="true"></i> 62 este mês';
+    if(descs[1]) descs[1].innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Atualizado';
+    if(descs[2]) descs[2].innerHTML = '<i class="fas fa-arrow-up" aria-hidden="true"></i> 5 últimas 24h';
+    if(descs[3]) descs[3].innerHTML = '<i class="fas fa-arrow-down" aria-hidden="true"></i> 3 a menos que ontem';
+  }catch(e){
+    console.error('Erro ao aplicar demo do dashboard:', e);
+  }
+});
+
+
+/* ================================================= */
+/* FORÇAR DEMO NOS GRÁFICOS DO DASHBOARD             */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+
+  setTimeout(function(){
+
+    try{
+
+      if(window.activityChart){
+        activityChart.data.labels = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+        activityChart.data.datasets[0].data = [9,12,11,15,18,21,19];
+        activityChart.update();
+      }
+
+      if(window.alertsByTypeAndNeighborhoodChart){
+        alertsByTypeAndNeighborhoodChart.data.labels = [
+          'Crimes',
+          'Atividades suspeitas',
+          'Incidentes urbanos',
+          'Outros'
+        ];
+        alertsByTypeAndNeighborhoodChart.data.datasets[0].data = [40,25,20,15];
+        alertsByTypeAndNeighborhoodChart.update();
+      }
+
+      if(window.alertsByDayChart){
+        alertsByDayChart.data.labels = ['Sem 1','Sem 2','Sem 3','Sem 4'];
+        alertsByDayChart.data.datasets.forEach((ds,i)=>{
+          const series=[
+            [18,22,19,24],
+            [10,13,11,14],
+            [6,8,7,9]
+          ];
+          ds.data = series[i] || [8,9,10,11];
+        });
+        alertsByDayChart.update();
+      }
+
+    }catch(e){
+      console.warn("Demo charts patch error:",e);
+    }
+
+  },800);
+
+});
+
+
+/* ================================================= */
+/* CORREÇÃO DEMO - TIPOS DE ALERTAS E TENDÊNCIA      */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  setTimeout(function(){
+    try{
+      const alertTypesCanvas = document.getElementById('alertTypesChart');
+      const crimeCanvas = document.getElementById('crimeTrendsChart');
+
+      const alertTypesInstance = (window.Chart && alertTypesCanvas) ? Chart.getChart(alertTypesCanvas) : null;
+      const crimeTrendsInstance = (window.Chart && crimeCanvas) ? Chart.getChart(crimeCanvas) : null;
+
+      if(alertTypesInstance){
+        alertTypesInstance.data.labels = [
+          'Crimes',
+          'Atividades suspeitas',
+          'Incidentes urbanos',
+          'Outros'
+        ];
+        if(alertTypesInstance.data.datasets && alertTypesInstance.data.datasets[0]){
+          alertTypesInstance.data.datasets[0].data = [40, 25, 20, 15];
+        }
+        alertTypesInstance.update();
+      }
+
+      if(crimeTrendsInstance){
+        crimeTrendsInstance.data.labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+        const demoSeries = [
+          [18, 22, 19, 24],
+          [10, 13, 11, 14],
+          [6, 8, 7, 9]
+        ];
+        if(crimeTrendsInstance.data.datasets){
+          crimeTrendsInstance.data.datasets.forEach((dataset, index) => {
+            dataset.data = demoSeries[index] || [8, 9, 10, 11];
+          });
+        }
+        crimeTrendsInstance.update();
+      }
+    }catch(e){
+      console.warn('Erro ao corrigir gráficos demo:', e);
+    }
+  }, 1200);
+});
+
+
+/* ================================================= */
+/* CONSISTÊNCIA TOTAL - AJUSTE DE TÍTULOS E VIEWS    */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const viewTitles = {
+    "dashboard": "Dashboard",
+    "alerts-list": "Alertas",
+    "messages": "Caixa de Entrada",
+    "community": "Visão Geral da Rede",
+    "statistics": "Painel de Estatísticas",
+    "settings": "Configurações"
+  };
+
+  const originalShowView = window.showView;
+  if(typeof originalShowView === "function" && !window.__showViewConsistencyPatched){
+    window.showView = function(viewId){
+      originalShowView(viewId);
+      try{
+        const activeView = document.getElementById(viewId + '-view');
+        if(activeView){
+          const h1 = activeView.querySelector('.page-header h1');
+          if(h1 && viewTitles[viewId]) h1.textContent = viewTitles[viewId];
+        }
+      }catch(e){}
+    };
+    window.__showViewConsistencyPatched = true;
+  }
+});
+
+
+/* ================================================= */
+/* MICROINTERAÇÕES PREMIUM                           */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const premiumTargets = document.querySelectorAll(
+    '.stat-card, .saas-command-hero, .saas-premium-kpi, .network-command-hero, .stats-command-hero, .stats-chart-card, .network-analytics-card'
+  );
+  premiumTargets.forEach((el, idx) => {
+    setTimeout(() => {
+      el.classList.add('premium-shimmer');
+      setTimeout(() => el.classList.remove('premium-shimmer'), 1500);
+    }, idx * 70);
+  });
+
+  document.querySelectorAll('.sidebar-nav a[data-view]').forEach(link => {
+    link.addEventListener('click', function(){
+      const icon = this.querySelector('i');
+      if(icon){
+        icon.style.transform = 'scale(1.12)';
+        setTimeout(() => icon.style.transform = '', 220);
+      }
+    });
+  });
+
+  document.querySelectorAll('.btn, .network-action-btn, .saas-hero-btn, .stats-refresh-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      this.style.animation = 'premiumGlow .5s ease';
+      setTimeout(() => this.style.animation = '', 520);
+    });
+  });
+
+  const statNumbers = document.querySelectorAll('#dashboard-view .stat-number, .saas-kpi-value, .insight-value');
+  statNumbers.forEach((el, idx) => {
+    setInterval(() => {
+      el.style.transform = 'translateY(-1px)';
+      setTimeout(() => el.style.transform = '', 260);
+    }, 5000 + (idx * 350));
+  });
+});
+
+
+/* ================================================= */
+/* CONFIGURAÇÕES - INTERAÇÕES                        */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const saveBtn = document.querySelector(".settings-save-btn");
+  const resetBtn = document.querySelector(".settings-secondary-btn");
+  const feedback = document.getElementById("settings-feedback");
+  const themeSelect = document.getElementById("settings-theme");
+
+  if(saveBtn && feedback){
+    saveBtn.addEventListener("click", function(){
+      saveBtn.classList.add("is-loading");
+      saveBtn.disabled = true;
+      setTimeout(() => {
+        feedback.hidden = false;
+        feedback.textContent = "Preferências atualizadas com sucesso.";
+        saveBtn.classList.remove("is-loading");
+        saveBtn.disabled = false;
+      }, 450);
+    });
+  }
+
+  if(resetBtn && feedback){
+    resetBtn.addEventListener("click", function(){
+      const defaults = {
+        "settings-name": "Jeferson Goulart",
+        "settings-email": "jeferson@email.com",
+        "settings-city": "Garopaba - SC"
+      };
+      Object.entries(defaults).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if(el) el.value = value;
+      });
+      if(themeSelect) themeSelect.value = "Automático";
+      feedback.hidden = false;
+      feedback.textContent = "Configurações restauradas para o padrão visual.";
+    });
+  }
+});
+
+
+/* ================================================= */
+/* DEMO DATA - PAINEL DE ESTATÍSTICAS                */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  setTimeout(function(){
+    try{
+      // KPIs da página Estatísticas
+      const totalEl = document.querySelector('#stats-kpi-total .stat-number');
+      const resolvidasEl = document.querySelector('#stats-kpi-resolvidas .stat-number');
+      const tempoEl = document.querySelector('#stats-kpi-tempo .stat-number');
+      const bairrosEl = document.querySelector('#stats-kpi-bairros .stat-number');
+
+      if(totalEl) totalEl.textContent = '94';
+      if(resolvidasEl) resolvidasEl.textContent = '71';
+      if(tempoEl) tempoEl.textContent = '11 min';
+      if(bairrosEl) bairrosEl.textContent = '9';
+
+      // Radar operacional
+      const radarItems = document.querySelectorAll('.stats-radar-item strong');
+      const radarPills = document.querySelectorAll('.stats-radar-pill');
+      if(radarItems[0]) radarItems[0].textContent = 'Consistente';
+      if(radarItems[1]) radarItems[1].textContent = 'Sincronizada com demo';
+      if(radarItems[2]) radarItems[2].textContent = '4 períodos analisados';
+      if(radarItems[3]) radarItems[3].textContent = 'Painel validado';
+      if(radarPills[0]) radarPills[0].textContent = '87%';
+      if(radarPills[1]) radarPills[1].textContent = 'live';
+      if(radarPills[2]) radarPills[2].textContent = 'ativa';
+      if(radarPills[3]) radarPills[3].textContent = 'ok';
+
+      // Volume de Ocorrências ao Longo do Tempo
+      const dayCanvas = document.getElementById('alertsByDayChart');
+      const dayChart = (window.Chart && dayCanvas) ? Chart.getChart(dayCanvas) : null;
+      if(dayChart){
+        dayChart.data.labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+        if(dayChart.data.datasets){
+          const demoSeries = [
+            [18, 24, 21, 31]
+          ];
+          dayChart.data.datasets.forEach((dataset, index) => {
+            dataset.data = demoSeries[index] || [18, 24, 21, 31];
+          });
+        }
+        dayChart.update();
+      }
+
+      // Tipos de Alerta por Bairro
+      const typeCanvas = document.getElementById('alertsByTypeAndNeighborhoodChart');
+      const typeChart = (window.Chart && typeCanvas) ? Chart.getChart(typeCanvas) : null;
+      if(typeChart){
+        typeChart.data.labels = ['Crime', 'Suspeito', 'Trânsito', 'Urbano'];
+        if(typeChart.data.datasets && typeChart.data.datasets[0]){
+          typeChart.data.datasets[0].data = [34, 22, 18, 20];
+        }
+        typeChart.update();
+      }
+
+      // Status das Ocorrências
+      const statusCanvas = document.getElementById('alertsStatusChart');
+      const statusChart = (window.Chart && statusCanvas) ? Chart.getChart(statusCanvas) : null;
+      if(statusChart){
+        statusChart.data.labels = ['Novo', 'Em análise', 'Resolvido'];
+        if(statusChart.data.datasets && statusChart.data.datasets[0]){
+          statusChart.data.datasets[0].data = [12, 11, 71];
+        }
+        statusChart.update();
+      }
+
+      // Também atualiza a estrutura de filtros reais para os demos iniciais
+      window.__statsRawData = {
+        labels7: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        labels30: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+        labels90: ['Mês 1', 'Mês 2', 'Mês 3'],
+        labels365: ['T1', 'T2', 'T3', 'T4'],
+        datasets: {
+          all: {
+            all: {
+              line7: [9, 11, 13, 15, 17, 14, 15],
+              line30: [18, 24, 21, 31],
+              line90: [59, 67, 74],
+              line365: [180, 214, 228, 251],
+              bairroTipo: [34, 22, 18, 20],
+              status: [12, 11, 71]
+            },
+            crime:    { line7:[4,5,6,7,8,7,8], line30:[9,11,10,14], line90:[28,31,35], line365:[81,95,99,112], bairroTipo:[34,0,0,0], status:[5,4,25] },
+            suspeito: { line7:[2,2,3,3,4,3,5], line30:[4,5,5,8], line90:[13,16,18], line365:[39,44,50,57], bairroTipo:[0,22,0,0], status:[3,2,17] },
+            transito: { line7:[1,2,2,3,3,2,2], line30:[3,4,3,8], line90:[10,9,12], line365:[31,34,37,42], bairroTipo:[0,0,18,0], status:[2,2,14] },
+            urbano:   { line7:[2,2,2,2,2,2,0], line30:[2,4,3,1], line90:[8,11,9], line365:[29,41,42,40], bairroTipo:[0,0,0,20], status:[2,3,15] }
+          },
+          leblon: {
+            all: { line7:[3,4,4,5,6,5,6], line30:[8,9,8,12], line90:[22,24,27], line365:[60,69,72,80], bairroTipo:[12,7,5,6], status:[4,3,21] }
+          },
+          ipanema: {
+            all: { line7:[2,3,3,4,4,3,4], line30:[5,7,6,8], line90:[16,19,22], line365:[46,58,61,66], bairroTipo:[8,6,5,5], status:[3,3,18] }
+          },
+          "jardim-botanico": {
+            all: { line7:[1,1,2,2,3,2,2], line30:[3,4,3,5], line90:[10,11,12], line365:[28,33,36,40], bairroTipo:[5,4,4,4], status:[2,2,12] }
+          },
+          lagoa: {
+            all: { line7:[1,2,2,2,2,2,3], line30:[2,4,4,6], line90:[11,13,13], line365:[31,34,39,44], bairroTipo:[5,5,4,5], status:[2,1,11] }
+          }
+        }
+      };
+
+      if (typeof window.updateStatisticsChartsByFilters === 'function') {
+        const periodSelect = document.getElementById('stats-period-filter');
+        const neighborhoodSelect = document.getElementById('stats-neighborhood-filter');
+        const typeSelect = document.getElementById('stats-type-filter');
+        window.updateStatisticsChartsByFilters(
+          periodSelect ? periodSelect.value : '30',
+          neighborhoodSelect ? neighborhoodSelect.value : 'all',
+          typeSelect ? typeSelect.value : 'all'
+        );
+      }
+    } catch(e){
+      console.warn('Erro ao aplicar demo em Estatísticas:', e);
+    }
+  }, 900);
+});
+
+
+/* ================================================= */
+/* FIX DEMO - ESTATÍSTICAS COM DADOS REAIS DE EXIBIÇÃO */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  setTimeout(function(){
+    try{
+      const now = new Date();
+      const dayOffsets = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28];
+      const typeCycle = ['danger','info','warning','success'];
+      const statusCycle = ['novo','investigando','resolvido'];
+
+      const demoNeighborhoods = [
+        'Leblon - Av. Ataulfo de Paiva',
+        'Ipanema - Rua Visconde de Pirajá',
+        'Jardim Botânico - Rua Jardim Botânico',
+        'Lagoa - Av. Epitácio Pessoa'
+      ];
+
+      const demoAlerts = dayOffsets.map((d, idx) => {
+        const date = new Date(now);
+        date.setDate(now.getDate() - d);
+        date.setHours((8 + (idx % 11)), (idx * 7) % 60, 0, 0);
+        return {
+          id: 9000 + idx,
+          time: date,
+          type: typeCycle[idx % typeCycle.length],
+          status: statusCycle[idx % statusCycle.length],
+          location: demoNeighborhoods[idx % demoNeighborhoods.length]
+        };
+      });
+
+      if (typeof alertsData !== 'undefined' && Array.isArray(alertsData)) {
+        alertsData = demoAlerts;
+      }
+
+      const filteredData = demoAlerts;
+
+      if (typeof updateAlertsByDayChart === 'function') {
+        updateAlertsByDayChart(filteredData);
+      }
+
+      if (typeof updateAlertsStatusChart === 'function') {
+        updateAlertsStatusChart(filteredData);
+      }
+
+      if (typeof updateAlertsByTypeAndNeighborhoodChart === 'function') {
+        updateAlertsByTypeAndNeighborhoodChart(filteredData);
+      }
+
+      // Ajuste fino para os textos dos cabeçalhos permanecerem coerentes
+      const subtitleCards = document.querySelectorAll('#statistics-view .stats-card-subtitle');
+      if(subtitleCards[0]) subtitleCards[0].textContent = 'Visualização principal para identificar picos, sazonalidade e volume operacional.';
+      if(subtitleCards[1]) subtitleCards[1].textContent = 'Resumo visual com sinais da operação, integração e maturidade do monitoramento.';
+      if(subtitleCards[2]) subtitleCards[2].textContent = 'Comparativo demo entre categorias de incidente por região monitorada.';
+      if(subtitleCards[3]) subtitleCards[3].textContent = 'Distribuição demo das ocorrências por estágio operacional.';
+    }catch(e){
+      console.warn('Erro ao forçar demo em Estatísticas:', e);
+    }
+  }, 1400);
+});
+
+/* ================================================= */
+/* ECOSSISTEMA DEMO COERENTE E PREMIUM               */
+/* ================================================= */
+window.__premiumDemoEcosystem = {
+  dashboard: {
+    kpis: { cadastros: 1310, finalizadas: 71, alertas30d: 94, ativos: 23 },
+    premium: { priorizados: 12, resposta: "6 min", resolvidos: 28, cobertura: "9 bairros" },
+    activity: {
+      labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+      alertas: [18, 24, 21, 31, 29, 27, 22],
+      resolvidos: [10, 14, 13, 18, 17, 16, 15],
+      interacoes: [34, 42, 39, 51, 48, 45, 40]
+    },
+    tipos: { labels: ['Crimes', 'Atividades suspeitas', 'Incidentes urbanos', 'Outros'], values: [34, 22, 20, 24] },
+    crimes: { labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'], series: [[18, 22, 19, 24], [10, 13, 11, 14], [6, 8, 7, 9]] }
+  },
+  statistics: {
+    kpis: { total: 94, resolvidas: 71, tempo: '11 min', bairros: 9 },
+    radar: [
+      {value:'Consistente', pill:'87%'},
+      {value:'Sincronizada com demo', pill:'live'},
+      {value:'4 períodos analisados', pill:'ativa'},
+      {value:'Painel validado', pill:'ok'}
+    ],
+    volumeLabels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+    volume30: [18, 24, 21, 31],
+    bairroTipo: [34, 22, 18, 20],
+    status: [12, 11, 71],
+    filtersData: {
+      labels7: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+      labels30: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+      labels90: ['Mês 1', 'Mês 2', 'Mês 3'],
+      labels365: ['T1', 'T2', 'T3', 'T4'],
+      datasets: {
+        all: {
+          all: {
+            line7: [9, 11, 13, 15, 17, 14, 15],
+            line30: [18, 24, 21, 31],
+            line90: [59, 67, 74],
+            line365: [180, 214, 228, 251],
+            bairroTipo: [34, 22, 18, 20],
+            status: [12, 11, 71]
+          },
+          crime:    { line7:[4,5,6,7,8,7,8], line30:[9,11,10,14], line90:[28,31,35], line365:[81,95,99,112], bairroTipo:[34,0,0,0], status:[5,4,25] },
+          suspeito: { line7:[2,2,3,3,4,3,5], line30:[4,5,5,8], line90:[13,16,18], line365:[39,44,50,57], bairroTipo:[0,22,0,0], status:[3,2,17] },
+          transito: { line7:[1,2,2,3,3,2,2], line30:[3,4,3,8], line90:[10,9,12], line365:[31,34,37,42], bairroTipo:[0,0,18,0], status:[2,2,14] },
+          urbano:   { line7:[2,2,2,2,2,2,0], line30:[2,4,3,1], line90:[8,11,9], line365:[29,41,42,40], bairroTipo:[0,0,0,20], status:[2,3,15] }
+        },
+        leblon: { all: { line7:[3,4,4,5,6,5,6], line30:[8,9,8,12], line90:[22,24,27], line365:[60,69,72,80], bairroTipo:[12,7,5,6], status:[4,3,21] } },
+        ipanema: { all: { line7:[2,3,3,4,4,3,4], line30:[5,7,6,8], line90:[16,19,22], line365:[46,58,61,66], bairroTipo:[8,6,5,5], status:[3,3,18] } },
+        "jardim-botanico": { all: { line7:[1,1,2,2,3,2,2], line30:[3,4,3,5], line90:[10,11,12], line365:[28,33,36,40], bairroTipo:[5,4,4,4], status:[2,2,12] } },
+        lagoa: { all: { line7:[1,2,2,2,2,2,3], line30:[2,4,4,6], line90:[11,13,13], line365:[31,34,39,44], bairroTipo:[5,5,4,5], status:[2,1,11] } }
+      }
+    }
+  }
+};
+
+function __applyDashboardDemoEcosystem(){
+  const eco = window.__premiumDemoEcosystem.dashboard;
+  try{
+    const nums = document.querySelectorAll('#dashboard-view .stat-card .stat-number');
+    if(nums[0]) nums[0].textContent = String(eco.kpis.cadastros.toLocaleString('pt-BR'));
+    if(nums[1]) nums[1].textContent = String(eco.kpis.finalizadas);
+    if(nums[2]) nums[2].textContent = String(eco.kpis.alertas30d);
+    if(nums[3]) nums[3].textContent = String(eco.kpis.ativos);
+
+    const changes = document.querySelectorAll('#dashboard-view .stat-card .stat-change');
+    if(changes[0]) changes[0].innerHTML = '<i class="fas fa-arrow-up" aria-hidden="true"></i> 62 este mês';
+    if(changes[1]) changes[1].innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 71 resolvidas';
+    if(changes[2]) changes[2].innerHTML = '<i class="fas fa-chart-column" aria-hidden="true"></i> 31 no pico semanal';
+    if(changes[3]) changes[3].innerHTML = '<i class="fas fa-layer-group" aria-hidden="true"></i> 23 em análise agora';
+
+    document.querySelectorAll('.saas-kpi-value').forEach(el => {
+      const key = el.getAttribute('data-kpi');
+      if(key && eco.premium[key] !== undefined) el.textContent = eco.premium[key];
+    });
+
+    if(window.activityChart){
+      window.activityChart.data.labels = eco.activity.labels;
+      if(window.activityChart.data.datasets[0]) window.activityChart.data.datasets[0].data = eco.activity.alertas;
+      if(window.activityChart.data.datasets[1]) window.activityChart.data.datasets[1].data = eco.activity.resolvidos;
+      if(window.activityChart.data.datasets[2]) window.activityChart.data.datasets[2].data = eco.activity.interacoes;
+      window.activityChart.update();
+    }
+
+    const alertTypesCanvas = document.getElementById('alertTypesChart');
+    const alertTypesInstance = (window.Chart && alertTypesCanvas) ? Chart.getChart(alertTypesCanvas) : null;
+    if(alertTypesInstance){
+      alertTypesInstance.data.labels = eco.tipos.labels;
+      if(alertTypesInstance.data.datasets[0]) alertTypesInstance.data.datasets[0].data = eco.tipos.values;
+      alertTypesInstance.update();
+    }
+
+    const crimeCanvas = document.getElementById('crimeTrendsChart');
+    const crimeInstance = (window.Chart && crimeCanvas) ? Chart.getChart(crimeCanvas) : null;
+    if(crimeInstance){
+      crimeInstance.data.labels = eco.crimes.labels;
+      if(crimeInstance.data.datasets){
+        eco.crimes.series.forEach((series, i) => {
+          if(crimeInstance.data.datasets[i]) crimeInstance.data.datasets[i].data = series;
+        });
+      }
+      crimeInstance.update();
+    }
+  }catch(e){ console.warn('Erro no ecossistema demo do dashboard:', e); }
+}
+
+function __applyStatisticsDemoEcosystem(){
+  const eco = window.__premiumDemoEcosystem.statistics;
+  try{
+    const totalEl = document.querySelector('#stats-kpi-total .stat-number');
+    const resolvidasEl = document.querySelector('#stats-kpi-resolvidas .stat-number');
+    const tempoEl = document.querySelector('#stats-kpi-tempo .stat-number');
+    const bairrosEl = document.querySelector('#stats-kpi-bairros .stat-number');
+    if(totalEl) totalEl.textContent = String(eco.kpis.total);
+    if(resolvidasEl) resolvidasEl.textContent = String(eco.kpis.resolvidas);
+    if(tempoEl) tempoEl.textContent = eco.kpis.tempo;
+    if(bairrosEl) bairrosEl.textContent = String(eco.kpis.bairros);
+
+    const radarItems = document.querySelectorAll('.stats-radar-item strong');
+    const radarPills = document.querySelectorAll('.stats-radar-pill');
+    eco.radar.forEach((item, idx) => {
+      if(radarItems[idx]) radarItems[idx].textContent = item.value;
+      if(radarPills[idx]) radarPills[idx].textContent = item.pill;
+    });
+
+    window.__statsRawData = eco.filtersData;
+
+    const periodSelect = document.getElementById('stats-period-filter');
+    const neighborhoodSelect = document.getElementById('stats-neighborhood-filter');
+    const typeSelect = document.getElementById('stats-type-filter');
+    if(typeof window.updateStatisticsChartsByFilters === 'function'){
+      window.updateStatisticsChartsByFilters(
+        periodSelect ? periodSelect.value : '30',
+        neighborhoodSelect ? neighborhoodSelect.value : 'all',
+        typeSelect ? typeSelect.value : 'all'
+      );
+    }
+
+    const filterBody = document.querySelector('#statistics-view .stats-filter-card .card-body');
+    if(filterBody && !filterBody.querySelector('.demo-coherence-note')){
+      const note = document.createElement('div');
+      note.className = 'demo-coherence-note';
+      note.textContent = 'Os gráficos demo foram alinhados com os KPIs e os filtros para manter uma narrativa visual coerente.';
+      filterBody.appendChild(note);
+    }
+  }catch(e){ console.warn('Erro no ecossistema demo de estatísticas:', e); }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  setTimeout(() => {
+    __applyDashboardDemoEcosystem();
+    __applyStatisticsDemoEcosystem();
+  }, 1200);
+});
+
+
+/* ================================================= */
+/* SEGURANÇA - INTERAÇÕES FUNCIONAIS                 */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const feedback = document.getElementById("security-feedback");
+  const passwordBtn = document.getElementById("security-change-password-btn");
+  const sessionsBtn = document.getElementById("security-sessions-btn");
+  const twoFABtn = document.getElementById("security-2fa-btn");
+
+  function clearSecurityHighlights(){
+    document.querySelectorAll(".settings-security-item").forEach(item => item.classList.remove("is-active"));
+  }
+
+  function showSecurityFeedback(message){
+    if(!feedback) return;
+    feedback.hidden = false;
+    feedback.textContent = message;
+  }
+
+  function runSecurityAction(btn, message, afterText){
+    if(!btn) return;
+    const item = btn.closest(".settings-security-item");
+    clearSecurityHighlights();
+    if(item) item.classList.add("is-active");
+    btn.classList.add("is-loading");
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.classList.remove("is-loading");
+      btn.disabled = false;
+      if(afterText) btn.textContent = afterText;
+      showSecurityFeedback(message);
+    }, 450);
+  }
+
+  if(passwordBtn){
+    passwordBtn.addEventListener("click", function(){
+      runSecurityAction(
+        passwordBtn,
+        "Fluxo de troca de senha preparado. Próximo passo: conectar com backend/autenticação.",
+        "Pronto"
+      );
+    });
+  }
+
+  if(sessionsBtn){
+    sessionsBtn.addEventListener("click", function(){
+      runSecurityAction(
+        sessionsBtn,
+        "Sessões ativas revisadas. A tela está pronta para listar dispositivos conectados.",
+        "Revisado"
+      );
+    });
+  }
+
+  if(twoFABtn){
+    twoFABtn.addEventListener("click", function(){
+      runSecurityAction(
+        twoFABtn,
+        "Autenticação em duas etapas habilitada no demo. Pronto para integrar com verificação real.",
+        "Ativado"
+      );
+    });
+  }
+});
+
+/* ================================================= */
+/* FOTO DE PERFIL - UPLOAD E PREVIEW                 */
+/* ================================================= */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  const uploadBtn = document.getElementById("profile-photo-upload-btn");
+  const removeBtn = document.getElementById("profile-photo-remove-btn");
+  const fileInput = document.getElementById("profile-photo-input");
+  const img = document.getElementById("profile-photo-img");
+
+  if(uploadBtn && fileInput){
+    uploadBtn.addEventListener("click", () => fileInput.click());
+  }
+
+  if(fileInput){
+    fileInput.addEventListener("change", function(){
+      const file = this.files[0];
+      if(!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e){
+        img.src = e.target.result;
+        localStorage.setItem("profilePhoto", e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if(removeBtn){
+    removeBtn.addEventListener("click", function(){
+      img.src = "https://i.pravatar.cc/120?img=12";
+      localStorage.removeItem("profilePhoto");
+    });
+  }
+
+  const saved = localStorage.getItem("profilePhoto");
+  if(saved && img){
+    img.src = saved;
+  }
+
+});
+
+/* ================================================= */
+/* SIDEBAR - SINCRONIA DE FOTO/NOME                  */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const sidebarImg = document.getElementById("sidebar-profile-img");
+  const sidebarName = document.getElementById("sidebar-profile-name");
+  const sidebarRole = document.getElementById("sidebar-profile-role");
+
+  const profileImg = document.getElementById("profile-photo-img");
+  const profileInput = document.getElementById("profile-photo-input");
+  const removeBtn = document.getElementById("profile-photo-remove-btn");
+
+  const nameInput = document.getElementById("settings-name");
+  const roleSelect = document.getElementById("settings-role");
+  const saveBtn = document.querySelector(".settings-save-btn");
+
+  const defaultAvatar = "https://i.pravatar.cc/120?img=12";
+
+  function syncSidebarFromStorage(){
+    try{
+      const savedPhoto = localStorage.getItem("profilePhoto");
+      const savedName = localStorage.getItem("profileName");
+      const savedRole = localStorage.getItem("profileRole");
+
+      if(sidebarImg){
+        sidebarImg.src = savedPhoto || defaultAvatar;
+      }
+      if(profileImg && savedPhoto){
+        profileImg.src = savedPhoto;
+      }
+      if(sidebarName && savedName){
+        sidebarName.textContent = savedName;
+      }
+      if(nameInput && savedName){
+        nameInput.value = savedName;
+      }
+      if(sidebarRole && savedRole){
+        sidebarRole.textContent = savedRole;
+      }
+      if(roleSelect && savedRole){
+        const options = Array.from(roleSelect.options);
+        const found = options.find(opt => opt.textContent.trim() === savedRole);
+        if(found) roleSelect.value = found.value;
+      }
+    }catch(e){}
+  }
+
+  syncSidebarFromStorage();
+
+  if(profileInput){
+    profileInput.addEventListener("change", function(){
+      const file = this.files && this.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e){
+        const data = e.target.result;
+        if(profileImg) profileImg.src = data;
+        if(sidebarImg) sidebarImg.src = data;
+        localStorage.setItem("profilePhoto", data);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if(removeBtn){
+    removeBtn.addEventListener("click", function(){
+      if(profileImg) profileImg.src = defaultAvatar;
+      if(sidebarImg) sidebarImg.src = defaultAvatar;
+      localStorage.removeItem("profilePhoto");
+    });
+  }
+
+  if(saveBtn){
+    saveBtn.addEventListener("click", function(){
+      if(nameInput){
+        const newName = nameInput.value.trim() || "Jeferson Goulart";
+        localStorage.setItem("profileName", newName);
+        if(sidebarName) sidebarName.textContent = newName;
+      }
+      if(roleSelect){
+        const role = roleSelect.options[roleSelect.selectedIndex]?.textContent?.trim() || "Usuário";
+        localStorage.setItem("profileRole", role);
+        if(sidebarRole) sidebarRole.textContent = role;
+      }
+    });
+  }
+});
+
+/* ================================================= */
+/* PERFIL / REGIÃO - AJUSTE MODELO SAAS              */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+
+  // Renomear rótulos
+  document.querySelectorAll("label, .form-label").forEach(el=>{
+    if(el.textContent.trim() === "Perfil no sistema"){
+      el.textContent = "Nível de acesso";
+    }
+    if(el.textContent.trim() === "Cidade"){
+      el.textContent = "Região de Monitoramento";
+    }
+  });
+
+  // Tornar campo de perfil somente leitura
+  const roleField = document.querySelector("#settings-role");
+  if(roleField){
+    roleField.disabled = true;
+    roleField.classList.add("account-access-badge");
+  }
+
+  // Cidade continua editável (região)
+  const cityField = document.querySelector("#settings-city");
+  if(cityField){
+    cityField.placeholder = "Ex: Garopaba, SC";
+  }
+
+});
+
+/* ================================================= */
+/* SAAS PRODUCTION-LEVEL - PERFIL SYNC VISUAL        */
+/* ================================================= */
+document.addEventListener("DOMContentLoaded", function(){
+  const mainPreview = document.getElementById("profile-photo-img");
+  const shellPreview = document.getElementById("settings-account-avatar-preview");
+  const nameInput = document.getElementById("settings-name");
+  const cityInput = document.getElementById("settings-city");
+
+  function syncAccountShell(){
+    const savedPhoto = localStorage.getItem("profilePhoto");
+    const savedName = localStorage.getItem("profileName");
+    const shellName = document.querySelector(".settings-account-identity strong");
+    const shellSub = document.querySelector(".settings-account-identity small");
+
+    const finalName = (nameInput && nameInput.value.trim()) || savedName || "Jeferson Goulart";
+    const finalCity = (cityInput && cityInput.value.trim()) || "Garopaba, SC";
+
+    if(shellName) shellName.textContent = finalName;
+    if(shellSub) shellSub.textContent = "Usuário da Comunidade · " + finalCity;
+
+    if(shellPreview){
+      if(savedPhoto){
+        shellPreview.src = savedPhoto;
+      } else if(mainPreview && mainPreview.src){
+        shellPreview.src = mainPreview.src;
+      }
+    }
+  }
+
+  syncAccountShell();
+
+  const saveBtn = document.querySelector(".settings-save-btn");
+  if(saveBtn){
+    saveBtn.addEventListener("click", function(){
+      setTimeout(syncAccountShell, 50);
+    });
+  }
+
+  const uploadInput = document.getElementById("profile-photo-input");
+  if(uploadInput){
+    uploadInput.addEventListener("change", function(){
+      setTimeout(syncAccountShell, 80);
+    });
+  }
+
+  const removeBtn = document.getElementById("profile-photo-remove-btn");
+  if(removeBtn){
+    removeBtn.addEventListener("click", function(){
+      setTimeout(syncAccountShell, 80);
+    });
+  }
 });
