@@ -22,7 +22,7 @@
 
 ## 📸 Preview
 
-> Adicione aqui uma imagem ou GIF do seu dashboard
+![preview png](https://github.com/user-attachments/assets/bd1e01b0-21ef-4ec1-be98-e489c419a0e4)
 
 ```md
 ![preview png](https://github.com/user-attachments/assets/99084ce2-dba5-47b8-b83d-40893b8c952e)
