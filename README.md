@@ -1,248 +1,196 @@
+# 🚨 Comunidade Alerta
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Comunidade%20Alerta-SaaS%20Dashboard-6366F1?style=for-the-badge" />
+  <strong>Dashboard SaaS para monitoramento, análise e inteligência de alertas comunitários</strong>
 </p>
 
-<h1 align="center">🚨 Comunidade Alerta</h1>
-
 <p align="center">
-Dashboard SaaS para monitoramento, análise e comunicação de alertas comunitários em tempo real.
+  Interface moderna inspirada em plataformas como Datadog, Vercel, Linear e Notion
 </p>
 
 <p align="center">
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-blue)
-![JavaScript](https://img.shields.io/badge/javascript-ES6-yellow)
 ![Frontend](https://img.shields.io/badge/frontend-HTML%20%7C%20CSS%20%7C%20JS-orange)
+![UI](https://img.shields.io/badge/UI-SaaS%20Dashboard-0ea5e9)
+![Charts](https://img.shields.io/badge/charts-Chart.js-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 </p>
 
 ---
 
-# 🧠 Sobre o Projeto
+## 📸 Preview
 
-**Comunidade Alerta** é um **dashboard SaaS inspirado em plataformas profissionais** de monitoramento operacional.
+> Adicione aqui uma imagem ou GIF do seu dashboard
 
-O objetivo é criar um **centro de inteligência comunitária**, permitindo:
-
-• monitoramento de ocorrências  
-• análise de dados operacionais  
-• comunicação entre participantes  
-• visualização de alertas em tempo real  
-
-Este projeto foi desenvolvido como **projeto de portfólio profissional**.
-
-Inspirado em produtos como:
-
-- Datadog
-- Linear
-- Vercel
-- Supabase
-- Notion Analytics
-
----
-
-# 🖥️ Interface do Sistema
-
-## Dashboard
-
-Centro operacional com leitura rápida da situação da rede.
-
-Indicadores principais:
-
-- alertas priorizados
-- tempo médio de resposta
-- incidentes resolvidos
-- cobertura da rede
-- atividade recente
-
----
-
-## 🌐 Rede
-
-Monitoramento da comunidade conectada.
-
-- participantes ativos
-- engajamento da rede
-- status operacional
-- insights estratégicos
-
----
-
-## 📊 Estatísticas
-
-Análise de dados e tendências.
-
-- volume de ocorrências
-- tipos de alerta
-- radar operacional
-- status das ocorrências
-- filtros analíticos
-
----
-
-## ✉️ Caixa de Entrada
-
-Sistema de mensagens internas.
-
-- alertas urgentes
-- comunicados da comunidade
-- notificações operacionais
-
----
-
-## ⚙️ Configurações
-
-Gerenciamento de conta.
-
-- foto de perfil
-- preferências do usuário
-- segurança da conta
-- autenticação em duas etapas
-
----
-
-# 🏗️ Arquitetura do Projeto
-
-Estrutura atual:
-
+```md
+![Preview](C:\Users\Jefferson Goulart\Downloads\Nova pasta\frontend\img)
 ```
-dashboard/
-│
+
+---
+
+## ✨ Sobre o projeto
+
+O **Comunidade Alerta** é um dashboard com proposta **SaaS production-level**, desenvolvido para simular um centro operacional de monitoramento, análise e inteligência comunitária.
+
+O sistema foi pensado para transmitir a sensação de um **produto real**, com foco em:
+
+* leitura rápida de dados
+* visual moderno e consistente
+* tomada de decisão baseada em métricas
+* experiência fluida e profissional
+
+Este projeto faz parte do meu **portfólio**, com foco em UI/UX, frontend e arquitetura de produto.
+
+---
+
+## 🧠 Inspirações
+
+Este projeto foi inspirado em produtos como:
+
+* Datadog
+* Vercel
+* Linear
+* Supabase
+* Notion Analytics
+
+---
+
+## 🖥️ Módulos do sistema
+
+### 📊 Dashboard
+
+Centro operacional com visão geral da rede:
+
+* alertas priorizados
+* tempo médio de resposta
+* incidentes resolvidos
+* atividade recente
+* tendência de ocorrências
+
+---
+
+### 🌐 Rede
+
+Monitoramento da comunidade:
+
+* participantes ativos
+* engajamento da rede
+* status operacional
+* insights estratégicos
+
+---
+
+### 📈 Estatísticas
+
+Análise de dados e comportamento:
+
+* volume de ocorrências
+* tipos de alertas
+* radar operacional
+* status das ocorrências
+
+---
+
+### ✉️ Caixa de Entrada
+
+Sistema interno de comunicação:
+
+* notificações
+* alertas urgentes
+* mensagens operacionais
+
+---
+
+### ⚙️ Configurações
+
+Gerenciamento de conta:
+
+* perfil do usuário
+* preferências
+* segurança
+* autenticação em duas etapas
+
+---
+
+## 🏗️ Estrutura do projeto
+
+```bash
+frontend/
 ├── dashboard.html
-├── dashboard.css
-├── dashboard.js
-│
-├── assets/
-│   ├── icons
-│   ├── images
-│   └── styles
-│
-└── components/
-    ├── charts
-    ├── cards
-    └── layout
-```
-
-Arquitetura preparada para:
-
-```
-Frontend
-   │
-   ├── Dashboard UI
-   ├── Charts
-   └── Alert Interface
-
-Backend (planejado)
-   │
-   ├── Node.js
-   ├── Express API
-   ├── JWT Auth
-   └── Database
+├── css/
+│   └── dashboard.css
+├── js/
+│   └── dashboard.js
+└── img/
 ```
 
 ---
 
-# 🛠️ Tecnologias
+## 🛠️ Tecnologias utilizadas
 
-Frontend
+### Frontend
 
-- HTML5
-- CSS3
-- JavaScript
+* HTML5
+* CSS3
+* JavaScript
 
-Bibliotecas
+### Bibliotecas
 
-- Chart.js
-- Font Awesome
-
-Futuras integrações:
-
-- Node.js
-- Express
-- API REST
-- JWT Authentication
-- Banco de dados
+* Chart.js
+* Font Awesome
 
 ---
 
-# 🚀 Como Executar
+## 🚀 Como executar
 
 Clone o repositório:
 
 ```bash
 git clone https://github.com/seu-usuario/comunidade-alerta
-```
-
-Entre na pasta:
-
-```bash
 cd comunidade-alerta
 ```
 
-Abra:
+Abra no navegador:
 
+```bash
+frontend/dashboard.html
 ```
-dashboard.html
-```
-
-no navegador.
 
 ---
 
-# 📍 Roadmap
+## 📍 Roadmap
 
-Próximas evoluções planejadas:
-
-- [ ] Backend Node.js
-- [ ] API de alertas
-- [ ] autenticação JWT
-- [ ] banco de dados
-- [ ] mapa em tempo real
-- [ ] notificações push
-- [ ] painel administrativo
-- [ ] sistema de reputação da comunidade
+* [ ] Backend com Node.js
+* [ ] API REST de alertas
+* [ ] Autenticação com JWT
+* [ ] Banco de dados
+* [ ] Atualização em tempo real
+* [ ] Mapa interativo
+* [ ] Notificações push
 
 ---
 
-# 🎯 Objetivo do Projeto
+## 🎯 Objetivo do projeto
 
-Este projeto foi criado para:
+Este projeto foi desenvolvido para:
 
-- demonstrar habilidades em desenvolvimento web
-- construir dashboards SaaS modernos
-- simular um produto real de tecnologia
-- compor portfólio profissional
+* demonstrar habilidades em desenvolvimento web
+* criar interfaces SaaS modernas
+* simular um produto real
+* compor portfólio profissional
 
 ---
 
-# 👨‍💻 Autor
+## 👨‍💻 Autor
 
 **Jeferson Barcellos Goulart**
-
-📍 Garopaba — SC  
-🎓 Sistemas de Informação — Unisul  
-
-Interesses:
-
-- desenvolvimento web
-- arquitetura de software
-- produtos SaaS
-- inovação tecnológica
+📍 Garopaba — SC
+🎓 Sistemas de Informação — Unisul
 
 ---
 
-# ⭐ Contribuição
-
-Contribuições são bem‑vindas.
-
-1. Fork o projeto
-2. Crie uma branch
-3. Envie um Pull Request
-
----
-
-# 📄 Licença
+## 📄 Licença
 
 Este projeto está sob licença **MIT**.
