@@ -23,7 +23,7 @@
 ## 🎥 Preview do sistema
 
 <p align="center">
-  <img src="./img/dashboard.gif" alt="Dashboard Comunidade Alerta" width="100%">
+  <img src="./img/preview.gif" alt="Dashboard Comunidade Alerta" width="100%">
 </p>
 
 ---
