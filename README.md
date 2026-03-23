@@ -25,7 +25,7 @@
 > Adicione aqui uma imagem ou GIF do seu dashboard
 
 ```md
-![preview png](https://github.com/user-attachments/assets/4ec17556-adcd-4045-8ecd-7a5fb93cbcba)
+![preview png](https://github.com/user-attachments/assets/99084ce2-dba5-47b8-b83d-40893b8c952e)
 
 ```
 
