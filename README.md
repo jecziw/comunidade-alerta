@@ -25,7 +25,8 @@
 > Adicione aqui uma imagem ou GIF do seu dashboard
 
 ```md
-![Preview](C:\Users\Jefferson Goulart\Downloads\Nova pasta\frontend\img)
+![preview png](https://github.com/user-attachments/assets/4ec17556-adcd-4045-8ecd-7a5fb93cbcba)
+
 ```
 
 ---
