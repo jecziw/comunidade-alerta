@@ -24,8 +24,6 @@
 
 ![preview png](https://github.com/user-attachments/assets/bd1e01b0-21ef-4ec1-be98-e489c419a0e4)
 
-```md
-
 ```
 
 ---
