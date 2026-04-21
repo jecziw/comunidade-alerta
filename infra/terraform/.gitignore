@@ -1,0 +1,12 @@
+# Terraform state — pode conter segredos
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfstate.*.backup
+
+# Arquivo de variáveis locais (não versionar senhas)
+terraform.tfvars
+*.auto.tfvars
+
+# Cache do provider
+.terraform/
+.terraform.lock.hcl
