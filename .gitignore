@@ -19,3 +19,5 @@ infra/terraform/terraform.tfvars
 # OS
 .DS_Store
 Thumbs.db
+backend/coverage/ 
+backend/node_modules/ 
