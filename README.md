@@ -2,6 +2,19 @@
 
 Plataforma de monitoramento de segurança comunitária construída como portfólio de **Infraestrutura, DevOps e Cloud**.
 
+![status](https://img.shields.io/badge/status-produção-brightgreen)
+![node](https://img.shields.io/badge/backend-Node.js%20%2B%20Express-green)
+![docker](https://img.shields.io/badge/infra-Docker%20%2B%20Terraform-blueviolet)
+![tests](https://img.shields.io/badge/testes-21%20passed%20%7C%2092.5%25-brightgreen)
+![aws](https://img.shields.io/badge/cloud-AWS%20ECS%20%2B%20RDS%20%2B%20ALB-orange)
+![license](https://img.shields.io/badge/license-MIT-green)
+
+## 🌐 Demo ao vivo
+
+> **Suba a infra com `terraform apply` para ativar a URL pública na AWS.**
+> A infraestrutura é destruída quando não está em uso para evitar custos.
+> Para subir: `cd infra/terraform-aws && terraform apply`
+
 ## Stack
 
 | Camada | Tecnologia |
@@ -10,42 +23,47 @@ Plataforma de monitoramento de segurança comunitária construída como portfól
 | Backend | Node.js · Express · prom-client |
 | Banco de dados | PostgreSQL 16 |
 | Reverse proxy | Nginx |
-| Observabilidade | Prometheus + Grafana |
+| Observabilidade | Prometheus + Grafana + Alertas |
 | Orquestração local | Docker Compose |
-| Infraestrutura como código | Terraform (provider Docker) |
-| CI/CD | GitHub Actions (lint → tf validate → build → smoke test → deploy) |
+| Infraestrutura como código | Terraform (Docker local + AWS ECS/RDS/ALB) |
+| CI/CD | GitHub Actions — 6 jobs (lint → testes → terraform → build → smoke test → deploy) |
+| Testes | Jest + Supertest · 21 testes · 92.5% de cobertura |
+| Cloud | AWS ECS Fargate · RDS PostgreSQL · ALB · ECR |
 
 ## Pré-requisitos
 
 - Docker + Docker Compose v2
-- Terraform ≥ 1.6 (para o caminho IaC)
+- Node.js 20+ (para testes)
+- Terraform ≥ 1.6 (para IaC)
+- AWS CLI configurado (para deploy na AWS)
 - `make`
 
-## Como rodar
+## Como rodar localmente
 
 ### Docker Compose (mais rápido)
 
 ```bash
 cp .env.example .env
-make up
+docker compose up -d --build
 ```
 
-### Terraform (demonstra IaC)
+### Terraform local (demonstra IaC)
 
 ```bash
 make tf-init
-# edite infra/terraform/terraform.tfvars
 make tf-apply
 ```
 
-### Verificar
+### Testes unitários (sem Docker)
 
 ```bash
-make test
-make ps
+cd backend
+npm install
+npm test
+npm run test:coverage
 ```
 
-## Portas
+## Portas locais
 
 | Serviço | URL |
 |---|---|
@@ -54,14 +72,16 @@ make ps
 | Prometheus | http://localhost:9090 |
 | Grafana | http://localhost:3001 |
 
+> Grafana: `admin` / senha definida em `.env`
+
 ## Endpoints da API
 
 | Método | Rota | Descrição |
 |---|---|---|
-| GET | /api/health | Health check |
+| GET | /api/health | Health check + status do banco |
 | GET | /api/alerts | Lista alertas recentes |
 | POST | /api/alerts | Cria alerta |
-| GET | /api/stats | Totais por severidade |
+| GET | /api/stats | Totais por severidade e bairro |
 | GET | /api/metrics | Métricas Prometheus |
 
 **Exemplo:**
@@ -72,46 +92,76 @@ curl -X POST http://localhost:8080/api/alerts \
 ```
 
 ## Pipeline CI/CD
+push → lint → testes unitários → terraform validate → build & push → smoke test → deploy
 
+Em Pull Requests: lint + testes + terraform validate.
+No push para main: todos os 6 jobs em sequência.
+Imagens publicadas no GitHub Container Registry.
+
+## Deploy na AWS
+
+```bash
+cd infra/terraform-aws
+cp terraform.tfvars.example terraform.tfvars
+# edite terraform.tfvars com suas credenciais
+terraform init
+terraform apply
 ```
-push → lint → terraform validate → build & push → smoke test → deploy
+
+Recursos provisionados: VPC · Subnets · Security Groups · ECR · ECS Fargate · RDS PostgreSQL · ALB · CloudWatch Logs · IAM Roles.
+
+Para destruir e parar custos:
+```bash
+terraform destroy
 ```
-
-Jobs de lint e terraform validate rodam também em Pull Requests.
-
-## Terraform
-
-`infra/terraform/` provisiona toda a stack via provider Docker — rede, volumes e containers com healthcheck. Para migrar para nuvem, troque o `backend "local"` por `backend "s3"` (AWS) ou `backend "gcs"` (GCP) e descomente o job de deploy no pipeline.
 
 ## Observabilidade
 
-Grafana já sobe com datasource Prometheus e dashboard de API configurados automaticamente via provisioning — sem clique manual.
+Grafana sobe com datasource Prometheus e dashboard de API configurados automaticamente via provisioning. Três alertas ativos:
+
+- **Taxa de erros 5xx elevada** (crítico) — dispara após 2 minutos acima de 0.05 req/s
+- **Latência p95 acima de 1s** (aviso) — dispara após 3 minutos acima de 1000ms
+- **API sem métricas** (crítico) — dispara após 5 minutos sem dados do Prometheus
 
 ## Estrutura
-
-```
 comunidade-alerta/
 ├── .env.example
 ├── .gitignore
-├── .github/workflows/ci.yml   ← CI/CD completo
+├── .github/workflows/ci.yml     ← pipeline CI/CD (6 jobs)
 ├── Makefile
 ├── docker-compose.yml
 ├── frontend/
+│   ├── Dockerfile               ← local
+│   ├── Dockerfile.aws           ← AWS/ECS
+│   └── public/
+│       └── js/api.js            ← integração com API real
 ├── backend/
+│   ├── src/                     ← API Node.js + Express
+│   ├── tests/               ← 21 testes Jest + Supertest
+│   └── mocks/db.js          ← mock do banco para testes
 └── infra/
-    ├── nginx/
-    ├── prometheus/
-    ├── grafana/               ← provisioning automático
-    └── terraform/             ← IaC local (pronto para nuvem)
-```
+├── nginx/
+│   ├── default.conf         ← config local
+│   └── nginx-aws.conf       ← config AWS
+├── prometheus/
+├── grafana/
+│   ├── provisioning/
+│   │   ├── alerting/        ← 3 regras de alerta automáticas
+│   │   ├── dashboards/
+│   │   └── datasources/
+│   └── dashboards/
+├── terraform/               ← IaC local (Docker)
+└── terraform-aws/           ← IaC AWS (ECS + RDS + ALB)
 
 ## O que este projeto demonstra
 
-- Separação entre frontend, backend e infraestrutura
+- Separação clara entre frontend, backend e infraestrutura
 - Containers com healthcheck e dependências corretas
-- Infraestrutura como código com Terraform
-- Pipeline CI/CD com build de imagem, cache de layer e smoke test
-- Observabilidade com Prometheus + Grafana configurados via código
+- Infraestrutura como código com Terraform — local e AWS
+- Pipeline CI/CD completo com build de imagem, cache de layer e smoke test
+- Testes unitários com mock de banco (sem dependência de infraestrutura)
+- Observabilidade com Prometheus + Grafana + alertas configurados via código
+- Deploy real na AWS com ECS Fargate, RDS gerenciado e ALB
 - Boas práticas de segredo: `.env.example`, variáveis sensíveis, nenhuma senha no código
 
 ## Roadmap
@@ -120,8 +170,17 @@ comunidade-alerta/
 - [x] Docker Compose
 - [x] Terraform (IaC local)
 - [x] Grafana com provisioning automático
-- [x] Pipeline CI/CD completo
-- [ ] Integrar frontend com a API
-- [ ] Terraform para AWS (ECS + RDS + ALB)
-- [ ] Testes automatizados (Jest + Supertest)
-- [ ] Alertas no Grafana
+- [x] Pipeline CI/CD completo (6 jobs)
+- [x] 21 testes unitários com 92.5% de cobertura
+- [x] Frontend integrado com a API real
+- [x] Deploy na AWS (ECS + RDS + ALB)
+- [x] Alertas no Grafana (erro 5xx, latência alta, API down)
+- [ ] Kubernetes (migração do ECS para EKS)
+- [ ] HTTPS com certificado SSL (ACM + Route 53)
+- [ ] Módulos Terraform reutilizáveis
+
+## Autor
+
+**Jeferson Goulart**
+Graduando em Sistemas de Informação | DevOps & Cloud Enthusiast
+[github.com/jecziw](https://github.com/jecziw)
