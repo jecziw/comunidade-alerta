@@ -1,0 +1,17 @@
+# Copie este arquivo para terraform.tfvars e ajuste os valores.
+# NUNCA versione o terraform.tfvars com senhas reais — ele está no .gitignore.
+
+project_name = "comunidade-alerta"
+image_tag    = "local"
+node_env     = "development"
+
+db_name     = "comunidade_alerta"
+db_user     = "postgres"
+db_password = "troque_em_producao"
+
+frontend_port   = 8080
+prometheus_port = 9090
+grafana_port    = 3001
+
+grafana_user     = "admin"
+grafana_password = "troque_em_producao"

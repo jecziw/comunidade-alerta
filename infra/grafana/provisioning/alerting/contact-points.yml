@@ -1,0 +1,28 @@
+# contact-points.yml
+#
+# Define PARA ONDE os alertas vão quando disparam.
+# Aqui configuramos email como destino.
+#
+# Para ativar o envio real de email, adicione no docker-compose.yml
+# as variáveis de ambiente do Grafana SMTP:
+#
+#   GF_SMTP_ENABLED=true
+#   GF_SMTP_HOST=smtp.gmail.com:587
+#   GF_SMTP_USER=seuemail@gmail.com
+#   GF_SMTP_PASSWORD=sua_senha_de_app
+#   GF_SMTP_FROM_ADDRESS=seuemail@gmail.com
+#
+# Enquanto isso, os alertas aparecem no painel do Grafana mesmo sem email.
+
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: email-alertas
+    receivers:
+      - uid: email-alertas-uid
+        type: email
+        settings:
+          addresses: alertas@comunidade-alerta.com
+          singleEmail: false
+        disableResolveMessage: false

@@ -1,0 +1,29 @@
+# notification-policy.yml
+#
+# Define as REGRAS DE ROTEAMENTO: qual contact point recebe qual alerta.
+# O campo "matchers" filtra por labels definidas nas alert rules.
+#
+# Funcionamento:
+#   1. Um alerta dispara com suas labels (ex: severity=critical)
+#   2. O Grafana percorre as policies de cima para baixo
+#   3. O alerta vai para o primeiro contact point cujo matcher bate
+#   4. Se nenhum bater, vai para o receiver padrão (defaultReceiver)
+
+apiVersion: 1
+
+policies:
+  - orgId: 1
+    receiver: email-alertas        # receiver padrão para tudo
+    groupBy:
+      - grafana_folder
+      - alertname
+    groupWait: 30s                 # aguarda 30s para agrupar alertas antes de enviar
+    groupInterval: 5m              # reagrupa a cada 5 min se novos alertas chegarem
+    repeatInterval: 4h             # reenvia o alerta a cada 4h enquanto continuar ativo
+    routes:
+      - receiver: email-alertas
+        matchers:
+          - alertname =~ ".*"      # captura todos os alertas
+        groupBy:
+          - alertname
+          - severity

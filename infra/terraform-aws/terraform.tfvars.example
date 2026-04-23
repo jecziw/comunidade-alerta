@@ -1,0 +1,10 @@
+# Copie para terraform.tfvars e preencha os valores reais.
+# NUNCA versione o terraform.tfvars — ele está no .gitignore.
+
+aws_region   = "us-east-1"
+project_name = "comunidade-alerta"
+image_tag    = "latest"
+
+db_name     = "comunidade_alerta"
+db_user     = "postgres"
+db_password = "troque_por_senha_forte"

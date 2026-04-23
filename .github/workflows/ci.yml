@@ -1,0 +1,255 @@
+name: CI/CD — Comunidade Alerta
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE: ${{ github.repository_owner }}/comunidade-alerta-backend
+  FRONTEND_IMAGE: ${{ github.repository_owner }}/comunidade-alerta-frontend
+
+jobs:
+  # ──────────────────────────────────────────────
+  # 1 — Lint & validação de estrutura
+  # ──────────────────────────────────────────────
+  lint:
+    name: Lint & estrutura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validar arquivos essenciais
+        run: |
+          test -f frontend/public/index.html
+          test -f frontend/public/css/dashboard.css
+          test -f frontend/public/js/dashboard.js
+          test -f backend/src/server.js
+          test -f docker-compose.yml
+          test -f .env.example
+          test -f infra/terraform/main.tf
+          echo "Estrutura validada"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Instalar dependências do backend
+        working-directory: backend
+        run: npm ci --omit=dev
+
+      - name: Validar sintaxe Node.js
+        working-directory: backend
+        run: node --check src/server.js src/app.js
+
+  # ──────────────────────────────────────────────
+  # 2 — Testes unitários da API
+  # ──────────────────────────────────────────────
+  unit-tests:
+    name: Testes unitários
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Instalar dependências (incluindo devDependencies)
+        working-directory: backend
+        run: npm ci
+
+      - name: Rodar testes com cobertura
+        working-directory: backend
+        run: npm run test:coverage
+
+      - name: Salvar relatório de cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: backend/coverage/
+          retention-days: 7
+
+  # ──────────────────────────────────────────────
+  # 3 — Validar Terraform
+  # ──────────────────────────────────────────────
+  terraform-validate:
+    name: Terraform validate
+    runs-on: ubuntu-latest
+    needs: [lint, unit-tests]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.9"
+
+      - name: terraform init
+        working-directory: infra/terraform
+        run: terraform init -backend=false
+
+      - name: terraform validate
+        working-directory: infra/terraform
+        run: terraform validate
+
+      - name: terraform fmt check
+        working-directory: infra/terraform
+        run: terraform fmt -check -recursive
+
+  # ──────────────────────────────────────────────
+  # 4 — Build e push de imagens (somente push)
+  # ──────────────────────────────────────────────
+  build-push:
+    name: Build & push imagens
+    runs-on: ubuntu-latest
+    needs: [lint, terraform-validate]
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}
+            ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}
+          tags: |
+            type=sha,prefix=,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build e push — backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ steps.meta.outputs.version }},${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build e push — frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./frontend/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ steps.meta.outputs.version }},${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # ──────────────────────────────────────────────
+  # 5 — Smoke test
+  # ──────────────────────────────────────────────
+  smoke-test:
+    name: Smoke test
+    runs-on: ubuntu-latest
+    needs: build-push
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Subir stack
+        run: docker compose up -d --build
+
+      - name: Aguardar API
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8080/api/health > /dev/null 2>&1; then
+              echo "API ok após ${i}x2s"; break
+            fi
+            sleep 2
+          done
+
+      - name: Verificar endpoints
+        run: |
+          curl -sf http://localhost:8080/api/health | jq .
+          curl -sf http://localhost:8080/api/stats  | jq .
+          curl -sf http://localhost:8080/api/alerts | jq .
+
+      - name: POST — criar alerta de teste
+        run: |
+          curl -sf -X POST http://localhost:8080/api/alerts \
+            -H "Content-Type: application/json" \
+            -d '{"title":"Teste CI","neighborhood":"Centro","severity":"low","status":"open"}' | jq .
+
+      - name: Logs em caso de falha
+        if: failure()
+        run: docker compose logs
+
+      - name: Derrubar stack
+        if: always()
+        run: docker compose down -v
+
+  # ──────────────────────────────────────────────
+  # 6 — Deploy (placeholder para nuvem)
+  # ──────────────────────────────────────────────
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: smoke-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.9"
+
+      # Descomente ao configurar nuvem:
+      #
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region:            us-east-1
+      #
+      # - name: terraform init (S3 backend)
+      #   working-directory: infra/terraform
+      #   run: terraform init
+      #
+      # - name: terraform apply
+      #   working-directory: infra/terraform
+      #   env:
+      #     TF_VAR_db_password:      ${{ secrets.DB_PASSWORD }}
+      #     TF_VAR_grafana_password: ${{ secrets.GRAFANA_PASSWORD }}
+      #   run: |
+      #     terraform apply \
+      #       -var="image_tag=${{ needs.build-push.outputs.image_tag }}" \
+      #       -auto-approve
+
+      - name: Placeholder deploy
+        run: |
+          echo "IMAGE_TAG=${{ needs.build-push.outputs.image_tag }}"
+          echo "Configure o bloco acima com sua nuvem para ativar o CD."

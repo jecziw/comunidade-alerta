@@ -1,0 +1,80 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: comunidade-alerta-api
+    folder: Alertas
+    interval: 1m
+    rules:
+
+      - uid: alert-5xx-rate
+        title: "Taxa de erros 5xx elevada"
+        condition: B
+        data:
+          - refId: B
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: "sum(rate(http_request_duration_ms_count{status_code=~\"5..\"}[5m]))"
+              legendFormat: "erros 5xx por segundo"
+              refId: B
+              instant: true
+        noDataState: NoData
+        execErrState: Error
+        for: 2m
+        annotations:
+          summary: "API com erros 5xx acima do limite"
+          description: "A taxa de erros HTTP 5xx está elevada nos últimos 5 minutos."
+        labels:
+          severity: critical
+          service: backend
+
+      - uid: alert-latency-p95
+        title: "Latência p95 acima de 1s"
+        condition: B
+        data:
+          - refId: B
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: "histogram_quantile(0.95, sum(rate(http_request_duration_ms_bucket[5m])) by (le))"
+              legendFormat: "latência p95 (ms)"
+              refId: B
+              instant: true
+        noDataState: NoData
+        execErrState: Error
+        for: 3m
+        annotations:
+          summary: "Latência p95 da API acima de 1 segundo"
+          description: "O percentil 95 da latência está acima de 1000ms há mais de 3 minutos."
+        labels:
+          severity: warning
+          service: backend
+
+      - uid: alert-api-down
+        title: "API sem métricas (possível queda)"
+        condition: B
+        data:
+          - refId: B
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: "sum(rate(http_request_duration_ms_count[5m]))"
+              legendFormat: "total req/s"
+              refId: B
+              instant: true
+        noDataState: Alerting
+        execErrState: Alerting
+        for: 5m
+        annotations:
+          summary: "API sem métricas - possível queda do serviço"
+          description: "O Prometheus não está recebendo métricas da API há mais de 5 minutos."
+        labels:
+          severity: critical
+          service: backend

@@ -1,0 +1,210 @@
+# alert-rules.yml
+#
+# Define as CONDIÇÕES que disparam os alertas.
+# Cada regra tem:
+#   - uma query no Prometheus (expr)
+#   - um threshold (condição de avaliação)
+#   - uma duração (for: quanto tempo precisa estar verdadeira)
+#   - labels e annotations para identificar e descrever o alerta
+
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: comunidade-alerta-api
+    folder: Comunidade Alerta
+    interval: 1m          # avalia as regras a cada 1 minuto
+    rules:
+
+      # ──────────────────────────────────────────────────────────────
+      # ALERTA 1 — Erros 5xx
+      #
+      # O que monitora:
+      #   Taxa de requisições com status 5xx por minuto.
+      #
+      # Query explicada:
+      #   rate(http_request_duration_ms_count{status_code=~"5.."}[1m])
+      #   = quantas requisições 5xx aconteceram por segundo na última 1 min
+      #
+      # Dispara quando:
+      #   Mais de 0.1 erros/segundo (≈ 6 erros por minuto)
+      #   por pelo menos 2 minutos consecutivos.
+      #
+      # Por que 2 minutos?
+      #   Evita falsos positivos por picos momentâneos.
+      # ──────────────────────────────────────────────────────────────
+      - uid: alert-5xx-errors
+        title: "API — Erros 5xx detectados"
+        condition: C
+        for: 2m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "Taxa de erros 5xx acima do limite"
+          description: >
+            A API está retornando erros 5xx (erro interno do servidor).
+            Taxa atual: {{ $values.B.Value | printf "%.2f" }} req/s com erro.
+            Verifique os logs do backend no CloudWatch ou com 'docker compose logs backend'.
+          runbook_url: "https://github.com/jecziw/comunidade-alerta#endpoints-da-api"
+        data:
+          # Passo A: busca a métrica bruta no Prometheus
+          - refId: A
+            datasourceUid: "{{ ds_uid }}"
+            model:
+              expr: >
+                sum(
+                  rate(http_request_duration_ms_count{status_code=~"5.."}[1m])
+                )
+              instant: false
+              intervalMs: 60000
+              maxDataPoints: 43200
+              refId: A
+
+          # Passo B: reduz a série temporal para um único valor (último)
+          - refId: B
+            datasourceUid: "-100"
+            model:
+              conditions:
+                - evaluator:
+                    params: []
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: "-100"
+              expression: A
+              reducer: last
+              refId: B
+              type: reduce
+
+          # Passo C: avalia a condição — dispara se > 0.1 req/s com erro
+          - refId: C
+            datasourceUid: "-100"
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: "-100"
+              expression: B
+              refId: C
+              type: threshold
+
+      # ──────────────────────────────────────────────────────────────
+      # ALERTA 2 — Latência alta (p95 > 500ms)
+      #
+      # O que monitora:
+      #   O percentil 95 de latência das requisições HTTP.
+      #   p95 = 95% das requisições terminam em X ms ou menos.
+      #
+      # Query explicada:
+      #   histogram_quantile(0.95, rate(http_request_duration_ms_bucket[5m]))
+      #   = calcula o p95 de latência nos últimos 5 minutos
+      #
+      # Dispara quando:
+      #   p95 > 500ms por pelo menos 5 minutos consecutivos.
+      #
+      # Por que 5 minutos?
+      #   Latência pode variar bastante. 5 minutos garante que
+      #   é uma degradação real, não um pico momentâneo.
+      # ──────────────────────────────────────────────────────────────
+      - uid: alert-high-latency
+        title: "API — Latência p95 acima de 500ms"
+        condition: C
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "Latência p95 da API está alta"
+          description: >
+            O percentil 95 de latência está acima de 500ms.
+            Valor atual: {{ $values.B.Value | printf "%.0f" }}ms.
+            Isso significa que 5% das requisições estão demorando mais que 500ms.
+            Verifique consultas lentas no banco ou alta carga no servidor.
+          runbook_url: "https://github.com/jecziw/comunidade-alerta#endpoints-da-api"
+        data:
+          # Passo A: calcula o p95 de latência
+          - refId: A
+            datasourceUid: "{{ ds_uid }}"
+            model:
+              expr: >
+                histogram_quantile(
+                  0.95,
+                  sum(rate(http_request_duration_ms_bucket[5m])) by (le)
+                )
+              instant: false
+              intervalMs: 60000
+              maxDataPoints: 43200
+              refId: A
+
+          # Passo B: pega o último valor
+          - refId: B
+            datasourceUid: "-100"
+            model:
+              conditions:
+                - evaluator:
+                    params: []
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: "-100"
+              expression: A
+              reducer: last
+              refId: B
+              type: reduce
+
+          # Passo C: dispara se p95 > 500ms
+          - refId: C
+            datasourceUid: "-100"
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 500
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: "-100"
+              expression: B
+              refId: C
+              type: threshold
