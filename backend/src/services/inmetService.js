@@ -184,13 +184,13 @@ async function salvarAlertas(alertas, tenantId = null) {
     try {
       const res = await pool.query(
         `INSERT INTO alerts
-           (external_id, source, type, label, description, severity, status, lat, lng, municipio, starts_at, ends_at, raw, tenant_id, created_at)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
-         ON CONFLICT (external_id) DO UPDATE
-           SET status = EXCLUDED.status, ends_at = EXCLUDED.ends_at, severity = EXCLUDED.severity
+           (external_id, source, type, description, severity, status, latitude, longitude, location, raw_data, tenant_id, created_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+         ON CONFLICT (tenant_id, external_id) WHERE external_id IS NOT NULL DO UPDATE
+           SET status = EXCLUDED.status, severity = EXCLUDED.severity
          RETURNING (xmax = 0) AS inserted`,
-        [a.external_id, a.source, a.type, a.label, a.description, a.severity, a.status,
-         a.lat, a.lng, a.municipio, a.starts_at, a.ends_at, a.raw, tenantId, a.created_at]
+        [a.external_id, a.source, a.type, (a.label ? a.label+' — ' : '')+a.description, a.severity, a.status,
+         a.lat, a.lng, a.municipio, a.raw, tenantId, a.created_at]
       );
       if (res.rows[0] && res.rows[0].inserted) inseridos++;
     } catch (err) {

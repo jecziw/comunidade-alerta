@@ -29,7 +29,7 @@ async function getActiveTenants() {
   try {
     const { rows } = await pool.query(
       `SELECT id, name FROM tenants
-       WHERE status = 'active' AND plan IN ('pro', 'enterprise')
+       WHERE billing_status IN ('active','trial') AND plan IN ('pro', 'enterprise')
        ORDER BY id`
     );
     return rows;
