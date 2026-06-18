@@ -17,7 +17,7 @@ const { syncCEMADEN,  POLL_INTERVAL: CEMADEN_INTERVAL  } = require('./cemadenSer
 const { emitToAll }    = require('./socketService');
 const { notifyTenantUsers }  = require('./pushService');
 const { dispatchWebhook }    = require('./webhookService');
-const pool = require('../db');
+const { pool } = require('../db');
 
 let prfTimer      = null;
 let inmetTimer     = null;

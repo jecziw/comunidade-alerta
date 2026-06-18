@@ -29,7 +29,7 @@
  */
 
 const axios = require('axios');
-const pool  = require('../db');
+const { pool } = require('../db');
 
 // Endpoint do Painel de Alertas (best-effort — pode mudar sem aviso)
 const CEMADEN_PAINEL = 'https://painelalertas.cemaden.gov.br/api/alerts'; // estrutura aproximada

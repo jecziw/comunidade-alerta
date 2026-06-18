@@ -9,7 +9,7 @@
  */
 
 const axios = require('axios');
-const pool  = require('../db');
+const { pool } = require('../db');
 
 const PRF_BASE_URL  = 'https://api.prf.gov.br/api/v1';
 const UF_SC         = 'SC';
