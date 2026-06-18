@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Termos de Uso — Comunidade Alerta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink:#14120E;--paper:#F4EFE4;--paper-dark:#E8E0D0;--red:#C8201A;--navy:#1B2D52;--muted:#6B6558;--border:rgba(20,18,14,0.12);--border-strong:rgba(20,18,14,0.28); }
+html { scroll-behavior: smooth; }
+body { background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7; }
+.top-nav { height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--paper);position:sticky;top:0;z-index:10; }
+.logo { font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px; }
+.logo-dot { width:9px;height:9px;background:var(--red);border-radius:50%;animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.6} }
+.nav-back { font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px; }
+.nav-back:hover { color:var(--ink); }
+.doc-hero { background:var(--ink);padding:56px 48px;border-bottom:3px solid var(--red); }
+.doc-hero-eyebrow { font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:10px; }
+.doc-hero-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,88px);letter-spacing:.02em;line-height:.92;color:#fff;margin-bottom:16px; }
+.doc-hero-sub { font-family:'Instrument Serif',serif;font-size:17px;color:rgba(255,255,255,.5);line-height:1.6;max-width:600px; }
+.doc-meta { display:flex;gap:24px;margin-top:24px;flex-wrap:wrap; }
+.doc-meta-item { font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.04em; }
+.doc-meta-item strong { color:rgba(255,255,255,.6);font-weight:500; }
+.doc-layout { display:grid;grid-template-columns:240px 1fr; }
+.doc-sidebar { padding:40px 28px;border-right:1px solid var(--border);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto; }
+.doc-sidebar-title { font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:16px; }
+.doc-sidebar a { display:block;font-size:12px;color:var(--muted);text-decoration:none;padding:7px 10px;border-radius:2px;transition:all .15s;margin-bottom:2px;border-left:2px solid transparent; }
+.doc-sidebar a:hover { color:var(--ink);background:var(--paper-dark); }
+.doc-sidebar a.active { color:var(--red);border-left-color:var(--red);background:rgba(200,32,26,.05);font-weight:500; }
+.doc-content { padding:56px 64px;max-width:860px; }
+.doc-section { margin-bottom:56px;scroll-margin-top:80px; }
+.section-num { font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--red);margin-bottom:6px; }
+.section-title { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.03em;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border); }
+.section-body p { font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px; }
+.section-body strong { color:var(--ink);font-weight:500; }
+.section-body ul, .section-body ol { padding-left:22px;margin-bottom:14px; }
+.section-body li { font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:6px; }
+.section-body li strong { color:var(--ink); }
+.highlight-box { background:var(--paper-dark);border-left:3px solid var(--red);padding:16px 20px;margin:16px 0; }
+.highlight-box p { font-size:13px;color:var(--ink);margin:0;line-height:1.6; }
+.highlight-box.info { border-left-color:var(--navy); }
+.legal-table { width:100%;border-collapse:collapse;margin:16px 0;font-size:13px; }
+.legal-table th { background:var(--paper-dark);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 14px;text-align:left;border:1px solid var(--border); }
+.legal-table td { padding:10px 14px;border:1px solid var(--border);color:var(--muted);line-height:1.5; }
+.legal-table td:first-child { font-weight:500;color:var(--ink); }
+.contact-box { background:var(--ink);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:32px; }
+.contact-box-left strong { display:block;font-size:14px;font-weight:500;color:#fff;margin-bottom:4px; }
+.contact-box-left span { font-size:12px;color:rgba(255,255,255,.4); }
+.contact-box a { background:var(--red);color:#fff;padding:10px 20px;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;white-space:nowrap;transition:background .15s; }
+.contact-box a:hover { background:#a01812; }
+.doc-footer { background:var(--ink);padding:28px 48px;border-top:2px solid var(--red);display:flex;align-items:center;justify-content:space-between; }
+.doc-footer p { font-size:11px;color:rgba(255,255,255,.3); }
+.doc-footer-links { display:flex;gap:20px; }
+.doc-footer-links a { font-size:11px;color:rgba(255,255,255,.4);text-decoration:none; }
+.doc-footer-links a:hover { color:#fff; }
+@media(max-width:768px){.doc-layout{grid-template-columns:1fr}.doc-sidebar{display:none}.doc-content{padding:32px 24px}.top-nav{padding:0 24px}.doc-hero{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="comunidade-alerta.html" class="logo"><span class="logo-dot"></span>Comunidade Alerta</a>
+  <a href="comunidade-alerta.html" class="nav-back">← Voltar ao site</a>
+</nav>
+
+<div class="doc-hero">
+  <div class="doc-hero-eyebrow">Documento legal</div>
+  <h1 class="doc-hero-title">TERMOS<br/>DE USO</h1>
+  <p class="doc-hero-sub">Condições que regem o uso da plataforma Comunidade Alerta por organizações e usuários individuais.</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item"><strong>Versão:</strong> 2.0</span>
+    <span class="doc-meta-item"><strong>Vigência:</strong> 20 de maio de 2026</span>
+    <span class="doc-meta-item"><strong>Revisão anterior:</strong> 02 de abril de 2026</span>
+    <span class="doc-meta-item"><strong>Jurisdição:</strong> Brasil — Foro de Florianópolis/SC</span>
+  </div>
+</div>
+
+<div class="doc-layout">
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-title">Seções</div>
+    <a href="#s1" class="active">1. Definições</a>
+    <a href="#s2">2. Aceitação dos Termos</a>
+    <a href="#s3">3. Descrição do Serviço</a>
+    <a href="#s4">4. Cadastro e Conta</a>
+    <a href="#s5">5. Planos e Pagamento</a>
+    <a href="#s6">6. Trial Gratuito</a>
+    <a href="#s7">7. Uso Permitido</a>
+    <a href="#s8">8. Uso Proibido</a>
+    <a href="#s9">9. Dados e Conteúdo</a>
+    <a href="#s10">10. Propriedade Intelectual</a>
+    <a href="#s11">11. Disponibilidade e SLA</a>
+    <a href="#s12">12. Limitação de Responsabilidade</a>
+    <a href="#s13">13. Rescisão</a>
+    <a href="#s14">14. Alterações nos Termos</a>
+    <a href="#s15">15. Disposições Gerais</a>
+  </aside>
+
+  <main class="doc-content">
+
+    <div class="highlight-box">
+      <p><strong>Leia atentamente.</strong> Ao criar uma conta ou utilizar a plataforma Comunidade Alerta, você concorda integralmente com estes Termos de Uso. Se estiver contratando em nome de uma organização (prefeitura, empresa, associação), você declara ter autoridade para vincular essa entidade a estes termos.</p>
+    </div>
+
+    <!-- 1 -->
+    <div class="doc-section" id="s1">
+      <div class="section-num">01</div>
+      <h2 class="section-title">DEFINIÇÕES</h2>
+      <div class="section-body">
+        <p>Para os fins destes Termos de Uso, os seguintes termos têm o significado atribuído abaixo:</p>
+        <ul>
+          <li><strong>"Plataforma"</strong> — o conjunto de software, APIs, interfaces web e móveis, infraestrutura e serviços fornecidos sob a marca Comunidade Alerta.</li>
+          <li><strong>"Contratante" ou "Cliente"</strong> — a pessoa jurídica ou física que celebra contrato de uso com a Comunidade Alerta mediante criação de conta.</li>
+          <li><strong>"Usuário"</strong> — qualquer pessoa com acesso à Plataforma por meio das credenciais do Contratante.</li>
+          <li><strong>"Tenant"</strong> — o espaço lógico e isolado criado para cada Contratante, que contém seus dados, usuários e configurações de forma exclusiva.</li>
+          <li><strong>"Incidente"</strong> — qualquer ocorrência de segurança pública, trânsito, infraestrutura ou similar registrada na Plataforma.</li>
+          <li><strong>"Dados do Cliente"</strong> — todos os dados, conteúdos e informações inseridos pelo Contratante ou seus Usuários na Plataforma.</li>
+          <li><strong>"Fontes Externas"</strong> — dados provenientes de APIs públicas (PRF, Defesa Civil, INMET) integrados à Plataforma.</li>
+          <li><strong>"Serviços"</strong> — todas as funcionalidades disponibilizadas pela Plataforma, incluindo dashboard, mapa ao vivo, alertas, relatórios, API e webhooks.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="doc-section" id="s2">
+      <div class="section-num">02</div>
+      <h2 class="section-title">ACEITAÇÃO DOS TERMOS</h2>
+      <div class="section-body">
+        <p>Ao clicar em <strong>"Criar conta"</strong>, <strong>"Concordo"</strong> ou qualquer botão de confirmação de cadastro, ou ao acessar e utilizar a Plataforma, você concorda com estes Termos de Uso, a Política de Privacidade, a Política de Cookies e as demais políticas aplicáveis, que são incorporadas por referência.</p>
+        <p>Se você não concordar com qualquer parte destes Termos, não crie conta e não utilize a Plataforma. O uso continuado após notificação de alterações constitui aceitação tácita das novas condições.</p>
+        <div class="highlight-box info">
+          <p>Usuários menores de 18 anos somente poderão utilizar a Plataforma mediante autorização expressa de responsável legal, que será solidariamente responsável pelo uso.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="doc-section" id="s3">
+      <div class="section-num">03</div>
+      <h2 class="section-title">DESCRIÇÃO DO SERVIÇO</h2>
+      <div class="section-body">
+        <p>A Comunidade Alerta é uma plataforma SaaS (<em>Software as a Service</em>) de inteligência urbana para monitoramento de incidentes em tempo real, voltada a organizações públicas e privadas da Grande Florianópolis e Santa Catarina.</p>
+        <p>Os Serviços incluem, sem limitação:</p>
+        <ul>
+          <li>Dashboard web com visualização de alertas em tempo real via WebSocket;</li>
+          <li>Mapa interativo com plotagem de incidentes, heatmap e filtros por categoria;</li>
+          <li>Sistema de alertas com notificações push (Service Worker + VAPID), e-mail e webhooks;</li>
+          <li>Fluxo de resolução de incidentes com atribuição, notas e audit trail;</li>
+          <li>Integração com fontes externas: PRF (Polícia Rodoviária Federal) e INMET (Defesa Civil SC);</li>
+          <li>API REST para integração com sistemas terceiros;</li>
+          <li>Relatórios exportáveis em PDF;</li>
+          <li>Painel de observabilidade (Grafana + Prometheus).</li>
+        </ul>
+        <p>A Plataforma é fornecida <strong>no estado em que se encontra</strong> (<em>as-is</em>), podendo ser expandida, modificada ou ter funcionalidades descontinuadas mediante aviso prévio de 30 dias quando a mudança for material.</p>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="doc-section" id="s4">
+      <div class="section-num">04</div>
+      <h2 class="section-title">CADASTRO E CONTA</h2>
+      <div class="section-body">
+        <p>Para utilizar os Serviços, o Contratante deve criar uma conta fornecendo informações verdadeiras, precisas, atuais e completas. É responsabilidade do Contratante manter suas informações atualizadas.</p>
+        <p><strong>Responsabilidades do Contratante quanto à conta:</strong></p>
+        <ul>
+          <li>Manter a confidencialidade das credenciais de acesso (login e senha);</li>
+          <li>Notificar imediatamente a Comunidade Alerta em caso de acesso não autorizado ou suspeita de comprometimento da conta;</li>
+          <li>Responsabilizar-se por todas as ações realizadas sob sua conta, inclusive por Usuários por ele convidados;</li>
+          <li>Não compartilhar credenciais com terceiros não autorizados;</li>
+          <li>Utilizar senha com no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e caracteres especiais.</li>
+        </ul>
+        <p>A Comunidade Alerta reserva-se o direito de recusar ou cancelar cadastros que violem estes Termos ou que contenham informações falsas ou fraudulentas, sem aviso prévio e sem direito a ressarcimento.</p>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="doc-section" id="s5">
+      <div class="section-num">05</div>
+      <h2 class="section-title">PLANOS E PAGAMENTO</h2>
+      <div class="section-body">
+        <p>Os Serviços são oferecidos nos seguintes planos:</p>
+        <table class="legal-table">
+          <thead><tr><th>Plano</th><th>Cobrança</th><th>Alertas</th><th>Usuários</th><th>Municípios</th></tr></thead>
+          <tbody>
+            <tr><td>Básico</td><td>Gratuito</td><td>50/mês</td><td>1</td><td>Florianópolis, São José e Palhoça</td></tr>
+            <tr><td>Profissional</td><td>R$ 297,00/mês</td><td>Ilimitados</td><td>20</td><td>22 municípios SC</td></tr>
+            <tr><td>Corporativo</td><td>Contrato anual</td><td>Ilimitados</td><td>Ilimitados</td><td>Cobertura negociável</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Condições de pagamento:</strong></p>
+        <ul>
+          <li>Pagamentos processados pela <strong>Stripe</strong>, empresa certificada PCI-DSS Nível 1. A Comunidade Alerta não armazena dados de cartão de crédito;</li>
+          <li>Cobranças recorrentes na data de aniversário mensal da assinatura;</li>
+          <li>Em caso de falha no pagamento, o acesso será suspenso após 3 tentativas em 7 dias corridos, com notificação por e-mail a cada tentativa;</li>
+          <li>Reembolsos são analisados caso a caso mediante solicitação em até 7 dias corridos após a cobrança, não sendo garantidos após uso substancial do serviço;</li>
+          <li>Preços podem ser reajustados com aviso prévio de 30 dias por e-mail. O silêncio por 15 dias após o aviso implica aceitação;</li>
+          <li>Impostos aplicáveis (ISS, COFINS, PIS, etc.) são adicionados conforme legislação vigente.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="doc-section" id="s6">
+      <div class="section-num">06</div>
+      <h2 class="section-title">TRIAL GRATUITO</h2>
+      <div class="section-body">
+        <p>Ao criar conta nos planos pagos, o Contratante terá acesso a um período de teste gratuito (<em>trial</em>) de <strong>14 (quatorze) dias corridos</strong>, com acesso completo às funcionalidades do plano selecionado.</p>
+        <div class="highlight-box">
+          <p><strong>Nenhuma cobrança será realizada durante o período de trial.</strong> O cartão de crédito é solicitado para cadastro, mas a primeira cobrança ocorre somente após o encerramento do trial. O cancelamento antes do fim do trial não gera qualquer custo.</p>
+        </div>
+        <ul>
+          <li>Cada CNPJ/CPF tem direito a apenas 1 (um) período de trial por plano;</li>
+          <li>Ao término do trial sem cancelamento, a assinatura é ativada automaticamente e a cobrança realizada;</li>
+          <li>Dados inseridos durante o trial são preservados na transição para o plano pago;</li>
+          <li>A Comunidade Alerta pode encerrar o trial a qualquer momento em caso de uso fraudulento ou abusivo;</li>
+          <li>Funcionalidades de fontes externas (PRF, INMET, CEMADEN) estão disponíveis durante o trial.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="doc-section" id="s7">
+      <div class="section-num">07</div>
+      <h2 class="section-title">USO PERMITIDO</h2>
+      <div class="section-body">
+        <p>O Contratante pode utilizar a Plataforma exclusivamente para <strong>fins legítimos de monitoramento urbano, segurança pública e gestão de incidentes</strong>, incluindo:</p>
+        <ul>
+          <li>Monitoramento e registro de ocorrências de segurança pública, trânsito e infraestrutura;</li>
+          <li>Coordenação de equipes de resposta a incidentes;</li>
+          <li>Geração de relatórios para fins administrativos, estatísticos ou judiciais;</li>
+          <li>Integração com sistemas internos da organização via API e webhooks;</li>
+          <li>Análise de padrões de incidentes para planejamento urbano e de segurança;</li>
+          <li>Monitoramento de vias e rodovias públicas no contexto de segurança viária.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="doc-section" id="s8">
+      <div class="section-num">08</div>
+      <h2 class="section-title">USO PROIBIDO</h2>
+      <div class="section-body">
+        <p>É expressamente <strong>vedado</strong> ao Contratante e seus Usuários:</p>
+        <ul>
+          <li>Inserir dados falsos, fraudulentos ou deliberadamente imprecisos na Plataforma;</li>
+          <li>Utilizar a Plataforma para vigilância ilegal, perseguição ou assédio de indivíduos;</li>
+          <li>Coletar, processar ou compartilhar dados pessoais de terceiros em violação à LGPD ou demais legislações aplicáveis;</li>
+          <li>Realizar engenharia reversa, descompilar ou tentar extrair o código-fonte da Plataforma;</li>
+          <li>Realizar testes de carga, penetração ou varredura de vulnerabilidades sem autorização prévia e por escrito;</li>
+          <li>Usar scripts automáticos, bots ou qualquer mecanismo para acesso massivo não autorizado à API;</li>
+          <li>Revender, sublicenciar ou ceder o acesso à Plataforma a terceiros não autorizados;</li>
+          <li>Usar a Plataforma para fins militares, paramilitares ou de conflito armado;</li>
+          <li>Inserir conteúdo que incite violência, discriminação, ódio ou que viole direitos de terceiros;</li>
+          <li>Utilizar a Plataforma para monitorar ou rastrear ativistas, jornalistas ou defensores de direitos humanos no exercício de suas atividades.</li>
+        </ul>
+        <p>A violação destas proibições pode resultar em suspensão imediata da conta sem direito a reembolso e, nos casos mais graves, em comunicação às autoridades competentes.</p>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="doc-section" id="s9">
+      <div class="section-num">09</div>
+      <h2 class="section-title">DADOS E CONTEÚDO</h2>
+      <div class="section-body">
+        <p><strong>Propriedade dos dados:</strong> Os Dados do Cliente pertencem ao Contratante. A Comunidade Alerta não reivindica propriedade sobre qualquer dado inserido pelo Contratante na Plataforma.</p>
+        <p><strong>Licença de uso:</strong> O Contratante concede à Comunidade Alerta uma licença limitada, não exclusiva, para armazenar, processar e exibir os Dados do Cliente exclusivamente para a prestação dos Serviços contratados.</p>
+        <p><strong>Dados sensíveis:</strong> A Plataforma pode conter dados sensíveis relacionados a crimes, violência doméstica e feminicídio. O Contratante declara ter base legal adequada (art. 7º e 11 da LGPD) para o tratamento desses dados e se responsabiliza pelo uso correto das informações.</p>
+        <p><strong>Retenção após cancelamento:</strong></p>
+        <ul>
+          <li>Os dados são mantidos por <strong>90 dias</strong> após o cancelamento, período no qual o Contratante pode solicitar exportação;</li>
+          <li>Após 90 dias, os dados são eliminados de forma irreversível de todos os sistemas da Comunidade Alerta;</li>
+          <li>Logs de acesso e dados de auditoria podem ser mantidos por até 5 anos conforme obrigação legal.</li>
+        </ul>
+        <p><strong>Fontes Externas:</strong> Dados provenientes de PRF, INMET e CEMADEN são de propriedade de seus respectivos titulares públicos. A Comunidade Alerta os disponibiliza como facilitadora, sem garantias sobre sua precisão ou atualidade.</p>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="doc-section" id="s10">
+      <div class="section-num">10</div>
+      <h2 class="section-title">PROPRIEDADE INTELECTUAL</h2>
+      <div class="section-body">
+        <p>Todos os direitos de propriedade intelectual relativos à Plataforma — incluindo software, código-fonte, design, marca, logos, documentação, algoritmos e metodologias — pertencem exclusivamente à Comunidade Alerta ou seus licenciantes.</p>
+        <p>Estes Termos não transferem ao Contratante qualquer direito de propriedade intelectual sobre a Plataforma. O Contratante recebe apenas uma licença de uso limitada, revogável, não exclusiva e intransferível, pelo período vigente da assinatura.</p>
+        <p>O nome "Comunidade Alerta", suas variações e o logotipo são marcas registradas ou em processo de registro. É proibido o uso dessas marcas sem autorização prévia e por escrito.</p>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="doc-section" id="s11">
+      <div class="section-num">11</div>
+      <h2 class="section-title">DISPONIBILIDADE E SLA</h2>
+      <div class="section-body">
+        <p>A Comunidade Alerta emprega esforços razoáveis para manter a Plataforma disponível continuamente. Os seguintes compromissos de nível de serviço (<em>SLA</em>) se aplicam conforme o plano:</p>
+        <table class="legal-table">
+          <thead><tr><th>Plano</th><th>Disponibilidade mensal</th><th>Janela de manutenção</th><th>Suporte</th></tr></thead>
+          <tbody>
+            <tr><td>Básico</td><td>99,0%</td><td>Domingos 02h–06h</td><td>E-mail (5 dias úteis)</td></tr>
+            <tr><td>Profissional</td><td>99,5%</td><td>Domingos 02h–06h</td><td>E-mail (2 dias úteis)</td></tr>
+            <tr><td>Corporativo</td><td>99,9%</td><td>Negociável</td><td>24/7 com SLA de resposta</td></tr>
+          </tbody>
+        </table>
+        <p>Em caso de indisponibilidade que ultrapasse o SLA, o Contratante terá direito a crédito proporcional aplicável na próxima fatura. Indisponibilidades causadas por terceiros (Stripe, provedores de mapa, PRF, INMET, CEMADEN), eventos de força maior, ataques cibernéticos ou manutenções programadas não são computadas no cálculo de SLA.</p>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="doc-section" id="s12">
+      <div class="section-num">12</div>
+      <h2 class="section-title">LIMITAÇÃO DE RESPONSABILIDADE</h2>
+      <div class="section-body">
+        <p>Na máxima extensão permitida pela legislação brasileira aplicável:</p>
+        <ul>
+          <li>A Comunidade Alerta não será responsável por danos indiretos, incidentais, especiais, punitivos ou consequentes, incluindo perda de lucros, dados, reputação ou oportunidades de negócio;</li>
+          <li>A responsabilidade total da Comunidade Alerta, por qualquer causa, está limitada ao valor pago pelo Contratante nos últimos <strong>12 meses</strong> anteriores ao evento gerador do dano;</li>
+          <li>A Comunidade Alerta não se responsabiliza pela precisão, completude ou atualidade dos dados provenientes de Fontes Externas (PRF, INMET, CEMADEN);</li>
+          <li>A Plataforma é uma ferramenta de suporte à decisão e não substitui a responsabilidade das autoridades competentes ou dos próprios usuários nas ações tomadas;</li>
+          <li>Em nenhuma hipótese a Comunidade Alerta será responsável por decisões operacionais ou de segurança pública baseadas nas informações da Plataforma.</li>
+        </ul>
+        <div class="highlight-box">
+          <p><strong>Aviso importante:</strong> A Plataforma disponibiliza dados de incidentes para fins de monitoramento e gestão. Situações de emergência devem ser reportadas diretamente aos órgãos competentes: <strong>190 (Polícia Militar)</strong>, <strong>192 (SAMU)</strong>, <strong>193 (Bombeiros)</strong>, <strong>196 (Saúde)</strong>, <strong>197 (Polícia Civil)</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="doc-section" id="s13">
+      <div class="section-num">13</div>
+      <h2 class="section-title">RESCISÃO</h2>
+      <div class="section-body">
+        <p><strong>Pelo Contratante:</strong> A assinatura pode ser cancelada a qualquer momento pelo painel de Faturamento. O acesso permanece ativo até o fim do período já pago, sem reembolso pro rata.</p>
+        <p><strong>Pela Comunidade Alerta:</strong> Poderemos suspender ou encerrar a conta do Contratante, com ou sem aviso prévio, nas seguintes situações:</p>
+        <ul>
+          <li>Violação destes Termos, especialmente o Uso Proibido;</li>
+          <li>Inadimplência superior a 30 (trinta) dias;</li>
+          <li>Prática de atividades fraudulentas ou ilegais;</li>
+          <li>Solicitação de autoridade judicial ou administrativa competente;</li>
+          <li>Risco à segurança, integridade ou disponibilidade da Plataforma para outros clientes.</li>
+        </ul>
+        <p>Em caso de rescisão por violação de termos, não há direito a reembolso. Em caso de rescisão por iniciativa da Comunidade Alerta sem causa imputável ao Contratante, será realizado reembolso pro rata do período não utilizado.</p>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="doc-section" id="s14">
+      <div class="section-num">14</div>
+      <h2 class="section-title">ALTERAÇÕES NOS TERMOS</h2>
+      <div class="section-body">
+        <p>A Comunidade Alerta pode alterar estes Termos a qualquer momento. Alterações materiais serão comunicadas por <strong>e-mail com antecedência mínima de 30 dias</strong>. Alterações não materiais (correções gramaticais, esclarecimentos) podem ser feitas sem aviso prévio.</p>
+        <p>O uso continuado da Plataforma após o prazo de notificação constitui aceitação tácita dos novos termos. Caso não concorde com as alterações, o Contratante deve cancelar sua assinatura antes da entrada em vigor das mudanças.</p>
+        <p>O histórico de versões dos Termos é mantido e disponível mediante solicitação a <strong>legal@comunidadealerta.com.br</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="doc-section" id="s15">
+      <div class="section-num">15</div>
+      <h2 class="section-title">DISPOSIÇÕES GERAIS</h2>
+      <div class="section-body">
+        <p><strong>Lei aplicável:</strong> Estes Termos são regidos pelas leis da República Federativa do Brasil, incluindo, mas não limitado ao Código Civil, o Marco Civil da Internet (Lei 12.965/2014), o CDC (quando aplicável) e a LGPD (Lei 13.709/2018).</p>
+        <p><strong>Foro:</strong> Fica eleito o foro da Comarca de Florianópolis, Estado de Santa Catarina, para dirimir quaisquer controvérsias oriundas destes Termos, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
+        <p><strong>Integralidade:</strong> Estes Termos, juntamente com a Política de Privacidade, a Política de LGPD, a Política de Cookies e eventuais contratos de nível de serviço (SLA) assinados separadamente, constituem o acordo integral entre as partes.</p>
+        <p><strong>Cessão:</strong> O Contratante não pode ceder seus direitos ou obrigações decorrentes destes Termos sem consentimento prévio por escrito. A Comunidade Alerta pode ceder seus direitos em caso de fusão, aquisição ou reorganização societária, com notificação ao Contratante.</p>
+        <p><strong>Independência das cláusulas:</strong> A nulidade ou inexequibilidade de qualquer cláusula destes Termos não afetará a validade das demais.</p>
+
+        <div class="contact-box">
+          <div class="contact-box-left">
+            <strong>Dúvidas sobre estes Termos?</strong>
+            <span>Nossa equipe jurídica responde em até 5 dias úteis.</span>
+          </div>
+          <a href="mailto:legal@comunidadealerta.com.br">legal@comunidadealerta.com.br →</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  <p>© 2026 Comunidade Alerta · Grande Florianópolis · Santa Catarina · Brasil</p>
+  <div class="doc-footer-links">
+    <a href="privacy.html">Privacidade</a>
+    <a href="lgpd.html">LGPD</a>
+    <a href="cookies.html">Cookies</a>
+    <a href="comunidade-alerta.html">← Voltar ao site</a>
+  </div>
+</footer>
+
+<script>
+// Highlight active section in sidebar on scroll
+const sections = document.querySelectorAll('.doc-section');
+const links    = document.querySelectorAll('.doc-sidebar a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.doc-sidebar a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

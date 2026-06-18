@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Política de Cookies — Comunidade Alerta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink:#14120E;--paper:#F4EFE4;--paper-dark:#E8E0D0;--red:#C8201A;--navy:#1B2D52;--teal:#00695C;--muted:#6B6558;--border:rgba(20,18,14,0.12);--border-strong:rgba(20,18,14,0.28); }
+html { scroll-behavior: smooth; }
+body { background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7; }
+.top-nav { height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--paper);position:sticky;top:0;z-index:10; }
+.logo { font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px; }
+.logo-dot { width:9px;height:9px;background:var(--red);border-radius:50%;animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.6} }
+.nav-back { font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px; }
+.doc-hero { background:var(--teal);padding:56px 48px;border-bottom:3px solid var(--red); }
+.doc-hero-eyebrow { font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:500;margin-bottom:10px; }
+.doc-hero-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,88px);letter-spacing:.02em;line-height:.92;color:#fff;margin-bottom:16px; }
+.doc-hero-sub { font-family:'Instrument Serif',serif;font-size:17px;color:rgba(255,255,255,.6);line-height:1.6;max-width:600px; }
+.doc-meta { display:flex;gap:24px;margin-top:24px;flex-wrap:wrap; }
+.doc-meta-item { font-size:11px;color:rgba(255,255,255,.35); }
+.doc-meta-item strong { color:rgba(255,255,255,.7);font-weight:500; }
+.doc-layout { display:grid;grid-template-columns:240px 1fr; }
+.doc-sidebar { padding:40px 28px;border-right:1px solid var(--border);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto; }
+.doc-sidebar-title { font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:16px; }
+.doc-sidebar a { display:block;font-size:12px;color:var(--muted);text-decoration:none;padding:7px 10px;border-radius:2px;transition:all .15s;margin-bottom:2px;border-left:2px solid transparent; }
+.doc-sidebar a:hover { color:var(--ink);background:var(--paper-dark); }
+.doc-sidebar a.active { color:var(--teal);border-left-color:var(--teal);background:rgba(0,105,92,.05);font-weight:500; }
+.doc-content { padding:56px 64px;max-width:860px; }
+.doc-section { margin-bottom:56px;scroll-margin-top:80px; }
+.section-num { font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--teal);margin-bottom:6px; }
+.section-title { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.03em;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border); }
+.section-body p { font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px; }
+.section-body strong { color:var(--ink);font-weight:500; }
+.section-body ul, .section-body ol { padding-left:22px;margin-bottom:14px; }
+.section-body li { font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:6px; }
+.section-body li strong { color:var(--ink); }
+.highlight-box { background:var(--paper-dark);border-left:3px solid var(--teal);padding:16px 20px;margin:16px 0; }
+.highlight-box p { font-size:13px;color:var(--ink);margin:0;line-height:1.6; }
+.highlight-box.warn { border-left-color:var(--red); }
+.legal-table { width:100%;border-collapse:collapse;margin:16px 0;font-size:13px; }
+.legal-table th { background:var(--paper-dark);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 14px;text-align:left;border:1px solid var(--border); }
+.legal-table td { padding:10px 14px;border:1px solid var(--border);color:var(--muted);line-height:1.5;vertical-align:top; }
+.legal-table td:first-child { font-weight:500;color:var(--ink); }
+code { background:var(--paper-dark);border:1px solid var(--border);padding:1px 6px;border-radius:2px;font-size:12px;font-family:monospace;color:var(--red); }
+/* Cookie category cards */
+.cookie-category { border:1px solid var(--border);margin-bottom:16px;overflow:hidden; }
+.cookie-cat-header { display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--paper-dark);cursor:pointer;transition:background .15s; }
+.cookie-cat-header:hover { background:#DDD6C4; }
+.cookie-cat-title { display:flex;align-items:center;gap:12px; }
+.cookie-cat-name { font-weight:500;font-size:14px;color:var(--ink); }
+.cookie-cat-desc { font-size:12px;color:var(--muted); }
+.cookie-required-badge { font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px; }
+.badge-req { background:rgba(200,32,26,.12);color:var(--red); }
+.badge-opt { background:rgba(0,105,92,.1);color:var(--teal); }
+.cookie-toggle { position:relative;width:40px;height:22px;flex-shrink:0; }
+.cookie-toggle input { opacity:0;width:0;height:0; }
+.toggle-slider { position:absolute;inset:0;background:#ccc;border-radius:22px;transition:.3s; }
+.toggle-slider::before { content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s; }
+.cookie-toggle input:checked + .toggle-slider { background:var(--teal); }
+.cookie-toggle input:checked + .toggle-slider::before { transform:translateX(18px); }
+.cookie-toggle input:disabled + .toggle-slider { opacity:.6;cursor:not-allowed; }
+.cookie-cat-body { padding:18px;border-top:1px solid var(--border);display:none; }
+.cookie-cat-body.open { display:block; }
+/* Preference center */
+.pref-center { background:var(--ink);padding:24px 28px;margin-top:32px; }
+.pref-center-title { font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;color:#fff;margin-bottom:6px; }
+.pref-center-sub { font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px; }
+.pref-btn { padding:10px 22px;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;border:none; }
+.pref-btn-save { background:var(--teal);color:#fff;margin-right:10px; }
+.pref-btn-save:hover { background:#00574A; }
+.pref-btn-all  { background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15); }
+.pref-btn-all:hover { background:rgba(255,255,255,.06);color:#fff; }
+.pref-saved { display:none;margin-top:12px;font-size:12px;color:rgba(0,200,150,.8);font-weight:500; }
+.doc-footer { background:var(--ink);padding:28px 48px;border-top:2px solid var(--teal);display:flex;align-items:center;justify-content:space-between; }
+.doc-footer p { font-size:11px;color:rgba(255,255,255,.3); }
+.doc-footer-links { display:flex;gap:20px; }
+.doc-footer-links a { font-size:11px;color:rgba(255,255,255,.4);text-decoration:none; }
+.doc-footer-links a:hover { color:#fff; }
+@media(max-width:768px){.doc-layout{grid-template-columns:1fr}.doc-sidebar{display:none}.doc-content{padding:32px 24px}.top-nav{padding:0 24px}.doc-hero{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="comunidade-alerta.html" class="logo"><span class="logo-dot"></span>Comunidade Alerta</a>
+  <a href="comunidade-alerta.html" class="nav-back">← Voltar ao site</a>
+</nav>
+
+<div class="doc-hero">
+  <div class="doc-hero-eyebrow">Política de rastreamento</div>
+  <h1 class="doc-hero-title">POLÍTICA DE<br/>COOKIES</h1>
+  <p class="doc-hero-sub">O que são cookies, quais usamos, por quê e como você pode controlá-los.</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item"><strong>Versão:</strong> 2.0</span>
+    <span class="doc-meta-item"><strong>Vigência:</strong> 20 de maio de 2026</span>
+    <span class="doc-meta-item"><strong>Base legal:</strong> LGPD art. 7º, I e IX</span>
+  </div>
+</div>
+
+<div class="doc-layout">
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-title">Seções</div>
+    <a href="#s1" class="active">1. O que são Cookies</a>
+    <a href="#s2">2. Por que Usamos</a>
+    <a href="#s3">3. Categorias</a>
+    <a href="#s4">4. Cookies Essenciais</a>
+    <a href="#s5">5. Cookies Funcionais</a>
+    <a href="#s6">6. Cookies de Análise</a>
+    <a href="#s7">7. Cookies de Terceiros</a>
+    <a href="#s8">8. Central de Preferências</a>
+    <a href="#s9">9. Gerenciar no Navegador</a>
+    <a href="#s10">10. Contato</a>
+  </aside>
+
+  <main class="doc-content">
+
+    <div class="highlight-box">
+      <p><strong>Controle é seu.</strong> Cookies essenciais são necessários para o funcionamento da plataforma e não podem ser desativados. Todos os demais são opcionais e você pode ajustar suas preferências a qualquer momento nesta página ou no painel de Configurações.</p>
+    </div>
+
+    <div class="doc-section" id="s1">
+      <div class="section-num">01</div>
+      <h2 class="section-title">O QUE SÃO COOKIES</h2>
+      <div class="section-body">
+        <p>Cookies são pequenos arquivos de texto que sites e aplicações web armazenam no seu navegador ou dispositivo quando você os acessa. Eles permitem que a plataforma reconheça seu dispositivo em visitas subsequentes, mantenha seu login ativo, memorize suas preferências e melhore sua experiência.</p>
+        <p>Além dos cookies tradicionais, utilizamos tecnologias similares:</p>
+        <ul>
+          <li><strong>LocalStorage / SessionStorage:</strong> armazenamento local no navegador para dados de sessão da interface;</li>
+          <li><strong>IndexedDB:</strong> banco de dados local para cache de dados do dashboard offline;</li>
+          <li><strong>Service Worker Cache:</strong> armazenamento para funcionamento offline e Push Notifications;</li>
+          <li><strong>JWT (JSON Web Token):</strong> token de autenticação armazenado no <code>localStorage</code> — contém identidade e permissões do usuário, com expiração configurável.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s2">
+      <div class="section-num">02</div>
+      <h2 class="section-title">POR QUE USAMOS COOKIES</h2>
+      <div class="section-body">
+        <p>Utilizamos cookies e tecnologias similares para:</p>
+        <ul>
+          <li>Manter sua sessão autenticada de forma segura entre páginas e recarregamentos;</li>
+          <li>Memorizar preferências de interface (tema, filtros de mapa, configurações de notificação);</li>
+          <li>Garantir o funcionamento das Push Notifications via Service Worker;</li>
+          <li>Detectar e prevenir acessos fraudulentos e ataques de força bruta;</li>
+          <li>Medir o desempenho da plataforma e identificar erros (métricas agregadas e anonimizadas);</li>
+          <li>Processar pagamentos com segurança via Stripe;</li>
+          <li>Renderizar o mapa interativo via Mapbox GL JS.</li>
+        </ul>
+        <p><strong>Não utilizamos cookies</strong> para publicidade comportamental, rastreamento entre sites ou venda de dados a terceiros.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s3">
+      <div class="section-num">03</div>
+      <h2 class="section-title">CATEGORIAS DE COOKIES</h2>
+      <div class="section-body">
+        <p>Classificamos nossos cookies em 4 categorias conforme sua finalidade e necessidade de consentimento:</p>
+        <table class="legal-table">
+          <thead><tr><th>Categoria</th><th>Consentimento necessário</th><th>Desativável</th></tr></thead>
+          <tbody>
+            <tr><td>Essenciais / Necessários</td><td>Não — base: execução de contrato</td><td>Não</td></tr>
+            <tr><td>Funcionais / Preferências</td><td>Não — base: legítimo interesse</td><td>Parcialmente</td></tr>
+            <tr><td>Análise e desempenho</td><td>Sim — base: consentimento</td><td>Sim</td></tr>
+            <tr><td>Terceiros essenciais</td><td>Não — base: execução de contrato</td><td>Não (integrados ao serviço)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s4">
+      <div class="section-num">04</div>
+      <h2 class="section-title">COOKIES ESSENCIAIS</h2>
+      <div class="section-body">
+        <p>Estes cookies são estritamente necessários para o funcionamento da plataforma. Sem eles, funções básicas como login, segurança e navegação não operam. <strong>Não podem ser desativados.</strong></p>
+        <table class="legal-table">
+          <thead><tr><th>Nome / Chave</th><th>Tipo</th><th>Duração</th><th>Finalidade</th></tr></thead>
+          <tbody>
+            <tr><td><code>ca_jwt</code></td><td>localStorage</td><td>24 horas (renovável)</td><td>Token de autenticação JWT com identidade e permissões do usuário. Renovado automaticamente em uso ativo.</td></tr>
+            <tr><td><code>ca_refresh_token</code></td><td>HttpOnly Cookie</td><td>30 dias</td><td>Token de renovação seguro para reautenticação silenciosa sem nova senha. HttpOnly — inacessível ao JavaScript.</td></tr>
+            <tr><td><code>ca_tenant_id</code></td><td>localStorage</td><td>Sessão</td><td>Identificador do tenant (organização) para roteamento de dados no multi-tenant.</td></tr>
+            <tr><td><code>ca_csrf_token</code></td><td>Cookie / Header</td><td>Sessão</td><td>Token anti-CSRF para proteção contra requisições forjadas. Renovado a cada sessão.</td></tr>
+            <tr><td><code>ca_session_id</code></td><td>Cookie (Session)</td><td>Sessão do navegador</td><td>Identificador de sessão Socket.io para conexão WebSocket de alertas em tempo real.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s5">
+      <div class="section-num">05</div>
+      <h2 class="section-title">COOKIES FUNCIONAIS</h2>
+      <div class="section-body">
+        <p>Armazenam preferências do usuário para melhorar a experiência. Não rastreiam comportamento entre sites. Baseados em legítimo interesse — podem ser desativados nas Configurações.</p>
+        <table class="legal-table">
+          <thead><tr><th>Nome / Chave</th><th>Tipo</th><th>Duração</th><th>Finalidade</th></tr></thead>
+          <tbody>
+            <tr><td><code>ca_map_filters</code></td><td>localStorage</td><td>Persistente</td><td>Filtros de mapa ativos (Crime, Trânsito, PRF, INMET, CEMADEN etc.) — mantém suas preferências de visualização.</td></tr>
+            <tr><td><code>ca_dashboard_layout</code></td><td>localStorage</td><td>Persistente</td><td>Configuração do layout do dashboard e ordenação das views.</td></tr>
+            <tr><td><code>ca_notif_prefs</code></td><td>localStorage</td><td>Persistente</td><td>Preferências de notificação: quais tipos de alertas geram push/e-mail.</td></tr>
+            <tr><td><code>ca_vapid_sub</code></td><td>Service Worker</td><td>Até revogação</td><td>Subscription VAPID para Push Notifications. Armazenado no Service Worker — removido ao desativar notificações.</td></tr>
+            <tr><td><code>ca_last_view</code></td><td>sessionStorage</td><td>Sessão do navegador</td><td>Última view ativa no dashboard para restauração ao recarregar.</td></tr>
+            <tr><td><code>ca_session</code></td><td>sessionStorage</td><td>Sessão do navegador</td><td>Mantém o login ativo enquanto a aba estiver aberta. Limpo ao fechar o navegador.</td></tr>
+            <tr><td><code>ca_trial_docs</code></td><td>localStorage</td><td>Persistente</td><td>Registra (apenas localmente) os documentos que já iniciaram período de teste, para aplicar a regra de 1 trial por CNPJ/CPF.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s6">
+      <div class="section-num">06</div>
+      <h2 class="section-title">COOKIES DE ANÁLISE E DESEMPENHO</h2>
+      <div class="section-body">
+        <p>Coletam informações sobre como a plataforma é utilizada para melhorar o produto. Todos os dados são <strong>agregados e anonimizados</strong> — não identificam usuários individualmente. <strong>São opcionais e só passam a operar mediante o seu consentimento</strong>; por padrão, sem autorização, eles permanecem desativados.</p>
+        <table class="legal-table">
+          <thead><tr><th>Nome / Chave</th><th>Tipo</th><th>Duração</th><th>O que coleta</th></tr></thead>
+          <tbody>
+            <tr><td><code>ca_perf_metrics</code></td><td>localStorage</td><td>7 dias</td><td>Tempos de carregamento de página, latência de API e erros de JavaScript, em lote e sem identificação pessoal. Ativado apenas com consentimento.</td></tr>
+            <tr><td><code>ca_feature_usage</code></td><td>localStorage</td><td>30 dias</td><td>Quais funcionalidades foram utilizadas (sem dados de conteúdo). Ex.: "mapa aberto 3x". Apenas contagens por feature. Ativado apenas com consentimento.</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight-box">
+          <p>Não utilizamos Google Analytics, Facebook Pixel, Hotjar ou qualquer ferramenta de análise comportamental de terceiros. Todo monitoramento é feito com infraestrutura própria (Prometheus + Grafana) e sem compartilhamento de dados com terceiros para análise.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s7">
+      <div class="section-num">07</div>
+      <h2 class="section-title">COOKIES DE TERCEIROS ESSENCIAIS</h2>
+      <div class="section-body">
+        <p>Alguns terceiros definidos como essenciais ao serviço também definem cookies. Eles são necessários para funcionalidades que não podemos oferecer sem esses parceiros:</p>
+
+        <div class="cookie-category">
+          <div class="cookie-cat-header" onclick="toggleCat(this)">
+            <div class="cookie-cat-title">
+              <div>
+                <div class="cookie-cat-name">Stripe — Pagamentos</div>
+                <div class="cookie-cat-desc">Processamento seguro de assinaturas e faturas</div>
+              </div>
+            </div>
+            <span class="cookie-required-badge badge-req">Necessário</span>
+          </div>
+          <div class="cookie-cat-body">
+            <table class="legal-table">
+              <thead><tr><th>Cookie</th><th>Domínio</th><th>Duração</th><th>Finalidade</th></tr></thead>
+              <tbody>
+                <tr><td><code>__stripe_mid</code></td><td>stripe.com</td><td>1 ano</td><td>Identificador de dispositivo para detecção de fraude e autenticação segura de pagamentos.</td></tr>
+                <tr><td><code>__stripe_sid</code></td><td>stripe.com</td><td>30 min</td><td>Identificador de sessão de pagamento para manter o estado durante o checkout.</td></tr>
+                <tr><td><code>m</code></td><td>m.stripe.com</td><td>2 anos</td><td>Identificador anônimo usado pela Stripe para análise de fraude na rede deles.</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12px;color:var(--muted);margin-top:8px">Política de privacidade da Stripe: <a href="https://stripe.com/br/privacy" target="_blank" style="color:var(--teal)">stripe.com/br/privacy</a></p>
+          </div>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-cat-header" onclick="toggleCat(this)">
+            <div class="cookie-cat-title">
+              <div>
+                <div class="cookie-cat-name">Mapbox — Mapas Interativos</div>
+                <div class="cookie-cat-desc">Renderização do mapa de incidentes</div>
+              </div>
+            </div>
+            <span class="cookie-required-badge badge-req">Necessário</span>
+          </div>
+          <div class="cookie-cat-body">
+            <table class="legal-table">
+              <thead><tr><th>Tecnologia</th><th>Domínio</th><th>Duração</th><th>Finalidade</th></tr></thead>
+              <tbody>
+                <tr><td>Requisições de tiles</td><td>api.mapbox.com</td><td>N/A (request)</td><td>Download de tiles de mapa (imagens do território). Inclui o token de acesso da Comunidade Alerta — sem dados pessoais do usuário.</td></tr>
+                <tr><td>Telemetria GL JS</td><td>events.mapbox.com</td><td>Sessão</td><td>Dados anônimos de desempenho do WebGL. Pode ser desativado via <code>map.on('error')</code> sem afetar funcionalidade.</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12px;color:var(--muted);margin-top:8px">Política de privacidade do Mapbox: <a href="https://www.mapbox.com/legal/privacy" target="_blank" style="color:var(--teal)">mapbox.com/legal/privacy</a></p>
+          </div>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-cat-header" onclick="toggleCat(this)">
+            <div class="cookie-cat-title">
+              <div>
+                <div class="cookie-cat-name">Google Fonts — Tipografia</div>
+                <div class="cookie-cat-desc">Carregamento das fontes Bebas Neue, Instrument Serif e DM Sans</div>
+              </div>
+            </div>
+            <span class="cookie-required-badge badge-opt">Funcional</span>
+          </div>
+          <div class="cookie-cat-body">
+            <p style="font-size:13px;color:var(--muted)">O Google Fonts é carregado via CDN (fonts.googleapis.com). O Google pode registrar o IP do usuário e o referrer ao carregar as fontes. Não define cookies persistentes. Estamos avaliando a migração para fontes auto-hospedadas para eliminar essa dependência.</p>
+            <p style="font-size:12px;color:var(--muted);margin-top:8px">Política de privacidade do Google: <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--teal)">policies.google.com/privacy</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s8">
+      <div class="section-num">08</div>
+      <h2 class="section-title">CENTRAL DE PREFERÊNCIAS</h2>
+      <div class="section-body">
+        <p>Gerencie suas preferências de cookies diretamente aqui. Alterações entram em vigor imediatamente.</p>
+
+        <div class="cookie-category">
+          <div class="cookie-cat-header">
+            <div class="cookie-cat-title">
+              <div>
+                <div class="cookie-cat-name">Cookies Essenciais</div>
+                <div class="cookie-cat-desc">Necessários para login, segurança e funcionamento básico</div>
+              </div>
+            </div>
+            <label class="cookie-toggle">
+              <input type="checkbox" checked disabled/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-cat-header">
+            <div class="cookie-cat-title">
+              <div>
+                <div class="cookie-cat-name">Cookies Funcionais</div>
+                <div class="cookie-cat-desc">Preferências de mapa, notificações e layout do dashboard</div>
+              </div>
+            </div>
+            <label class="cookie-toggle">
+              <input type="checkbox" id="pref-funcional" checked/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-cat-header">
+            <div class="cookie-cat-title">
+              <div>
+                <div class="cookie-cat-name">Análise e Desempenho</div>
+                <div class="cookie-cat-desc">Métricas agregadas e anônimas para melhoria do produto</div>
+              </div>
+            </div>
+            <label class="cookie-toggle">
+              <input type="checkbox" id="pref-analise" checked/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="pref-center">
+          <div class="pref-center-title">Salvar preferências</div>
+          <div class="pref-center-sub">Suas preferências são salvas localmente no seu navegador.</div>
+          <button class="pref-btn pref-btn-save" onclick="savePrefs()">Salvar minhas preferências</button>
+          <button class="pref-btn pref-btn-all"  onclick="acceptAll()">Aceitar todos</button>
+          <div class="pref-saved" id="pref-saved">✓ Preferências salvas com sucesso.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s9">
+      <div class="section-num">09</div>
+      <h2 class="section-title">GERENCIAR NO NAVEGADOR</h2>
+      <div class="section-body">
+        <p>Você também pode gerenciar ou excluir cookies diretamente pelas configurações do seu navegador:</p>
+        <table class="legal-table">
+          <thead><tr><th>Navegador</th><th>Como acessar</th></tr></thead>
+          <tbody>
+            <tr><td>Google Chrome</td><td>chrome://settings/cookies → Gerenciar dados de sites</td></tr>
+            <tr><td>Mozilla Firefox</td><td>Configurações → Privacidade e Segurança → Cookies</td></tr>
+            <tr><td>Safari (macOS)</td><td>Preferências → Privacidade → Gerenciar dados de sites</td></tr>
+            <tr><td>Microsoft Edge</td><td>Configurações → Cookies e permissões de sites</td></tr>
+            <tr><td>Chrome (Android)</td><td>Menu → Configurações → Privacidade → Limpar dados</td></tr>
+            <tr><td>Safari (iOS)</td><td>Ajustes → Safari → Privacidade e segurança</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight-box warn">
+          <p><strong>Atenção:</strong> A exclusão de cookies essenciais (especialmente <code>ca_jwt</code> e <code>ca_refresh_token</code>) irá desconectar você da plataforma e exigirá novo login. Dados do painel não serão perdidos — estão no servidor.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s10">
+      <div class="section-num">10</div>
+      <h2 class="section-title">DÚVIDAS E CONTATO</h2>
+      <div class="section-body">
+        <p>Para dúvidas sobre nossa política de cookies ou para exercer direitos relacionados a dados coletados por cookies, entre em contato:</p>
+        <table class="legal-table">
+          <tr><td>E-mail</td><td>privacidade@comunidadealerta.com.br</td></tr>
+          <tr><td>DPO</td><td>dpo@comunidadealerta.com.br</td></tr>
+          <tr><td>Prazo de resposta</td><td>Até 15 dias úteis</td></tr>
+        </table>
+        <p>Esta política é revisada periodicamente. A data de vigência no topo desta página indica a versão atual.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  <p>© 2026 Comunidade Alerta · Grande Florianópolis · Santa Catarina · Brasil</p>
+  <div class="doc-footer-links">
+    <a href="terms.html">Termos de Uso</a>
+    <a href="privacy.html">Privacidade</a>
+    <a href="lgpd.html">LGPD</a>
+    <a href="comunidade-alerta.html">← Voltar</a>
+  </div>
+</footer>
+
+<script>
+// Cookie category accordion
+function toggleCat(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// Preferences
+function savePrefs() {
+  const prefs = {
+    funcional: document.getElementById('pref-funcional').checked,
+    analise:   document.getElementById('pref-analise').checked,
+    saved_at:  new Date().toISOString(),
+  };
+  try { localStorage.setItem('ca_cookie_prefs', JSON.stringify(prefs)); } catch(e){}
+  const msg = document.getElementById('pref-saved');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 3000);
+}
+
+function acceptAll() {
+  document.getElementById('pref-funcional').checked = true;
+  document.getElementById('pref-analise').checked   = true;
+  savePrefs();
+}
+
+// Load saved prefs
+try {
+  const saved = JSON.parse(localStorage.getItem('ca_cookie_prefs') || '{}');
+  if (saved.funcional !== undefined) document.getElementById('pref-funcional').checked = saved.funcional;
+  if (saved.analise   !== undefined) document.getElementById('pref-analise').checked   = saved.analise;
+} catch(e){}
+
+// Sidebar scroll highlight
+const sections = document.querySelectorAll('.doc-section');
+const links    = document.querySelectorAll('.doc-sidebar a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.doc-sidebar a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

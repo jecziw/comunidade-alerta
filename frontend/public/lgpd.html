@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LGPD — Comunidade Alerta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink:#14120E;--paper:#F4EFE4;--paper-dark:#E8E0D0;--red:#C8201A;--navy:#1B2D52;--gold:#B8890A;--muted:#6B6558;--border:rgba(20,18,14,0.12);--border-strong:rgba(20,18,14,0.28);--success:#2E7D32; }
+html { scroll-behavior: smooth; }
+body { background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7; }
+.top-nav { height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--paper);position:sticky;top:0;z-index:10; }
+.logo { font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px; }
+.logo-dot { width:9px;height:9px;background:var(--red);border-radius:50%;animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.6} }
+.nav-back { font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px; }
+.doc-hero { background:var(--ink);padding:56px 48px;border-bottom:3px solid var(--gold); }
+.doc-hero-eyebrow { font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px; }
+.doc-hero-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,88px);letter-spacing:.02em;line-height:.92;color:#fff;margin-bottom:16px; }
+.doc-hero-sub { font-family:'Instrument Serif',serif;font-size:17px;color:rgba(255,255,255,.5);line-height:1.6;max-width:600px; }
+.doc-meta { display:flex;gap:24px;margin-top:24px;flex-wrap:wrap; }
+.doc-meta-item { font-size:11px;color:rgba(255,255,255,.3); }
+.doc-meta-item strong { color:rgba(255,255,255,.6);font-weight:500; }
+.doc-layout { display:grid;grid-template-columns:240px 1fr; }
+.doc-sidebar { padding:40px 28px;border-right:1px solid var(--border);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto; }
+.doc-sidebar-title { font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:16px; }
+.doc-sidebar a { display:block;font-size:12px;color:var(--muted);text-decoration:none;padding:7px 10px;border-radius:2px;transition:all .15s;margin-bottom:2px;border-left:2px solid transparent; }
+.doc-sidebar a:hover { color:var(--ink);background:var(--paper-dark); }
+.doc-sidebar a.active { color:var(--gold);border-left-color:var(--gold);background:rgba(184,137,10,.05);font-weight:500; }
+.doc-content { padding:56px 64px;max-width:860px; }
+.doc-section { margin-bottom:56px;scroll-margin-top:80px; }
+.section-num { font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--gold);margin-bottom:6px; }
+.section-title { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.03em;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border); }
+.section-body p { font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px; }
+.section-body strong { color:var(--ink);font-weight:500; }
+.section-body ul, .section-body ol { padding-left:22px;margin-bottom:14px; }
+.section-body li { font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:6px; }
+.section-body li strong { color:var(--ink); }
+.highlight-box { background:var(--paper-dark);border-left:3px solid var(--gold);padding:16px 20px;margin:16px 0; }
+.highlight-box p { font-size:13px;color:var(--ink);margin:0;line-height:1.6; }
+.rights-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0; }
+.right-card { background:var(--paper);border:1px solid var(--border);padding:18px;transition:background .15s; }
+.right-card:hover { background:var(--paper-dark); }
+.right-card-num { font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;color:var(--gold);margin-bottom:6px; }
+.right-card-title { font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px; }
+.right-card-desc { font-size:12px;color:var(--muted);line-height:1.5; }
+.right-card-art { font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:8px;font-weight:500; }
+.legal-table { width:100%;border-collapse:collapse;margin:16px 0;font-size:13px; }
+.legal-table th { background:var(--paper-dark);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 14px;text-align:left;border:1px solid var(--border); }
+.legal-table td { padding:10px 14px;border:1px solid var(--border);color:var(--muted);line-height:1.5;vertical-align:top; }
+.legal-table td:first-child { font-weight:500;color:var(--ink); }
+.contact-box { background:var(--ink);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:32px; }
+.contact-box-left strong { display:block;font-size:14px;font-weight:500;color:#fff;margin-bottom:4px; }
+.contact-box-left span { font-size:12px;color:rgba(255,255,255,.4); }
+.contact-box a { background:var(--gold);color:#fff;padding:10px 20px;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;white-space:nowrap; }
+.doc-footer { background:var(--ink);padding:28px 48px;border-top:2px solid var(--gold);display:flex;align-items:center;justify-content:space-between; }
+.doc-footer p { font-size:11px;color:rgba(255,255,255,.3); }
+.doc-footer-links { display:flex;gap:20px; }
+.doc-footer-links a { font-size:11px;color:rgba(255,255,255,.4);text-decoration:none; }
+.doc-footer-links a:hover { color:#fff; }
+@media(max-width:768px){.doc-layout{grid-template-columns:1fr}.doc-sidebar{display:none}.doc-content{padding:32px 24px}.rights-grid{grid-template-columns:1fr}.top-nav{padding:0 24px}.doc-hero{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="comunidade-alerta.html" class="logo"><span class="logo-dot"></span>Comunidade Alerta</a>
+  <a href="comunidade-alerta.html" class="nav-back">← Voltar ao site</a>
+</nav>
+
+<div class="doc-hero">
+  <div class="doc-hero-eyebrow">Lei 13.709 / 2018</div>
+  <h1 class="doc-hero-title">LGPD —<br/>PROTEÇÃO DE<br/>DADOS</h1>
+  <p class="doc-hero-sub">Nosso compromisso com a Lei Geral de Proteção de Dados: transparência, segurança e respeito aos seus direitos como titular.</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item"><strong>Lei:</strong> 13.709/2018</span>
+    <span class="doc-meta-item"><strong>Vigência da lei:</strong> 16 de agosto de 2020</span>
+    <span class="doc-meta-item"><strong>Regulador:</strong> ANPD — Autoridade Nacional de Proteção de Dados</span>
+  </div>
+</div>
+
+<div class="doc-layout">
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-title">Seções</div>
+    <a href="#s1" class="active">1. Sobre a LGPD</a>
+    <a href="#s2">2. Papel da Comunidade Alerta</a>
+    <a href="#s3">3. Seus 8 Direitos</a>
+    <a href="#s4">4. Bases Legais Utilizadas</a>
+    <a href="#s5">5. Dados Sensíveis</a>
+    <a href="#s6">6. Encarregado (DPO)</a>
+    <a href="#s7">7. Incidentes de Segurança</a>
+    <a href="#s8">8. Como Exercer seus Direitos</a>
+    <a href="#s9">9. ANPD — Reclamações</a>
+  </aside>
+
+  <main class="doc-content">
+
+    <div class="highlight-box">
+      <p><strong>A LGPD é a sua lei.</strong> Ela garante que você saiba quais dados são coletados, para quê, por quanto tempo, e que você possa controlar tudo isso. A Comunidade Alerta foi desenhada com privacidade desde o início (<em>Privacy by Design</em>).</p>
+    </div>
+
+    <div class="doc-section" id="s1">
+      <div class="section-num">01</div>
+      <h2 class="section-title">SOBRE A LGPD</h2>
+      <div class="section-body">
+        <p>A <strong>Lei Geral de Proteção de Dados Pessoais (LGPD)</strong> — Lei Federal 13.709/2018 — é a legislação brasileira que regula o tratamento de dados pessoais por pessoas físicas e jurídicas, com o objetivo de proteger os direitos fundamentais de liberdade, privacidade e o livre desenvolvimento da personalidade.</p>
+        <p>A lei se aplica a qualquer operação realizada com dados pessoais, independentemente do meio — digital ou físico — e se o controlador está no Brasil ou no exterior, desde que o tratamento ocorra no país ou os dados sejam de pessoas localizadas no Brasil.</p>
+        <p>Os princípios fundamentais da LGPD que norteiam nossas práticas são:</p>
+        <ul>
+          <li><strong>Finalidade:</strong> dados coletados apenas para propósitos legítimos, específicos e informados;</li>
+          <li><strong>Adequação:</strong> tratamento compatível com as finalidades informadas ao titular;</li>
+          <li><strong>Necessidade:</strong> limitação ao mínimo necessário — princípio da minimização;</li>
+          <li><strong>Livre acesso:</strong> garantia de consulta gratuita e facilitada aos dados;</li>
+          <li><strong>Qualidade dos dados:</strong> exatidão, clareza e atualização dos dados;</li>
+          <li><strong>Transparência:</strong> informações claras sobre o tratamento;</li>
+          <li><strong>Segurança:</strong> medidas técnicas e administrativas de proteção;</li>
+          <li><strong>Prevenção:</strong> adoção de medidas para prevenir danos;</li>
+          <li><strong>Não discriminação:</strong> impossibilidade de uso para fins discriminatórios;</li>
+          <li><strong>Responsabilização:</strong> demonstração de conformidade pelo controlador.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s2">
+      <div class="section-num">02</div>
+      <h2 class="section-title">PAPEL DA COMUNIDADE ALERTA</h2>
+      <div class="section-body">
+        <p>A LGPD define diferentes atores no ecossistema de dados. A Comunidade Alerta ocupa diferentes papéis dependendo do contexto:</p>
+        <table class="legal-table">
+          <thead><tr><th>Situação</th><th>Papel da Comunidade Alerta</th><th>Implicação</th></tr></thead>
+          <tbody>
+            <tr><td>Dados dos usuários (cadastro, perfil, pagamento)</td><td><strong>Controladora</strong></td><td>Definimos finalidade e meios do tratamento; responsáveis pelo RIPD e atendimento de direitos</td></tr>
+            <tr><td>Dados de incidentes inseridos pelo Contratante</td><td><strong>Operadora</strong></td><td>Tratamos conforme instrução do Contratante (controlador); vinculados por DPA</td></tr>
+            <tr><td>Dados de Fontes Externas (PRF, INMET, CEMADEN)</td><td><strong>Facilitadora</strong></td><td>Reproduzimos dados públicos de órgãos governamentais; responsabilidade compartilhada</td></tr>
+          </tbody>
+        </table>
+        <p>Quando atuamos como operadora, o Contratante assume as responsabilidades de controlador, incluindo garantir a base legal adequada para o tratamento dos dados de seus usuários finais.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s3">
+      <div class="section-num">03</div>
+      <h2 class="section-title">SEUS 8 DIREITOS (ART. 18 LGPD)</h2>
+      <div class="section-body">
+        <p>Enquanto titular de dados pessoais, a LGPD garante a você os seguintes direitos:</p>
+        <div class="rights-grid">
+          <div class="right-card">
+            <div class="right-card-num">I</div>
+            <div class="right-card-title">Confirmação e Acesso</div>
+            <div class="right-card-desc">Confirmar se seus dados são tratados e acessar cópia integral deles, de forma gratuita e em formato legível.</div>
+            <div class="right-card-art">Art. 18, I e II</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">II</div>
+            <div class="right-card-title">Correção</div>
+            <div class="right-card-desc">Solicitar a atualização ou correção de dados incompletos, inexatos ou desatualizados.</div>
+            <div class="right-card-art">Art. 18, III</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">III</div>
+            <div class="right-card-title">Anonimização, Bloqueio ou Eliminação</div>
+            <div class="right-card-desc">Pedir que dados desnecessários, excessivos ou tratados em desconformidade sejam anonimizados, bloqueados ou eliminados.</div>
+            <div class="right-card-art">Art. 18, IV</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">IV</div>
+            <div class="right-card-title">Portabilidade</div>
+            <div class="right-card-desc">Receber seus dados em formato estruturado e interoperável para transferência a outro fornecedor.</div>
+            <div class="right-card-art">Art. 18, V</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">V</div>
+            <div class="right-card-title">Eliminação com Consentimento</div>
+            <div class="right-card-desc">Solicitar a eliminação dos dados tratados com base em consentimento, ressalvadas as obrigações legais de retenção.</div>
+            <div class="right-card-art">Art. 18, VI</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">VI</div>
+            <div class="right-card-title">Informação sobre Compartilhamento</div>
+            <div class="right-card-desc">Saber com quais entidades públicas e privadas seus dados são compartilhados.</div>
+            <div class="right-card-art">Art. 18, VII</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">VII</div>
+            <div class="right-card-title">Revogação do Consentimento</div>
+            <div class="right-card-desc">Retirar o consentimento a qualquer momento, de forma gratuita e facilitada, sem prejuízo dos tratamentos já realizados.</div>
+            <div class="right-card-art">Art. 18, IX / Art. 8º, § 5º</div>
+          </div>
+          <div class="right-card">
+            <div class="right-card-num">VIII</div>
+            <div class="right-card-title">Revisão de Decisões Automatizadas</div>
+            <div class="right-card-desc">Solicitar revisão humana de decisões tomadas exclusivamente com base em tratamento automatizado que afete seus interesses.</div>
+            <div class="right-card-art">Art. 20</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s4">
+      <div class="section-num">04</div>
+      <h2 class="section-title">BASES LEGAIS QUE UTILIZAMOS</h2>
+      <div class="section-body">
+        <p>Todo tratamento de dados pessoais exige uma base legal. Abaixo detalhamos cada uma das que utilizamos:</p>
+        <table class="legal-table">
+          <thead><tr><th>Base Legal</th><th>Art. LGPD</th><th>Quando usamos</th></tr></thead>
+          <tbody>
+            <tr><td>Execução de contrato</td><td>Art. 7º, V</td><td>Criação de conta, prestação dos serviços contratados, cobrança</td></tr>
+            <tr><td>Consentimento</td><td>Art. 7º, I</td><td>E-mails de marketing, comunicações promocionais, cookies não essenciais</td></tr>
+            <tr><td>Legítimo interesse</td><td>Art. 7º, IX</td><td>Segurança da plataforma, prevenção a fraudes, melhoria do produto (dados anonimizados)</td></tr>
+            <tr><td>Obrigação legal</td><td>Art. 7º, II</td><td>Retenção de logs conforme Marco Civil, atendimento de ordens judiciais, obrigações fiscais</td></tr>
+            <tr><td>Proteção da vida</td><td>Art. 11, II, a</td><td>Dados sensíveis de ocorrências que envolvam risco de vida (feminicídio, crimes violentos)</td></tr>
+            <tr><td>Execução de políticas públicas</td><td>Art. 11, II, b</td><td>Dados inseridos por prefeituras e órgãos públicos no exercício de suas atribuições legais</td></tr>
+            <tr><td>Exercício de direito em processo</td><td>Art. 7º, VI</td><td>Retenção de dados para defesa em litígios administrativos ou judiciais</td></tr>
+          </tbody>
+        </table>
+        <p>Quando o tratamento é baseado em <strong>consentimento</strong>, você pode revogá-lo a qualquer momento pelo painel de Configurações → Notificações, sem custo e sem prejudicar os tratamentos anteriores.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s5">
+      <div class="section-num">05</div>
+      <h2 class="section-title">DADOS SENSÍVEIS E CUIDADOS ESPECIAIS</h2>
+      <div class="section-body">
+        <p>O art. 5º, II da LGPD define dados sensíveis como aqueles sobre origem racial ou étnica, convicção religiosa, opinião política, filiação sindical, saúde, vida sexual, dado genético ou biométrico e relacionados à criança ou adolescente.</p>
+        <p>A natureza da Plataforma faz com que ela possa indiretamente conter dados sensíveis nos registros de incidentes, especialmente:</p>
+        <ul>
+          <li><strong>Violência de gênero e feminicídio</strong> — dados que indicam a situação de vulnerabilidade de vítimas;</li>
+          <li><strong>Saúde</strong> — registros de acidentes com feridos e informações sobre estado clínico;</li>
+          <li><strong>Crianças e adolescentes</strong> — ocorrências envolvendo menores de 18 anos.</li>
+        </ul>
+        <p><strong>Medidas adicionais para dados sensíveis:</strong></p>
+        <ul>
+          <li>Criptografia AES-256 em repouso para campos identificados como sensíveis;</li>
+          <li>Controle de acesso granular — apenas usuários com permissão específica do Contratante podem visualizar;</li>
+          <li>Logs de acesso detalhados com quem, quando e por qual motivo acessou;</li>
+          <li>Impossibilidade de exportação em massa sem aprovação do administrador do tenant;</li>
+          <li>Mascaramento de dados identificadores em relatórios e exportações por padrão.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s6">
+      <div class="section-num">06</div>
+      <h2 class="section-title">ENCARREGADO (DPO)</h2>
+      <div class="section-body">
+        <p>Conforme o art. 41 da LGPD, indicamos um <strong>Encarregado pelo Tratamento de Dados Pessoais (DPO — Data Protection Officer)</strong>, responsável por:</p>
+        <ul>
+          <li>Aceitar reclamações e comunicações dos titulares de dados;</li>
+          <li>Prestar esclarecimentos aos titulares e à ANPD;</li>
+          <li>Orientar colaboradores e contratados sobre práticas de proteção de dados;</li>
+          <li>Executar as demais atribuições previstas na LGPD e em normas complementares.</li>
+        </ul>
+        <table class="legal-table">
+          <tr><td>Cargo</td><td>Encarregado de Proteção de Dados (DPO)</td></tr>
+          <tr><td>Contato</td><td>dpo@comunidadealerta.com.br</td></tr>
+          <tr><td>Idioma</td><td>Português</td></tr>
+          <tr><td>Prazo de resposta</td><td>Até 15 dias úteis</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s7">
+      <div class="section-num">07</div>
+      <h2 class="section-title">INCIDENTES DE SEGURANÇA</h2>
+      <div class="section-body">
+        <p>O art. 48 da LGPD obriga o controlador a comunicar à ANPD e aos titulares afetados a ocorrência de incidente de segurança que possa acarretar risco ou dano relevante.</p>
+        <p><strong>Nosso processo em caso de incidente:</strong></p>
+        <ol>
+          <li><strong>Detecção e contenção</strong> — identificação imediata e isolamento do incidente pela equipe de segurança;</li>
+          <li><strong>Avaliação de impacto</strong> — determinação dos tipos de dados afetados, número de titulares e risco potencial;</li>
+          <li><strong>Notificação à ANPD</strong> — dentro de <strong>72 horas</strong> após o conhecimento do incidente, quando houver risco relevante;</li>
+          <li><strong>Notificação aos titulares</strong> — por e-mail individualizado, com descrição do ocorrido, dados afetados, medidas adotadas e orientações;</li>
+          <li><strong>Relatório pós-incidente</strong> — análise de causa raiz e medidas corretivas implementadas.</li>
+        </ol>
+        <p>Para comunicar um possível incidente de segurança que afete seus dados, entre em contato imediatamente com <strong>seguranca@comunidadealerta.com.br</strong>.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s8">
+      <div class="section-num">08</div>
+      <h2 class="section-title">COMO EXERCER SEUS DIREITOS</h2>
+      <div class="section-body">
+        <p><strong>Pelo painel (imediato):</strong></p>
+        <ul>
+          <li>Acesso e correção: <em>Dashboard → Configurações → Perfil</em></li>
+          <li>Portabilidade/exportação: <em>Dashboard → Configurações → Exportar dados</em></li>
+          <li>Revogação de consentimento de notificações: <em>Dashboard → Configurações → Notificações</em></li>
+        </ul>
+        <p><strong>Por e-mail (até 15 dias úteis):</strong></p>
+        <p>Envie para <strong>lgpd@comunidadealerta.com.br</strong> com:</p>
+        <ol>
+          <li>Assunto: <em>"Exercício de Direito LGPD — [tipo de direito]"</em></li>
+          <li>Nome completo e e-mail cadastrado na plataforma;</li>
+          <li>Descrição clara do direito que deseja exercer;</li>
+          <li>Documento de identificação (CNH ou RG) para verificação de identidade.</li>
+        </ol>
+        <p>Respondemos todas as solicitações no prazo de <strong>15 dias úteis</strong>, podendo ser prorrogado por mais 15 dias em casos complexos, com justificativa. Nos casos em que não for possível atender (ex.: retenção por obrigação legal), forneceremos justificativa fundamentada.</p>
+
+        <div class="contact-box">
+          <div class="contact-box-left">
+            <strong>Exercer direito LGPD</strong>
+            <span>Respondemos em até 15 dias úteis · Identificação necessária</span>
+          </div>
+          <a href="mailto:lgpd@comunidadealerta.com.br">lgpd@comunidadealerta.com.br →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s9">
+      <div class="section-num">09</div>
+      <h2 class="section-title">ANPD — RECLAMAÇÕES</h2>
+      <div class="section-body">
+        <p>Se você entende que seus direitos foram violados e não obteve resposta satisfatória da Comunidade Alerta, pode registrar reclamação diretamente à <strong>ANPD — Autoridade Nacional de Proteção de Dados</strong>:</p>
+        <table class="legal-table">
+          <tr><td>Portal da ANPD</td><td>www.gov.br/anpd</td></tr>
+          <tr><td>Formulário de petição</td><td>Disponível no portal, seção "Peticionamento"</td></tr>
+          <tr><td>Base legal</td><td>Art. 18, § 1º e Art. 55-J, IV da LGPD</td></tr>
+        </table>
+        <p>A ANPD pode investigar, mediar e impor sanções administrativas previstas no art. 52 da LGPD, incluindo advertência, multa de até 2% do faturamento (limitada a R$ 50 milhões por infração) e publicização da infração.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  <p>© 2026 Comunidade Alerta · Grande Florianópolis · Santa Catarina · Brasil</p>
+  <div class="doc-footer-links">
+    <a href="terms.html">Termos de Uso</a>
+    <a href="privacy.html">Privacidade</a>
+    <a href="cookies.html">Cookies</a>
+    <a href="comunidade-alerta.html">← Voltar</a>
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('.doc-section');
+const links    = document.querySelectorAll('.doc-sidebar a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.doc-sidebar a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Política de Privacidade — Comunidade Alerta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink:#14120E;--paper:#F4EFE4;--paper-dark:#E8E0D0;--red:#C8201A;--navy:#1B2D52;--muted:#6B6558;--border:rgba(20,18,14,0.12);--border-strong:rgba(20,18,14,0.28); }
+html { scroll-behavior: smooth; }
+body { background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7; }
+.top-nav { height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--paper);position:sticky;top:0;z-index:10; }
+.logo { font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px; }
+.logo-dot { width:9px;height:9px;background:var(--red);border-radius:50%;animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.6} }
+.nav-back { font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px; }
+.nav-back:hover { color:var(--ink); }
+.doc-hero { background:var(--navy);padding:56px 48px;border-bottom:3px solid var(--red); }
+.doc-hero-eyebrow { font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:500;margin-bottom:10px; }
+.doc-hero-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,88px);letter-spacing:.02em;line-height:.92;color:#fff;margin-bottom:16px; }
+.doc-hero-sub { font-family:'Instrument Serif',serif;font-size:17px;color:rgba(255,255,255,.5);line-height:1.6;max-width:600px; }
+.doc-meta { display:flex;gap:24px;margin-top:24px;flex-wrap:wrap; }
+.doc-meta-item { font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.04em; }
+.doc-meta-item strong { color:rgba(255,255,255,.6);font-weight:500; }
+.doc-layout { display:grid;grid-template-columns:240px 1fr; }
+.doc-sidebar { padding:40px 28px;border-right:1px solid var(--border);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto; }
+.doc-sidebar-title { font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:16px; }
+.doc-sidebar a { display:block;font-size:12px;color:var(--muted);text-decoration:none;padding:7px 10px;border-radius:2px;transition:all .15s;margin-bottom:2px;border-left:2px solid transparent; }
+.doc-sidebar a:hover { color:var(--ink);background:var(--paper-dark); }
+.doc-sidebar a.active { color:var(--navy);border-left-color:var(--navy);background:rgba(27,45,82,.05);font-weight:500; }
+.doc-content { padding:56px 64px;max-width:860px; }
+.doc-section { margin-bottom:56px;scroll-margin-top:80px; }
+.section-num { font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--navy);margin-bottom:6px; }
+.section-title { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.03em;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border); }
+.section-body p { font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px; }
+.section-body strong { color:var(--ink);font-weight:500; }
+.section-body ul, .section-body ol { padding-left:22px;margin-bottom:14px; }
+.section-body li { font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:6px; }
+.section-body li strong { color:var(--ink); }
+.highlight-box { background:var(--paper-dark);border-left:3px solid var(--navy);padding:16px 20px;margin:16px 0; }
+.highlight-box p { font-size:13px;color:var(--ink);margin:0;line-height:1.6; }
+.highlight-box.warn { border-left-color:var(--red); }
+.legal-table { width:100%;border-collapse:collapse;margin:16px 0;font-size:13px; }
+.legal-table th { background:var(--paper-dark);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 14px;text-align:left;border:1px solid var(--border); }
+.legal-table td { padding:10px 14px;border:1px solid var(--border);color:var(--muted);line-height:1.5;vertical-align:top; }
+.legal-table td:first-child { font-weight:500;color:var(--ink);white-space:nowrap; }
+.contact-box { background:var(--navy);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:32px; }
+.contact-box-left strong { display:block;font-size:14px;font-weight:500;color:#fff;margin-bottom:4px; }
+.contact-box-left span { font-size:12px;color:rgba(255,255,255,.4); }
+.contact-box a { background:var(--red);color:#fff;padding:10px 20px;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;white-space:nowrap; }
+.contact-box a:hover { background:#a01812; }
+.doc-footer { background:var(--ink);padding:28px 48px;border-top:2px solid var(--navy);display:flex;align-items:center;justify-content:space-between; }
+.doc-footer p { font-size:11px;color:rgba(255,255,255,.3); }
+.doc-footer-links { display:flex;gap:20px; }
+.doc-footer-links a { font-size:11px;color:rgba(255,255,255,.4);text-decoration:none; }
+.doc-footer-links a:hover { color:#fff; }
+@media(max-width:768px){.doc-layout{grid-template-columns:1fr}.doc-sidebar{display:none}.doc-content{padding:32px 24px}.top-nav{padding:0 24px}.doc-hero{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="comunidade-alerta.html" class="logo"><span class="logo-dot"></span>Comunidade Alerta</a>
+  <a href="comunidade-alerta.html" class="nav-back">← Voltar ao site</a>
+</nav>
+
+<div class="doc-hero">
+  <div class="doc-hero-eyebrow">Documento legal</div>
+  <h1 class="doc-hero-title">POLÍTICA DE<br/>PRIVACIDADE</h1>
+  <p class="doc-hero-sub">Como coletamos, usamos, protegemos e compartilhamos suas informações pessoais na plataforma Comunidade Alerta.</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item"><strong>Versão:</strong> 2.0</span>
+    <span class="doc-meta-item"><strong>Vigência:</strong> 20 de maio de 2026</span>
+    <span class="doc-meta-item"><strong>DPO:</strong> dpo@comunidadealerta.com.br</span>
+  </div>
+</div>
+
+<div class="doc-layout">
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-title">Seções</div>
+    <a href="#s1" class="active">1. Controlador dos Dados</a>
+    <a href="#s2">2. Dados que Coletamos</a>
+    <a href="#s3">3. Dados Sensíveis</a>
+    <a href="#s4">4. Como Usamos os Dados</a>
+    <a href="#s5">5. Base Legal (LGPD)</a>
+    <a href="#s6">6. Compartilhamento</a>
+    <a href="#s7">7. Transferência Internacional</a>
+    <a href="#s8">8. Retenção e Exclusão</a>
+    <a href="#s9">9. Segurança</a>
+    <a href="#s10">10. Seus Direitos</a>
+    <a href="#s11">11. Menores</a>
+    <a href="#s12">12. Alterações</a>
+    <a href="#s13">13. Contato</a>
+  </aside>
+
+  <main class="doc-content">
+
+    <div class="highlight-box">
+      <p><strong>Resumo:</strong> Coletamos apenas os dados necessários para operar a plataforma. Não vendemos seus dados. Compartilhamos apenas com prestadores essenciais. Você tem controle total e pode solicitar exclusão a qualquer momento.</p>
+    </div>
+
+    <div class="doc-section" id="s1">
+      <div class="section-num">01</div>
+      <h2 class="section-title">CONTROLADOR DOS DADOS</h2>
+      <div class="section-body">
+        <p>A <strong>Comunidade Alerta</strong> é a controladora dos dados pessoais coletados nesta Plataforma, nos termos da Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).</p>
+        <table class="legal-table">
+          <tr><td>Razão Social</td><td>Comunidade Alerta Tecnologia Ltda.</td></tr>
+          <tr><td>Endereço</td><td>Grande Florianópolis, SC — Brasil</td></tr>
+          <tr><td>E-mail geral</td><td>contato@comunidadealerta.com.br</td></tr>
+          <tr><td>DPO (Encarregado)</td><td>dpo@comunidadealerta.com.br</td></tr>
+          <tr><td>Privacidade</td><td>privacidade@comunidadealerta.com.br</td></tr>
+        </table>
+        <p>Para os dados inseridos pelos Contratantes em nome de suas organizações, o Contratante atua como <strong>controlador independente</strong> e a Comunidade Alerta como <strong>operadora</strong>, conforme contrato de processamento de dados (DPA) disponível mediante solicitação.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s2">
+      <div class="section-num">02</div>
+      <h2 class="section-title">DADOS QUE COLETAMOS</h2>
+      <div class="section-body">
+        <p><strong>2.1 Dados fornecidos diretamente por você:</strong></p>
+        <table class="legal-table">
+          <thead><tr><th>Categoria</th><th>Dados</th><th>Obrigatório</th></tr></thead>
+          <tbody>
+            <tr><td>Cadastro</td><td>Nome completo, e-mail, senha (hash bcrypt), nome da organização, CNPJ ou CPF</td><td>Sim</td></tr>
+            <tr><td>Perfil</td><td>Telefone, foto de perfil (quando disponível), cargo</td><td>Não</td></tr>
+            <tr><td>Pagamento</td><td>Dados de cobrança (processados pela Stripe — não armazenamos números de cartão)</td><td>Planos pagos</td></tr>
+            <tr><td>Incidentes</td><td>Descrições de ocorrências, coordenadas geográficas, fotos de evidências (quando a funcionalidade estiver ativa)</td><td>Funcional</td></tr>
+            <tr><td>Suporte</td><td>Mensagens de suporte, chamados, e-mails</td><td>Quando solicitado</td></tr>
+          </tbody>
+        </table>
+        <p><strong>2.2 Dados coletados automaticamente:</strong></p>
+        <table class="legal-table">
+          <thead><tr><th>Categoria</th><th>Dados</th><th>Finalidade</th></tr></thead>
+          <tbody>
+            <tr><td>Logs de acesso</td><td>IP (anonimizado), timestamp, endpoint acessado, código HTTP, user-agent</td><td>Segurança e auditoria</td></tr>
+            <tr><td>Uso da plataforma</td><td>Ações realizadas, funcionalidades acessadas, erros gerados</td><td>Melhoria do produto</td></tr>
+            <tr><td>Dispositivo</td><td>Tipo de dispositivo, sistema operacional, versão do navegador, resolução</td><td>Compatibilidade</td></tr>
+            <tr><td>Push tokens</td><td>Token VAPID do dispositivo para notificações push</td><td>Push notifications</td></tr>
+            <tr><td>WebSocket</td><td>ID de sessão Socket.io, eventos transmitidos</td><td>Alertas em tempo real</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s3">
+      <div class="section-num">03</div>
+      <h2 class="section-title">DADOS SENSÍVEIS</h2>
+      <div class="section-body">
+        <div class="highlight-box warn">
+          <p><strong>Atenção:</strong> A Plataforma pode conter dados sensíveis relacionados a crimes, violência doméstica e feminicídio, que exigem tratamento especial conforme o art. 11 da LGPD.</p>
+        </div>
+        <p>Dados de ocorrências podem conter, por natureza, informações sensíveis como:</p>
+        <ul>
+          <li><strong>Violência contra a mulher e feminicídio</strong> — registros de casos com localização, descrição e status;</li>
+          <li><strong>Ocorrências criminais</strong> — dados de crimes, suspeitos e vítimas inseridos pelos Contratantes;</li>
+          <li><strong>Dados de menores</strong> — quando o incidente envolve pessoas com menos de 18 anos.</li>
+        </ul>
+        <p>O Contratante é o controlador desses dados e declara ao aceitar estes Termos que:</p>
+        <ol>
+          <li>Possui base legal adequada para o tratamento (art. 11 da LGPD);</li>
+          <li>Segue os protocolos de proteção exigidos por lei para dados de vítimas de violência;</li>
+          <li>Não utiliza a Plataforma para expor, identificar ou revitimizar pessoas em situação de vulnerabilidade.</li>
+        </ol>
+        <p>A Comunidade Alerta adota controles técnicos adicionais para esses registros, incluindo criptografia em repouso e logs de acesso detalhados.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s4">
+      <div class="section-num">04</div>
+      <h2 class="section-title">COMO USAMOS OS DADOS</h2>
+      <div class="section-body">
+        <p>Utilizamos os dados coletados para as seguintes finalidades:</p>
+        <table class="legal-table">
+          <thead><tr><th>Finalidade</th><th>Dados utilizados</th></tr></thead>
+          <tbody>
+            <tr><td>Prestação do serviço</td><td>Todos os dados necessários para operação da Plataforma</td></tr>
+            <tr><td>Autenticação e segurança</td><td>E-mail, senha hash, IP, logs de acesso</td></tr>
+            <tr><td>Cobrança e faturamento</td><td>Dados de cadastro e de pagamento (Stripe)</td></tr>
+            <tr><td>Controle de período de teste (trial)</td><td>CNPJ/CPF — para garantir 1 trial por documento e prevenir uso abusivo</td></tr>
+            <tr><td>Notificações</td><td>E-mail, push token — para alertas e comunicados</td></tr>
+            <tr><td>Suporte técnico</td><td>E-mail, histórico de uso, logs de erro</td></tr>
+            <tr><td>Melhoria do produto</td><td>Dados de uso agregados e anonimizados</td></tr>
+            <tr><td>Segurança e antifraude</td><td>IP, logs, padrões de uso</td></tr>
+            <tr><td>Obrigações legais</td><td>Conforme determinação judicial ou administrativa</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Não utilizamos dados pessoais para:</strong> publicidade de terceiros, treinamento de modelos de IA sem consentimento expresso, ou venda a corretores de dados.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s5">
+      <div class="section-num">05</div>
+      <h2 class="section-title">BASE LEGAL (LGPD)</h2>
+      <div class="section-body">
+        <p>Todo tratamento de dados pessoais na Plataforma é fundamentado em uma base legal explícita, conforme os arts. 7º e 11 da LGPD:</p>
+        <table class="legal-table">
+          <thead><tr><th>Tratamento</th><th>Base legal (LGPD)</th><th>Artigo</th></tr></thead>
+          <tbody>
+            <tr><td>Criação e manutenção da conta</td><td>Execução de contrato</td><td>Art. 7º, V</td></tr>
+            <tr><td>Processamento de pagamento</td><td>Execução de contrato</td><td>Art. 7º, V</td></tr>
+            <tr><td>Envio de notificações operacionais</td><td>Legítimo interesse</td><td>Art. 7º, IX</td></tr>
+            <tr><td>Envio de e-mails de marketing</td><td>Consentimento</td><td>Art. 7º, I</td></tr>
+            <tr><td>Logs de segurança e auditoria</td><td>Legítimo interesse / Obrigação legal</td><td>Art. 7º, II e IX</td></tr>
+            <tr><td>Dados sensíveis (ocorrências)</td><td>Proteção da vida / Execução de políticas públicas</td><td>Art. 11, II, a e b</td></tr>
+            <tr><td>Cumprimento de ordem judicial</td><td>Obrigação legal</td><td>Art. 7º, II</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s6">
+      <div class="section-num">06</div>
+      <h2 class="section-title">COMPARTILHAMENTO DE DADOS</h2>
+      <div class="section-body">
+        <p><strong>Não vendemos seus dados pessoais</strong> a qualquer terceiro. Compartilhamos dados apenas com os seguintes tipos de destinatários e nas condições descritas:</p>
+        <table class="legal-table">
+          <thead><tr><th>Destinatário</th><th>Dados compartilhados</th><th>Finalidade</th><th>Base legal</th></tr></thead>
+          <tbody>
+            <tr><td>Stripe Inc.</td><td>Nome, e-mail, dados de cobrança</td><td>Processamento de pagamento</td><td>Execução de contrato</td></tr>
+            <tr><td>Resend</td><td>E-mail, nome</td><td>Envio de e-mails transacionais</td><td>Execução de contrato</td></tr>
+            <tr><td>CartoDB (provedor de mapas)</td><td>Coordenadas geográficas de incidentes</td><td>Renderização de mapas</td><td>Legítimo interesse</td></tr>
+            <tr><td>AWS (Amazon)</td><td>Todos os dados (hospedagem)</td><td>Infraestrutura de nuvem</td><td>Execução de contrato</td></tr>
+            <tr><td>Autoridades públicas</td><td>Conforme determinação legal</td><td>Cumprimento de ordem judicial/administrativa</td><td>Obrigação legal</td></tr>
+          </tbody>
+        </table>
+        <p>Todos os prestadores de serviço são contratualmente obrigados a adotar medidas de segurança compatíveis com a LGPD e, quando aplicável, com o GDPR.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s7">
+      <div class="section-num">07</div>
+      <h2 class="section-title">TRANSFERÊNCIA INTERNACIONAL</h2>
+      <div class="section-body">
+        <p>Alguns de nossos prestadores de serviço estão localizados fora do Brasil (EUA, principalmente). As transferências internacionais de dados são realizadas com garantias adequadas:</p>
+        <ul>
+          <li><strong>Stripe:</strong> certificada PCI-DSS L1, sob cláusulas contratuais padrão (SCCs) conforme GDPR e adequação LGPD;</li>
+          <li><strong>Resend:</strong> infraestrutura nos EUA, com cláusulas de proteção de dados conforme LGPD art. 33, VI;</li>
+          <li><strong>CartoDB:</strong> apenas coordenadas geográficas sem identificação pessoal direta, armazenadas nos EUA;</li>
+          <li><strong>AWS (us-east-1):</strong> sob Data Processing Addendum (DPA) com cláusulas contratuais padrão.</li>
+        </ul>
+        <p>Sempre que possível, adotamos criptografia de dados antes da transferência e minimização dos dados compartilhados.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s8">
+      <div class="section-num">08</div>
+      <h2 class="section-title">RETENÇÃO E EXCLUSÃO</h2>
+      <div class="section-body">
+        <table class="legal-table">
+          <thead><tr><th>Tipo de dado</th><th>Período de retenção</th><th>Critério</th></tr></thead>
+          <tbody>
+            <tr><td>Dados da conta e perfil</td><td>Vigência da conta + 90 dias</td><td>Exclusão após cancelamento</td></tr>
+            <tr><td>Dados de incidentes</td><td>24 meses</td><td>Relevância operacional</td></tr>
+            <tr><td>Logs de acesso (IP)</td><td>12 meses</td><td>Segurança e Marco Civil (art. 15)</td></tr>
+            <tr><td>Dados financeiros / faturas</td><td>5 anos</td><td>Obrigação fiscal (Receita Federal)</td></tr>
+            <tr><td>Logs de auditoria (sensíveis)</td><td>5 anos</td><td>Obrigação legal e prestação de contas</td></tr>
+            <tr><td>Dados de suporte</td><td>3 anos</td><td>Defesa em litígios</td></tr>
+            <tr><td>Push tokens</td><td>Até revogação</td><td>Opt-out nas configurações</td></tr>
+          </tbody>
+        </table>
+        <p>Após os períodos estabelecidos, os dados são <strong>eliminados de forma segura</strong> com sobrescrição ou exclusão criptográfica, tornando-os irrecuperáveis.</p>
+        <p>Você pode solicitar a eliminação antecipada dos seus dados a qualquer momento em <strong>privacidade@comunidadealerta.com.br</strong>, sujeito às exceções de obrigação legal.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s9">
+      <div class="section-num">09</div>
+      <h2 class="section-title">SEGURANÇA DOS DADOS</h2>
+      <div class="section-body">
+        <p>Adotamos medidas técnicas e organizacionais para proteger seus dados pessoais contra acesso não autorizado, alteração, divulgação ou destruição:</p>
+        <ul>
+          <li><strong>Criptografia em trânsito:</strong> TLS 1.3 em todas as comunicações, HTTPS obrigatório com HSTS;</li>
+          <li><strong>Criptografia em repouso:</strong> dados sensíveis cifrados com AES-256 no banco de dados PostgreSQL;</li>
+          <li><strong>Autenticação:</strong> JWT com expiração curta, bcrypt para senhas (custo 12), suporte a 2FA;</li>
+          <li><strong>Isolamento:</strong> arquitetura multi-tenant com separação por <code>tenant_id</code> em todas as queries;</li>
+          <li><strong>Varredura de vulnerabilidades:</strong> Trivy scanner no pipeline CI/CD a cada deploy;</li>
+          <li><strong>Monitoramento:</strong> Prometheus + Grafana com alertas para anomalias de acesso;</li>
+          <li><strong>Controle de acesso:</strong> princípio do menor privilégio para colaboradores internos;</li>
+          <li><strong>Backups:</strong> backups automáticos diários com retenção de 30 dias, criptografados.</li>
+        </ul>
+        <p>Em caso de incidente de segurança que afete dados pessoais, notificaremos a ANPD e os titulares afetados dentro de <strong>72 horas</strong> do conhecimento do incidente, conforme art. 48 da LGPD.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s10">
+      <div class="section-num">10</div>
+      <h2 class="section-title">SEUS DIREITOS</h2>
+      <div class="section-body">
+        <p>Conforme os arts. 17 a 22 da LGPD, você tem os seguintes direitos em relação aos seus dados pessoais:</p>
+        <table class="legal-table">
+          <thead><tr><th>Direito</th><th>Como exercer</th><th>Prazo de resposta</th></tr></thead>
+          <tbody>
+            <tr><td>Confirmação de tratamento</td><td>E-mail para privacidade@</td><td>15 dias úteis</td></tr>
+            <tr><td>Acesso aos dados</td><td>Painel → Configurações → Exportar, ou e-mail</td><td>15 dias úteis</td></tr>
+            <tr><td>Correção de dados</td><td>Painel → Configurações → Perfil</td><td>Imediato / 5 dias úteis</td></tr>
+            <tr><td>Anonimização ou bloqueio</td><td>E-mail para privacidade@</td><td>15 dias úteis</td></tr>
+            <tr><td>Portabilidade</td><td>Exportação JSON/CSV no painel</td><td>Imediato / 15 dias úteis</td></tr>
+            <tr><td>Eliminação</td><td>E-mail para privacidade@ com identificação</td><td>30 dias corridos</td></tr>
+            <tr><td>Revogação de consentimento</td><td>Painel → Configurações → Notificações</td><td>Imediato</td></tr>
+            <tr><td>Oposição ao tratamento</td><td>E-mail para privacidade@</td><td>15 dias úteis</td></tr>
+          </tbody>
+        </table>
+        <p>Para exercer seus direitos, você deve se autenticar para comprovar sua identidade. Nos casos em que não for possível atender à solicitação (ex.: obrigação legal), forneceremos justificativa por escrito.</p>
+        <p>Se não estiver satisfeito com nossa resposta, você pode peticionar à <strong>ANPD — Autoridade Nacional de Proteção de Dados</strong> (gov.br/anpd).</p>
+
+        <div class="contact-box">
+          <div class="contact-box-left">
+            <strong>Exercer seus direitos de privacidade</strong>
+            <span>Respondemos em até 15 dias úteis.</span>
+          </div>
+          <a href="mailto:privacidade@comunidadealerta.com.br">privacidade@comunidadealerta.com.br →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s11">
+      <div class="section-num">11</div>
+      <h2 class="section-title">MENORES DE IDADE</h2>
+      <div class="section-body">
+        <p>A Plataforma não é destinada a menores de 18 anos. Não coletamos conscientemente dados pessoais de menores. Se identificarmos que um menor criou conta sem autorização parental, eliminaremos os dados imediatamente.</p>
+        <p>Dados de incidentes que envolvam menores como vítimas recebem tratamento especial e acesso restrito, conforme o Estatuto da Criança e do Adolescente (ECA) e a LGPD.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s12">
+      <div class="section-num">12</div>
+      <h2 class="section-title">ALTERAÇÕES NESTA POLÍTICA</h2>
+      <div class="section-body">
+        <p>Esta Política pode ser atualizada periodicamente. Alterações materiais serão notificadas por e-mail com <strong>30 dias de antecedência</strong>. A data de vigência no topo desta página indica a versão em vigor.</p>
+        <p>O histórico completo de versões está disponível mediante solicitação a <strong>privacidade@comunidadealerta.com.br</strong>.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s13">
+      <div class="section-num">13</div>
+      <h2 class="section-title">CONTATO E DPO</h2>
+      <div class="section-body">
+        <p>Para dúvidas, solicitações ou reclamações relacionadas à privacidade e ao tratamento de dados pessoais, entre em contato com o nosso Encarregado de Proteção de Dados (DPO):</p>
+        <table class="legal-table">
+          <tr><td>E-mail DPO</td><td>dpo@comunidadealerta.com.br</td></tr>
+          <tr><td>E-mail Privacidade</td><td>privacidade@comunidadealerta.com.br</td></tr>
+          <tr><td>Prazo de resposta</td><td>Até 15 dias úteis</td></tr>
+          <tr><td>ANPD</td><td>www.gov.br/anpd — para reclamações não resolvidas</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  <p>© 2026 Comunidade Alerta · Grande Florianópolis · Santa Catarina · Brasil</p>
+  <div class="doc-footer-links">
+    <a href="terms.html">Termos de Uso</a>
+    <a href="lgpd.html">LGPD</a>
+    <a href="cookies.html">Cookies</a>
+    <a href="comunidade-alerta.html">← Voltar</a>
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('.doc-section');
+const links    = document.querySelectorAll('.doc-sidebar a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.doc-sidebar a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

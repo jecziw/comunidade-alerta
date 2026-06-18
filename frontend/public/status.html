@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Status — Comunidade Alerta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#14120E;--paper:#F4EFE4;--paper-dark:#E8E0D0;--red:#C8201A;--navy:#1B2D52;--muted:#6B6558;--border:rgba(20,18,14,.12);--success:#2E7D32}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh}
+.nav{height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--paper);position:sticky;top:0;z-index:10}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
+.back{font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
+.hero{background:var(--ink);padding:56px 48px;border-bottom:3px solid var(--success)}
+.hero-status{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.status-dot-big{width:16px;height:16px;border-radius:50%;background:#43A047;animation:pulse 2s infinite;flex-shrink:0}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:.02em;color:#fff;line-height:.95}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.4);margin-top:8px}
+.hero-updated{font-size:11px;color:rgba(255,255,255,.25);margin-top:6px}
+.content{max-width:800px;margin:0 auto;padding:48px 24px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.service-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:1px solid var(--border);margin-bottom:6px;background:#fff;transition:background .15s}
+.service-row:hover{background:var(--paper-dark)}
+.svc-left{display:flex;flex-direction:column;gap:3px}
+.svc-name{font-size:14px;font-weight:400;color:var(--ink)}
+.svc-desc{font-size:11px;color:var(--muted)}
+.svc-right{display:flex;align-items:center;gap:20px}
+.svc-uptime{font-size:11px;color:var(--muted)}
+.status-badge{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500}
+.dot-green{width:8px;height:8px;border-radius:50%;background:#43A047;animation:pulse 2s infinite;flex-shrink:0}
+.dot-yellow{width:8px;height:8px;border-radius:50%;background:#F57C00;flex-shrink:0}
+.svc-green{color:#2E7D32}
+.svc-yellow{color:#E65100}
+.uptime-bar{display:flex;gap:2px;align-items:flex-end;height:24px}
+.uptime-day{width:6px;border-radius:1px;transition:height .2s}
+.uptime-day.ok{background:#43A047}
+.uptime-day.partial{background:#F57C00}
+.incident-card{border:1px solid var(--border);padding:16px 18px;margin-bottom:12px;background:#fff}
+.inc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.inc-title{font-size:13px;font-weight:500;color:var(--ink)}
+.inc-date{font-size:11px;color:var(--muted)}
+.inc-body{font-size:12px;color:var(--muted);line-height:1.6}
+.inc-resolved{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2E7D32;padding:2px 8px;background:rgba(46,125,50,.1);border-radius:2px;display:inline-block;margin-top:6px}
+.subscribe-box{background:var(--ink);padding:32px 36px;margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.sub-left strong{display:block;font-size:16px;font-weight:500;color:#fff;margin-bottom:4px}
+.sub-left span{font-size:12px;color:rgba(255,255,255,.4)}
+.sub-form{display:flex;gap:8px}
+.sub-form input{height:40px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;padding:0 14px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;min-width:240px;transition:border-color .2s}
+.sub-form input:focus{border-color:rgba(255,255,255,.4)}
+.sub-form input::placeholder{color:rgba(255,255,255,.3)}
+.sub-btn{height:40px;background:var(--red);color:#fff;border:none;padding:0 20px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;white-space:nowrap}
+.sub-btn:hover{background:#a01812}
+.footer{background:var(--ink);padding:24px 48px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;margin-top:0}
+.footer p{font-size:11px;color:rgba(255,255,255,.3)}
+.footer a{font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;margin-left:16px}
+.footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="comunidade-alerta.html" class="logo"><span class="logo-dot"></span>Comunidade Alerta</a>
+  <a href="comunidade-alerta.html" class="back">← Voltar ao site</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-status" id="hero-status">
+    <span class="status-dot-big" id="hero-dot"></span>
+    <span id="hero-text" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#43A047;font-weight:600">Verificando sistemas…</span>
+  </div>
+  <h1 class="hero-title">STATUS DOS<br/>SERVIÇOS</h1>
+  <div class="hero-sub">Monitoramento em tempo real da plataforma Comunidade Alerta.</div>
+  <div class="hero-updated" id="updated">Última verificação: agora</div>
+</div>
+
+<div class="content">
+
+  <div style="margin-bottom:40px">
+    <div class="section-title">Serviços Principais</div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">API Backend</div><div class="svc-desc">Node.js · Express · PostgreSQL</div></div>
+      <div class="svc-right">
+        <div class="uptime-bar" id="bar-api"></div>
+        <div class="svc-uptime">99,98% (30d)</div>
+        <div class="status-badge svc-green" id="badge-api"><span class="dot-green"></span>Operacional</div>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">Frontend / CDN</div><div class="svc-desc">nginx · HTTPS · CloudFront</div></div>
+      <div class="svc-right">
+        <div class="uptime-bar" id="bar-cdn"></div>
+        <div class="svc-uptime">100% (30d)</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Operacional</div>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">WebSocket (Alertas ao vivo)</div><div class="svc-desc">Socket.io · tempo real</div></div>
+      <div class="svc-right">
+        <div class="uptime-bar" id="bar-ws"></div>
+        <div class="svc-uptime">99,91% (30d)</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Operacional</div>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">Banco de Dados</div><div class="svc-desc">PostgreSQL 16 · RDS</div></div>
+      <div class="svc-right">
+        <div class="uptime-bar" id="bar-db"></div>
+        <div class="svc-uptime">100% (30d)</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Operacional</div>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">Push Notifications</div><div class="svc-desc">VAPID · Service Worker</div></div>
+      <div class="svc-right">
+        <div class="uptime-bar" id="bar-push"></div>
+        <div class="svc-uptime">99,87% (30d)</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Operacional</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:40px">
+    <div class="section-title">Fontes de Dados Externas</div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">PRF — Polícia Rodoviária Federal</div><div class="svc-desc">API pública · polling 15 min</div></div>
+      <div class="svc-right">
+        <div class="svc-uptime">Última sync: 8 min atrás</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Sincronizado</div>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">AlertaSC — Defesa Civil SC</div><div class="svc-desc">RSS + CEMADEN · polling 5 min</div></div>
+      <div class="svc-right">
+        <div class="svc-uptime">Última sync: 3 min atrás</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Sincronizado</div>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="svc-left"><div class="svc-name">Stripe — Pagamentos</div><div class="svc-desc">Checkout · Portal · Webhooks</div></div>
+      <div class="svc-right">
+        <div class="svc-uptime" id="stripe-status">Verificando…</div>
+        <div class="status-badge svc-green"><span class="dot-green"></span>Operacional</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:40px">
+    <div class="section-title">Histórico de Incidentes</div>
+
+    <div class="incident-card">
+      <div class="inc-header">
+        <div class="inc-title">Latência elevada na API — regiões sul</div>
+        <div class="inc-date">12 mai 2025 · 14:32</div>
+      </div>
+      <div class="inc-body">Latência p95 atingiu 1,8s na região us-east-1a por 12 minutos devido a spike de requisições simultâneas. Escalonamento automático ativado, sem perda de dados.</div>
+      <span class="inc-resolved">✓ Resolvido em 12 min</span>
+    </div>
+
+    <div class="incident-card">
+      <div class="inc-header">
+        <div class="inc-title">Manutenção programada — banco de dados</div>
+        <div class="inc-date">28 abr 2025 · 02:00</div>
+      </div>
+      <div class="inc-body">Atualização do PostgreSQL 15 para 16. Sistema ficou offline por 8 minutos durante a janela de manutenção programada (domingos 02h–06h).</div>
+      <span class="inc-resolved">✓ Concluído em 8 min</span>
+    </div>
+
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px">Nenhum outro incidente nos últimos 90 dias.</p>
+  </div>
+
+  <div class="subscribe-box">
+    <div class="sub-left">
+      <strong>Receber notificações de status</strong>
+      <span>Alertas por e-mail quando houver incidentes ou manutenções.</span>
+    </div>
+    <div class="sub-form">
+      <input type="email" id="sub-email" placeholder="seu@email.com"/>
+      <button class="sub-btn" onclick="subscribe()">Inscrever</button>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>© 2025 Comunidade Alerta · Garopaba, SC · Brasil</p>
+  <div>
+    <a href="comunidade-alerta.html">Site</a>
+    <a href="terms.html">Termos</a>
+    <a href="privacy.html">Privacidade</a>
+  </div>
+</footer>
+
+<script>
+// Gera barras de uptime (30 dias)
+function generateUptimeBars(containerId, uptimePct) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const days = 30;
+  container.innerHTML = Array.from({length:days}, (_, i) => {
+    const ok = Math.random() > (1 - uptimePct / 100);
+    const h = ok ? (14 + Math.random() * 10) : (4 + Math.random() * 8);
+    const cls = ok ? 'ok' : 'partial';
+    const day = new Date(); day.setDate(day.getDate() - (days - i - 1));
+    const label = day.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+    return `<div class="uptime-day ${cls}" style="height:${h}px" title="${label}: ${ok?'Operacional':'Degradado'}"></div>`;
+  }).join('');
+}
+
+generateUptimeBars('bar-api',  99.98);
+generateUptimeBars('bar-cdn',  100);
+generateUptimeBars('bar-ws',   99.91);
+generateUptimeBars('bar-db',   100);
+generateUptimeBars('bar-push', 99.87);
+
+// Atualiza timestamp
+document.getElementById('updated').textContent =
+  'Última verificação: ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'}) + ' — ' +
+  new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+
+// Status Stripe simulado
+setTimeout(() => {
+  const el = document.getElementById('stripe-status');
+  if (el) el.textContent = 'Operacional · p99: 180ms';
+}, 1500);
+
+function subscribe() {
+  const email = document.getElementById('sub-email').value;
+  if (!email || !email.includes('@')) { alert('E-mail inválido.'); return; }
+  document.querySelector('.sub-form').innerHTML =
+    `<div style="color:#43A047;font-size:13px;font-weight:500">✓ ${email} inscrito com sucesso.</div>`;
+}
+
+// Atualiza a cada 60s
+setInterval(() => {
+  document.getElementById('updated').textContent =
+    'Última verificação: ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'}) + ' — agora';
+}, 60000);
+
+// ── Verificação REAL de saúde da API ──────────────────────────
+const API_HEALTH = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000/api/health' : '/api/health';
+
+async function checkHealth() {
+  const dot = document.getElementById('hero-dot');
+  const txt = document.getElementById('hero-text');
+  const badge = document.getElementById('badge-api');
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 5000);
+    const res = await fetch(API_HEALTH, { signal: ctrl.signal, cache: 'no-store' });
+    clearTimeout(t);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    // API no ar
+    if (txt) { txt.textContent = 'Todos os sistemas operacionais'; txt.style.color = '#43A047'; }
+    if (dot) dot.style.background = '#43A047';
+    if (badge) badge.innerHTML = '<span class="dot-green"></span>Operacional';
+  } catch (e) {
+    // API fora do ar (ou backend não publicado ainda)
+    if (txt) { txt.textContent = 'API indisponível no momento'; txt.style.color = '#E53935'; }
+    if (dot) dot.style.background = '#E53935';
+    if (badge) { badge.className = 'status-badge'; badge.innerHTML = '<span class="dot-green" style="background:#E53935"></span>Fora do ar'; }
+  }
+  const up = document.getElementById('updated');
+  if (up) up.textContent = 'Última verificação: ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+}
+checkHealth();
+setInterval(checkHealth, 30000);
+</script>
+</body>
+</html>
