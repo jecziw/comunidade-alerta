@@ -31,6 +31,7 @@ if ('serviceWorker' in navigator) {
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <!-- Mapbox GL JS removido — usando Leaflet para máxima compatibilidade -->
 
 <style>
@@ -2453,7 +2454,7 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
   ? 'http://localhost:3000/api'
   : '/api';
 
-const API_ENABLED = false; // true quando backend estiver rodando
+const API_ENABLED = true; // true quando backend estiver rodando
 
 /**
  * Busca dados da API ou usa dados locais como fallback.
@@ -2490,6 +2491,23 @@ async function apiPost(endpoint, body) {
     return await res.json();
   } catch(err) {
     console.warn('[API] POST ' + endpoint + ' falhou:', err.message);
+    return { ok: false, error: err.message };
+  }
+}
+
+async function apiPatch(endpoint, body) {
+  if (!API_ENABLED) {
+    return new Promise(resolve => setTimeout(() => resolve({ ok: true }), 400));
+  }
+  const sess = loadSession();
+  const headers = { 'Content-Type': 'application/json' };
+  if (sess?.token) headers['Authorization'] = 'Bearer ' + sess.token;
+  try {
+    const res = await fetch(API_BASE + endpoint, { method:'PATCH', headers, body: JSON.stringify(body) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  } catch(err) {
+    console.warn('[API] PATCH ' + endpoint + ' falhou:', err.message);
     return { ok: false, error: err.message };
   }
 }
@@ -2688,22 +2706,29 @@ function nameFromEmail(email) {
   return nome || 'Usuário';
 }
 
-function doLogin() {
+async function doLogin() {
   const email = (document.getElementById('login-email')?.value || '').trim();
   const pass  = (document.getElementById('login-pass')?.value || '').trim();
   if (!email || !pass) { showToast('Preencha e-mail e senha'); return; }
   if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { showToast('E-mail inválido'); return; }
-  // Demo: autentica e entra. Em produção, valida no backend (POST /api/auth/login).
+  // Login real no backend (POST /api/auth/login). apiPost devolve {token,user} ou {ok:false,error}.
+  const r = await apiPost('/auth/login', { email, password: pass });
+  if (!r || !r.token) { showToast(r?.error === 'HTTP 401' ? 'Credenciais inválidas' : (r?.error || 'Falha no login')); return; }
+  const u = r.user || {};
   const prev = (typeof loadSession === 'function' ? loadSession() : null) || {};
   saveSession({
     authenticated: true,
-    name: prev.name || nameFromEmail(email),
-    email: email,
+    token: r.token,
+    name: u.name || prev.name || nameFromEmail(email),
+    email: u.email || email,
     org: prev.org || 'Minha Organização',
-    plan: prev.plan || selectedBillingPlan || 'pro',
+    plan: u.plan || prev.plan || selectedBillingPlan || 'pro',
+    role: u.role || 'admin',
+    tenantId: u.tenantId || null,
     cnpjCpf: prev.cnpjCpf || null,
   });
-  showPage('dashboard'); if (typeof initDashboard==='function') initDashboard();
+  if (u.plan && typeof selectedBillingPlan !== 'undefined') selectedBillingPlan = u.plan;
+  showPage('dashboard'); if (typeof initDashboard==='function') await initDashboard();
   showWelcomeBack();
 }
 
@@ -3286,54 +3311,59 @@ document.getElementById('btn2').addEventListener('click', () => {
 document.getElementById('back2').addEventListener('click', () => goToStep(1));
 document.getElementById('back3').addEventListener('click', () => goToStep(2));
 
-document.getElementById('btn3').addEventListener('click', () => {
+document.getElementById('btn3').addEventListener('click', async () => {
   if (!document.getElementById('terms').checked) { showToast('Aceite os Termos de Uso para criar sua conta'); return; }
   const btn = document.getElementById('btn3');
   btn.disabled = true; btn.textContent = 'Criando conta...';
-  setTimeout(() => {
-    // ── Salva sessão autenticada ────────────────────────────
-    const name  = (document.getElementById('inp-name')?.value || '').trim();
-    const sob   = (document.getElementById('inp-sobrenome')?.value || '').trim();
-    const email = (document.getElementById('inp-email')?.value || '').trim();
-    const org   = (document.getElementById('inp-org')?.value || '').trim();
-    const doc   = (document.getElementById('inp-doc')?.value || '').replace(/\D/g,'');
-    const plan  = typeof selectedPlan !== 'undefined' ? selectedPlan : (typeof selectedBillingPlan !== 'undefined' ? selectedBillingPlan : 'pro');
-    const full  = [name, sob].filter(Boolean).join(' ');
 
-    // Verifica trial já usado por este documento (regra: 1 trial por CNPJ/CPF)
-    let usedDocs = [];
-    try { usedDocs = JSON.parse(localStorage.getItem('ca_trial_docs') || '[]'); } catch(e) {}
-    const trialGranted = !doc || !usedDocs.includes(doc);
-    if (doc && trialGranted) {
-      usedDocs.push(doc);
-      try { localStorage.setItem('ca_trial_docs', JSON.stringify(usedDocs)); } catch(e) {}
-    }
-    const trialEnds = trialGranted ? Date.now() + 14*86400000 : Date.now();
+  const name  = (document.getElementById('inp-name')?.value || '').trim();
+  const sob   = (document.getElementById('inp-sobrenome')?.value || '').trim();
+  const email = (document.getElementById('inp-email')?.value || '').trim();
+  const pass  = (document.getElementById('inp-pass')?.value || '');
+  const org   = (document.getElementById('inp-org')?.value || '').trim();
+  const doc   = (document.getElementById('inp-doc')?.value || '').replace(/\D/g,'');
+  const full  = [name, sob].filter(Boolean).join(' ');
 
-    saveSession({
-      authenticated:  true,
-      name:           full || name || 'Usuário',
-      email:          email,
-      org:            org || 'Minha Organização',
-      cnpjCpf:        doc || null,
-      plan:           plan,
-      trialGranted:   trialGranted,
-      trialEndsAt:    trialEnds,
-      'inp-name':     name,
-      'inp-sobrenome':sob,
-      'inp-email':    email,
-      'inp-org':      org,
-    });
-    if (typeof selectedBillingPlan !== 'undefined') selectedBillingPlan = plan;
+  // ── Cria a conta de verdade no backend (POST /api/auth/register) ──
+  const r = await apiPost('/auth/register', {
+    name: full || name || 'Usuário',
+    email,
+    password: pass,
+    orgName: org,
+    cnpjCpf: doc || undefined,
+  });
+  if (!r || !r.token) {
+    showToast(r?.error === 'HTTP 409' ? 'E-mail já cadastrado' : (r?.error || 'Não foi possível criar a conta'));
+    btn.disabled = false; btn.textContent = 'Criar conta';
+    return;
+  }
+  const u = r.user || {};
+  const plan = u.plan || 'pro';
 
-    // ── Mostra tela de sucesso ───────────────────────────────
-    document.querySelectorAll('#page-register .form-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('stepper').style.display = 'none';
-    document.getElementById('reg-success').classList.add('active');
-    ['ck1','ck2','ck3','ck4','ck5'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('done'); });
-    document.getElementById('success-msg').innerHTML = `Bem-vindo, <strong>${name || 'operador'}</strong>! Seu ambiente está pronto.<br/>Você já pode acessar o painel completo.`;
-    btn.disabled = false;
-  }, 1400);
+  saveSession({
+    authenticated:  true,
+    token:          r.token,
+    name:           u.name || full || name || 'Usuário',
+    email:          u.email || email,
+    org:            org || 'Minha Organização',
+    cnpjCpf:        doc || null,
+    plan:           plan,
+    role:           u.role || 'admin',
+    tenantId:       u.tenantId || null,
+    'inp-name':     name,
+    'inp-sobrenome':sob,
+    'inp-email':    email,
+    'inp-org':      org,
+  });
+  if (typeof selectedBillingPlan !== 'undefined') selectedBillingPlan = plan;
+
+  // ── Mostra tela de sucesso ───────────────────────────────
+  document.querySelectorAll('#page-register .form-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('stepper').style.display = 'none';
+  document.getElementById('reg-success').classList.add('active');
+  ['ck1','ck2','ck3','ck4','ck5'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('done'); });
+  document.getElementById('success-msg').innerHTML = `Bem-vindo, <strong>${name || 'operador'}</strong>! Seu ambiente está pronto.<br/>Você já pode acessar o painel completo.`;
+  btn.disabled = false; btn.textContent = 'Criar conta';
 });
 
 /* ═══════════════════════════════════════════
@@ -7259,8 +7289,12 @@ function updatePlanBadge(plan) {
   badgeEl.textContent = labels[plan] || labels.pro;
 }
 
-function initDashboard() {
+async function initDashboard() {
   syncUserToDash();
+  // Carrega os alertas reais do tenant ANTES de renderizar (degrada para demo se a API falhar)
+  await refreshLiveData();
+  // Liga o tempo real (Socket.io) — atualiza mapa/feed/tabela sem reload
+  initRealtime();
   const plan = selectedBillingPlan || 'pro';
 
   // ── Atualiza badge de cobertura ──────────────
@@ -8731,6 +8765,159 @@ const incidentGeoJSON = {
   ]
 };
 
+// ═══════════════════════════════════════════════════════════
+//  CAMADA DE DADOS AO VIVO — vem do backend (GET /api/alerts)
+//  Preenchida por refreshLiveData() ao entrar no dashboard.
+//  Se a API falhar / vier vazia / não autenticada → mantém o
+//  dataset demo (incidentGeoJSON/allAlerts/dashAlerts) intacto.
+// ═══════════════════════════════════════════════════════════
+let liveIncidentGeoJSON = null;   // FeatureCollection ao vivo, ou null (=usar demo)
+let liveDataLoaded = false;
+
+const LIVE_TYPE_LABELS = { crime:'Crime', furto:'Furto', transito:'Trânsito', infra:'Infraestrutura', feminicidio:'Feminicídio', prf:'PRF', inmet:'INMET', cemaden:'CEMADEN', outro:'Outro' };
+
+// Externos: a categoria visual segue a FONTE (prf/inmet/cemaden). Internos: o tipo.
+function liveDisplayType(a) {
+  if (a.source && a.source !== 'interno' && a.source !== 'manual' && LIVE_TYPE_LABELS[a.source]) return a.source;
+  return a.type || 'outro';
+}
+function fmtClock(ts) {
+  const d = ts ? new Date(ts) : new Date();
+  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+function fmtRelative(ts) {
+  if (!ts) return 'agora';
+  const min = Math.floor(Math.max(0, Date.now() - new Date(ts).getTime()) / 60000);
+  if (min < 1) return 'agora';
+  if (min < 60) return `${min} min`;
+  const h = Math.floor(min/60), m = min%60;
+  return m ? `${h}h ${m} min` : `${h}h`;
+}
+
+// Linha do backend → formato usado por allAlerts/dashAlerts
+function liveToRow(a) {
+  const dt = liveDisplayType(a);
+  return {
+    id:       a.external_id || ('AL-' + a.id),
+    dbId:     a.id,
+    type:     dt,
+    label:    LIVE_TYPE_LABELS[dt] || dt,
+    source:   (a.source === 'interno' ? 'manual' : (a.source || 'manual')),
+    desc:     a.description || '',
+    loc:      a.location || '',
+    status:   a.status || 'open',
+    severity: a.severity || 'medium',
+    lat:      a.latitude  != null ? parseFloat(a.latitude)  : null,
+    lng:      a.longitude != null ? parseFloat(a.longitude) : null,
+    time:     fmtClock(a.created_at),
+    _created: a.created_at || null,
+  };
+}
+// Linha do backend → feature GeoJSON (null se sem coordenadas)
+function liveToFeature(a) {
+  const lat = a.latitude  != null ? parseFloat(a.latitude)  : NaN;
+  const lng = a.longitude != null ? parseFloat(a.longitude) : NaN;
+  if (isNaN(lat) || isNaN(lng)) return null;
+  const dt = liveDisplayType(a);
+  return {
+    type:'Feature',
+    geometry:{ type:'Point', coordinates:[lng, lat] },
+    properties:{
+      type: dt, label: LIVE_TYPE_LABELS[dt] || dt,
+      desc: a.description || '', loc: a.location || '',
+      id: a.external_id || ('AL-' + a.id),
+      status: a.status || 'open',
+      source: (a.source === 'interno' ? 'manual' : (a.source || 'manual')),
+    }
+  };
+}
+
+// Fonte de features para os mapas DO DASHBOARD (delegacias sempre do dataset de
+// referência; incidentes vêm da API quando carregados).
+function mapSource() {
+  return (liveIncidentGeoJSON && Array.isArray(liveIncidentGeoJSON.features)) ? liveIncidentGeoJSON : incidentGeoJSON;
+}
+
+// Busca os alertas reais do tenant e repopula os datasets do dashboard IN PLACE.
+// Mantém as 22 delegacias (dados de referência, sem tabela no backend).
+async function refreshLiveData() {
+  let data = null;
+  try { data = await apiGet('/alerts?limit=200', null); } catch(_) { data = null; }
+  if (!data || !Array.isArray(data.alerts)) return false; // mantém demo
+  const rows  = data.alerts.map(liveToRow);
+  const feats = data.alerts.map(liveToFeature).filter(Boolean);
+  const delegacias = incidentGeoJSON.features.filter(f => f.properties && f.properties.type === 'delegacia');
+  liveIncidentGeoJSON = { type:'FeatureCollection', features: [...delegacias, ...feats] };
+  liveDataLoaded = true;
+  try {
+    allAlerts.length  = 0; rows.forEach(r => allAlerts.push(r));
+    dashAlerts.length = 0; rows.forEach(r => dashAlerts.push({ ...r, time: fmtRelative(r._created) }));
+  } catch(_) {}
+  return true;
+}
+
+// Re-renderiza os painéis após carregar/atualizar os dados ao vivo.
+function rerenderDashboard() {
+  try { updateMapCounters?.(); } catch(_) {}
+  try { renderDashFeed?.(); } catch(_) {}
+  try { renderAlertasTable?.(typeof activeFilter !== 'undefined' ? activeFilter : 'all'); } catch(_) {}
+  try { renderMapPanel?.(); } catch(_) {}
+  try { renderInsights?.(); } catch(_) {}
+}
+
+// ═══════════════════════════════════════════════════════════
+//  TEMPO REAL — cliente Socket.io
+//  Escuta alert:new / alert:updated / alert:assigned do backend
+//  e atualiza mapa + feed + tabela + contadores sem reload.
+// ═══════════════════════════════════════════════════════════
+let caSocket = null;
+let _rtTimer = null;
+
+// Recria os mapas do dashboard a partir do mapSource() atualizado (delegacias + alertas ao vivo).
+function liveRefreshMaps() {
+  [['map-dash','dash'], ['map-full','full']].forEach(([id, key]) => {
+    const el   = document.getElementById(id);
+    const inst = (id === 'map-dash') ? mapDash : mapFull;
+    if (!el || !inst) return;
+    const visible = el.offsetParent !== null;   // só re-desenha o que está visível
+    let zoom = 11; try { zoom = inst.getZoom() || 11; } catch(_) {}
+    try { inst.remove(); } catch(_) {}
+    if (id === 'map-dash') mapDash = null; else mapFull = null;
+    if (window._mapMarkersById) window._mapMarkersById[key] = {};
+    if (key === 'full') window._mapFullInstance = null;
+    if (visible) { try { initLeafletMap(id, zoom, selectedBillingPlan || 'pro'); } catch(_) {} }
+  });
+}
+
+// Recebe um evento de alerta em tempo real. Toast/beep imediatos; refresh coalescido (debounce).
+function onRealtimeEvent(kind, payload) {
+  if (kind === 'new' && payload) {
+    const label = payload.source_label || LIVE_TYPE_LABELS[payload.source] || LIVE_TYPE_LABELS[payload.type] || 'Alerta';
+    const desc  = (payload.description || payload.desc || '').substring(0, 80);
+    try { showToast?.(`🔔 [${label}] ${desc}`); } catch(_) {}
+    try { playAlertBeep?.(); } catch(_) {}
+  }
+  clearTimeout(_rtTimer);
+  _rtTimer = setTimeout(async () => {
+    const changed = await refreshLiveData();
+    if (changed) { rerenderDashboard(); liveRefreshMaps(); }
+  }, 500);
+}
+
+// Conecta ao Socket.io autenticando pelo JWT da sessão. Reconecta sozinho.
+function initRealtime() {
+  const sess = loadSession();
+  if (!sess?.token || typeof io === 'undefined') return; // sem token/lib → sem tempo real (degrada pro load único)
+  if (caSocket) { try { caSocket.disconnect(); } catch(_) {} caSocket = null; }
+  caSocket = io({ auth: { token: sess.token }, transports: ['websocket','polling'], reconnection: true });
+  caSocket.on('connect',       () => console.info('[rt] tempo real conectado'));
+  caSocket.on('connect_error', e => console.warn('[rt] conexão falhou:', e?.message || e));
+  caSocket.on('disconnect',    r => console.info('[rt] desconectado:', r));
+  caSocket.on('alert:new',      a => onRealtimeEvent('new', a));
+  caSocket.on('alert:updated',  a => onRealtimeEvent('updated', a));
+  caSocket.on('alert:assigned', a => onRealtimeEvent('assigned', a));
+}
+
 const INCIDENT_COLORS = { crime:'#E53935', transito:'#F57C00', furto:'#EF5350', infra:'#43A047', delegacia:'#7986CB', feminicidio:'#9C27B0', prf:'#FF8F00', inmet:'#0288D1', cemaden:'#6A1B9A' };
 const mapFilters = { crime:true, transito:true, infra:true, furto:true, heatmap:true, feminicidio:true, prf:true, inmet:true };
 let mapDash = null;
@@ -8934,7 +9121,8 @@ function initLeafletMap(containerId, zoom, plan) {
     });
   }
 
-  const featuresForPlan = filterGeoByPlan(incidentGeoJSON.features, activePlan);
+  const _srcGeo = (containerId === 'map-dash' || containerId === 'map-full') ? mapSource() : incidentGeoJSON;
+  const featuresForPlan = filterGeoByPlan(_srcGeo.features, activePlan);
 
   try {
   featuresForPlan.forEach(f => {
@@ -9453,7 +9641,7 @@ function renderEquipe() {
 
 
 function updateMapCounters() {
-  const feats = (typeof incidentGeoJSON !== 'undefined' ? incidentGeoJSON.features : []);
+  const feats = (typeof mapSource === 'function' ? mapSource().features : (typeof incidentGeoJSON !== 'undefined' ? incidentGeoJSON.features : []));
   const incidents = feats.filter(f => f.properties.type !== 'delegacia');
   const delegacias = feats.filter(f => f.properties.type === 'delegacia');
   const abertos = incidents.filter(f => f.properties.status === 'open').length;
@@ -9498,7 +9686,7 @@ function renderInsights() {
   if (!strip) return;
 
   // ── Calcula insights reais a partir dos dados ──
-  const feats = (typeof incidentGeoJSON !== 'undefined' ? incidentGeoJSON.features : [])
+  const feats = (typeof mapSource === 'function' ? mapSource().features : (typeof incidentGeoJSON !== 'undefined' ? incidentGeoJSON.features : []))
     .filter(f => f.properties && f.properties.type !== 'delegacia');
 
   // 1) Município/região com mais incidentes + comparação
@@ -10004,9 +10192,32 @@ function submitResolve() {
   }
 
   document.getElementById('resolve-panel').classList.remove('open');
-  // Tenta salvar na API (fallback local já aplicado acima)
-  apiPost('/alertas', resolveTargetIdx !== null ? { id: (allAlerts[resolveTargetIdx]?.id), status, desc, loc, type, notes } : { type, desc, loc, status, notes, priority: prio, source: src })
-    .then(res => { if (res?.id) console.info('[API] Alerta salvo:', res.id); });
+
+  // ── Persiste no backend ────────────────────────────────────
+  // Mapeia prioridade do formulário → severity aceita pelo backend
+  const sev = /crit/i.test(prio) ? 'critical' : /alta|high/i.test(prio) ? 'high' : /baixa|low/i.test(prio) ? 'low' : 'medium';
+  (async () => {
+    if (resolveTargetIdx !== null && allAlerts[resolveTargetIdx]) {
+      // Edição: o backend só expõe alteração de STATUS (PATCH /alerts/:id/status)
+      const dbId = allAlerts[resolveTargetIdx].dbId;
+      if (dbId) {
+        const r = await apiPatch('/alerts/' + dbId + '/status', { status });
+        if (r && r.error) console.warn('[API] status não atualizado:', r.error);
+      }
+    } else {
+      // Criação: POST /api/alerts (campos do backend: type, description, location, severity)
+      const r = await apiPost('/alerts', { type, description: desc, location: loc, severity: sev });
+      if (!r || (!r.alert && !r.id)) {
+        showToast('Salvo localmente, mas não foi possível gravar no servidor' + (r?.error ? ' (' + r.error + ')' : ''));
+      }
+    }
+    // Recarrega do servidor para refletir id/coords reais e re-renderiza
+    if (typeof refreshLiveData === 'function') {
+      const ok = await refreshLiveData();
+      if (ok && typeof rerenderDashboard === 'function') rerenderDashboard();
+    }
+  })();
+
   renderAlertasTable(activeFilter);
   renderActivityTable();
   renderDashFeed();

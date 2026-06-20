@@ -14,7 +14,7 @@
 const { syncPRF,      POLL_INTERVAL: PRF_INTERVAL      } = require('./prfService');
 const { syncINMET,    POLL_INTERVAL: INMET_INTERVAL    } = require('./inmetService');
 const { syncCEMADEN,  POLL_INTERVAL: CEMADEN_INTERVAL  } = require('./cemadenService');
-const { emitToAll }    = require('./socketService');
+const { emitToTenant }    = require('./socketService');
 const { notifyTenantUsers }  = require('./pushService');
 const { dispatchWebhook }    = require('./webhookService');
 const { pool } = require('../db');
@@ -58,8 +58,8 @@ async function processNewAlerts(newAlerts, tenantId) {
   for (const raw of newAlerts) {
     const alert = enrichAlert(raw);
 
-    // 1. Emite para todos os clientes WebSocket do tenant
-    emitToAll('alert:new', {
+    // 1. Emite para os clientes WebSocket DO TENANT (não para todos)
+    emitToTenant(tenantId, 'alert:new', {
       ...alert,
       toast: `[${alert.source_label}] ${alert.description.substring(0, 80)}`,
     });

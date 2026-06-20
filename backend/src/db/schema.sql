@@ -103,3 +103,13 @@ BEGIN NEW.updated_at = NOW(); RETURN NEW; END; $$ LANGUAGE plpgsql;
 CREATE OR REPLACE TRIGGER tenants_updated_at BEFORE UPDATE ON tenants FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 CREATE OR REPLACE TRIGGER users_updated_at BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 CREATE OR REPLACE TRIGGER alerts_updated_at BEFORE UPDATE ON alerts FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- trial_history: garante 1 trial por CNPJ/CPF por plano (usado em authController.register)
+CREATE TABLE IF NOT EXISTS trial_history (
+  id          SERIAL PRIMARY KEY,
+  cnpj_cpf    VARCHAR(14)  NOT NULL,
+  plan        VARCHAR(50)  NOT NULL,
+  tenant_id   UUID         REFERENCES tenants(id) ON DELETE CASCADE,
+  created_at  TIMESTAMPTZ  DEFAULT NOW(),
+  UNIQUE (cnpj_cpf, plan)
+);
