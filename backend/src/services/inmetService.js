@@ -22,7 +22,7 @@ const axios = require('axios');
 const { pool } = require('../db');
 
 const INMET_ATIVOS = 'https://apiprevmet3.inmet.gov.br/avisos/ativos';
-const POLL_INTERVAL = 10 * 60 * 1000; // 10 minutos
+const POLL_INTERVAL = 5 * 60 * 1000; // 5 minutos
 
 // ─────────────────────────────────────────────────────────────
 // Municípios da Grande Florianópolis (22 municípios) com bbox

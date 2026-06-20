@@ -14,8 +14,11 @@
 const { syncPRF,      POLL_INTERVAL: PRF_INTERVAL      } = require('./prfService');
 const { syncINMET,    POLL_INTERVAL: INMET_INTERVAL    } = require('./inmetService');
 const { syncCEMADEN,  POLL_INTERVAL: CEMADEN_INTERVAL  } = require('./cemadenService');
-const { emitToTenant }    = require('./socketService');
-const { notifyTenantUsers }  = require('./pushService');
+const { emitToTenant, emitPublic }    = require('./socketService');
+
+// Dedup de emissões públicas (mesmo external_id chega por vários tenants).
+const recentPublicIds = new Set();
+const { notifyTenantUsers, notifyPublicSubscribers }  = require('./pushService');
 const { dispatchWebhook }    = require('./webhookService');
 const { pool } = require('../db');
 
@@ -63,6 +66,25 @@ async function processNewAlerts(newAlerts, tenantId) {
       ...alert,
       toast: `[${alert.source_label}] ${alert.description.substring(0, 80)}`,
     });
+
+    // 1b. Emite para a sala PÚBLICA (cidadão na página pública), deduplicado por
+    // external_id — o mesmo aviso do INMET é inserido por tenant, mas o cidadão
+    // deve recebê-lo uma única vez.
+    const pubKey = alert.external_id || `${alert.source}:${alert.id}`;
+    if (!recentPublicIds.has(pubKey)) {
+      recentPublicIds.add(pubKey);
+      if (recentPublicIds.size > 500) recentPublicIds.delete(recentPublicIds.values().next().value);
+      emitPublic('alert:new', {
+        ...alert,
+        toast: `[${alert.source_label}] ${alert.description.substring(0, 80)}`,
+      });
+      notifyPublicSubscribers({
+        title: `🚨 [${alert.source_label}] Alerta`,
+        body: alert.description.substring(0, 120),
+        url: './comunidade-alerta.html',
+        id: alert.external_id || undefined,
+      }).catch(() => {});
+    }
 
     // 2. Push Notification para usuários do tenant (somente severity high/critical)
     if (['high', 'critical'].includes(alert.severity)) {
@@ -142,19 +164,13 @@ function startExternalSync() {
   isRunning = true;
 
   console.log('[externalSync] Iniciando jobs de dados externos…');
-  console.log(`  PRF     → polling a cada ${PRF_INTERVAL / 60000} min`);
-  console.log(`  INMET    → polling a cada ${INMET_INTERVAL / 60000} min`);
-  console.log(`  CEMADEN  → polling a cada ${CEMADEN_INTERVAL / 60000} min (best-effort)`);
+  console.log(`  INMET → polling a cada ${INMET_INTERVAL / 60000} min (única fonte pública real)`);
+  console.log('  PRF/CEMADEN → desativados: não há API pública em tempo real (ver getModoProducao/ingest).');
 
-  // Executa imediatamente na inicialização
-  runPRFJob();
+  // Apenas o INMET tem feed público real. PRF (só CSV anual) e CEMADEN (sem API
+  // pública, confirmado via LAI) foram desativados para não rodar em vão.
   runINMETJob();
-  runCEMADENJob();
-
-  // Agenda polling recorrente
-  prfTimer      = setInterval(runPRFJob,      PRF_INTERVAL);
-  inmetTimer     = setInterval(runINMETJob,     INMET_INTERVAL);
-  cemadenTimer   = setInterval(runCEMADENJob,   CEMADEN_INTERVAL);
+  inmetTimer = setInterval(runINMETJob, INMET_INTERVAL);
 }
 
 // ── Para os jobs (útil em testes e graceful shutdown) ──

@@ -8,6 +8,7 @@ const stats    = require('../controllers/statsController');
 const push     = require('../controllers/pushController');
 const webhooks = require('../controllers/webhookController');
 const twofa    = require('../controllers/twoFactorController');
+const publicCtrl = require('../controllers/publicController');
 const { authenticateToken, optionalAuth, requireRole, checkPlanLimit } = require('../middlewares/auth');
 const { rateLimit } = require('../middlewares/rateLimit');
 const authLimiter = rateLimit({ windowMs: 15*60*1000, max: 10 }); // 10 tentativas / 15 min
@@ -31,6 +32,12 @@ router.post  ('/alerts',             authenticateToken, checkPlanLimit, alerts.c
 router.patch ('/alerts/:id/status',  authenticateToken, workflow.updateStatus);
 router.post  ('/alerts/:id/assign',  authenticateToken, workflow.assignAlert);
 router.get   ('/alerts/:id/history', authenticateToken, workflow.getHistory);
+
+// Público (cidadão, sem login) + ingestão real por chave
+router.get   ('/public/alerts',     publicCtrl.listPublic);
+router.get   ('/public/vapid-key',  publicCtrl.getVapidKey);
+router.post  ('/public/subscribe',  publicCtrl.subscribe);
+router.post  ('/alerts/ingest',     publicCtrl.ingest);
 
 // Stats
 router.get('/stats', authenticateToken, stats.getStats);

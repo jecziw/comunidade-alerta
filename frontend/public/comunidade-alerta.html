@@ -1409,9 +1409,9 @@ footer {
             Teste grátis por 14 dias
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
-          <button id="hero-demo-btn" class="btn-secondary" onclick="startDemo()" style="display:flex;align-items:center;gap:7px">
+          <button id="hero-demo-btn" class="btn-secondary" onclick="showPage('publico')" style="display:flex;align-items:center;gap:7px">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="5.5"/><path d="M5 4.5l4 2-4 2V4.5z" fill="currentColor" stroke="none"/></svg>
-            Ver demonstração ao vivo
+            Ver mapa público ao vivo
           </button>
         </div>
 
@@ -1671,76 +1671,6 @@ footer {
     </div>
   </section>
 
-  <section class="testimonial-section" style="padding:80px 48px;background:var(--ink)">
-    <div style="max-width:1100px;margin:0 auto">
-      <div style="text-align:center;margin-bottom:48px">
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;margin-bottom:12px">O que dizem nossos clientes</div>
-        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:.03em;color:#fff;line-height:1">RESULTADOS REAIS</h2>
-      </div>
-
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px">
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:28px;display:flex;flex-direction:column;gap:16px">
-          <svg viewBox="0 0 32 24" fill="rgba(200,32,26,.4)" width="32" height="24"><path d="M0 24V14.4C0 6.4 4.8 1.6 14.4 0l1.6 3.2C10.4 4.8 7.2 7.2 6.4 12H12V24H0zm20 0V14.4C20 6.4 24.8 1.6 34.4 0L36 3.2C30.4 4.8 27.2 7.2 26.4 12H32V24H20z"/></svg>
-          <p style="font-family:'Instrument Serif',serif;font-size:16px;color:rgba(255,255,255,.8);line-height:1.65;flex:1">Antes levávamos horas para cruzar ocorrências entre bairros. Hoje o mapa mostra tudo em segundos — e a equipe responde antes que o problema escale.</p>
-          <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:14px">
-            <div style="font-size:13px;font-weight:500;color:#fff">Carlos Eduardo M.</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Coordenador de Segurança Pública</div>
-            <div style="font-size:10px;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:600">Prefeitura · Florianópolis, SC</div>
-          </div>
-        </div>
-
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:28px;display:flex;flex-direction:column;gap:16px">
-          <svg viewBox="0 0 32 24" fill="rgba(200,32,26,.4)" width="32" height="24"><path d="M0 24V14.4C0 6.4 4.8 1.6 14.4 0l1.6 3.2C10.4 4.8 7.2 7.2 6.4 12H12V24H0zm20 0V14.4C20 6.4 24.8 1.6 34.4 0L36 3.2C30.4 4.8 27.2 7.2 26.4 12H32V24H20z"/></svg>
-          <p style="font-family:'Instrument Serif',serif;font-size:16px;color:rgba(255,255,255,.8);line-height:1.65;flex:1">Integrei com nosso sistema legado via webhook em 20 minutos. O mapa passou a mostrar nossas câmeras e os alertas da PRF juntos. Isso é inteligência de verdade.</p>
-          <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:14px">
-            <div style="font-size:13px;font-weight:500;color:#fff">Rodrigo Fantini</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Diretor de Operações</div>
-            <div style="font-size:10px;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:600">Empresa de Segurança · São José, SC</div>
-          </div>
-        </div>
-
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:28px;display:flex;flex-direction:column;gap:16px">
-          <svg viewBox="0 0 32 24" fill="rgba(200,32,26,.4)" width="32" height="24"><path d="M0 24V14.4C0 6.4 4.8 1.6 14.4 0l1.6 3.2C10.4 4.8 7.2 7.2 6.4 12H12V24H0zm20 0V14.4C20 6.4 24.8 1.6 34.4 0L36 3.2C30.4 4.8 27.2 7.2 26.4 12H32V24H20z"/></svg>
-          <p style="font-family:'Instrument Serif',serif;font-size:16px;color:rgba(255,255,255,.8);line-height:1.65;flex:1">Monitoramos 380 unidades residenciais. Antes usávamos grupos de WhatsApp e planilhas. Agora tudo está no mapa e o relatório mensal para a assembleia sai em um clique.</p>
-          <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:14px">
-            <div style="font-size:13px;font-weight:500;color:#fff">Ana Paula Silveira</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Síndica Profissional</div>
-            <div style="font-size:10px;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:600">Condomínio · Palhoça, SC</div>
-          </div>
-        </div>
-      </div>
-
-
-      <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:36px;text-align:center">
-        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:24px">Utilizado por</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap">
-          <div style="text-align:center;opacity:.45">
-            <svg viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" width="32" height="32"><path d="M4 44V20L24 4l20 16v24"/><path d="M16 44V32h16v12"/><path d="M24 14v4"/></svg>
-            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Prefeituras</div>
-          </div>
-          <div style="text-align:center;opacity:.45">
-            <svg viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" width="32" height="32"><circle cx="24" cy="16" r="8"/><path d="M8 44c0-8.8 7.2-16 16-16s16 7.2 16 16"/><path d="M36 20l4 4-4 4"/></svg>
-            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Seg. Privada</div>
-          </div>
-          <div style="text-align:center;opacity:.45">
-            <svg viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" width="32" height="32"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M16 24h16M24 16v16"/></svg>
-            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Condomínios</div>
-          </div>
-          <div style="text-align:center;opacity:.45">
-            <svg viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" width="32" height="32"><path d="M12 44V24l12-16 12 16v20"/><path d="M20 44v-8h8v8"/></svg>
-            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">ONG e Saúde</div>
-          </div>
-          <div style="text-align:center;opacity:.45">
-            <svg viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" width="32" height="32"><rect x="8" y="14" width="32" height="24" rx="2"/><path d="M16 14v-4a8 8 0 0116 0v4"/><circle cx="24" cy="26" r="3"/><path d="M24 29v4"/></svg>
-            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Segurança Pública</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
   <section style="padding:80px 48px;border-top:1px solid var(--border);background:var(--paper-dark)" id="faq">
     <div style="max-width:760px;margin:0 auto">
       <div style="text-align:center;margin-bottom:48px">
@@ -1826,7 +1756,7 @@ footer {
         Criar conta gratuita
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </button>
-      <button id="cta-demo-btn" class="btn-secondary" style="align-self:center" onclick="startDemo()">Ver demonstração ao vivo</button>
+      <button id="cta-demo-btn" class="btn-secondary" style="align-self:center" onclick="showPage('publico')">Ver mapa público ao vivo</button>
     </div>
   </section>
 
@@ -1874,73 +1804,7 @@ footer {
 <!-- ═══════════════════════════════════════
      DEMO PAGE — mapa ao vivo com timer
 ═══════════════════════════════════════ -->
-<div id="page-demo" class="page">
 
-  <!-- topbar do demo -->
-  <div class="demo-topbar">
-    <div class="demo-topbar-left">
-      <span class="demo-label">● Demo ao vivo</span>
-      <span class="demo-title">Mapa de Incidentes — Grande Florianópolis</span>
-    </div>
-    <div class="demo-topbar-right">
-      <span style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.04em">Expira em</span>
-      <div class="demo-timer" id="demo-timer">3:00</div>
-      <button class="demo-cta" onclick="showPage('register')">Criar conta grátis →</button>
-      <button class="demo-close" onclick="exitDemo()">✕ Fechar</button>
-    </div>
-  </div>
-
-  <!-- mapa fullscreen -->
-  <div id="demo-map-container">
-    <div id="map-demo" style="position:absolute;inset:0;width:100%;height:100%"></div>
-    <div class="map-approx-notice"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5M8 11h.01"/></svg>Marcadores aproximados — não exibem a localização exata.</div>
-
-    <!-- contador de incidentes -->
-    <div class="demo-incident-counter" id="demo-counter">
-      <div class="demo-counter-item">
-        <div class="demo-counter-num" style="color:#E53935" id="dc-crime">—</div>
-        <div class="demo-counter-label">Crime</div>
-      </div>
-      <div class="demo-counter-item">
-        <div class="demo-counter-num" style="color:#F57C00" id="dc-transito">—</div>
-        <div class="demo-counter-label">Trânsito</div>
-      </div>
-      <div class="demo-counter-item">
-        <div class="demo-counter-num" style="color:#3F51B5" id="dc-furto">—</div>
-        <div class="demo-counter-label">Furto</div>
-      </div>
-      <div class="demo-counter-item">
-        <div class="demo-counter-num" style="color:#43A047" id="dc-infra">—</div>
-        <div class="demo-counter-label">Infra</div>
-      </div>
-      <div class="demo-counter-item">
-        <div class="demo-counter-num" style="color:#fff" id="dc-total">—</div>
-        <div class="demo-counter-label">Total</div>
-      </div>
-    </div>
-
-    <!-- legenda -->
-    <div class="demo-legend">
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#E53935"></span>Crime</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#F57C00"></span>Trânsito</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#3F51B5"></span>Furto</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#43A047"></span>Infra</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#9C27B0"></span>Feminicídio</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#FF8F00"></span>PRF</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#0288D1"></span>INMET</div>
-      <div class="demo-legend-item"><span class="demo-legend-dot" style="background:#6A1B9A"></span>CEMADEN</div>
-    </div>
-
-    <!-- tela de expirado -->
-    <div class="demo-expired" id="demo-expired">
-      <h2>DEMONSTRAÇÃO<br/>ENCERRADA</h2>
-      <p>Viu o potencial? Crie sua conta grátis e monitore a Grande Florianópolis em tempo real.</p>
-      <button class="demo-cta" style="font-size:14px;padding:14px 32px" onclick="showPage('register')">Criar conta grátis →</button>
-      <button class="demo-close" style="margin-top:8px" onclick="exitDemo()">Voltar ao site</button>
-    </div>
-  </div>
-
-</div><!-- /page-demo -->
 
 <!-- ═══════════════ PÁGINA PÚBLICA DO CIDADÃO ═══════════════ -->
 <div id="page-publico" class="page">
@@ -2134,10 +1998,7 @@ footer {
           <div class="proof-item"><div class="proof-icon">📱</div><div class="proof-text"><strong>Push notification ativo</strong><span>Alertas chegam no celular em segundos via Service Worker.</span></div></div>
         </div>
       </div>
-      <blockquote class="panel-quote">
-        <p>"Setup foi absurdamente simples. Em 4 minutos tínhamos o mapa ao vivo funcionando."</p>
-        <cite>Analista de segurança · São José, SC</cite>
-      </blockquote>
+
     </div>
 
 
@@ -2365,9 +2226,9 @@ function initDemoMap() {
     ).addTo(mapDemoInstance);
     marker.bindPopup(`
       <div style="font-family:'DM Sans',sans-serif;min-width:200px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:${col};text-transform:uppercase;margin-bottom:4px">${p.label}</div>
-        <div style="font-size:12px;color:#333;line-height:1.5;margin-bottom:6px">${p.desc}</div>
-        <div style="font-size:11px;color:#888">📍 ${p.loc}</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:${col};text-transform:uppercase;margin-bottom:4px">${escapeHtml(p.label)}</div>
+        <div style="font-size:12px;color:#333;line-height:1.5;margin-bottom:6px">${escapeHtml(p.desc)}</div>
+        <div style="font-size:11px;color:#888">📍 ${escapeHtml(p.loc)}</div>
         <div style="margin-top:10px;padding-top:8px;border-top:1px solid #eee;text-align:center">
           <button onclick="showPage('register')" style="background:#C8201A;color:#fff;border:none;padding:6px 14px;font-size:11px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif">Criar conta gratuita →</button>
         </div>
@@ -2560,10 +2421,10 @@ function updateLandingTopbar() {
     if (loginBtn) loginBtn.style.display = '';
     if (ctaBtn)   ctaBtn.textContent = 'Começar agora →';
     if (demoBtn) {
-      demoBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><circle cx="8" cy="8" r="6"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="currentColor" stroke="none"/></svg> Ver demonstração ao vivo';
+      demoBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><circle cx="8" cy="8" r="6"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="currentColor" stroke="none"/></svg> Ver mapa público ao vivo';
       demoBtn.title = '';
     }
-    if (demoBtnCta) demoBtnCta.textContent = 'Ver demonstração ao vivo →';
+    if (demoBtnCta) demoBtnCta.textContent = 'Ver mapa público ao vivo →';
   }
 }
 
@@ -2835,15 +2696,102 @@ function showPage(name) {
 let mapPublico = null;
 let pubFilterType = 'all';
 
+// ── Dados públicos REAIS para o cidadão (GET /api/public/alerts) ──
+let livePublicGeoJSON = { type:'FeatureCollection', features: [] };
+let pubSocket = null;
+
+async function refreshPublicData() {
+  let data = null;
+  try { data = await apiGet('/public/alerts', null); } catch(_) { data = null; }
+  const feats = (data && Array.isArray(data.alerts) ? data.alerts : []).map(a => {
+    const lat = a.latitude  != null ? parseFloat(a.latitude)  : NaN;
+    const lng = a.longitude != null ? parseFloat(a.longitude) : NaN;
+    if (isNaN(lat) || isNaN(lng)) return null;
+    const labels = (typeof LIVE_TYPE_LABELS !== 'undefined') ? LIVE_TYPE_LABELS : {};
+    const dt = (a.source && labels[a.source]) ? a.source : (a.type || 'outro');
+    return { type:'Feature', geometry:{ type:'Point', coordinates:[lng, lat] },
+      properties:{ type:dt, label: labels[dt] || dt, desc:a.description||'', loc:a.location||'',
+        id:a.external_id||('AL-'+a.id), status:a.status||'open', source:a.source||'externo' } };
+  }).filter(Boolean);
+  livePublicGeoJSON = { type:'FeatureCollection', features: feats };
+  return livePublicGeoJSON;
+}
+
+// Tempo real para o cidadão: conexão anônima → recebe só a sala 'public'.
+function initRealtimePublic() {
+  if (typeof io === 'undefined') return;
+  if (pubSocket) { try { pubSocket.disconnect(); } catch(_) {} pubSocket = null; }
+  pubSocket = io({ transports:['websocket','polling'], reconnection:true }); // sem token = só sala pública
+  pubSocket.on('alert:new', a => {
+    const labels = (typeof LIVE_TYPE_LABELS !== 'undefined') ? LIVE_TYPE_LABELS : {};
+    const label = a.source_label || labels[a.source] || labels[a.type] || 'Alerta';
+    try { showToast?.(`🔔 [${label}] ${(a.description||'').substring(0,80)}`); } catch(_) {}
+    clearTimeout(window._pubRtTimer);
+    window._pubRtTimer = setTimeout(async () => { await refreshPublicData(); filterPublicMap(); }, 500);
+  });
+}
+
+// ── Web Push pro cidadão (botão flutuante na página pública) ──
+function ensurePushButton() {
+  if (document.getElementById('citizen-push-btn')) return;
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return; // navegador sem suporte
+  const btn = document.createElement('button');
+  btn.id = 'citizen-push-btn';
+  btn.textContent = '🔔 Receber alertas no celular';
+  btn.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:9999;background:#C8201A;color:#fff;border:none;padding:12px 18px;border-radius:24px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28)';
+  btn.onclick = subscribeCitizenPush;
+  document.body.appendChild(btn);
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const raw = atob(base64);
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+async function subscribeCitizenPush() {
+  try {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+      showToast('Seu navegador não suporta notificações'); return;
+    }
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') { showToast('Permissão de notificação negada'); return; }
+    const keyRes = await apiGet('/public/vapid-key', null);
+    if (!keyRes || !keyRes.key) { showToast('Notificações ainda não configuradas no servidor'); return; }
+    const reg = await navigator.serviceWorker.register('/sw.js');
+    await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(keyRes.key),
+    });
+    const r = await apiPost('/public/subscribe', sub.toJSON());
+    if (r && r.ok) {
+      showToast('✅ Pronto! Você receberá os alertas públicos no celular');
+      const b = document.getElementById('citizen-push-btn');
+      if (b) { b.textContent = '🔔 Alertas ativados'; b.style.background = '#2e7d32'; }
+    } else {
+      showToast('Não foi possível ativar as notificações');
+    }
+  } catch (e) {
+    console.warn('[push] subscribe falhou:', e);
+    showToast('Erro ao ativar notificações');
+  }
+}
+
 function initPublicPage() {
-  setTimeout(() => {
+  refreshPublicData().then(() => setTimeout(() => {
     if (!mapPublico) {
       mapPublico = initLeafletMap('map-publico', 11, 'pro');
     } else {
       mapPublico.invalidateSize();
     }
-    filterPublicMap(); // aplica o modo amostra desde o início
-  }, 120);
+    filterPublicMap(); // desenha os alertas públicos reais
+  }, 120));
+  initRealtimePublic(); // tempo real pro cidadão (sala pública)
+  ensurePushButton();   // botão de notificação no celular
   // Modal de boas-vindas (uma vez por sessão)
   if (!window.__welcomeSeen) {
     setTimeout(openWelcome, 500);
@@ -2874,28 +2822,18 @@ function _normalize(s) {
 
 function filterPublicMap() {
   const query = _normalize(document.getElementById('pub-search-input')?.value);
-  if (typeof incidentGeoJSON === 'undefined') { return; }
 
-  // Modo AMOSTRA pública: só tipos básicos (crime, trânsito, furto, infra),
-  // sem fontes premium (CEMADEN/INMET) e limitado a uma fração dos dados.
-  const TIPOS_PUBLICOS = ['crime','transito','furto','infra'];
-  const matched = incidentGeoJSON.features.filter(f => {
+  // Opção A (serviço público): mostra os alertas públicos REAIS (INMET + ingeridos),
+  // vindos de GET /api/public/alerts. Sem paywall e sem dado de demonstração.
+  const src = (livePublicGeoJSON && Array.isArray(livePublicGeoJSON.features)) ? livePublicGeoJSON.features : [];
+  const matched = src.filter(f => {
     const p = f.properties;
     if (!p || p.type === 'delegacia') return false;
-    // Bloqueia fontes premium na versão pública
-    if (p.source === 'cemaden' || p.source === 'inmet') return false;
-    if (!TIPOS_PUBLICOS.includes(p.type)) return false;
     if (pubFilterType !== 'all' && p.type !== pubFilterType) return false;
-    // Busca SEM acento (casa "florianopolis" com "Florianópolis", "sao jose" com "São José")
     if (query && !(_normalize(p.loc).includes(query) || _normalize(p.label).includes(query))) return false;
     return true;
   });
-
-  // Sem busca: amostra enxuta (máx ~14, resto atrás do paywall).
-  // Com busca ativa: mostra TODOS os incidentes públicos da cidade (até 40), sem reduzir.
-  const amostra = query
-    ? matched.slice(0, 40)
-    : matched.filter((_, i) => i % 2 === 0).slice(0, 14);
+  const amostra = matched; // sem corte: o cidadão vê todos os alertas públicos
 
   updatePubCounter(amostra.length, matched.length);
 
@@ -2914,9 +2852,9 @@ function filterPublicMap() {
     const p = f.properties;
     const [lng, lat] = f.geometry.coordinates;
     latlngs.push([lat, lng]);
-    const cor = ({crime:'#E53935',transito:'#F57C00',furto:'#C62828',infra:'#43A047'})[p.type] || '#888';
+    const cor = (typeof INCIDENT_COLORS !== 'undefined' && INCIDENT_COLORS[p.type]) || '#0288D1';
     const m = L.circleMarker([lat,lng], { radius:6, fillColor:cor, color:'#fff', weight:2, fillOpacity:.9 });
-    m.bindPopup(`<div style="font-family:'DM Sans',sans-serif"><strong style="color:${cor}">${p.label||'Incidente'}</strong><br/><span style="font-size:11px;color:#888">📍 ${p.loc||''}</span><br/><a onclick="showPage('register')" style="font-size:11px;color:#C8201A;cursor:pointer;font-weight:600">Ver detalhes e horário →</a></div>`);
+    m.bindPopup(`<div style="font-family:'DM Sans',sans-serif"><strong style="color:${cor}">${escapeHtml(p.label||'Incidente')}</strong><br/><span style="font-size:11px;color:#888">📍 ${escapeHtml(p.loc||'')}</span><br/><a onclick="showPage('register')" style="font-size:11px;color:#C8201A;cursor:pointer;font-weight:600">Ver detalhes e horário →</a></div>`);
     if (cluster) cluster.addLayer(m); else m.addTo(mapPublico);
   });
 
@@ -2947,8 +2885,8 @@ function updatePubCounter(count, total) {
   const el = document.getElementById('pub-c-total');
   if (!el) return;
   if (typeof count === 'number') { el.textContent = count; return; }
-  const all = (typeof incidentGeoJSON !== 'undefined')
-    ? incidentGeoJSON.features.filter(f => f.properties && f.properties.type !== 'delegacia').length : 0;
+  const all = (livePublicGeoJSON && Array.isArray(livePublicGeoJSON.features))
+    ? livePublicGeoJSON.features.length : 0;
   el.textContent = all;
 }
 
@@ -3073,9 +3011,9 @@ let feedTimer = null;
 
 function feedItemHTML(item) {
   return `<div class="feed-item">
-    <div class="feed-item-top"><span class="feed-type type-${item.type}">${item.typeLabel}</span><span class="feed-time">${item.time}</span></div>
-    <div class="feed-desc">${item.desc}</div>
-    <div class="feed-loc"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#666" stroke-width="1.5"><circle cx="5" cy="4" r="2"/><path d="M5 9C5 9 2 6.5 2 4a3 3 0 116 0c0 2.5-3 5-3 5z"/></svg>${item.loc}</div>
+    <div class="feed-item-top"><span class="feed-type type-${item.type}">${escapeHtml(item.typeLabel)}</span><span class="feed-time">${item.time}</span></div>
+    <div class="feed-desc">${escapeHtml(item.desc)}</div>
+    <div class="feed-loc"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#666" stroke-width="1.5"><circle cx="5" cy="4" r="2"/><path d="M5 9C5 9 2 6.5 2 4a3 3 0 116 0c0 2.5-3 5-3 5z"/></svg>${escapeHtml(item.loc)}</div>
   </div>`;
 }
 
@@ -8209,7 +8147,7 @@ function enterTVMode() {
   const feed = document.getElementById('tv-feed');
   if (feed && typeof dashAlerts !== 'undefined') {
     feed.innerHTML = dashAlerts.filter(a=>a.status==='open').slice(0,8).map(a =>
-      `<div class="tv-feed-item"><div class="tv-feed-desc">${a.desc}</div><div class="tv-feed-loc">📍 ${a.loc} · há ${a.time}</div></div>`
+      `<div class="tv-feed-item"><div class="tv-feed-desc">${escapeHtml(a.desc)}</div><div class="tv-feed-loc">📍 ${escapeHtml(a.loc)} · há ${a.time}</div></div>`
     ).join('');
   }
   // Mapa TV
@@ -8582,7 +8520,7 @@ function runSearch(q) {
         <div class="search-result-icon" style="background:${color}22">
           <div style="width:8px;height:8px;border-radius:50%;background:${color}"></div>
         </div>
-        <div class="search-result-body"><strong>${a.desc}</strong><span>${a.loc} · ${a.time}</span></div>
+        <div class="search-result-body"><strong>${escapeHtml(a.desc)}</strong><span>${escapeHtml(a.loc)} · ${a.time}</span></div>
         <span class="alert-type-tag tag-${a.type}" style="flex-shrink:0">${a.label}</span>
       </div>`;
     }).join('');
@@ -8728,42 +8666,25 @@ const MAP_CENTER = [-48.548, -27.595]; // Centro de Florianópolis/SC
 const MAP_ZOOM   = 11;
 
 /* GeoJSON com todos os incidentes + delegacias */
-const incidentGeoJSON = {
-  type:'FeatureCollection', features:[
+const incidentGeoJSON = { type:'FeatureCollection', features: [] }; // dados de demonstração removidos — apenas dado real no site // dados de demonstração removidos — só dado real no site
 
-  // ══ FLORIANÓPOLIS — 14 incidentes ══════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.5495,-27.5969]},properties:{type:'crime',label:'Crime',desc:'Roubo a pedestre próximo ao Mercado Público Central',loc:'Centro · Florianópolis',id:'CRM-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5210,-27.5860]},properties:{type:'crime',label:'Crime',desc:'Assalto na saída da UFSC no período noturno',loc:'Trindade · Florianópolis',id:'CRM-002',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4280,-27.6020]},properties:{type:'crime',label:'Crime',desc:'Furto de moto registrado no bairro da Lagoa',loc:'Lagoa da Conceição · Florianópolis',id:'CRM-003',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4530,-27.4280]},properties:{type:'crime',label:'Crime',desc:'Ocorrência registrada na área turística de Canasvieiras',loc:'Canasvieiras · Norte',id:'CRM-004',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.3950,-27.4350]},properties:{type:'furto',label:'Furto',desc:'Furto de bicicleta elétrica na orla de Ingleses',loc:'Ingleses · Norte',id:'FRT-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4810,-27.6740]},properties:{type:'furto',label:'Furto',desc:'Arrombamento de veículo no estacionamento do Campeche',loc:'Campeche · Sul',id:'FRT-002',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4970,-27.4390]},properties:{type:'furto',label:'Furto',desc:'Furto de equipamento em resort de Jurerê Internacional',loc:'Jurerê Intl · Norte',id:'FRT-003',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5680,-27.5950]},properties:{type:'transito',label:'Trânsito',desc:'Lentidão intensa no acesso à Ilha — Ponte Colombo Salles',loc:'Acesso Ilha · Centro',id:'TRN-001',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5400,-27.5830]},properties:{type:'transito',label:'Trânsito',desc:'Acidente com motocicleta na SC-401 sentido norte',loc:'Agronômica · Florianópolis',id:'TRN-002',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5030,-27.5820]},properties:{type:'transito',label:'Trânsito',desc:'Semáforo com defeito causando fila no Itacorubi',loc:'Itacorubi · Florianópolis',id:'TRN-003',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5524,-27.5942]},properties:{type:'infra',label:'Infraestrutura',desc:'Buraco de grande porte na Rua Felipe Schmidt interditando faixa',loc:'Centro · Florianópolis',id:'INF-001',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4450,-27.6250]},properties:{type:'infra',label:'Infraestrutura',desc:'Alagamento na SC-406 após chuva forte de 45mm',loc:'Lagoa · Acesso SC-406',id:'INF-002',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5490,-27.6025]},properties:{type:'feminicidio',label:'Feminicídio',desc:'Violência doméstica — vítima hospitalizada em estado grave',loc:'Centro · Florianópolis',id:'FEM-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4280,-27.6020]},properties:{type:'feminicidio',label:'Feminicídio',desc:'Ameaça com arma — medida protetiva urgente solicitada',loc:'Lagoa da Conceição',id:'FEM-002',status:'progress',source:'manual'}}, // ══ SÃO JOSÉ — 8 incidentes ════════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6120,-27.5940]},properties:{type:'transito',label:'Trânsito',desc:'Congestionamento Ponte Colombo Salles sentido continente — 4km',loc:'Kobrasol · São José',id:'SJ-001',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6149,-27.5913]},properties:{type:'crime',label:'Crime',desc:'Assalto a mão armada no Kobrasol — suspeito foragido',loc:'Kobrasol · São José',id:'SJ-002',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6240,-27.6110]},properties:{type:'furto',label:'Furto',desc:'Furto em supermercado do centro de São José',loc:'Centro · São José',id:'SJ-003',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6380,-27.5970]},properties:{type:'infra',label:'Infraestrutura',desc:'Poste caído bloqueando via após temporal',loc:'Serraria · São José',id:'SJ-004',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6115,-27.5996]},properties:{type:'feminicidio',label:'Feminicídio',desc:'Tentativa de feminicídio — agressor detido em flagrante',loc:'Kobrasol · São José',id:'SJ-005',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6500,-27.5700]},properties:{type:'prf',label:'PRF',desc:'Colisão traseira na BR-101 km 202 — lentidão 3km sentido sul',loc:'BR-101 km 202 · São José',id:'PRF-001',status:'progress',source:'prf',updated:'há 8 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6170,-27.5980]},properties:{type:'crime',label:'Crime',desc:'Tráfico de drogas — DP acionada, área isolada',loc:'Campinas · São José',id:'SJ-006',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6400,-27.5800]},properties:{type:'transito',label:'Trânsito',desc:'Obra emergencial na Rotatória da Forquilhinha — trânsito lento sentido Palhoça',loc:'Forquilhinha · São José',id:'SJ-007',status:'open',source:'manual'}}, // ══ PALHOÇA — 6 incidentes ═════════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6680,-27.6450]},properties:{type:'transito',label:'Trânsito',desc:'Obra na BR-101 causando bloqueio parcial — desvio ativo',loc:'Centro · Palhoça',id:'PAL-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6500,-27.6280]},properties:{type:'feminicidio',label:'Feminicídio',desc:'Feminicídio consumado — inquérito policial aberto',loc:'Ponte do Imaruim · Palhoça',id:'PAL-002',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6700,-27.6800]},properties:{type:'prf',label:'PRF',desc:'Veículo tombado bloqueando faixa direita BR-101 km 220',loc:'BR-101 km 220 · Palhoça',id:'PAL-003',status:'progress',source:'prf',updated:'há 22 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6900,-27.7400]},properties:{type:'prf',label:'PRF',desc:'Obras noturnas BR-101 km 238 — meia pista, redução de 100 para 60km/h',loc:'BR-101 km 238 · Palhoça Sul',id:'PAL-004',status:'progress',source:'prf',updated:'há 1h'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6600,-27.6650]},properties:{type:'crime',label:'Crime',desc:'Arrombamento de residência — equipe da DP acionada',loc:'Aririú · Palhoça',id:'PAL-005',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7100,-27.6600]},properties:{type:'infra',label:'Infraestrutura',desc:'Rodovia SC-282 com buracos críticos causando acidentes',loc:'SC-282 km 8 · Palhoça',id:'PAL-006',status:'open',source:'manual'}}, // ══ BIGUAÇU — 4 incidentes ═════════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6560,-27.4940]},properties:{type:'furto',label:'Furto',desc:'Furto em estabelecimento comercial do centro',loc:'Centro · Biguaçu',id:'BIG-001',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6600,-27.4700]},properties:{type:'prf',label:'PRF',desc:'Fiscalização de peso BR-101 km 168 — fila de 800m no acesso',loc:'BR-101 km 168 · Biguaçu',id:'BIG-002',status:'open',source:'prf',updated:'há 35 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6400,-27.4800]},properties:{type:'transito',label:'Trânsito',desc:'Acidente entre caminhão e automóvel na SC-411',loc:'São Marcos · Biguaçu',id:'BIG-003',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6589,-27.4913]},properties:{type:'crime',label:'Crime',desc:'Roubo a pedestre próximo à praça central de Biguaçu',loc:'Centro · Biguaçu',id:'BIG-004',status:'open',source:'manual'}}, // ══ GAROPABA — 3 incidentes ════════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6140,-28.0240]},properties:{type:'furto',label:'Furto',desc:'Furto de motocicleta na Praia de Garopaba',loc:'Centro · Garopaba',id:'GAR-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6300,-28.0100]},properties:{type:'transito',label:'Trânsito',desc:'Acidente na SC-434 km 3 sentido Imbituba — faixa bloqueada',loc:'SC-434 · Garopaba',id:'GAR-002',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6500,-28.1500]},properties:{type:'inmet',label:'INMET',desc:'Alerta de chuva intensa — acumulado previsto 120mm/24h',loc:'Litoral Sul · Garopaba',id:'GAR-003',status:'open',source:'inmet',updated:'há 42 min'}}, // ══ TIJUCAS — 4 incidentes ═════════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6300,-27.2400]},properties:{type:'transito',label:'Trânsito',desc:'Acidente grave com caminhão BR-101 km 147 Tijucas — desvio obrigatório',loc:'BR-101 km 147 · Tijucas',id:'TIJ-001',status:'progress',source:'prf',updated:'há 12 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6300,-27.2400]},properties:{type:'crime',label:'Crime',desc:'Assalto a posto de gasolina na BR-101 Tijucas',loc:'BR-101 · Tijucas',id:'TIJ-002',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6330,-27.2410]},properties:{type:'infra',label:'Infraestrutura',desc:'Enchente no centro de Tijucas — ruas interditadas',loc:'Centro · Tijucas',id:'TIJ-003',status:'progress',source:'inmet',updated:'há 30 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7660,-27.2660]},properties:{type:'crime',label:'Crime',desc:'Furto em residência rural — equipe acionada',loc:'Interior · Canelinha',id:'TIJ-004',status:'open',source:'manual'}}, // ══ GOV. CELSO RAMOS — 2 incidentes ════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.5600,-27.3150]},properties:{type:'infra',label:'Infraestrutura',desc:'Deslizamento de encosta bloqueia estrada municipal',loc:'Gov. Celso Ramos',id:'GCR-001',status:'progress',source:'inmet',updated:'há 1h 15 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5700,-27.3100]},properties:{type:'crime',label:'Crime',desc:'Furto de embarcação pesqueira no porto local',loc:'Canto dos Ganchos · Gov. Celso Ramos',id:'GCR-002',status:'open',source:'manual'}}, // ══ SANTO AMARO DA IMPERATRIZ — 3 incidentes ═══════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.7787,-27.6877]},properties:{type:'infra',label:'Infraestrutura',desc:'SC-282 parcialmente bloqueada por deslizamento de terra',loc:'SC-282 · Santo Amaro da Imperatriz',id:'SAI-001',status:'progress',source:'inmet',updated:'há 2h'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7900,-27.7100]},properties:{type:'inmet',label:'INMET',desc:'Risco de deslizamento LARANJA — precipitação 90mm acumulada',loc:'Serra · Santo Amaro da Imperatriz',id:'SAI-002',status:'open',source:'inmet',updated:'há 45 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8000,-27.6900]},properties:{type:'transito',label:'Trânsito',desc:'Acidente com caminhonete em curva perigosa na SC-282',loc:'SC-282 km 32 · Santo Amaro',id:'SAI-003',status:'resolved',source:'manual'}}, // ══ SÃO PEDRO DE ALCÂNTARA — 2 incidentes ══════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.8060,-27.5660]},properties:{type:'crime',label:'Crime',desc:'Roubo a residência rural — moradores estão seguros',loc:'São Pedro de Alcântara',id:'SPA-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8000,-27.5700]},properties:{type:'infra',label:'Infraestrutura',desc:'Queda de árvore bloqueia SC-407 após temporal',loc:'SC-407 · São Pedro de Alcântara',id:'SPA-002',status:'resolved',source:'manual'}}, // ══ ANTÔNIO CARLOS — 2 incidentes ══════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.7660,-27.5170]},properties:{type:'furto',label:'Furto',desc:'Furto de equipamentos agrícolas em propriedade rural',loc:'Interior · Antônio Carlos',id:'ANC-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7689,-27.5143]},properties:{type:'transito',label:'Trânsito',desc:'Estrada vicinal interditada após chuvas — desvio ativo',loc:'Interior · Antônio Carlos',id:'ANC-002',status:'progress',source:'manual'}}, // ══ ÁGUAS MORNAS — 2 incidentes ════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.8236,-27.6969]},properties:{type:'inmet',label:'INMET',desc:'Monitoramento de nível do Rio Cubatão — atenção',loc:'Águas Mornas',id:'AGM-001',status:'open',source:'inmet',updated:'há 3h'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8265,-27.6942]},properties:{type:'infra',label:'Infraestrutura',desc:'Ponte sobre o Rio Cubatão com dano estrutural — vistoria agendada',loc:'Águas Mornas',id:'AGM-002',status:'progress',source:'manual'}}, // ══ PAULO LOPES — 2 incidentes ═════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6840,-27.9610]},properties:{type:'transito',label:'Trânsito',desc:'Acidente com caminhão na BR-101 altura de Paulo Lopes',loc:'BR-101 · Paulo Lopes',id:'PLO-001',status:'resolved',source:'prf',updated:'há 1h 30 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7000,-27.9600]},properties:{type:'inmet',label:'INMET',desc:'Aviso de ventos fortes — gusts de 80km/h no litoral sul',loc:'Paulo Lopes / Garopaba',id:'PLO-002',status:'open',source:'inmet',updated:'há 20 min'}}, // ══ RANCHO QUEIMADO — 2 incidentes ═════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.0167,-27.6722]},properties:{type:'inmet',label:'INMET',desc:'Risco de deslizamento LARANJA na Serra do Tabuleiro — precipitação acumulada 80mm',loc:'Serra do Tabuleiro · Rancho Queimado',id:'RQU-001',status:'open',source:'inmet',updated:'há 15 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.0200,-27.6700]},properties:{type:'infra',label:'Infraestrutura',desc:'SC-370 com rachaduras — interdição parcial na curva km 18',loc:'SC-370 · Rancho Queimado',id:'RQU-002',status:'progress',source:'manual'}}, // ══ CANELINHA — 2 incidentes ═══════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.7660,-27.2660]},properties:{type:'crime',label:'Crime',desc:'Assalto a mercado local no centro de Canelinha',loc:'Centro · Canelinha',id:'CAN-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7000,-27.2700]},properties:{type:'transito',label:'Trânsito',desc:'Acidente na BR-101 próximo ao acesso para Canelinha',loc:'BR-101 acesso · Canelinha',id:'CAN-002',status:'resolved',source:'prf',updated:'há 2h 10 min'}}, // ══ SÃO JOÃO BATISTA — 2 incidentes ═══════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.8480,-27.2760]},properties:{type:'crime',label:'Crime',desc:'Roubo a carregamento em caminhão parado na BR-101',loc:'BR-101 · São João Batista',id:'SJB-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8500,-27.2800]},properties:{type:'infra',label:'Infraestrutura',desc:'Queda de barreira fecha parte da SC-108 após chuva',loc:'SC-108 · São João Batista',id:'SJB-002',status:'progress',source:'inmet',updated:'há 50 min'}}, // ══ NOVA TRENTO — 2 incidentes ════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.1010,-27.2860]},properties:{type:'infra',label:'Infraestrutura',desc:'Falta de energia elétrica no centro — CELESC acionada',loc:'Centro · Nova Trento',id:'NTR-001',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.1000,-27.2900]},properties:{type:'inmet',label:'INMET',desc:'Rio Tijucas em atenção — nível subindo após chuvas na Serra',loc:'Rio Tijucas · Nova Trento',id:'NTR-002',status:'open',source:'inmet',updated:'há 1h 5 min'}}, // ══ ANGELINA — 2 incidentes ═══════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.9869,-27.5728]},properties:{type:'infra',label:'Infraestrutura',desc:'Ponte rural interditada na SC-410 — risco de colapso',loc:'SC-410 · Angelina',id:'ANG-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.9900,-27.5700]},properties:{type:'inmet',label:'INMET',desc:'Deslizamento de encosta bloqueia estrada rural',loc:'Interior · Angelina',id:'ANG-002',status:'progress',source:'inmet',updated:'há 2h 30 min'}}, // ══ MAJOR GERCINO — 2 incidentes ══════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.9510,-27.4170]},properties:{type:'crime',label:'Crime',desc:'Furto de animais em propriedade rural',loc:'Interior · Major Gercino',id:'MGE-001',status:'open',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.9500,-27.4200]},properties:{type:'transito',label:'Trânsito',desc:'Estrada vicinal interditada após alagamento',loc:'SC-404 · Major Gercino',id:'MGE-002',status:'resolved',source:'manual'}}, // ══ ALFREDO WAGNER — 2 incidentes ═════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.3331,-27.7000]},properties:{type:'inmet',label:'INMET',desc:'Enchente do Rio Itajaí do Sul — monitoramento intensivo',loc:'Alfredo Wagner',id:'ALW-001',status:'open',source:'inmet',updated:'há 40 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.3300,-27.7000]},properties:{type:'infra',label:'Infraestrutura',desc:'SC-302 parcialmente bloqueada por barreira de pedras',loc:'SC-302 · Alfredo Wagner',id:'ALW-002',status:'progress',source:'manual'}}, // ══ LEOBERTO LEAL — 2 incidentes ══════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.2780,-27.5070]},properties:{type:'inmet',label:'INMET',desc:'Atenção para deslizamentos — solo encharcado na Serra',loc:'Leoberto Leal',id:'LEO-001',status:'open',source:'inmet',updated:'há 55 min'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.2800,-27.5100]},properties:{type:'crime',label:'Crime',desc:'Furto de equipamentos de telecomunicações',loc:'Interior · Leoberto Leal',id:'LEO-002',status:'open',source:'manual'}}, // ══ ANITÁPOLIS — 2 incidentes ═════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.1289,-27.9028]},properties:{type:'infra',label:'Infraestrutura',desc:'Queda de barreira na SC-281 — trânsito liberado com cautela',loc:'SC-281 · Anitápolis',id:'ANI-001',status:'progress',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.1289,-27.9028]},properties:{type:'inmet',label:'INMET',desc:'Monitoramento de nascentes do Rio Cubatão — preventivo',loc:'Anitápolis',id:'ANI-002',status:'open',source:'inmet',updated:'há 1h 20 min'}}, // ══ BOCAINA DO SUL — 2 incidentes ═════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.9280,-27.8990]},properties:{type:'infra',label:'Infraestrutura',desc:'Estrada vicinal bloqueada por lama após chuva forte',loc:'Interior · São Bonifácio',id:'BOC-001',status:'resolved',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.9280,-27.8990]},properties:{type:'inmet',label:'INMET',desc:'Atenção: cabeceiras do Rio Pelotas em monitoramento',loc:'São Bonifácio',id:'BOC-002',status:'open',source:'inmet',updated:'há 2h'}}, // ══ DELEGACIAS — todas as 22 ═══════════════════════════════
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.5453,-27.5914]},properties:{type:'delegacia',label:'Delegacia',desc:'1ª DP da Capital — Av. Prefeito Osmar Cunha, 263',loc:'Centro · Florianópolis',id:'DEL-01',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4530,-27.4280]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Canasvieiras — Av. das Nações, 1500',loc:'Canasvieiras · Florianópolis',id:'DEL-02',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.4309,-27.5993]},properties:{type:'delegacia',label:'Delegacia',desc:'10ª DP — R. Crisógono Vieira da Cruz, Lagoa da Conceição',loc:'Lagoa da Conceição',id:'DEL-03',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5239,-27.5833]},properties:{type:'delegacia',label:'Delegacia',desc:'7ª DP Trindade — R. Dep. Antônio Edu Vieira, 500',loc:'Trindade · Florianópolis',id:'DEL-04',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6078,-27.5885]},properties:{type:'delegacia',label:'Delegacia',desc:'DEIC — R. Henrique Alvim Corrêa, 232, Areias, São José',loc:'Kobrasol · São José',id:'DEL-05',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6709,-27.6423]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Central Palhoça — R. Cel. Moreira, 120',loc:'Centro · Palhoça',id:'DEL-06',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6555,-27.4996]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Biguaçu — R. Dom Pedro II, 400',loc:'Centro · Biguaçu',id:'DEL-07',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6169,-28.0213]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Garopaba — R. Cel. Antônio Fernandes, 200',loc:'Centro · Garopaba',id:'DEL-08',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6359,-27.2383]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Tijucas — Av. João Pessoa, 800',loc:'Centro · Tijucas',id:'DEL-09',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.5629,-27.3123]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Gov. Celso Ramos — R. João Dias, 50',loc:'Gov. Celso Ramos',id:'DEL-10',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7787,-27.6877]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Santo Amaro da Imperatriz — R. das Palmeiras, 100',loc:'Santo Amaro da Imperatriz',id:'DEL-11',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.6840,-27.9610]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Paulo Lopes — R. Principal, 200',loc:'Paulo Lopes',id:'DEL-12',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7689,-27.2633]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Canelinha — R. Felipe Neri, 150',loc:'Centro · Canelinha',id:'DEL-13',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8480,-27.2760]},properties:{type:'delegacia',label:'Delegacia',desc:'DP São João Batista — Av. Santa Catarina, 300',loc:'São João Batista',id:'DEL-14',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.1010,-27.2860]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Nova Trento — R. XV de Novembro, 500',loc:'Nova Trento',id:'DEL-15',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.7660,-27.5170]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Antônio Carlos — R. Duque de Caxias, 200',loc:'Antônio Carlos',id:'DEL-16',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.0167,-27.6722]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Rancho Queimado — R. Recanto, 120',loc:'Rancho Queimado',id:'DEL-17',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8231,-27.7025]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Águas Mornas — R. Principal, 300',loc:'Águas Mornas',id:'DEL-18',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.9869,-27.5728]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Angelina — R. Cristóbal Kolumb, 100',loc:'Angelina',id:'DEL-19',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.8089,-27.5633]},properties:{type:'delegacia',label:'Delegacia',desc:'DP São Pedro de Alcântara — R. Tiradentes, 80',loc:'São Pedro de Alcântara',id:'DEL-20',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-48.9510,-27.4170]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Major Gercino — R. Central, 50',loc:'Major Gercino',id:'DEL-21',status:'active',source:'manual'}}, {type:'Feature',geometry:{type:'Point',coordinates:[-49.2809,-27.5043]},properties:{type:'delegacia',label:'Delegacia',desc:'DP Leoberto Leal — R. Getúlio Vargas, 200',loc:'Leoberto Leal',id:'DEL-22',status:'active',source:'manual'}}, 
-  // ══ CEMADEN — alertas de risco de desastre (deslizamento/hidrológico) ══
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.7929,-27.7073]},properties:{type:'cemaden',label:'CEMADEN',desc:'Risco MUITO ALTO de deslizamento — encostas monitoradas, 110mm acumulados em 24h',loc:'Serra · Santo Amaro da Imperatriz',id:'CMD-001',status:'open',source:'cemaden',updated:'há 4 min'}},
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.8236,-27.6969]},properties:{type:'cemaden',label:'CEMADEN',desc:'Alerta hidrológico — nível do Rio Cubatão em elevação rápida',loc:'Rio Cubatão · Águas Mornas',id:'CMD-002',status:'open',source:'cemaden',updated:'há 27 min'}},
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.3331,-27.7000]},properties:{type:'cemaden',label:'CEMADEN',desc:'Risco hidrológico ALTO — enxurrada possível em área urbana',loc:'Centro · Alfredo Wagner',id:'CMD-003',status:'progress',source:'cemaden',updated:'há 1h 10 min'}},
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.1289,-27.9028]},properties:{type:'cemaden',label:'CEMADEN',desc:'Movimento de massa — solo saturado, monitoramento geotécnico ativo',loc:'Zona rural · Anitápolis',id:'CMD-004',status:'open',source:'cemaden',updated:'há 38 min'}},
-  {type:'Feature',geometry:{type:'Point',coordinates:[-48.9869,-27.5728]},properties:{type:'cemaden',label:'CEMADEN',desc:'Risco de deslizamento MODERADO — chuva persistente nas últimas 6h',loc:'Serra · Angelina',id:'CMD-005',status:'open',source:'cemaden',updated:'há 52 min'}},
-  {type:'Feature',geometry:{type:'Point',coordinates:[-49.0196,-27.6695]},properties:{type:'cemaden',label:'CEMADEN',desc:'Alerta de movimento de massa — encosta com trincas reportadas',loc:'Rancho Queimado',id:'CMD-006',status:'open',source:'cemaden',updated:'há 1h 22 min'}}, 
-  ]
-};
+// Delegacias da Grande Florianópolis — DADO REAL (Google Places: coordenadas e telefones verificados)
+const DELEGACIAS_GF = { type:'FeatureCollection', features:[
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.5514063,-27.5931397]},properties:{type:'delegacia',label:'1ª DP Civil da Capital',loc:'Centro, Florianópolis',desc:'Av. Pref. Osmar Cunha, 263 · (48) 3665-4453',id:'DP-FLN-1'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.52473,-27.5847062]},properties:{type:'delegacia',label:'5ª DP Civil da Capital',loc:'Trindade, Florianópolis',desc:'R. Lauro Linhares, 605 · (48) 3665-6444',id:'DP-FLN-5'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.5449281,-27.6629474]},properties:{type:'delegacia',label:'2ª DP da Capital',loc:'Carianos, Florianópolis',desc:'Av. Dep. Diomício Freitas, 3393 · (48) 3665-5883',id:'DP-FLN-2'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.5267825,-27.5809704]},properties:{type:'delegacia',label:'Central de Plantão Policial (Capital)',loc:'Trindade, Florianópolis',desc:'R. Lauro Linhares, 208 · 24h · (48) 3665-6455',id:'DP-FLN-CPP'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.4705914,-27.6024671]},properties:{type:'delegacia',label:'Delegacia (Lagoa da Conceição)',loc:'Lagoa da Conceição, Florianópolis',desc:'R. Crisógono Viêira da Cruz · (48) 3665-4960',id:'DP-FLN-LAG'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6105023,-27.5723358]},properties:{type:'delegacia',label:'Central de Plantão Policial (São José)',loc:'Barreiros, São José',desc:'R. Fúlvio Viêira da Rosa · 24h · (48) 3665-6471',id:'DP-SJ-CPP'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6106875,-27.5720858]},properties:{type:'delegacia',label:'2ª DP de São José',loc:'Barreiros, São José',desc:'R. Fúlvio Viêira da Rosa, 458 · (48) 3665-6473',id:'DP-SJ-2'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6103576,-27.5969036]},properties:{type:'delegacia',label:'3ª DP de São José',loc:'Campinas, São José',desc:'R. Altamiro Di Bernardi · (48) 3665-6651',id:'DP-SJ-3'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6741187,-27.6559344]},properties:{type:'delegacia',label:'DP da Comarca de Palhoça',loc:'Centro, Palhoça',desc:'Av. Pref. Nelson Martins · 24h · (48) 3665-5841',id:'DP-PAL'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6459858,-27.5156326]},properties:{type:'delegacia',label:'DP da Comarca de Biguaçu',loc:'Rio Caveiras, Biguaçu',desc:'Av. Patrício Antônio Teixeira, 317 · (48) 3665-6487',id:'DP-BIG'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6260649,-28.0254264]},properties:{type:'delegacia',label:'DP Civil de Garopaba',loc:'Garopaba',desc:'R. Rozalina Águiar Lentze, 500 · (48) 3254-3190',id:'DP-GAR'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.7797033,-27.6856612]},properties:{type:'delegacia',label:'DP Civil (Santo Amaro da Imperatriz)',loc:'Centro, Santo Amaro da Imperatriz',desc:'R. Sd. José Krauss, 50',id:'DP-SAI'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[-48.6219381,-27.2412185]},properties:{type:'delegacia',label:'DP da Comarca de Tijucas',loc:'Tijucas',desc:'R. São Sebastião, 32 · (48) 3665-6560',id:'DP-TIJ'}},
+]};
+
 
 // ═══════════════════════════════════════════════════════════
 //  CAMADA DE DADOS AO VIVO — vem do backend (GET /api/alerts)
@@ -8846,7 +8767,7 @@ async function refreshLiveData() {
   if (!data || !Array.isArray(data.alerts)) return false; // mantém demo
   const rows  = data.alerts.map(liveToRow);
   const feats = data.alerts.map(liveToFeature).filter(Boolean);
-  const delegacias = incidentGeoJSON.features.filter(f => f.properties && f.properties.type === 'delegacia');
+  const delegacias = (typeof DELEGACIAS_GF !== 'undefined' ? DELEGACIAS_GF.features : []);
   liveIncidentGeoJSON = { type:'FeatureCollection', features: [...delegacias, ...feats] };
   liveDataLoaded = true;
   try {
@@ -9009,15 +8930,15 @@ function buildPopupHTML(p) {
   const statusColors = { open:'#E53935',   progress:'#F57C00',      resolved:'#43A047',   active:'#7986CB' };
   const color = INCIDENT_COLORS[p.type] || '#888';
   const sourceBadge = p.source && p.source !== 'interno'
-    ? `<span style="font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:2px;margin-left:6px;background:${p.source==='prf'?'rgba(255,143,0,.15)':'rgba(2,136,209,.15)'};color:${p.source==='prf'?'#FF8F00':'#0288D1'}">${p.source.toUpperCase()}</span>`
+    ? `<span style="font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:2px;margin-left:6px;background:${p.source==='prf'?'rgba(255,143,0,.15)':'rgba(2,136,209,.15)'};color:${p.source==='prf'?'#FF8F00':'#0288D1'}">${escapeHtml(p.source.toUpperCase())}</span>`
     : '';
   const updatedLine = p.updated ? `<div style="font-size:10px;color:var(--muted);margin-top:2px">🔄 Atualizado ${p.updated}</div>` : '';
   return `<div style="font-family:'DM Sans',sans-serif;padding:2px">
     <div style="display:flex;align-items:center;margin-bottom:5px">
-      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:${color};font-weight:600">${p.label}</span>${sourceBadge}
+      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:${color};font-weight:600">${escapeHtml(p.label)}</span>${sourceBadge}
     </div>
-    <div style="font-size:13px;color:#14120E;line-height:1.4;margin-bottom:5px">${p.desc}</div>
-    <div style="font-size:11px;color:#6B6558;margin-bottom:4px">📍 ${p.loc}</div>
+    <div style="font-size:13px;color:#14120E;line-height:1.4;margin-bottom:5px">${escapeHtml(p.desc)}</div>
+    <div style="font-size:11px;color:#6B6558;margin-bottom:4px">📍 ${escapeHtml(p.loc)}</div>
     ${updatedLine}
     <div style="margin-top:6px"><span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:${statusColors[p.status]||'#ccc'}22;color:${statusColors[p.status]||'#888'}">${statusLabels[p.status]||p.status}</span></div>
   </div>`;
@@ -9121,7 +9042,9 @@ function initLeafletMap(containerId, zoom, plan) {
     });
   }
 
-  const _srcGeo = (containerId === 'map-dash' || containerId === 'map-full') ? mapSource() : incidentGeoJSON;
+  const _srcGeo = (containerId === 'map-dash' || containerId === 'map-full') ? mapSource()
+                : (containerId === 'map-publico') ? { type:'FeatureCollection', features: [] }
+                : incidentGeoJSON;
   const featuresForPlan = filterGeoByPlan(_srcGeo.features, activePlan);
 
   try {
@@ -9194,7 +9117,7 @@ function initLeafletMap(containerId, zoom, plan) {
     }
 
     const srcBadge = p.source && p.source !== 'interno' && p.source !== 'manual'
-      ? `<span style="font-size:9px;font-weight:700;padding:1px 7px;border-radius:2px;margin-left:5px;background:${p.source==='prf'?'rgba(230,81,0,.12)':'rgba(2,119,189,.12)'};color:${p.source==='prf'?'#E65100':'#0277BD'}">${p.source.toUpperCase()}</span>`
+      ? `<span style="font-size:9px;font-weight:700;padding:1px 7px;border-radius:2px;margin-left:5px;background:${p.source==='prf'?'rgba(230,81,0,.12)':'rgba(2,119,189,.12)'};color:${p.source==='prf'?'#E65100':'#0277BD'}">${escapeHtml(p.source.toUpperCase())}</span>`
       : '';
 
     const statusClr = STATUS_COLOR[p.status] || '#666';
@@ -9217,12 +9140,12 @@ function initLeafletMap(containerId, zoom, plan) {
       <div style="font-family:'DM Sans',sans-serif;min-width:230px">
         <div style="display:flex;align-items:center;margin-bottom:8px">
           <div style="width:8px;height:8px;border-radius:50%;background:${cor};margin-right:7px;flex-shrink:0"></div>
-          <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:${cor};font-weight:600">${p.label}</span>${srcBadge}
+          <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:${cor};font-weight:600">${escapeHtml(p.label)}</span>${srcBadge}
           <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px;color:#999">${protocolo}</span>
         </div>
-        <div style="font-size:13px;color:#1a1a1a;line-height:1.45;margin-bottom:8px">${p.desc}</div>
+        <div style="font-size:13px;color:#1a1a1a;line-height:1.45;margin-bottom:8px">${escapeHtml(p.desc)}</div>
         <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 8px;font-size:11px;color:#555;margin-bottom:9px">
-          <span style="color:#999">📍 Local</span><span>${p.loc}</span>
+          <span style="color:#999">📍 Local</span><span>${escapeHtml(p.loc)}</span>
           <span style="color:#999">🏛 Órgão</span><span>${orgao}</span>
           <span style="color:#999">🕑 Registro</span><span>${quando}${p.updated?' · '+p.updated:''}</span>
         </div>
@@ -9470,13 +9393,13 @@ function renderMapPanel() {
     return `<div class="map-list-item" data-id="${p.id}" style="padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s" onmouseover="this.style.background='var(--paper-dark)'" onmouseout="if(!this.classList.contains('active'))this.style.background=''" onclick="focusIncident('${p.id}')">
       <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
         <span style="${dotStyle}"></span>
-        <span style="font-size:10px;font-weight:700;color:${col};letter-spacing:.05em;text-transform:uppercase">${p.label}</span>
+        <span style="font-size:10px;font-weight:700;color:${col};letter-spacing:.05em;text-transform:uppercase">${escapeHtml(p.label)}</span>
         <span style="font-size:8px;font-weight:600;padding:1px 5px;border-radius:10px;background:var(--paper-dark);color:var(--muted);letter-spacing:.04em">${src}</span>
         <span style="margin-left:auto;font-size:9px;color:var(--muted)">${tempoDe(p.id)}</span>
       </div>
       <div style="font-size:12px;color:var(--ink);line-height:1.4;margin-bottom:4px">${p.desc.substring(0,64)}${p.desc.length>64?'…':''}</div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
-        <div style="font-size:10px;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📍 ${p.loc}</div>
+        <div style="font-size:10px;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📍 ${escapeHtml(p.loc)}</div>
         <span style="font-size:8px;font-weight:600;padding:1px 6px;border-radius:2px;background:${col}15;color:${col};flex-shrink:0">${statusLabel[p.status]||p.status}</span>
       </div>
     </div>`;
@@ -10284,10 +10207,10 @@ function updateLandingTopbar() {
     if (loginBtn) loginBtn.style.display = '';
     if (ctaBtn)   ctaBtn.textContent = 'Começar agora →';
     if (demoBtn) {
-      demoBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><circle cx="8" cy="8" r="6"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="currentColor" stroke="none"/></svg> Ver demonstração ao vivo';
+      demoBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><circle cx="8" cy="8" r="6"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="currentColor" stroke="none"/></svg> Ver mapa público ao vivo';
       demoBtn.title = '';
     }
-    if (demoBtnCta) demoBtnCta.textContent = 'Ver demonstração ao vivo →';
+    if (demoBtnCta) demoBtnCta.textContent = 'Ver mapa público ao vivo →';
   }
 }
 
@@ -10410,7 +10333,7 @@ function exportDashboardPDF() {
         <td>${(i+1).toString().padStart(3,'0')}</td>
         <td style="color:#C8201A;font-weight:700;font-size:9px;letter-spacing:.06em;text-transform:uppercase">${a.label}</td>
         <td>${a.desc.substring(0,60)}${a.desc.length>60?'…':''}</td>
-        <td>${a.loc}</td>
+        <td>${escapeHtml(a.loc)}</td>
         <td>${a.time}</td>
         <td><span style="font-size:9px;font-weight:700;padding:2px 6px">${a.status==='open'?'Em aberto':a.status==='resolved'?'Resolvido':'Em andamento'}</span></td>
       </tr>`

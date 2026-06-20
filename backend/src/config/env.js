@@ -31,4 +31,5 @@ module.exports = {
     subject:    process.env.VAPID_SUBJECT || 'mailto:admin@comunidadealerta.com.br',
   },
   externalSync: process.env.ENABLE_EXTERNAL_SYNC !== 'false',
+  ingestKey:    process.env.INGEST_API_KEY || null,
 };

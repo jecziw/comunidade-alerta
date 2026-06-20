@@ -8,6 +8,7 @@ const routes    = require('./routes');
 const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
+app.set('trust proxy', 1); // atrás do nginx: usa X-Forwarded-For p/ req.ip (rate limit por IP real)
 const register = new client.Registry();
 client.collectDefaultMetrics({ register });
 

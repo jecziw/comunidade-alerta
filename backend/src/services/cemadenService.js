@@ -136,10 +136,12 @@ async function salvarAlertas(alertas, tenantId = null) {
 }
 
 async function syncCEMADEN(opts = {}) {
-  const alertas = await fetchAlertasCEMADEN();
-  const novos = await salvarAlertas(alertas, opts.tenantId);
-  if (novos > 0) console.log(`[CEMADEN] ${novos} novo(s) alerta(s) de risco na Grande Florianópolis`);
-  return { total: alertas.length, novos };
+  // O CEMADEN NÃO possui API pública de alertas vigentes (confirmado pela própria
+  // ouvidoria via LAI): os alertas são entregues apenas às Defesas Civis via CENAD.
+  // Portanto não há endpoint a consultar. Mantemos a função como no-op para não
+  // bater numa URL fictícia. Para ingerir CEMADEN de verdade, ver getModoProducao()
+  // (convênio IDAP / Google Public Alerts → encaminhar para /api/alerts/ingest).
+  return { total: 0, novos: 0, disabled: true };
 }
 
 /**
