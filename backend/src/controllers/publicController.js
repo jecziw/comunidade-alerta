@@ -10,15 +10,26 @@ const { notifyPublicSubscribers } = require('../services/pushService');
  */
 exports.listPublic = async (req, res) => {
   try {
+    // Totais reais (sem limite) para os cards de estatística do site
+    const { rows: countRows } = await pool.query(
+      `SELECT
+         COUNT(*)::int AS total,
+         COUNT(*) FILTER (WHERE status = 'open')::int AS total_open,
+         COUNT(*) FILTER (WHERE status = 'resolved')::int AS total_resolved
+       FROM alerts
+       WHERE source NOT IN ('interno','manual')`
+    );
+    const { total, total_open, total_resolved } = countRows[0];
+
     const { rows } = await pool.query(
       `SELECT id, external_id, source, type, description, location,
               latitude, longitude, severity, status, created_at
          FROM alerts
         WHERE source NOT IN ('interno','manual')
         ORDER BY created_at DESC
-        LIMIT 500`
+        LIMIT 1000`
     );
-    // Dedup por external_id mantendo o mais recente
+    // Dedup por external_id mantendo o mais recente (sem corte artificial de 200)
     const seen = new Set();
     const alerts = [];
     for (const a of rows) {
@@ -26,9 +37,8 @@ exports.listPublic = async (req, res) => {
       if (seen.has(key)) continue;
       seen.add(key);
       alerts.push(a);
-      if (alerts.length >= 200) break;
     }
-    res.json({ alerts });
+    res.json({ alerts, total, total_open, total_resolved });
   } catch (err) {
     console.error('[public] listPublic erro:', err.message);
     res.status(500).json({ error: 'erro ao listar alertas públicos' });

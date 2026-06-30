@@ -1306,69 +1306,8 @@ footer {
   <!-- TICKER -->
   <div class="ticker-wrap">
     <span class="ticker-label">AO VIVO</span>
-    <div class="ticker-track">
-
-      <span class="ticker-item">Congestionamento Ponte Colombo Salles sentido continente — 08:31 · Florianópolis</span>
-      <span class="ticker-item">Assalto próximo ao Mercado Público — DP Central acionada · Centro · Florianópolis</span>
-      <span class="ticker-item">Alagamento na SC-406 após chuva de 45mm — Lagoa da Conceição · Florianópolis</span>
-      <span class="ticker-item">Furto de bicicleta elétrica em Ingleses — B.O. registrado · Florianópolis</span>
-      <span class="ticker-item">Ocorrência registrada na 7ª DP Trindade — área próxima à UFSC · Florianópolis</span>
-
-      <span class="ticker-item">PRF — Colisão traseira BR-101 km 202 · São José — lentidão 3km sentido sul</span>
-      <span class="ticker-item">Assalto a mão armada no Kobrasol · São José — suspeito foragido</span>
-      <span class="ticker-item">Obra emergencial SC-281 bloqueia faixa em Forquilhinha · São José</span>
-
-      <span class="ticker-item">PRF — Veículo tombado BR-101 km 220 · Palhoça — faixa direita bloqueada</span>
-      <span class="ticker-item">Arrombamento de residência no Aririú · Palhoça — equipe da DP acionada</span>
-
-      <span class="ticker-item">PRF — Fiscalização de peso BR-101 km 168 · Biguaçu — fila de 800m</span>
-      <span class="ticker-item">Roubo a pedestre no centro de Biguaçu — DP registrando B.O.</span>
-
-      <span class="ticker-item">INMET — Alerta temporal Garopaba/Paulo Lopes — 120mm/24h previsto</span>
-      <span class="ticker-item">Furto de motocicleta na Praia de Garopaba — B.O. registrado</span>
-
-      <span class="ticker-item">PRF — Acidente grave BR-101 km 147 · Tijucas — desvio obrigatório pela SC-417</span>
-      <span class="ticker-item">INMET — Enchente no centro de Tijucas — ruas interditadas pelo Rio Tijucas</span>
-
-      <span class="ticker-item">Deslizamento de encosta bloqueia estrada municipal em Gov. Celso Ramos</span>
-      <span class="ticker-item">Furto de embarcação pesqueira no Canto dos Ganchos · Gov. Celso Ramos</span>
-
-      <span class="ticker-item">INMET — Risco deslizamento LARANJA · Serra · Santo Amaro da Imperatriz — 90mm acumulados</span>
-      <span class="ticker-item">SC-282 parcialmente bloqueada por deslizamento · Santo Amaro da Imperatriz</span>
-
-      <span class="ticker-item">Roubo a residência rural em São Pedro de Alcântara — equipe acionada</span>
-      <span class="ticker-item">Queda de árvore bloqueia SC-407 após temporal · São Pedro de Alcântara</span>
-
-      <span class="ticker-item">Furto de equipamentos agrícolas em Antônio Carlos — B.O. em andamento</span>
-
-      <span class="ticker-item">INMET — Monitoramento do Rio Cubatão em Águas Mornas — nível em atenção</span>
-
-      <span class="ticker-item">INMET — Risco de deslizamento Serra do Tabuleiro · Rancho Queimado — 80mm acumulados</span>
-      <span class="ticker-item">SC-370 com rachaduras interditada parcialmente em Rancho Queimado</span>
-
-      <span class="ticker-item">Assalto a mercado local no centro de Canelinha — equipe da DP acionada</span>
-      <span class="ticker-item">Roubo a carregamento em caminhão parado na BR-101 · São João Batista — madrugada</span>
-
-      <span class="ticker-item">Falta de energia no centro de Nova Trento — CELESC trabalhando no reparo</span>
-      <span class="ticker-item">INMET — Rio Tijucas em atenção · Nova Trento — nível subindo</span>
-
-      <span class="ticker-item">Ponte rural interditada SC-410 · Angelina — vistoria estrutural emergencial</span>
-
-      <span class="ticker-item">Furto de animais em propriedade rural em Major Gercino — B.O. registrado</span>
-
-      <span class="ticker-item">INMET — Enchente do Rio Itajaí do Sul · Alfredo Wagner — monitoramento intensivo</span>
-      <span class="ticker-item">SC-302 parcialmente bloqueada por barreira de pedras · Alfredo Wagner</span>
-
-      <span class="ticker-item">INMET — Solo encharcado com risco de deslizamento · Leoberto Leal / Anitápolis</span>
-      <span class="ticker-item">Queda de barreira na SC-281 · Anitápolis — trânsito liberado com cautela</span>
-      <span class="ticker-item">Estrada vicinal bloqueada por lama em São Bonifácio — desvio ativo</span>
-
-      <span class="ticker-item">Congestionamento Ponte Colombo Salles sentido continente — 08:31 · Florianópolis</span>
-      <span class="ticker-item">PRF — Colisão traseira BR-101 km 202 · São José — lentidão 3km sentido sul</span>
-      <span class="ticker-item">INMET — Risco deslizamento LARANJA · Serra do Tabuleiro · Rancho Queimado</span>
-      <span class="ticker-item">PRF — Veículo tombado BR-101 km 220 · Palhoça — faixa direita bloqueada</span>
-      <span class="ticker-item">INMET — Enchente do Rio Itajaí do Sul · Alfredo Wagner — monitoramento</span>
-      <span class="ticker-item">Furto de bicicleta elétrica em Ingleses — B.O. registrado · Florianópolis</span>
+    <div class="ticker-track" id="ticker-track">
+      <!-- populado via JS a partir da API /api/public/alerts -->
     </div>
   </div>
 
@@ -2226,9 +2165,9 @@ function initDemoMap() {
     ).addTo(mapDemoInstance);
     marker.bindPopup(`
       <div style="font-family:'DM Sans',sans-serif;min-width:200px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:${col};text-transform:uppercase;margin-bottom:4px">${escapeHtml(p.label)}</div>
-        <div style="font-size:12px;color:#333;line-height:1.5;margin-bottom:6px">${escapeHtml(p.desc)}</div>
-        <div style="font-size:11px;color:#888">📍 ${escapeHtml(p.loc)}</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:${col};text-transform:uppercase;margin-bottom:4px">${p.label}</div>
+        <div style="font-size:12px;color:#333;line-height:1.5;margin-bottom:6px">${p.desc}</div>
+        <div style="font-size:11px;color:#888">📍 ${p.loc}</div>
         <div style="margin-top:10px;padding-top:8px;border-top:1px solid #eee;text-align:center">
           <button onclick="showPage('register')" style="background:#C8201A;color:#fff;border:none;padding:6px 14px;font-size:11px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif">Criar conta gratuita →</button>
         </div>
@@ -2311,9 +2250,7 @@ const SESSION_KEY = 'ca_session';
 /* ═══════════════════════════════════════════════════════════════
    API CONFIG — substituir URL quando backend estiver rodando
 ═══════════════════════════════════════════════════════════════ */
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:3000/api'
-  : '/api';
+const API_BASE = '/api';
 
 const API_ENABLED = true; // true quando backend estiver rodando
 
@@ -2696,7 +2633,7 @@ function showPage(name) {
 let mapPublico = null;
 let pubFilterType = 'all';
 
-// ── Dados públicos REAIS para o cidadão (GET /api/public/alerts) ──
+// ── Dados públicos REAIS para o cidadão (GET http://18.229.131.113:3000/api/public/alerts) ──
 let livePublicGeoJSON = { type:'FeatureCollection', features: [] };
 let pubSocket = null;
 
@@ -2708,9 +2645,13 @@ async function refreshPublicData() {
     const lng = a.longitude != null ? parseFloat(a.longitude) : NaN;
     if (isNaN(lat) || isNaN(lng)) return null;
     const labels = (typeof LIVE_TYPE_LABELS !== 'undefined') ? LIVE_TYPE_LABELS : {};
-    const dt = (a.source && labels[a.source]) ? a.source : (a.type || 'outro');
+    // type controla a CATEGORIA (cor/filtro: crime, transito, infra...)
+    const dt = a.type || a.source || 'outro';
+    // label mostra a FONTE real no popup (PRF, INMET) quando disponível, senão a categoria
+    const sourceLabels = { prf:'PRF', inmet:'INMET', cemaden:'CEMADEN' };
+    const lbl = sourceLabels[a.source] || labels[dt] || dt;
     return { type:'Feature', geometry:{ type:'Point', coordinates:[lng, lat] },
-      properties:{ type:dt, label: labels[dt] || dt, desc:a.description||'', loc:a.location||'',
+      properties:{ type:dt, label: lbl, desc:a.description||'', loc:a.location||'',
         id:a.external_id||('AL-'+a.id), status:a.status||'open', source:a.source||'externo' } };
   }).filter(Boolean);
   livePublicGeoJSON = { type:'FeatureCollection', features: feats };
@@ -2828,7 +2769,7 @@ function filterPublicMap() {
   const src = (livePublicGeoJSON && Array.isArray(livePublicGeoJSON.features)) ? livePublicGeoJSON.features : [];
   const matched = src.filter(f => {
     const p = f.properties;
-    if (!p || p.type === 'delegacia') return false;
+    if (!p) return false;
     if (pubFilterType !== 'all' && p.type !== pubFilterType) return false;
     if (query && !(_normalize(p.loc).includes(query) || _normalize(p.label).includes(query))) return false;
     return true;
@@ -2854,7 +2795,7 @@ function filterPublicMap() {
     latlngs.push([lat, lng]);
     const cor = (typeof INCIDENT_COLORS !== 'undefined' && INCIDENT_COLORS[p.type]) || '#0288D1';
     const m = L.circleMarker([lat,lng], { radius:6, fillColor:cor, color:'#fff', weight:2, fillOpacity:.9 });
-    m.bindPopup(`<div style="font-family:'DM Sans',sans-serif"><strong style="color:${cor}">${escapeHtml(p.label||'Incidente')}</strong><br/><span style="font-size:11px;color:#888">📍 ${escapeHtml(p.loc||'')}</span><br/><a onclick="showPage('register')" style="font-size:11px;color:#C8201A;cursor:pointer;font-weight:600">Ver detalhes e horário →</a></div>`);
+    m.bindPopup(`<div style="font-family:'DM Sans',sans-serif"><strong style="color:${cor}">${p.label||'Incidente'}</strong><br/><span style="font-size:11px;color:#888">📍 ${p.loc||''}</span><br/><a onclick="showPage('register')" style="font-size:11px;color:#C8201A;cursor:pointer;font-weight:600">Ver detalhes e horário →</a></div>`);
     if (cluster) cluster.addLayer(m); else m.addTo(mapPublico);
   });
 
@@ -2997,23 +2938,86 @@ function checkAuthOnLoad() {
 /* ═══════════════════════════════════════════
    LANDING — LIVE FEED
 ═══════════════════════════════════════════ */
-const incidents = [
-  { type:'crime',    typeLabel:'Crime',          desc:'Roubo próximo ao Mercado Público.',                             loc:'Centro · Florianópolis',  time:'há 2 min'  },
-  { type:'transito', typeLabel:'Trânsito',        desc:'Congestionamento na Ponte Colombo Salles sentido continente.',  loc:'Acesso Ilha · Centro',    time:'há 5 min'  },
-  { type:'furto',    typeLabel:'Furto',           desc:'Furto de bicicleta em Jurerê Internacional.',                   loc:'Jurerê Intl · Norte',     time:'há 8 min'  },
-  { type:'infra',    typeLabel:'Infraestrutura',  desc:'Buraco na Rua Felipe Schmidt interditando faixa.',              loc:'Centro · Florianópolis',  time:'há 11 min' },
-  { type:'crime',    typeLabel:'Crime',           desc:'Assalto na saída da UFSC no período noturno.',                  loc:'Trindade · Florianópolis',time:'há 14 min' },
-  { type:'transito', typeLabel:'Trânsito',        desc:'Acidente na SC-401 com bloqueio parcial de faixa.',             loc:'Itacorubi · SC-401',      time:'há 19 min' },
-  { type:'infra',    typeLabel:'Infraestrutura',  desc:'Alagamento na SC-406 após chuva forte.',                        loc:'Lagoa · SC-406',          time:'há 22 min' },
-];
+let incidents = [];
 let feedIndex = 0;
 let feedTimer = null;
 
+function timeAgo(dateStr) {
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 60000);
+  if (diff < 1) return 'agora';
+  if (diff < 60) return `há ${diff} min`;
+  const h = Math.floor(diff / 60);
+  return `há ${h}h`;
+}
+
+const SOURCE_LABEL = { prf: 'PRF', inmet: 'INMET', cemaden: 'CEMADEN', manual: 'Manual' };
+const TYPE_LABEL   = { transito: 'Trânsito', infra: 'Infraestrutura', crime: 'Crime', furto: 'Furto', prf: 'PRF', inmet: 'INMET' };
+
+// Intercala alertas de fontes diferentes (PRF, INMET, ...) em vez de
+// simplesmente ordenar por data — assim a landing nunca fica dominada
+// por uma única fonte só porque ela teve eventos mais recentes.
+function interleaveBySource(list) {
+  const groups = {};
+  const order = [];
+  for (const item of list) {
+    const key = item.source || 'outro';
+    if (!groups[key]) { groups[key] = []; order.push(key); }
+    groups[key].push(item);
+  }
+  const result = [];
+  let added = true;
+  while (added) {
+    added = false;
+    for (const key of order) {
+      if (groups[key].length) {
+        result.push(groups[key].shift());
+        added = true;
+      }
+    }
+  }
+  return result;
+}
+
+async function loadPublicAlerts() {
+  try {
+    const r = await fetch('/api/public/alerts');
+    const data = await r.json();
+    const rawAlerts = data.alerts || [];
+    const mapped = rawAlerts.map(a => {
+      const typeLabel = SOURCE_LABEL[a.source] || TYPE_LABEL[a.type] || 'Alerta';
+      // Remove prefixo duplicado genérico (ex: "Tempestade — Tempestade — ...")
+      let desc = a.description || '';
+      const parts = desc.split(' — ');
+      if (parts.length >= 2 && parts[0] === parts[1]) {
+        desc = parts[0] + ' — ' + parts.slice(2).join(' — ');
+      }
+      return {
+        type:      a.source || a.type || 'infra',
+        source:    a.source || 'outro',
+        typeLabel,
+        desc,
+        loc:       a.location || '',
+        time:      timeAgo(a.created_at),
+      };
+    });
+    incidents = interleaveBySource(mapped);
+    // Atualiza ticker com dados reais
+    const track = document.getElementById('ticker-track');
+    if (track && incidents.length) {
+      track.innerHTML = [...incidents, ...incidents].map(i =>
+        `<span class="ticker-item">[${i.typeLabel}] ${i.desc}${i.loc ? ' · ' + i.loc : ''}</span>`
+      ).join('');
+    }
+  } catch(e) {
+    console.warn('[feed] Erro ao carregar alertas públicos:', e.message);
+  }
+}
+
 function feedItemHTML(item) {
   return `<div class="feed-item">
-    <div class="feed-item-top"><span class="feed-type type-${item.type}">${escapeHtml(item.typeLabel)}</span><span class="feed-time">${item.time}</span></div>
-    <div class="feed-desc">${escapeHtml(item.desc)}</div>
-    <div class="feed-loc"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#666" stroke-width="1.5"><circle cx="5" cy="4" r="2"/><path d="M5 9C5 9 2 6.5 2 4a3 3 0 116 0c0 2.5-3 5-3 5z"/></svg>${escapeHtml(item.loc)}</div>
+    <div class="feed-item-top"><span class="feed-type type-${item.type}">${item.typeLabel}</span><span class="feed-time">${item.time}</span></div>
+    <div class="feed-desc">${item.desc}</div>
+    <div class="feed-loc"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#666" stroke-width="1.5"><circle cx="5" cy="4" r="2"/><path d="M5 9C5 9 2 6.5 2 4a3 3 0 116 0c0 2.5-3 5-3 5z"/></svg>${item.loc}</div>
   </div>`;
 }
 
@@ -3049,12 +3053,25 @@ function animateCount(id, target) {
 
 function initLanding() {
   updateLandingTopbar();
-  initFeed();
-  if (feedTimer) clearInterval(feedTimer);
-  feedTimer = setInterval(rotateFeed, 3800);
-  setTimeout(() => animateCount('stat-hoje', 143), 300);
-  setTimeout(() => animateCount('stat-ativos', 27), 500);
-  setTimeout(() => animateCount('stat-resolvidos', 116), 700);
+  loadPublicAlerts().then(() => {
+    initFeed();
+    if (feedTimer) clearInterval(feedTimer);
+    feedTimer = setInterval(rotateFeed, 3800);
+  });
+  // Busca stats reais da API
+  fetch('/api/public/alerts').then(r => r.json()).then(data => {
+    const alerts = data.alerts || [];
+    const hoje = data.total || alerts.length;
+    const ativos = data.total_open || alerts.filter(a => a.status === 'open').length;
+    const resolvidos = data.total_resolved || alerts.filter(a => a.status === 'resolved').length;
+    setTimeout(() => animateCount('stat-hoje', hoje), 300);
+    setTimeout(() => animateCount('stat-ativos', ativos), 500);
+    setTimeout(() => animateCount('stat-resolvidos', resolvidos), 700);
+  }).catch(() => {
+    setTimeout(() => animateCount('stat-hoje', 0), 300);
+    setTimeout(() => animateCount('stat-ativos', 0), 500);
+    setTimeout(() => animateCount('stat-resolvidos', 0), 700);
+  });
   initReveal();
 }
 
@@ -7550,26 +7567,27 @@ function taxaPor100k(incidentes, municipio) {
 }
 
 
-const allAlerts = [
-  // Florianópolis
-  { id:'ALT-001', type:'crime',      label:'Crime',          source:'manual',   desc:'Roubo a pedestre próximo ao Mercado Público',                  loc:'Centro · Florianópolis',      time:'08:14', status:'open'     }, { id:'ALT-002', type:'transito',   label:'Trânsito',       source:'manual',   desc:'Lentidão intensa Ponte Colombo Salles sentido continente',     loc:'Acesso Ilha · Florianópolis',  time:'08:31', status:'progress' }, { id:'ALT-003', type:'furto',      label:'Furto',          source:'manual',   desc:'Furto de bicicleta elétrica em Ingleses',                      loc:'Ingleses · Norte',             time:'09:47', status:'open'     }, { id:'ALT-004', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'Buraco na Rua Felipe Schmidt interditando faixa direita',      loc:'Centro · Florianópolis',       time:'10:03', status:'progress' }, { id:'ALT-005', type:'crime',      label:'Crime',          source:'manual',   desc:'Assalto na saída da UFSC — suspeito identificado',             loc:'Trindade · Florianópolis',     time:'10:14', status:'progress' }, { id:'ALT-006', type:'transito',   label:'Trânsito',       source:'manual',   desc:'Acidente SC-401 sentido Norte — faixa bloqueada',              loc:'Itacorubi · SC-401',           time:'10:55', status:'resolved' }, { id:'ALT-007', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'Alagamento na SC-406 após chuva forte de 45mm',                loc:'Lagoa · SC-406',               time:'11:22', status:'resolved' }, { id:'ALT-008', type:'feminicidio',label:'Feminicídio',    source:'manual',   desc:'Violência doméstica — vítima encaminhada ao HU',               loc:'Estreito · Florianópolis',     time:'11:48', status:'progress' }, // São José
-  { id:'ALT-009', type:'prf',        label:'PRF',            source:'prf',      desc:'Colisão traseira BR-101 km 202 — lentidão 3km sentido sul',    loc:'BR-101 km 202 · São José',     time:'12:05', status:'progress' }, { id:'ALT-010', type:'crime',      label:'Crime',          source:'manual',   desc:'Assalto a mão armada no Kobrasol — suspeito foragido',         loc:'Kobrasol · São José',          time:'12:31', status:'open'     }, { id:'ALT-011', type:'transito',   label:'Trânsito',       source:'manual',   desc:'Obra emergencial SC-281 bloqueia faixa por 48h',              loc:'Forquilhinha · São José',       time:'13:02', status:'open'     }, { id:'ALT-012', type:'feminicidio',label:'Feminicídio',    source:'manual',   desc:'Tentativa de feminicídio — agressor detido em flagrante',     loc:'Kobrasol · São José',          time:'13:15', status:'resolved' }, // Palhoça
-  { id:'ALT-013', type:'prf',        label:'PRF',            source:'prf',      desc:'Veículo tombado bloqueando faixa direita BR-101 km 220',       loc:'BR-101 km 220 · Palhoça',      time:'07:32', status:'progress' }, { id:'ALT-014', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'SC-282 com buracos críticos causando acidentes',               loc:'Guarda do Embaú · Palhoça',    time:'09:10', status:'open'     }, { id:'ALT-015', type:'crime',      label:'Crime',          source:'manual',   desc:'Arrombamento de residência no Aririú — DP acionada',          loc:'Aririú · Palhoça',             time:'14:20', status:'open'     }, // Biguaçu
-  { id:'ALT-016', type:'prf',        label:'PRF',            source:'prf',      desc:'Fiscalização de peso BR-101 km 168 — fila de 800m',           loc:'BR-101 km 168 · Biguaçu',      time:'06:45', status:'open'     }, { id:'ALT-017', type:'crime',      label:'Crime',          source:'manual',   desc:'Roubo a pedestre próximo à praça central',                     loc:'Centro · Biguaçu',             time:'15:32', status:'open'     }, // Garopaba
-  { id:'ALT-018', type:'inmet',   label:'INMET',       source:'inmet', desc:'Alerta de chuva intensa — acumulado previsto 120mm/24h',       loc:'Litoral Sul · Garopaba',       time:'16:10', status:'open'     }, { id:'ALT-019', type:'furto',      label:'Furto',          source:'manual',   desc:'Furto de motocicleta na Praia de Garopaba',                    loc:'Centro · Garopaba',            time:'16:55', status:'open'     }, // Tijucas
-  { id:'ALT-020', type:'prf',        label:'PRF',            source:'prf',      desc:'Acidente grave com caminhão BR-101 km 147 — desvio obrigatório',loc:'BR-101 km 147 · Tijucas',     time:'07:18', status:'progress' }, { id:'ALT-021', type:'infra',      label:'Infraestrutura', source:'inmet', desc:'Enchente no centro de Tijucas — ruas interditadas',            loc:'Centro · Tijucas',             time:'14:45', status:'progress' }, // Gov. Celso Ramos
-  { id:'ALT-022', type:'infra',      label:'Infraestrutura', source:'inmet', desc:'Deslizamento de encosta bloqueia estrada municipal',           loc:'Gov. Celso Ramos',             time:'11:30', status:'progress' }, // Santo Amaro da Imperatriz
-  { id:'ALT-023', type:'inmet',   label:'INMET',       source:'inmet', desc:'Risco de deslizamento LARANJA — precipitação 90mm acumulada',  loc:'Serra · Santo Amaro',          time:'08:55', status:'open'     }, { id:'ALT-024', type:'infra',      label:'Infraestrutura', source:'inmet', desc:'SC-282 parcialmente bloqueada por deslizamento',               loc:'SC-282 · Santo Amaro',         time:'09:40', status:'progress' }, // São Pedro de Alcântara
-  { id:'ALT-025', type:'crime',      label:'Crime',          source:'manual',   desc:'Roubo a residência rural — moradores estão seguros',           loc:'São Pedro de Alcântara',       time:'06:12', status:'open'     }, // Antônio Carlos
-  { id:'ALT-026', type:'furto',      label:'Furto',          source:'manual',   desc:'Furto de equipamentos agrícolas em propriedade rural',         loc:'Interior · Antônio Carlos',    time:'07:50', status:'open'     }, // Águas Mornas
-  { id:'ALT-027', type:'inmet',   label:'INMET',       source:'inmet', desc:'Monitoramento do Rio Cubatão — nível em atenção',              loc:'Águas Mornas',                 time:'12:20', status:'open'     }, // Rancho Queimado
-  { id:'ALT-028', type:'inmet',   label:'INMET',       source:'inmet', desc:'Risco de deslizamento Serra do Tabuleiro — 80mm acumulados',   loc:'Serra do Tabuleiro',           time:'10:35', status:'open'     }, // Canelinha / São João Batista
-  { id:'ALT-029', type:'crime',      label:'Crime',          source:'manual',   desc:'Assalto a mercado local no centro de Canelinha',              loc:'Centro · Canelinha',           time:'13:42', status:'open'     }, { id:'ALT-030', type:'crime',      label:'Crime',          source:'manual',   desc:'Roubo a carregamento de caminhão parado na BR-101',           loc:'BR-101 · São João Batista',    time:'05:30', status:'open'     }, // Nova Trento / Angelina
-  { id:'ALT-031', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'Falta de energia no centro de Nova Trento — CELESC acionada', loc:'Centro · Nova Trento',         time:'17:20', status:'progress' }, { id:'ALT-032', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'Ponte rural interditada na SC-410 — risco de colapso',        loc:'SC-410 · Angelina',            time:'08:05', status:'open'     }, // Alfredo Wagner / Leoberto Leal
-  { id:'ALT-033', type:'inmet',   label:'INMET',       source:'inmet', desc:'Enchente do Rio Itajaí do Sul — monitoramento intensivo',      loc:'Alfredo Wagner',               time:'06:30', status:'open'     }, { id:'ALT-034', type:'inmet',   label:'INMET',       source:'inmet', desc:'Atenção para deslizamentos — solo encharcado na Serra',        loc:'Leoberto Leal',                time:'09:15', status:'open'     }, // Anitápolis / São Bonifácio
-  { id:'ALT-035', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'Queda de barreira SC-281 — trânsito liberado com cautela',     loc:'SC-281 · Anitápolis',          time:'14:08', status:'progress' }, { id:'ALT-036', type:'inmet',   label:'INMET',       source:'inmet', desc:'Monitoramento de nascentes do Rio Cubatão — preventivo',       loc:'Anitápolis / São Bonifácio',  time:'11:00', status:'open'     }, // PRF complementar
-  { id:'ALT-037', type:'prf',        label:'PRF',            source:'prf',      desc:'Obras noturnas BR-101 km 238 — meia pista, limite 60km/h',     loc:'BR-101 km 238 · Palhoça Sul',  time:'22:00', status:'progress' }, { id:'ALT-038', type:'transito',   label:'Trânsito',       source:'manual',   desc:'Blitz DETRAN na Via Expressa — operação de fiscalização',      loc:'Via Expressa · Continente',    time:'08:00', status:'resolved' }, { id:'ALT-039', type:'crime',      label:'Crime',          source:'manual',   desc:'Tráfico de drogas em Campinas — DP acionada, área isolada',    loc:'Campinas · São José',          time:'18:45', status:'open'     }, { id:'ALT-040', type:'furto',      label:'Furto',          source:'manual',   desc:'Arrombamento de veículo no estacionamento da UDESC',          loc:'Itacorubi · Florianópolis',    time:'19:10', status:'open'     }, { id:'ALT-041', type:'transito',   label:'Trânsito',       source:'manual',   desc:'Acidente SC-434 sentido Imbituba — faixa bloqueada',           loc:'SC-434 · Garopaba',            time:'16:40', status:'resolved' }, { id:'ALT-042', type:'infra',      label:'Infraestrutura', source:'manual',   desc:'SC-302 com barreira de pedras — bloqueio parcial',             loc:'SC-302 · Alfredo Wagner',      time:'07:05', status:'progress' },
-];let activeFilter = 'all';
+let allAlerts = [];
+
+async function loadAllAlerts() {
+  try {
+    const r = await fetch('/api/public/alerts');
+    const data = await r.json();
+    allAlerts = (data.alerts || []).map((a, i) => ({
+      id:     a.id || `ALT-${String(i+1).padStart(3,'0')}`,
+      type:   a.source || a.type || 'infra',
+      label:  SOURCE_LABEL[a.source] || TYPE_LABEL[a.type] || 'Alerta',
+      source: a.source || 'manual',
+      desc:   a.description,
+      loc:    a.location || '',
+      time:   timeAgo(a.created_at),
+      status: a.status || 'open',
+    }));
+    filterAlerts();
+  } catch(e) {
+    console.warn('[allAlerts] Erro ao carregar:', e.message);
+  }
+}let activeFilter = 'all';
 
 function filterAlerts(btn) {
   if (btn && btn.dataset && btn.dataset.filter) {
@@ -8147,7 +8165,7 @@ function enterTVMode() {
   const feed = document.getElementById('tv-feed');
   if (feed && typeof dashAlerts !== 'undefined') {
     feed.innerHTML = dashAlerts.filter(a=>a.status==='open').slice(0,8).map(a =>
-      `<div class="tv-feed-item"><div class="tv-feed-desc">${escapeHtml(a.desc)}</div><div class="tv-feed-loc">📍 ${escapeHtml(a.loc)} · há ${a.time}</div></div>`
+      `<div class="tv-feed-item"><div class="tv-feed-desc">${a.desc}</div><div class="tv-feed-loc">📍 ${a.loc} · há ${a.time}</div></div>`
     ).join('');
   }
   // Mapa TV
@@ -8390,14 +8408,7 @@ function showToast(msg) {
 /* ═══════════════════════════════════════════
    NOTIFICATIONS
 ═══════════════════════════════════════════ */
-const notifData = [
-  { type:'feminicidio', color:'#9C27B0', title:'Feminicídio em Palhoça',          body:'Feminicídio consumado — inquérito aberto',        time:'2 min',  unread:true  },
-  { type:'crime',       color:'#E53935', title:'Novo crime no Centro',             body:'Roubo próximo ao Mercado Público',                time:'5 min',  unread:true  },
-  { type:'transito',    color:'#F57C00', title:'Congestionamento na Ponte',        body:'Ponte Colombo Salles sentido continente',         time:'12 min', unread:true  },
-  { type:'infra',       color:'#43A047', title:'Alagamento na SC-406',             body:'SC-406 altura da Lagoa da Conceição bloqueada',   time:'28 min', unread:true  },
-  { type:'furto',       color:'#EF5350', title:'Furto em Jurerê Internacional',    body:'Furto de bicicleta — B.O. registrado',            time:'1h',     unread:false },
-  { type:'crime',       color:'#E53935', title:'Assalto na UFSC',                  body:'Vítima atendida — suspeito não localizado',       time:'2h',     unread:false },
-];
+const notifData = [];
 
 function renderNotifList() {
   const list = document.getElementById('notif-list');
@@ -8520,7 +8531,7 @@ function runSearch(q) {
         <div class="search-result-icon" style="background:${color}22">
           <div style="width:8px;height:8px;border-radius:50%;background:${color}"></div>
         </div>
-        <div class="search-result-body"><strong>${escapeHtml(a.desc)}</strong><span>${escapeHtml(a.loc)} · ${a.time}</span></div>
+        <div class="search-result-body"><strong>${a.desc}</strong><span>${a.loc} · ${a.time}</span></div>
         <span class="alert-type-tag tag-${a.type}" style="flex-shrink:0">${a.label}</span>
       </div>`;
     }).join('');
@@ -8930,15 +8941,15 @@ function buildPopupHTML(p) {
   const statusColors = { open:'#E53935',   progress:'#F57C00',      resolved:'#43A047',   active:'#7986CB' };
   const color = INCIDENT_COLORS[p.type] || '#888';
   const sourceBadge = p.source && p.source !== 'interno'
-    ? `<span style="font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:2px;margin-left:6px;background:${p.source==='prf'?'rgba(255,143,0,.15)':'rgba(2,136,209,.15)'};color:${p.source==='prf'?'#FF8F00':'#0288D1'}">${escapeHtml(p.source.toUpperCase())}</span>`
+    ? `<span style="font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:2px;margin-left:6px;background:${p.source==='prf'?'rgba(255,143,0,.15)':'rgba(2,136,209,.15)'};color:${p.source==='prf'?'#FF8F00':'#0288D1'}">${p.source.toUpperCase()}</span>`
     : '';
   const updatedLine = p.updated ? `<div style="font-size:10px;color:var(--muted);margin-top:2px">🔄 Atualizado ${p.updated}</div>` : '';
   return `<div style="font-family:'DM Sans',sans-serif;padding:2px">
     <div style="display:flex;align-items:center;margin-bottom:5px">
-      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:${color};font-weight:600">${escapeHtml(p.label)}</span>${sourceBadge}
+      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:${color};font-weight:600">${p.label}</span>${sourceBadge}
     </div>
-    <div style="font-size:13px;color:#14120E;line-height:1.4;margin-bottom:5px">${escapeHtml(p.desc)}</div>
-    <div style="font-size:11px;color:#6B6558;margin-bottom:4px">📍 ${escapeHtml(p.loc)}</div>
+    <div style="font-size:13px;color:#14120E;line-height:1.4;margin-bottom:5px">${p.desc}</div>
+    <div style="font-size:11px;color:#6B6558;margin-bottom:4px">📍 ${p.loc}</div>
     ${updatedLine}
     <div style="margin-top:6px"><span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:${statusColors[p.status]||'#ccc'}22;color:${statusColors[p.status]||'#888'}">${statusLabels[p.status]||p.status}</span></div>
   </div>`;
@@ -9117,7 +9128,7 @@ function initLeafletMap(containerId, zoom, plan) {
     }
 
     const srcBadge = p.source && p.source !== 'interno' && p.source !== 'manual'
-      ? `<span style="font-size:9px;font-weight:700;padding:1px 7px;border-radius:2px;margin-left:5px;background:${p.source==='prf'?'rgba(230,81,0,.12)':'rgba(2,119,189,.12)'};color:${p.source==='prf'?'#E65100':'#0277BD'}">${escapeHtml(p.source.toUpperCase())}</span>`
+      ? `<span style="font-size:9px;font-weight:700;padding:1px 7px;border-radius:2px;margin-left:5px;background:${p.source==='prf'?'rgba(230,81,0,.12)':'rgba(2,119,189,.12)'};color:${p.source==='prf'?'#E65100':'#0277BD'}">${p.source.toUpperCase()}</span>`
       : '';
 
     const statusClr = STATUS_COLOR[p.status] || '#666';
@@ -9140,12 +9151,12 @@ function initLeafletMap(containerId, zoom, plan) {
       <div style="font-family:'DM Sans',sans-serif;min-width:230px">
         <div style="display:flex;align-items:center;margin-bottom:8px">
           <div style="width:8px;height:8px;border-radius:50%;background:${cor};margin-right:7px;flex-shrink:0"></div>
-          <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:${cor};font-weight:600">${escapeHtml(p.label)}</span>${srcBadge}
+          <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:${cor};font-weight:600">${p.label}</span>${srcBadge}
           <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px;color:#999">${protocolo}</span>
         </div>
-        <div style="font-size:13px;color:#1a1a1a;line-height:1.45;margin-bottom:8px">${escapeHtml(p.desc)}</div>
+        <div style="font-size:13px;color:#1a1a1a;line-height:1.45;margin-bottom:8px">${p.desc}</div>
         <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 8px;font-size:11px;color:#555;margin-bottom:9px">
-          <span style="color:#999">📍 Local</span><span>${escapeHtml(p.loc)}</span>
+          <span style="color:#999">📍 Local</span><span>${p.loc}</span>
           <span style="color:#999">🏛 Órgão</span><span>${orgao}</span>
           <span style="color:#999">🕑 Registro</span><span>${quando}${p.updated?' · '+p.updated:''}</span>
         </div>
@@ -9230,10 +9241,8 @@ let popupTimer;
 function showMapPopup(){}
 document.addEventListener('click',()=>{});
 
-// Dash alert feed — dados realistas Grande Florianópolis
-const dashAlerts = [
-  { type:'crime',      label:'Crime',          source:'manual',   desc:'Assalto a pedestre próximo ao Mercado Público',                loc:'Centro · Florianópolis',       time:'2 min',     status:'open'     }, { type:'cemaden', label:'CEMADEN', source:'cemaden', desc:'Risco MUITO ALTO de deslizamento — encostas monitoradas, 110mm acumulados', loc:'Serra · Santo Amaro da Imperatriz', time:'4 min', status:'open' }, { type:'prf',        label:'PRF',            source:'prf',      desc:'Colisão traseira BR-101 km 202 — lentidão 3km sentido sul',    loc:'BR-101 km 202 · São José',     time:'8 min',     status:'progress' }, { type:'inmet',   label:'INMET',       source:'inmet', desc:'Risco de deslizamento LARANJA — Serra do Tabuleiro · 80mm',    loc:'Rancho Queimado',              time:'15 min',    status:'open'     }, { type:'transito',   label:'Trânsito',       source:'prf',      desc:'Veículo tombado bloqueando faixa BR-101 km 220',               loc:'BR-101 km 220 · Palhoça',      time:'22 min',    status:'progress' }, { type:'cemaden', label:'CEMADEN', source:'cemaden', desc:'Alerta hidrológico — nível do Rio Cubatão em elevação rápida', loc:'Rio Cubatão · Águas Mornas', time:'27 min', status:'open' }, { type:'furto',      label:'Furto',          source:'manual',   desc:'Furto de bicicleta elétrica na orla de Ingleses',              loc:'Ingleses · Norte',             time:'31 min',    status:'open'     }, { type:'inmet',   label:'INMET',       source:'inmet', desc:'Enchente do Rio Itajaí do Sul — monitoramento intensivo',      loc:'Alfredo Wagner',               time:'40 min',    status:'open'     }, { type:'crime',      label:'Crime',          source:'manual',   desc:'Assalto a mão armada no Kobrasol — suspeito foragido',         loc:'Kobrasol · São José',          time:'47 min',    status:'open'     }, { type:'infra',      label:'Infraestrutura', source:'manual',   desc:'Ponte rural interditada SC-410 — risco estrutural',            loc:'SC-410 · Angelina',            time:'55 min',    status:'open'     }, { type:'transito',   label:'Trânsito',       source:'inmet', desc:'Enchente no centro de Tijucas — ruas interditadas',            loc:'Centro · Tijucas',             time:'1h 2 min',  status:'progress' }, { type:'cemaden', label:'CEMADEN', source:'cemaden', desc:'Risco hidrológico ALTO — enxurrada possível em área urbana', loc:'Centro · Alfredo Wagner', time:'1h 10 min', status:'progress' }, { type:'crime',      label:'Crime',          source:'manual',   desc:'Furto de animais em propriedade rural',                        loc:'Interior · Major Gercino',     time:'1h 18 min', status:'open'     }, { type:'inmet',   label:'INMET',       source:'inmet', desc:'Alerta de ventos fortes 80km/h no litoral sul',                loc:'Paulo Lopes / Garopaba',       time:'1h 30 min', status:'open'     }, { type:'feminicidio',label:'Feminicídio',    source:'manual',   desc:'Violência doméstica — vítima hospitalizada no HU',            loc:'Estreito · Florianópolis',     time:'1h 45 min', status:'progress' },
-];
+// Dash alert feed — carregado via API
+let dashAlerts = [];
 
 function showDashSkeleton() {
   const feed = document.getElementById('dash-feed');
@@ -9393,13 +9402,13 @@ function renderMapPanel() {
     return `<div class="map-list-item" data-id="${p.id}" style="padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s" onmouseover="this.style.background='var(--paper-dark)'" onmouseout="if(!this.classList.contains('active'))this.style.background=''" onclick="focusIncident('${p.id}')">
       <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
         <span style="${dotStyle}"></span>
-        <span style="font-size:10px;font-weight:700;color:${col};letter-spacing:.05em;text-transform:uppercase">${escapeHtml(p.label)}</span>
+        <span style="font-size:10px;font-weight:700;color:${col};letter-spacing:.05em;text-transform:uppercase">${p.label}</span>
         <span style="font-size:8px;font-weight:600;padding:1px 5px;border-radius:10px;background:var(--paper-dark);color:var(--muted);letter-spacing:.04em">${src}</span>
         <span style="margin-left:auto;font-size:9px;color:var(--muted)">${tempoDe(p.id)}</span>
       </div>
       <div style="font-size:12px;color:var(--ink);line-height:1.4;margin-bottom:4px">${p.desc.substring(0,64)}${p.desc.length>64?'…':''}</div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
-        <div style="font-size:10px;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📍 ${escapeHtml(p.loc)}</div>
+        <div style="font-size:10px;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📍 ${p.loc}</div>
         <span style="font-size:8px;font-weight:600;padding:1px 6px;border-radius:2px;background:${col}15;color:${col};flex-shrink:0">${statusLabel[p.status]||p.status}</span>
       </div>
     </div>`;
@@ -10333,7 +10342,7 @@ function exportDashboardPDF() {
         <td>${(i+1).toString().padStart(3,'0')}</td>
         <td style="color:#C8201A;font-weight:700;font-size:9px;letter-spacing:.06em;text-transform:uppercase">${a.label}</td>
         <td>${a.desc.substring(0,60)}${a.desc.length>60?'…':''}</td>
-        <td>${escapeHtml(a.loc)}</td>
+        <td>${a.loc}</td>
         <td>${a.time}</td>
         <td><span style="font-size:9px;font-weight:700;padding:2px 6px">${a.status==='open'?'Em aberto':a.status==='resolved'?'Resolvido':'Em andamento'}</span></td>
       </tr>`

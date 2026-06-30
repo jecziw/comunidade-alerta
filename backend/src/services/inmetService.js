@@ -81,14 +81,20 @@ function mapTipo(evento = '') {
  * O INMET retorna a lista de municípios afetados em `municipios` e/ou um polígono.
  */
 function tocaGrandeFloripa(aviso) {
-  // 1) Por nome de município
+  // 1) Por mesorregião (mais rápido)
+  const meso = String(aviso.mesorregioes || '');
+  if (meso.includes('Grande Florianópolis')) {
+    return { nome: 'Grande Florianópolis', lat: -27.5954, lng: -48.5482 };
+  }
+  // 2) Por nome de município (formato: "Nome - UF (geocode),...")
   const munis = aviso.municipios || aviso.descricao_municipios || [];
   const lista = Array.isArray(munis) ? munis : String(munis).split(',');
   for (const m of lista) {
-    const nome = String(m).trim();
+    // extrai só o nome antes do " - UF"
+    const nome = String(m).trim().replace(/\s*-\s*[A-Z]{2}\s*\(.*?\)$/, '').trim();
     if (MUNICIPIOS_GF[nome]) return { nome, ...MUNICIPIOS_GF[nome] };
   }
-  // 2) Por estado (SC) + centroide do polígono dentro do bbox
+  // 3) Por estado (SC) + centroide do polígono dentro do bbox
   const estados = aviso.estados || aviso.uf || '';
   if (String(estados).includes('Santa Catarina') || String(estados).includes('SC')) {
     const c = centroideDoPoligono(aviso.poligono || aviso.geometry);
@@ -105,7 +111,6 @@ function centroideDoPoligono(poly) {
   let pts = [];
   try {
     if (typeof poly === 'string') {
-      // "lat,lng lat,lng ..." ou "lng,lat ..."
       pts = poly.trim().split(/\s+/).map(p => {
         const [a, b] = p.split(',').map(Number);
         return { lat: a, lng: b };
@@ -122,6 +127,11 @@ function centroideDoPoligono(poly) {
 
 /**
  * Converte um aviso CAP do INMET para o formato de alerta do Comunidade Alerta.
+ *
+ * NOTA: `description` já inclui o nome do evento (ex: "Geada — Aviso da
+ * Defesa Civil..."). O campo `label` é guardado separado só para uso em
+ * notificações push, e NÃO deve ser prefixado de novo na hora de salvar
+ * (ver salvarAlertas) para não duplicar "Geada — Geada — ...".
  */
 function avisoParaAlerta(aviso, local) {
   const sev = SEVERITY_MAP[aviso.severidade] || SEVERITY_MAP[aviso.severity] || SEVERITY_MAP['Moderate'];
@@ -155,7 +165,6 @@ async function fetchAvisosINMET() {
       headers: { 'User-Agent': 'ComunidadeAlerta/1.0 (monitoramento urbano SC)' },
     });
 
-    // A API pode retornar { hoje: [...], futuro: [...] } ou um array direto
     let avisos = [];
     if (Array.isArray(data)) avisos = data;
     else if (data && Array.isArray(data.hoje))   avisos = avisos.concat(data.hoje);
@@ -176,6 +185,10 @@ async function fetchAvisosINMET() {
 
 /**
  * Persiste os alertas no banco (upsert por external_id para evitar duplicatas).
+ *
+ * IMPORTANTE: `description` já vem pronta e completa de avisoParaAlerta()
+ * (inclui o nome do evento). NÃO prefixar de novo com `a.label` aqui —
+ * isso era o que causava "Geada — Geada — Aviso da Defesa Civil...".
  */
 async function salvarAlertas(alertas, tenantId = null) {
   if (!alertas.length) return 0;
@@ -189,7 +202,7 @@ async function salvarAlertas(alertas, tenantId = null) {
          ON CONFLICT (tenant_id, external_id) WHERE external_id IS NOT NULL DO UPDATE
            SET status = EXCLUDED.status, severity = EXCLUDED.severity
          RETURNING (xmax = 0) AS inserted`,
-        [a.external_id, a.source, a.type, (a.label ? a.label+' — ' : '')+a.description, a.severity, a.status,
+        [a.external_id, a.source, a.type, a.description, a.severity, a.status,
          a.lat, a.lng, a.municipio, a.raw, tenantId, a.created_at]
       );
       if (res.rows[0] && res.rows[0].inserted) inseridos++;
@@ -209,7 +222,6 @@ async function syncINMET(opts = {}) {
   const novos = await salvarAlertas(alertas, opts.tenantId);
   if (novos > 0) {
     console.log(`[INMET] ${novos} novo(s) aviso(s) para a Grande Florianópolis`);
-    // Dispara notificações em tempo real, se o socket estiver disponível
     try {
       const socket = require('./socketService');
       if (socket && socket.broadcastNewAlerts) socket.broadcastNewAlerts(alertas.slice(0, novos));
@@ -224,7 +236,7 @@ async function syncINMET(opts = {}) {
 let _timer = null;
 function startPolling(opts = {}) {
   if (_timer) return;
-  syncINMET(opts); // primeira execução imediata
+  syncINMET(opts);
   _timer = setInterval(() => syncINMET(opts), POLL_INTERVAL);
   console.log(`[INMET] Polling iniciado — a cada ${POLL_INTERVAL / 60000} min`);
 }
