@@ -2539,9 +2539,11 @@ function showWelcomeBack() {
   const h = new Date().getHours();
   const saud = h < 12 ? 'Bom dia' : (h < 18 ? 'Boa tarde' : 'Boa noite');
   const g = document.getElementById('wb-greeting');
-  const s = document.getElementById('wb-sub');
-  if (g) g.textContent = `${saud}, ${nome}!`;
-  if (s) s.textContent = sess.org ? `${sess.org} · Grande Florianópolis em tempo real` : 'Sua região monitorada em tempo real';
+  const gl = document.getElementById('wb-greeting-label');
+  const orgEl = document.getElementById('wb-org-name');
+  if (g) g.textContent = nome;
+  if (gl) gl.textContent = saud;
+  if (orgEl) orgEl.textContent = sess.org || 'Minha Organização';
   // Conta incidentes ativos (abertos) do dataset
   try {
     const ativos = (typeof dashAlerts !== 'undefined')
@@ -4745,21 +4747,33 @@ details summary { transition: color .15s var(--ease); }
 .wb-overlay { display:none; position:fixed; inset:0; z-index:740; background:rgba(20,18,14,.6); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:20px; animation:fadeIn .2s ease-out; }
 .wb-modal { position:relative; background:var(--paper); max-width:440px; width:100%; border-radius:18px; padding:34px 30px 28px; text-align:center; box-shadow:0 24px 70px rgba(0,0,0,.4); animation:slideUp .3s cubic-bezier(.2,.8,.2,1); overflow:hidden; }
 .wb-modal::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--red),var(--gold),var(--navy)); }
-.wb-close { position:absolute; top:14px; right:16px; background:none; border:none; font-size:24px; color:var(--muted); cursor:pointer; line-height:1; }
-.wb-close:hover { color:var(--ink); }
-.wb-icon { width:56px; height:56px; border-radius:16px; margin:4px auto 16px; background:linear-gradient(135deg,var(--navy),#0d1830); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(27,45,82,.35); }
-.wb-greeting { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:.02em; color:var(--ink); line-height:1.05; }
-.wb-sub { font-size:13px; color:var(--muted); line-height:1.5; margin:6px 0 22px; }
-.wb-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:24px; }
-.wb-stat { background:var(--paper-dark); border:1px solid var(--border); border-radius:10px; padding:12px 8px; }
-.wb-stat-num { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--ink); line-height:1; }
-.wb-stat-num.wb-live { font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; color:var(--success); }
-.wb-stat-lbl { font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-top:4px; }
+.wb-close { position:absolute; top:14px; right:16px; background:none; border:none; font-size:22px; color:var(--muted); cursor:pointer; line-height:1; padding:4px 8px; border-radius:6px; }
+.wb-close:hover { color:var(--ink); background:var(--paper-dark); }
+.wb-topbar { height:4px; background:linear-gradient(90deg,#E53935 0%,#FF8F00 50%,#0277BD 100%); border-radius:16px 16px 0 0; }
+.wb-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+.wb-icon { width:48px; height:48px; border-radius:12px; background:#0d1830; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.wb-greeting-wrap { flex:1; }
+.wb-greeting-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:3px; }
+.wb-greeting { font-size:20px; font-weight:500; color:var(--ink); line-height:1.1; font-family:'DM Sans',sans-serif; }
+.wb-org-card { background:var(--paper-dark); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; }
+.wb-org-label { font-size:12px; color:var(--muted); margin-bottom:2px; }
+.wb-org-value { font-size:13px; font-weight:500; color:var(--ink); }
+.wb-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
+.wb-stat { background:var(--paper-dark); border:1px solid var(--border); border-radius:10px; padding:14px 10px; text-align:center; }
+.wb-stat-num { font-size:28px; font-weight:500; color:var(--ink); line-height:1; font-variant-numeric:tabular-nums; font-family:'DM Sans',sans-serif; }
+.wb-stat-lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:5px; }
+.wb-live-dot { display:flex; align-items:center; justify-content:center; gap:5px; line-height:1; margin-bottom:5px; }
+.wb-live-dot span.dot { width:7px; height:7px; border-radius:50%; background:#43A047; display:inline-block; animation:wb-pulse 1.8s infinite; }
+.wb-live-dot span.lbl { font-size:12px; font-weight:600; color:#43A047; }
+.wb-sources { background:rgba(2,119,189,.08); border:1px solid rgba(2,119,189,.2); border-radius:10px; padding:11px 14px; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.wb-sources svg { flex-shrink:0; }
+.wb-sources span { font-size:12px; color:#0277BD; font-weight:500; }
 .wb-actions { display:flex; gap:10px; }
-.wb-cta { flex:1.4; padding:12px; background:var(--red); border:none; border-radius:9px; color:#fff; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; transition:filter .15s; }
+.wb-cta { flex:1.6; padding:13px; background:var(--red); border:none; border-radius:10px; color:#fff; font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; transition:filter .15s; }
 .wb-cta:hover { filter:brightness(1.1); }
-.wb-secondary { flex:1; padding:12px; background:none; border:1px solid var(--border-strong); border-radius:9px; color:var(--ink); font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .15s; }
+.wb-secondary { flex:1; padding:13px; background:none; border:1px solid var(--border-strong); border-radius:10px; color:var(--ink); font-size:13px; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .15s; }
 .wb-secondary:hover { background:var(--paper-dark); }
+@keyframes wb-pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
 /* MAIN CONTENT */
 .dash-main {
@@ -10377,18 +10391,48 @@ function exportDashboardPDF() {
 <!-- Boas-vindas personalizada (pós-login) -->
 <div class="wb-overlay" id="wb-overlay" onclick="closeWelcomeBack(event)">
   <div class="wb-modal" onclick="event.stopPropagation()">
+    <div class="wb-topbar"></div>
     <button class="wb-close" onclick="closeWelcomeBack(null,true)" aria-label="Fechar">×</button>
-    <div class="wb-icon">
-      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l11 4v7c0 7-4.7 12.4-11 15-6.3-2.6-11-8-11-15V7z"/><path d="M11 16l3.5 3.5L22 12"/></svg>
+    <div style="padding:24px 24px 0">
+      <div class="wb-header">
+        <div class="wb-icon">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l11 4v7c0 7-4.7 12.4-11 15-6.3-2.6-11-8-11-15V7z"/><path d="M11 16l3.5 3.5L22 12"/></svg>
+        </div>
+        <div class="wb-greeting-wrap">
+          <div class="wb-greeting-label" id="wb-greeting-label">Boa noite</div>
+          <div class="wb-greeting" id="wb-greeting">Jefferson Goulart</div>
+        </div>
+      </div>
+      <div class="wb-org-card">
+        <div>
+          <div class="wb-org-label">Organização</div>
+          <div class="wb-org-value" id="wb-org-name">Minha Organização</div>
+        </div>
+        <div style="text-align:right">
+          <div class="wb-org-label">Cobertura</div>
+          <div class="wb-org-value">Grande Florianópolis</div>
+        </div>
+      </div>
+      <div class="wb-stats" id="wb-stats">
+        <div class="wb-stat">
+          <div class="wb-stat-num" id="wb-stat-active">—</div>
+          <div class="wb-stat-lbl">Ativos</div>
+        </div>
+        <div class="wb-stat">
+          <div class="wb-stat-num" id="wb-stat-region">22</div>
+          <div class="wb-stat-lbl">Municípios</div>
+        </div>
+        <div class="wb-stat">
+          <div class="wb-live-dot"><span class="dot"></span><span class="lbl">Ao vivo</span></div>
+          <div class="wb-stat-lbl">Monitor.</div>
+        </div>
+      </div>
+      <div class="wb-sources">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0277BD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>PRF · INMET · 25 delegacias ativas em tempo real</span>
+      </div>
     </div>
-    <div class="wb-greeting" id="wb-greeting">Olá!</div>
-    <p class="wb-sub" id="wb-sub">Tudo pronto no seu painel.</p>
-    <div class="wb-stats" id="wb-stats">
-      <div class="wb-stat"><div class="wb-stat-num" id="wb-stat-active">—</div><div class="wb-stat-lbl">incidentes ativos</div></div>
-      <div class="wb-stat"><div class="wb-stat-num" id="wb-stat-region">22</div><div class="wb-stat-lbl">municípios</div></div>
-      <div class="wb-stat"><div class="wb-stat-num wb-live">● ao vivo</div><div class="wb-stat-lbl">monitoramento</div></div>
-    </div>
-    <div class="wb-actions">
+    <div style="padding:0 24px 24px;display:flex;gap:10px">
       <button class="wb-cta" onclick="closeWelcomeBack(null,true);setNav(document.querySelector('.nav-item[data-view=mapa]'))">Ver mapa ao vivo</button>
       <button class="wb-secondary" onclick="closeWelcomeBack(null,true);setNav(document.querySelector('.nav-item[data-view=alertas]'))">Ver alertas</button>
     </div>
