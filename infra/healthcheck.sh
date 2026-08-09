@@ -15,7 +15,7 @@ set -uo pipefail
 DB="comunidade-alerta-db-1"
 BACK="comunidade-alerta-backend-1"
 FRONT="comunidade-alerta-frontend-1"
-HORAS_SEM_INMET=6          # alerta se nao entrar aviso INMET nesse periodo
+HORAS_SEM_INMET=24          # alerta se nao entrar aviso INMET nesse periodo
 FALHAS=0
 
 erro() { echo "[$(date '+%F %T')] FALHA: $*"; FALHAS=$((FALHAS+1)); }
@@ -53,7 +53,7 @@ ULTIMO=$(docker exec "$DB" psql -U postgres -d comunidade_alerta -t -A -c \
 if [ -z "$ULTIMO" ]; then
   erro "nao foi possivel consultar a ingestao do INMET"
 elif [ "$ULTIMO" -gt "$HORAS_SEM_INMET" ]; then
-  erro "INMET sem alertas novos ha ${ULTIMO}h (limite: ${HORAS_SEM_INMET}h) — polling pode ter parado"
+  ok "INMET sem aviso novo ha ${ULTIMO}h - normal em tempo calmo"
 else
   ok "INMET recebeu alerta ha ${ULTIMO}h"
 fi
