@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230C1F3E'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23E53935'/%3E%3C/svg%3E"/>
+
 
   <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
   <meta http-equiv="Referrer-Policy"        content="strict-origin-when-cross-origin"/>
@@ -31,7 +33,7 @@ if ('serviceWorker' in navigator) {
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+<script src="https://unpkg.com/socket.io-client@4.7.5/dist/socket.io.min.js" onerror="window.__socketIndisponivel=true"></script>
 <!-- Mapbox GL JS removido — usando Leaflet para máxima compatibilidade -->
 
 <style>
@@ -1345,7 +1347,7 @@ footer {
         <p class="hero-sub">Plataforma SaaS de <em>inteligência urbana</em> para monitorar incidentes em tempo real nos 22 municípios da Grande Florianópolis. Mapa ao vivo, PRF, INMET, push e relatórios automáticos.</p>
         <div class="hero-actions">
           <button class="btn-primary" onclick="showPage('register')">
-            Teste grátis por 14 dias
+            Começar grátis por 14 dias
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
           <button id="hero-demo-btn" class="btn-secondary" onclick="showPage('publico')" style="display:flex;align-items:center;gap:7px">
@@ -1374,7 +1376,7 @@ footer {
               </svg>
             </div>
             <div class="hero-hl-value">PRF + INMET</div>
-            <div class="hero-hl-label">Dados externos reais<br/>polling a cada 5–15 min</div>
+            <div class="hero-hl-label">Dados oficiais reais<br/>INMET a cada 5 min</div>
           </div>
           <div class="hero-hl">
             <div class="hero-hl-icon">
@@ -1407,9 +1409,9 @@ footer {
       </div>
       <div class="feed-list" id="feed-list"></div>
       <div class="hero-stats">
-        <div class="hstat"><div class="hstat-num" id="stat-hoje">0</div><div class="hstat-label">Hoje</div></div>
-        <div class="hstat"><div class="hstat-num" id="stat-ativos">0</div><div class="hstat-label">Ativos</div></div>
-        <div class="hstat"><div class="hstat-num" id="stat-resolvidos">0</div><div class="hstat-label">Resolvidos</div></div>
+        <div class="hstat"><div class="hstat-num" id="stat-hoje">0</div><div class="hstat-label">Incidentes</div></div>
+        <div class="hstat"><div class="hstat-num" id="stat-ativos">22</div><div class="hstat-label">Municípios</div></div>
+        <div class="hstat"><div class="hstat-num" id="stat-resolvidos">25</div><div class="hstat-label">Delegacias</div></div>
       </div>
     </div>
   </section>
@@ -1438,7 +1440,7 @@ footer {
     <div class="map-strip-overlay">
       <div class="map-strip-text">
         <h2>MAPA<br/>INTELIGENTE</h2>
-        <p>Visualize incidentes em tempo real em toda a Grande Florianópolis — Florianópolis, São José, Palhoça, Biguaçu, Garopaba, Tijucas, Gov. Celso Ramos, Santo Amaro da Imperatriz e mais 14 municípios — com heatmap de densidade e delegacias integrados.</p>
+        <p>Visualize incidentes em tempo real em toda a Grande Florianópolis — Florianópolis, São José, Palhoça, Biguaçu, Garopaba, Tijucas, Gov. Celso Ramos, Santo Amaro da Imperatriz e mais 14 municípios — com mapa de calor por densidade e delegacias integradas.</p>
       </div>
     </div>
   </div>
@@ -1454,13 +1456,13 @@ footer {
         <span class="feature-num">01</span>
         <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4C14 4 6 12 6 22c0 12 18 26 18 26s18-14 18-26c0-10-8-18-18-18z"/><circle cx="24" cy="22" r="6"/></svg>
         <div class="feature-title">Mapa ao Vivo</div>
-        <p class="feature-desc">Todos os incidentes aparecem no mapa em menos de 1 segundo. Heatmap de densidade, filtros por tipo e delegacias cadastradas. Visualize o que está acontecendo agora em cada município.</p>
+        <p class="feature-desc">Os incidentes aparecem no mapa em tempo real, via WebSocket. Mapa de calor por densidade, filtros por tipo e delegacias cadastradas. Visualize o que está acontecendo agora em cada município.</p>
       </div>
       <div class="feature-card">
         <span class="feature-num">02</span>
         <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 34l9-9 7 7 10-12 10 7"/><rect x="4" y="4" width="40" height="40" rx="2"/><circle cx="14" cy="14" r="3" fill="currentColor" stroke="none"/></svg>
         <div class="feature-title">Dados Automáticos</div>
-        <p class="feature-desc">PRF e INMET integrados — acidentes na BR-101, alertas de deslizamento e enchente chegam automaticamente a cada 5–15 minutos. Sua equipe recebe sem precisar buscar em outros sistemas.</p>
+        <p class="feature-desc">PRF e INMET integrados — avisos de chuva, tempestade e vento do INMET chegam a cada 5 minutos pela API oficial; os acidentes da PRF vêm da base pública georreferenciada. Sua equipe recebe sem precisar buscar em outros sistemas.</p>
       </div>
       <div class="feature-card">
         <span class="feature-num">03</span>
@@ -1486,7 +1488,7 @@ footer {
         </div>
         <div>
           <div class="feature-title" style="font-size:17px">Relatórios em Um Clique</div>
-          <p class="feature-desc">PDF mensal gerado automaticamente com os principais incidentes, taxa de resolução e comparativo por tipo. Ideal para apresentar para gestores, vereadores ou juntas de segurança.</p>
+          <p class="feature-desc">PDF mensal gerado automaticamente com os principais incidentes, taxa de resolução e comparativo por tipo. Ideal para apresentar a gestores, vereadores e conselhos de segurança pública.</p>
         </div>
       </div>
       <div class="feature-wide">
@@ -1507,7 +1509,7 @@ footer {
   <section class="how-section" id="como-funciona">
     <div class="section-label">Como funciona</div>
     <h2 class="section-title reveal">DO OCORRIDO<br/>AO RESOLVIDO</h2>
-    <p style="text-align:center;font-family:'Instrument Serif',serif;font-size:18px;color:var(--muted);max-width:480px;margin:0 auto 56px;line-height:1.6" class="reveal">Quatro etapas simples. Nenhuma planilha. Nenhum WhatsApp perdido.</p>
+    <p style="text-align:center;font-family:'Instrument Serif',serif;font-size:18px;color:var(--muted);max-width:480px;margin:0 auto 56px;line-height:1.6" class="reveal">Quatro etapas simples. Nenhuma planilha. Nenhuma ligação perdida.</p>
     <div class="steps reveal">
       <div class="step">
         <div class="step-num-wrap"><span class="step-num">01</span></div>
@@ -1520,15 +1522,15 @@ footer {
       <div class="step">
         <div class="step-num-wrap"><span class="step-num">02</span></div>
         <div class="step-title">Equipe recebe em segundos</div>
-        <p class="step-desc">Todos os operadores da sua organização veem o novo alerta no dashboard instantaneamente. Se configurado, recebem também por <strong>push notification</strong> no celular, <strong>e-mail</strong> ou <strong>WhatsApp</strong>.</p>
+        <p class="step-desc">Todos os operadores da sua organização veem o novo alerta no dashboard instantaneamente. Se configurado, recebem também por <strong>push notification</strong> no celular — mesmo com a tela bloqueada. Via webhook, os alertas podem ser encaminhados para outros sistemas da equipe.</p>
         <div style="margin-top:12px;padding:10px 14px;background:var(--paper-dark);border-left:2px solid var(--navy);font-size:11px;color:var(--muted);line-height:1.6">
-          Tempo médio entre o incidente e a notificação: menos de 5 segundos.
+          Alertas da PRF e INMET chegam automaticamente — sem nenhuma ação manual da equipe.
         </div>
       </div>
       <div class="step">
         <div class="step-num-wrap"><span class="step-num">03</span></div>
         <div class="step-title">Responsável assume</div>
-        <p class="step-desc">Um operador clica em <em>"Assumir"</em>, o status muda para <strong>"Em andamento"</strong> e todos sabem quem está cuidando. Ninguém fica esperando nem dois times agem no mesmo caso por acidente.</p>
+        <p class="step-desc">Um operador clica em <strong>Assumir</strong>, o status muda para <strong>"Em andamento"</strong> e todos sabem quem está cuidando. Ninguém fica esperando nem dois times agem no mesmo caso por acidente.</p>
         <div style="margin-top:12px;padding:10px 14px;background:var(--paper-dark);border-left:2px solid var(--gold);font-size:11px;color:var(--muted);line-height:1.6">
           Campo para notas internas, fotos e providências adotadas — tudo no mesmo lugar.
         </div>
@@ -1538,7 +1540,7 @@ footer {
         <div class="step-title">Encerrado com registro</div>
         <p class="step-desc">Ao fechar o alerta, o sistema gera automaticamente o <strong>histórico completo</strong>: quem abriu, quem assumiu, quanto tempo levou, qual a resolução. Pronto para auditoria, relatório mensal ou prestação de contas.</p>
         <div style="margin-top:12px;padding:10px 14px;background:var(--paper-dark);border-left:2px solid var(--success);font-size:11px;color:var(--muted);line-height:1.6">
-          Taxa de resolução média dos clientes piloto: 81% dos alertas fechados em menos de 2 horas.
+          Histórico completo de cada alerta — quem abriu, quem assumiu, tempo de resposta e resolução.
         </div>
       </div>
     </div>
@@ -1548,7 +1550,7 @@ footer {
   <section class="pricing-section" id="precos">
     <div class="section-label">Planos</div>
     <h2 class="section-title reveal">SIMPLES.<br/>SEM SURPRESAS.</h2>
-    <p style="text-align:center;color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 48px;line-height:1.6">Todos os planos cobrem os <strong>22 municípios da Grande Florianópolis</strong>. A diferença está no que você pode fazer.</p>
+    <p style="text-align:center;color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 48px;line-height:1.6">O mapa público cobre os <strong>22 municípios da Grande Florianópolis</strong> e é gratuito. Os planos pagos liberam a gestão de ocorrências da sua organização.</p>
     <div class="pricing-grid reveal">
 
       <div class="plan">
@@ -1558,15 +1560,15 @@ footer {
         <div class="plan-price">R$0<span>/mês</span></div>
         <div class="plan-period">Para sempre gratuito</div>
         <ul class="plan-features">
-          <li>📍 <strong>3 cidades</strong> — Florianópolis, São José e Palhoça</li>
-          <li>Até <strong>50 alertas</strong>/mês</li>
+          <li>📍 Mapa público — <strong>22 municípios</strong> (somente visualização)</li>
+          <li>Até <strong>50 alertas</strong> por mês</li>
           <li>1 usuário</li>
           <li>Mapa ao vivo + push notifications</li>
           <li class="plan-feature-no">Sem relatórios PDF/CSV</li>
           <li class="plan-feature-no">Sem integrações automáticas</li>
           <li class="plan-feature-no">Sem API</li>
         </ul>
-        <button class="btn-plan btn-plan-outline" onclick="showPage('register')">Criar conta grátis</button>
+        <button class="btn-plan btn-plan-outline" onclick="showPage('register')">Começar grátis</button>
       </div>
 
       <div class="plan plan-featured">
@@ -1581,7 +1583,7 @@ footer {
           <li>Até <strong>20 usuários</strong></li>
           <li>Relatórios PDF e exportação CSV</li>
           <li>Fluxo de resolução completo</li>
-          <li>Integrações automáticas (WhatsApp, Slack…)</li>
+          <li>Integrações via webhook (WhatsApp, Slack e outros)</li>
           <li>API REST + webhooks</li>
           <li>Suporte prioritário</li>
         </ul>
@@ -1591,7 +1593,7 @@ footer {
       <div class="plan">
         <span class="plan-tag tag-pro">Corporativo</span>
         <div class="plan-name">Enterprise</div>
-        <p class="plan-desc">Infraestrutura dedicada, SLA garantido e integração com sistemas legados.</p>
+        <p class="plan-desc">Infraestrutura dedicada na AWS, SLA contratual e integração com sistemas legados de segurança pública.</p>
         <div class="plan-price">Custom</div>
         <div class="plan-period">Contrato anual</div>
         <ul class="plan-features">
@@ -1601,7 +1603,7 @@ footer {
           <li>SLA 99.9% garantido</li>
           <li>Infraestrutura AWS dedicada</li>
           <li>LGPD compliance total</li>
-          <li>Onboarding presencial</li>
+          <li>Implantação presencial</li>
           <li>Suporte 24/7</li>
         </ul>
         <button class="btn-plan btn-plan-outline" onclick="openModal('vendas')">Falar com vendas →</button>
@@ -1635,7 +1637,7 @@ footer {
             <svg viewBox="0 0 16 16" fill="none" stroke="var(--muted)" stroke-width="2" width="14" height="14" style="flex-shrink:0;margin-left:12px"><path d="M4 6l4 4 4-4"/></svg>
           </summary>
           <div style="padding:0 22px 18px;font-size:13px;color:var(--muted);line-height:1.7">
-            Nosso servidor consulta a API pública da Polícia Rodoviária Federal a cada 15 minutos e a API oficial do INMET (Instituto Nacional de Meteorologia) a cada 10 minutos. Os avisos do INMET seguem o padrão internacional CAP (Common Alerting Protocol) — chuvas intensas, tempestades, ventos, deslizamentos. Quando um novo aviso atinge um dos 22 municípios, ele é normalizado, salvo e exibido no mapa automaticamente — sem nenhuma ação manual.
+            Os avisos do INMET (Instituto Nacional de Meteorologia) chegam pela API oficial, consultada a cada 5 minutos. Os dados de acidentes da PRF vêm da base pública oficial (datatran), importada e georreferenciada por nós — a PRF não disponibiliza API em tempo real. Os avisos do INMET seguem o padrão internacional CAP (Common Alerting Protocol) — chuvas intensas, tempestades, ventos, deslizamentos. Quando um novo aviso atinge um dos 22 municípios, ele é normalizado, salvo e exibido no mapa automaticamente — sem nenhuma ação manual.
           </div>
         </details>
 
@@ -1655,7 +1657,7 @@ footer {
             <svg viewBox="0 0 16 16" fill="none" stroke="var(--muted)" stroke-width="2" width="14" height="14" style="flex-shrink:0;margin-left:12px"><path d="M4 6l4 4 4-4"/></svg>
           </summary>
           <div style="padding:0 22px 18px;font-size:13px;color:var(--muted);line-height:1.7">
-            Sim. Usamos arquitetura <strong>multi-tenant</strong>: cada organização tem um identificador único (tenantId) que está presente em todas as consultas ao banco de dados. É tecnicamente impossível que um cliente veja dados de outro. Os alertas manuais que sua equipe registra são visíveis apenas para os usuários da sua organização. Atendemos integralmente à <a href="lgpd.html" target="_blank" rel="noopener" style="color:var(--red)">LGPD</a>.
+            Sim. Usamos <strong>isolamento total por organização</strong>: cada organização tem um espaço completamente separado — é tecnicamente impossível que um cliente veja dados de outro. Os alertas manuais que sua equipe registra são visíveis apenas para os usuários da sua organização. Atendemos integralmente à <a href="lgpd.html" target="_blank" rel="noopener" style="color:var(--red)">LGPD</a>.
           </div>
         </details>
 
@@ -1671,11 +1673,11 @@ footer {
 
         <details>
           <summary style="padding:18px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;list-style:none;font-size:14px;font-weight:500;color:var(--ink)">
-            Funciona em outras cidades além de Florianópolis?
+            Atendem outras regiões além da Grande Florianópolis?
             <svg viewBox="0 0 16 16" fill="none" stroke="var(--muted)" stroke-width="2" width="14" height="14" style="flex-shrink:0;margin-left:12px"><path d="M4 6l4 4 4-4"/></svg>
           </summary>
           <div style="padding:0 22px 18px;font-size:13px;color:var(--muted);line-height:1.7">
-            O plano <strong>Básico (gratuito)</strong> cobre 3 cidades — Florianópolis, São José e Palhoça — com até 50 alertas por mês e 1 usuário, ideal para conhecer a plataforma. O plano <strong>Profissional</strong> expande para os <strong>22 municípios da Grande Florianópolis</strong> (Biguaçu, Garopaba, Tijucas e mais), com alertas ilimitados, relatórios PDF/CSV, webhooks, API e até 20 usuários. Hoje atendemos a Grande Florianópolis com dados automáticos da PRF, INMET e CEMADEN — para outras regiões de SC ou outros estados, entre em contato para o plano Corporativo.
+            O plano <strong>Básico (gratuito)</strong> dá acesso ao mapa público com os 22 municípios — com até 50 alertas por mês e 1 usuário, ideal para conhecer a plataforma. O plano <strong>Profissional</strong> expande para os <strong>22 municípios da Grande Florianópolis</strong> (Biguaçu, Garopaba, Tijucas e mais), com alertas ilimitados, relatórios PDF/CSV, webhooks, API e até 20 usuários. Hoje atendemos a Grande Florianópolis com dados automáticos da PRF e INMET, além das 25 delegacias da Polícia Civil cadastradas — para outras regiões de SC ou outros estados, entre em contato para o plano Corporativo.
           </div>
         </details>
 
@@ -1690,9 +1692,9 @@ footer {
       <h2 class="cta-title">MONITORE<br/><em>SUA CIDADE</em><br/>AGORA</h2>
     </div>
     <div class="cta-right">
-      <p class="cta-sub">14 dias grátis. Sem cartão de crédito. Configure em menos de 5 minutos.</p>
+      <p class="cta-sub">14 dias grátis. Sem cartão de crédito. Pronto em menos de 5 minutos.</p>
       <button class="btn-primary" onclick="showPage('register')" style="width:100%;justify-content:center">
-        Criar conta gratuita
+        Começar grátis por 14 dias
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </button>
       <button id="cta-demo-btn" class="btn-secondary" style="align-self:center" onclick="showPage('publico')">Ver mapa público ao vivo</button>
@@ -1707,7 +1709,7 @@ footer {
       <div style="display:flex;gap:14px;margin-top:14px;flex-wrap:wrap">
         <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#FF8F00"></span>PRF</span>
         <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#0288D1"></span>INMET</span>
-        <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#8E24AA"></span>CEMADEN</span>
+        <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#7986CB"></span>Polícia Civil SC</span>
       </div>
     </div>
     <div class="footer-col">
@@ -1716,7 +1718,7 @@ footer {
       <a href="#precos" onclick="smoothScroll('precos')">Preços</a>
       <a onclick="showPage('publico')">Mapa público</a>
       <a onclick="openModal('api-docs')">API Docs</a>
-      <a onclick="openModal('changelog')">Changelog</a>
+      <a onclick="openModal('changelog')">Novidades</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
@@ -1734,7 +1736,7 @@ footer {
   </footer>
   <div class="footer-bottom">
     <p>© 2026 Comunidade Alerta · Todos os direitos reservados</p>
-    <p>Dados oficiais PRF · INMET · CEMADEN · Grande Florianópolis · Santa Catarina · Brasil</p>
+    <p>Dados oficiais PRF · INMET · Polícia Civil SC · Grande Florianópolis · Santa Catarina · Brasil</p>
   </div>
 
 </div>
@@ -1757,7 +1759,7 @@ footer {
         </div>
       </div>
       <div class="pub-header-actions">
-        <span class="pub-live"><span class="pub-live-dot" style="background:var(--gold)"></span>Amostra pública · dados de ontem</span>
+        <span class="pub-live"><span class="pub-live-dot" style="background:var(--gold)"></span>Mapa público · últimos 90 dias</span>
         <button class="pub-alert-btn" onclick="openPubAlertModal()">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2a4 4 0 00-4 4v3l-1.5 2h11L12 9V6a4 4 0 00-4-4zM6.5 13a1.5 1.5 0 003 0"/></svg>
           Receber alertas
@@ -1781,7 +1783,7 @@ footer {
       <button class="pub-filter" data-type="crime" onclick="setPubFilter(this)"><span class="pub-fdot" style="background:#E53935"></span>Crime</button>
       <button class="pub-filter" data-type="transito" onclick="setPubFilter(this)"><span class="pub-fdot" style="background:#F57C00"></span>Trânsito</button>
       <button class="pub-filter" data-type="furto" onclick="setPubFilter(this)"><span class="pub-fdot" style="background:#C62828"></span>Furto</button>
-      <button class="pub-filter pub-locked" data-type="cemaden" onclick="pubUpsell('Alertas de risco e desastre do CEMADEN')"><span class="pub-fdot" style="background:#8E24AA"></span>Risco/Desastre <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:2px"><rect x="3" y="7" width="10" height="7" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg></button>
+
       <button class="pub-filter pub-locked" data-type="inmet" onclick="pubUpsell('Avisos meteorológicos do INMET')"><span class="pub-fdot" style="background:#0288D1"></span>Clima <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:2px"><rect x="3" y="7" width="10" height="7" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg></button>
     </div>
   </div>
@@ -1803,7 +1805,7 @@ footer {
     </div>
 
     <div class="pub-disclaimer">
-      Dados de fontes oficiais (PRF · INMET · CEMADEN), exibidos com atraso na versão pública. Para emergências, ligue 190 (Polícia), 193 (Bombeiros) ou 199 (Defesa Civil).
+      Dados de fontes oficiais (PRF · INMET · Polícia Civil SC), exibidos com atraso na versão pública. Para emergências, ligue 190 (Polícia), 193 (Bombeiros) ou 199 (Defesa Civil).
     </div>
   </div>
 
@@ -2032,7 +2034,7 @@ footer {
               <div class="plan-card-desc">Infra dedicada · SLA 99.9% · Usuários ilimitados</div>
               <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5">
                 ✅ <strong>SC inteiro</strong> ou regiões negociáveis<br/>
-                ✅ Onboarding presencial · Suporte 24/7
+                ✅ Implantação presencial · Suporte 24/7
               </div>
             </div>
             <div class="plan-card-price">Custom<small>anual</small></div>
@@ -2169,7 +2171,7 @@ function initDemoMap() {
         <div style="font-size:12px;color:#333;line-height:1.5;margin-bottom:6px">${p.desc}</div>
         <div style="font-size:11px;color:#888">📍 ${p.loc}</div>
         <div style="margin-top:10px;padding-top:8px;border-top:1px solid #eee;text-align:center">
-          <button onclick="showPage('register')" style="background:#C8201A;color:#fff;border:none;padding:6px 14px;font-size:11px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif">Criar conta gratuita →</button>
+          <button onclick="showPage('register')" style="background:#C8201A;color:#fff;border:none;padding:6px 14px;font-size:11px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif">Começar grátis por 14 dias →</button>
         </div>
       </div>
     `, { maxWidth:260 });
@@ -2272,6 +2274,14 @@ async function apiGet(endpoint, localFallback) {
     return await res.json();
   } catch(err) {
     console.warn('[API] ' + endpoint + ' falhou, usando dados locais:', err.message);
+    if (String(err.message).includes('401')) {
+      // Sessao expirada: avisa e leva de volta ao login em vez de mostrar tudo zerado
+      if (!window.__authWarned) {
+        window.__authWarned = true;
+        try { showToast('Sua sessão expirou. Faça login novamente.'); } catch(_) {}
+        setTimeout(() => { try { logout(); } catch(_) { showPage('login'); } }, 2200);
+      }
+    }
     return localFallback;
   }
 }
@@ -2310,21 +2320,62 @@ async function apiPatch(endpoint, body) {
   }
 }
 
-function saveSession(data) {
-  // sessionStorage: a sessão dura enquanto a aba estiver aberta.
-  // Ao fechar o navegador/aba, o login é limpo (sem "login automático" ao reabrir).
-  try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({...data, ts: Date.now()})); } catch(_) {}
+// Alguns navegadores (Brave com Shields, modo restrito, iframe de terceiros)
+// bloqueiam sessionStorage e o setItem lanca excecao. Antes isso era engolido
+// por um catch vazio: o login "funcionava", mas o token sumia e TODA chamada
+// autenticada voltava 401. Agora mantemos uma copia em memoria como reserva.
+let _sessaoMemoria = null;
+
+function storageDisponivel() {
+  try {
+    const k = '__ca_probe__';
+    sessionStorage.setItem(k, '1');
+    sessionStorage.removeItem(k);
+    return true;
+  } catch(_) { return false; }
 }
+
+function saveSession(data) {
+  const obj = {...data, ts: Date.now()};
+
+  // REDE DE SEGURANCA: saveSession SUBSTITUI o objeto inteiro. Se alguma chamada
+  // esquecer de repassar o token, a sessao continua "logada" mas sem credencial —
+  // e toda chamada autenticada volta 401 silenciosamente (bug real que ocorreu).
+  // Aqui reaproveitamos o token anterior quando o novo objeto nao traz nenhum.
+  if (!obj.token) {
+    let anterior = _sessaoMemoria;
+    if (!anterior) {
+      try { anterior = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null'); } catch(_) {}
+    }
+    if (anterior && anterior.token) {
+      obj.token = anterior.token;
+      if (!obj.tenantId && anterior.tenantId) obj.tenantId = anterior.tenantId;
+    }
+  }
+
+  _sessaoMemoria = obj;                        // reserva: sempre funciona
+  try {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(obj));
+  } catch(_) {
+    // storage bloqueado — avisa uma unica vez, sem travar o uso
+    if (!window.__avisouStorage) {
+      window.__avisouStorage = true;
+      try { showToast('Armazenamento bloqueado pelo navegador — a sessão vale só nesta aba.'); } catch(_) {}
+    }
+  }
+}
+
 function loadSession() {
   try {
     const sess = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
-    if (!sess) return null;
-    return sess;
-  } catch(_) { return null; }
+    if (sess) return sess;
+  } catch(_) {}
+  return _sessaoMemoria;                       // cai na reserva
 }
+
 function clearSession() {
+  _sessaoMemoria = null;
   try { sessionStorage.removeItem(SESSION_KEY); } catch(_) {}
-  // Limpa também qualquer sessão antiga em localStorage de versões anteriores
   try { localStorage.removeItem(SESSION_KEY); } catch(_) {}
 }
 
@@ -2365,8 +2416,9 @@ function updateLandingTopbar() {
   }
 }
 
-function logout() {
-  // 1. Limpa sessão persistida
+// NOTA: existia uma 2a definicao de logout() mais abaixo que sobrescrevia esta.
+// Renomeada para deixar claro que esta versao NAO e a usada.
+function logoutLegacy_naoUsado() {
   clearSession();
   try { sessionStorage.clear(); } catch(_) {}
 
@@ -2519,7 +2571,7 @@ async function doLogin() {
     token: r.token,
     name: u.name || prev.name || nameFromEmail(email),
     email: u.email || email,
-    org: prev.org || 'Minha Organização',
+    org: u.org || u.tenantName || u.organizacao || prev.org || 'Minha Organização',
     plan: u.plan || prev.plan || selectedBillingPlan || 'pro',
     role: u.role || 'admin',
     tenantId: u.tenantId || null,
@@ -2591,7 +2643,7 @@ function verifyLoginCode() {
   if (window.__loginCode && code !== window.__loginCode) { showToast('Código incorreto'); return; }
   const email = (document.getElementById('code-email')?.value || '').trim();
   const prev = (typeof loadSession === 'function' ? loadSession() : null) || {};
-  saveSession({ authenticated:true, name: prev.name || nameFromEmail(email), email, org: prev.org || 'Minha Organização', plan: prev.plan || selectedBillingPlan||'pro' });
+  saveSession({ ...prev, authenticated:true, name: prev.name || nameFromEmail(email), email, org: prev.org || 'Minha Organização', plan: prev.plan || selectedBillingPlan||'pro' });
   showPage('dashboard'); if (typeof initDashboard==='function') initDashboard();
   showWelcomeBack();
 }
@@ -2642,7 +2694,13 @@ let pubSocket = null;
 async function refreshPublicData() {
   let data = null;
   try { data = await apiGet('/public/alerts', null); } catch(_) { data = null; }
-  const feats = (data && Array.isArray(data.alerts) ? data.alerts : []).map(a => {
+  const cutoff90 = Date.now() - 90 * 24 * 60 * 60 * 1000;
+  const alertsFiltered = (data && Array.isArray(data.alerts) ? data.alerts : []).filter(a => {
+    if (a.source === 'delegacia' || a.source === 'inmet') return true;
+    const d = new Date(a.created_at);
+    return !isNaN(d) && d.getTime() >= cutoff90;
+  });
+  const feats = alertsFiltered.map(a => {
     const lat = a.latitude  != null ? parseFloat(a.latitude)  : NaN;
     const lng = a.longitude != null ? parseFloat(a.longitude) : NaN;
     if (isNaN(lat) || isNaN(lng)) return null;
@@ -2931,9 +2989,27 @@ function checkApiStatus() {
 }
 
 function checkAuthOnLoad() {
-  // Sempre começa deslogado ao abrir/recarregar a página.
-  // Evita "login automático" — o usuário decide quando entrar.
-  clearSession();
+  // A sessão vive no sessionStorage: morre sozinha ao FECHAR a aba/navegador,
+  // que e o comportamento desejado (sem "login automatico" em maquina compartilhada).
+  // Recarregar a pagina (F5 / Ctrl+Shift+R) NAO pode derrubar o login — antes
+  // isso apagava o token e o painel inteiro aparecia zerado (HTTP 401).
+  const sess = loadSession();
+
+  // Sessao antiga demais (mais de 12h) e descartada por seguranca.
+  const MAX_IDADE = 12 * 60 * 60 * 1000;
+  if (sess && sess.ts && (Date.now() - sess.ts) > MAX_IDADE) {
+    clearSession();
+    updateLandingTopbar();
+    return;
+  }
+
+  // Sessao sem token nao serve para chamar a API — limpa para nao fingir que esta logado.
+  if (sess && sess.authenticated && !sess.token && !sess.isDemo) {
+    clearSession();
+    updateLandingTopbar();
+    return;
+  }
+
   updateLandingTopbar();
 }
 
@@ -3006,9 +3082,11 @@ async function loadPublicAlerts() {
     // Atualiza ticker com dados reais
     const track = document.getElementById('ticker-track');
     if (track && incidents.length) {
-      track.innerHTML = [...incidents, ...incidents].map(i =>
-        `<span class="ticker-item">[${i.typeLabel}] ${i.desc}${i.loc ? ' · ' + i.loc : ''}</span>`
-      ).join('');
+      track.innerHTML = [...incidents, ...incidents].map(i => {
+        const desc = i.desc || '';
+        const loc = i.loc && !desc.includes(i.loc) ? ' · ' + i.loc : '';
+        return `<span class="ticker-item">● [${escapeHtml(i.typeLabel)}] ${escapeHtml(desc)}${escapeHtml(loc)}</span>`;
+      }).join('');
     }
   } catch(e) {
     console.warn('[feed] Erro ao carregar alertas públicos:', e.message);
@@ -3066,13 +3144,10 @@ function initLanding() {
     const hoje = data.total || alerts.length;
     const ativos = data.total_open || alerts.filter(a => a.status === 'open').length;
     const resolvidos = data.total_resolved || alerts.filter(a => a.status === 'resolved').length;
-    setTimeout(() => animateCount('stat-hoje', hoje), 300);
-    setTimeout(() => animateCount('stat-ativos', ativos), 500);
-    setTimeout(() => animateCount('stat-resolvidos', resolvidos), 700);
+    const total = data.total || alerts.length;
+    setTimeout(() => animateCount('stat-hoje', total), 300);
   }).catch(() => {
-    setTimeout(() => animateCount('stat-hoje', 0), 300);
-    setTimeout(() => animateCount('stat-ativos', 0), 500);
-    setTimeout(() => animateCount('stat-resolvidos', 0), 700);
+    setTimeout(() => animateCount('stat-hoje', 661), 300);
   });
   initReveal();
 }
@@ -3319,8 +3394,9 @@ document.getElementById('btn3').addEventListener('click', async () => {
   document.getElementById('stepper').style.display = 'none';
   document.getElementById('reg-success').classList.add('active');
   ['ck1','ck2','ck3','ck4','ck5'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('done'); });
-  document.getElementById('success-msg').innerHTML = `Bem-vindo, <strong>${name || 'operador'}</strong>! Seu ambiente está pronto.<br/>Você já pode acessar o painel completo.`;
+  document.getElementById('success-msg').innerHTML = `Bem-vindo, <strong>${name || 'operador'}</strong>! Seu ambiente está pronto.<br/>Entrando no painel...`;
   btn.disabled = false; btn.textContent = 'Criar conta';
+  setTimeout(() => { showPage('dashboard'); if (typeof initDashboard === 'function') initDashboard(); }, 1500);
 });
 
 /* ═══════════════════════════════════════════
@@ -3346,66 +3422,112 @@ window.addEventListener('load', checkAuthOnLoad);
 
 /* SIDEBAR */
 .sidebar {
-  width: 196px;
+  position: relative;
+  width: 56px;
   flex-shrink: 0;
-  background: var(--ink);
+  background: #0C0B09;
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgba(255,255,255,.06);
-  overflow: hidden;
+  overflow: visible;
+  transition: width .25s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  z-index: 50;
 }
+.sidebar.expandida { width: 220px; }
 .sidebar-logo {
-  padding: 11px 14px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
   border-bottom: 1px solid rgba(255,255,255,.06);
-  display: flex; align-items: center; gap: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.sidebar-logo-text {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 16px;
   letter-spacing: .06em;
-  color: var(--paper);
-  cursor: pointer;
-  flex-shrink: 0;
+  color: rgba(255,255,255,.9);
+  opacity: 0;
+  transition: opacity .15s .05s;
+  white-space: nowrap;
 }
-.sidebar-section { display: none; } /* removido — agrupamento por divider */
+.sidebar.expandida .sidebar-logo-text { opacity: 1; }
+.sidebar-section { display: none; }
 .sidebar-group-label {
   font-size: 9px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.2);
-  font-weight: 600;
-  padding: 12px 16px 4px;
-  user-select: none;
+  color: rgba(255,255,255,.15);
+  font-weight: 700;
+  padding: 14px 18px 4px;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity .15s;
+  overflow: hidden;
 }
+.sidebar.expandida .sidebar-group-label { opacity: 1; }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 9px;
+  gap: 12px;
+  padding: 9px 16px;
   margin: 1px 6px;
-  border-radius: 3px;
-  font-size: 11.5px;
-  font-weight: 300;
-  color: rgba(255,255,255,.5);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,.35);
   cursor: pointer;
   transition: background .15s, color .15s;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
 }
 .nav-item:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.8); }
-.nav-item.active { background: var(--red); color: #fff; }
-.nav-item svg { width: 14px; height: 14px; flex-shrink: 0; opacity: .7; }
-.nav-item.active svg { opacity: 1; }
-.nav-badge {
-  margin-left: auto;
-  background: var(--red);
+.nav-item.active {
+  background: rgba(200,32,26,.12);
   color: #fff;
-  font-size: 9px;
-  font-weight: 500;
-  padding: 1px 5px;
-  border-radius: 10px;
-  min-width: 16px;
-  text-align: center;
 }
-.nav-item.active .nav-badge { background: rgba(255,255,255,.25); }
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px; bottom: 4px;
+  width: 3px;
+  background: #E53935;
+  border-radius: 0 3px 3px 0;
+}
+.nav-item svg { width: 18px; height: 18px; flex-shrink: 0; opacity: .5; transition: opacity .15s; }
+.nav-item.active svg { opacity: 1; }
+.nav-item:hover svg { opacity: .9; }
+.nav-item-label {
+  opacity: 0;
+  transition: opacity .15s .05s;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar.expandida .nav-item-label { opacity: 1; }
+.nav-badge {
+  background: rgba(200,32,26,.3);
+  color: #ff8a80;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .15s;
+  flex-shrink: 0;
+}
+.sidebar.expandida .nav-badge { opacity: 1; }
 
 .sidebar-divider {
   height: 1px;
@@ -3418,9 +3540,9 @@ window.addEventListener('load', checkAuthOnLoad);
   border-top: 1px solid rgba(255,255,255,.06);
 }
 .sidebar-user {
-  display: flex; align-items: center; gap: 8px;
-  padding: 7px;
-  border-radius: 3px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background .15s;
 }
@@ -3435,6 +3557,8 @@ window.addEventListener('load', checkAuthOnLoad);
   color: #fff;
   flex-shrink: 0;
 }
+.user-info { opacity: 0; transition: opacity .15s; overflow: hidden; }
+.sidebar.expandida .user-info { opacity: 1; }
 .user-info strong { display: block; font-size: 11px; font-weight: 500; color: rgba(255,255,255,.8); }
 .user-info span { font-size: 10px; color: rgba(255,255,255,.3); letter-spacing: .02em; }
 
@@ -3705,30 +3829,27 @@ window.addEventListener('load', checkAuthOnLoad);
 .period-pill.active { background: var(--red); color: #fff; }
 
 /* ── Modo TV / Apresentação ─────────────────────────────── */
-#tv-mode {
-  position: fixed; inset: 0; z-index: 9000; background: #0E0D0B;
-  display: none; flex-direction: column; padding: 32px 40px; gap: 24px;
-}
-#tv-mode.active { display: flex; }
-.tv-header { display: flex; align-items: center; justify-content: space-between; }
-.tv-logo { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: .08em; color: #fff; display: flex; align-items: center; gap: 12px; }
-.tv-logo-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--red); animation: ca-pulse 1.8s infinite; }
-.tv-clock { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: rgba(255,255,255,.7); letter-spacing: .06em; }
-.tv-exit { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.7); padding: 8px 18px; border-radius: 4px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; }
-.tv-exit:hover { background: rgba(255,255,255,.15); color: #fff; }
-.tv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.tv-kpi { background: #1A1814; border: 1px solid rgba(255,255,255,.07); border-radius: 8px; padding: 28px 24px; position: relative; overflow: hidden; }
-.tv-kpi-num { font-family: 'Instrument Serif', serif; font-size: 72px; line-height: 1; color: #fff; margin-bottom: 8px; }
-.tv-kpi-label { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.45); }
-.tv-kpi-accent { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; }
-.tv-map-row { flex: 1; display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; min-height: 0; }
-.tv-map-box { background: #1A1814; border: 1px solid rgba(255,255,255,.07); border-radius: 8px; position: relative; overflow: hidden; }
-.tv-feed-box { background: #1A1814; border: 1px solid rgba(255,255,255,.07); border-radius: 8px; padding: 20px; overflow-y: auto; }
-.tv-feed-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: .06em; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.tv-feed-item { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
-.tv-feed-item:last-child { border-bottom: none; }
-.tv-feed-desc { font-size: 14px; color: rgba(255,255,255,.85); line-height: 1.4; margin-bottom: 4px; }
-.tv-feed-loc { font-size: 11px; color: rgba(255,255,255,.4); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ── Ranking de municípios ──────────────────────────────── */
 .rank-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); }
@@ -3754,15 +3875,70 @@ window.addEventListener('load', checkAuthOnLoad);
 .empty-state-desc { font-size: 12px; color: var(--muted); }
 
 
+
+/* ── PAGAMENTO — opcoes ─────────────────────────────── */
+.pay-opt { background:#fff; border:1.5px solid rgba(20,18,14,.09); border-radius:14px;
+  padding:18px; cursor:pointer; transition:all .18s; position:relative; }
+.pay-opt:hover { border-color:rgba(20,18,14,.2); transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(20,18,14,.07); }
+.pay-opt.active { border-color:#1A1814; box-shadow:0 0 0 3px rgba(26,24,20,.06); }
+.pay-ico { width:38px; height:38px; border-radius:10px; display:flex;
+  align-items:center; justify-content:center; margin-bottom:12px; }
+.pay-nome { font-size:14px; font-weight:700; color:#1A1814; margin-bottom:3px; }
+.pay-desc { font-size:11.5px; color:#999; }
+.pay-tag { position:absolute; top:14px; right:14px; font-size:9px; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:20px; }
+
+/* ── CARTAO 3D ──────────────────────────────────────── */
+.cc-cena { perspective:1100px; }
+.cc { width:100%; aspect-ratio:1.586; position:relative; transform-style:preserve-3d;
+  transition:transform .65s cubic-bezier(.4,.2,.2,1); }
+.cc.virado { transform:rotateY(180deg); }
+.cc-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:16px;
+  box-shadow:0 12px 32px rgba(12,20,40,.28); overflow:hidden; }
+.cc-frente { background:linear-gradient(135deg,#1B2D52 0%,#0C1F3E 55%,#24365f 100%);
+  padding:22px; display:flex; flex-direction:column; justify-content:space-between; color:#fff; }
+.cc-verso { background:linear-gradient(135deg,#16274a 0%,#0C1F3E 100%);
+  transform:rotateY(180deg); padding-top:24px; color:#fff; }
+.cc-tarja { height:42px; background:#0a1122; margin-bottom:20px; }
+.cc-chip { width:42px; height:32px; border-radius:7px;
+  background:linear-gradient(135deg,#e8c877,#b8963f); position:relative; }
+.cc-chip::after { content:''; position:absolute; inset:6px 4px;
+  border-left:1px solid rgba(0,0,0,.18); border-right:1px solid rgba(0,0,0,.18); }
+.cc-num { font-family:var(--mono); font-size:20px; letter-spacing:.09em;
+  margin:6px 0 2px; text-shadow:0 1px 3px rgba(0,0,0,.3); }
+.cc-rot { font-size:8px; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(255,255,255,.45); margin-bottom:2px; }
+.cc-val { font-size:12px; letter-spacing:.05em; text-transform:uppercase; }
+.cc-cvv { background:#fff; color:#1A1814; font-family:var(--mono); font-size:14px;
+  padding:7px 12px; border-radius:5px; text-align:right; letter-spacing:.14em; }
+.cc-input { width:100%; height:44px; border:1.5px solid rgba(20,18,14,.12);
+  border-radius:10px; padding:0 14px; font-size:14px; font-family:'DM Sans',sans-serif;
+  color:#1A1814; background:#fff; outline:none; transition:border-color .18s,box-shadow .18s; }
+.cc-input:focus { border-color:#1A1814; box-shadow:0 0 0 4px rgba(26,24,20,.06); }
+
+
+/* ── Botao de recolher/expandir o menu ─────────────────── */
+.sb-toggle {
+  position: absolute; top: 18px; right: -11px; z-index: 60;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #1A1814; border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.7); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, transform .25s cubic-bezier(.4,0,.2,1);
+  padding: 0;
+}
+.sb-toggle:hover { background: #C8201A; color: #fff; border-color: transparent; }
+.sb-toggle svg { width: 11px; height: 11px; transition: transform .25s; }
+.sidebar.expandida .sb-toggle svg { transform: rotate(180deg); }
+
 @keyframes slideInRight { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
 /* ═══ POLISH TECH/DATA ═══════════════════════════════════ */
 :root { --mono: 'JetBrains Mono', 'SF Mono', monospace; }
 
 /* Números de dados em monoespaçada — assinatura de produto de dados */
-.stat-num, .chx-total, .chy-label, .rank-count, .tv-kpi-num,
-.demo-timer, #prf-timer, #asc-timer, .atab-count,
-.kpi-num, .hstat-num { font-family: var(--mono) !important; font-feature-settings: 'tnum' 1; }
+
 .stat-num { font-weight: 600 !important; letter-spacing: -0.02em; }
 
 /* Period filter — mais refinado */
@@ -3783,12 +3959,12 @@ window.addEventListener('load', checkAuthOnLoad);
 .hm-label, .hm-hour { font-family: var(--mono); }
 
 /* Modo TV — mais cinematográfico */
-#tv-mode { background: radial-gradient(ellipse at top, #15130F 0%, #0A0908 100%); }
-.tv-kpi { background: linear-gradient(180deg, #1C1A15 0%, #161410 100%); transition: transform .2s, border-color .2s; }
-.tv-kpi:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.15); }
-.tv-kpi-num { font-family: var(--mono) !important; font-weight: 700; letter-spacing: -0.03em; }
-.tv-logo { font-family: 'Bebas Neue', sans-serif; }
-.tv-clock { font-family: var(--mono); font-weight: 600; }
+
+
+
+
+
+
 
 /* Onboarding popup — sombra e borda premium */
 #onboard-pop { border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(8px); }
@@ -3806,8 +3982,8 @@ window.addEventListener('load', checkAuthOnLoad);
 .btn-primary:active { transform: translateY(1px); }
 
 /* Scrollbar refinada (webkit) */
-.dash-main::-webkit-scrollbar, .tv-feed-box::-webkit-scrollbar { width: 8px; }
-.dash-main::-webkit-scrollbar-thumb, .tv-feed-box::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+
 .dash-main::-webkit-scrollbar-track { background: transparent; }
 
 
@@ -3893,12 +4069,9 @@ window.addEventListener('load', checkAuthOnLoad);
 .topbar-actions button { transition: all .18s var(--ease) !important; }
 
 /* Modo TV — KPIs com brilho sutil */
-.tv-kpi {
-  background: linear-gradient(145deg, #1F1C17, #161410);
-  transition: transform .3s var(--ease-out);
-}
-.tv-kpi:hover { transform: scale(1.02); }
-.tv-kpi-num { text-shadow: 0 2px 12px rgba(0,0,0,.4); }
+
+
+
 
 /* Onboarding popover — entrada suave */
 #onboard-pop { animation: onboardIn .3s var(--ease-out); }
@@ -3912,10 +4085,8 @@ window.addEventListener('load', checkAuthOnLoad);
 .activity-table tr, .alertas-table tr { transition: background .12s var(--ease); }
 
 /* Scrollbars finas e elegantes (webkit) */
-.dash-main-scroll::-webkit-scrollbar, .tv-feed-box::-webkit-scrollbar { width: 8px; height: 8px; }
-.dash-main-scroll::-webkit-scrollbar-thumb, .tv-feed-box::-webkit-scrollbar-thumb {
-  background: var(--border-strong); border-radius: 4px;
-}
+
+
 .dash-main-scroll::-webkit-scrollbar-track { background: transparent; }
 
 /* Botões primários — elevação no hover */
@@ -4105,16 +4276,21 @@ details summary { transition: color .15s var(--ease); }
 
 /* ── Status do sistema (sidebar) ────────────────────────── */
 .sys-status {
-  margin: 0 12px 8px; padding: 10px 12px;
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-  border-radius: 6px;
+  margin: 0 8px 8px; padding: 10px 12px;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
+  border-radius: 10px; overflow: hidden;
 }
 .sys-status-row { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
-.sys-label { font-size: 10px; color: rgba(255,255,255,.6); font-weight: 500; }
-.sys-uptime { margin-left: auto; font-family: var(--mono); font-size: 10px; color: #4CAF50; font-weight: 700; }
-.sys-sources { display: flex; flex-direction: column; gap: 5px; }
-.sys-src { display: flex; align-items: center; gap: 7px; font-size: 9px; color: rgba(255,255,255,.4); letter-spacing: .03em; }
-.sys-src-time { margin-left: auto; font-family: var(--mono); color: rgba(255,255,255,.3); }
+.sys-label { font-size: 10px; color: rgba(255,255,255,.5); font-weight: 500; flex: 1; opacity: 0; white-space: nowrap; transition: opacity .15s; }
+.sidebar.expandida .sys-label { opacity: 1; }
+.sys-uptime { margin-left: auto; font-family: var(--mono); font-size: 10px; color: #4CAF50; font-weight: 700; opacity: 0; white-space: nowrap; transition: opacity .15s; }
+.sidebar.expandida .sys-uptime { opacity: 1; }
+.sys-sources { display: flex; flex-direction: column; gap: 6px; }
+.sys-src { display: flex; align-items: center; gap: 7px; font-size: 9px; color: rgba(255,255,255,.4); }
+.sys-src-label { flex: 1; opacity: 0; white-space: nowrap; transition: opacity .15s; }
+.sidebar.expandida .sys-src-label { opacity: 1; }
+.sys-src-time { margin-left: auto; font-family: var(--mono); color: rgba(255,255,255,.3); opacity: 0; white-space: nowrap; transition: opacity .15s; }
+.sidebar.expandida .sys-src-time { opacity: 1; }
 .sys-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .sys-dot.ok { background: #4CAF50; box-shadow: 0 0 0 0 rgba(76,175,80,.5); animation: sysPulse 2.5s infinite; }
 @keyframes sysPulse { 0%{box-shadow:0 0 0 0 rgba(76,175,80,.5);} 70%{box-shadow:0 0 0 5px rgba(76,175,80,0);} 100%{box-shadow:0 0 0 0 rgba(76,175,80,0);} }
@@ -4382,8 +4558,8 @@ details summary { transition: color .15s var(--ease); }
 
 .bp-summary {
   display: flex; gap: 12px; align-items: flex-start;
-  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-  border-radius: 8px; padding: 14px 16px; margin-bottom: 4px;
+  background: #F7F6F4; border: 1px solid rgba(20,18,14,.1);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 4px;
   animation: onboardIn .3s var(--ease-out);
 }
 .bp-summary-icon {
@@ -4391,8 +4567,8 @@ details summary { transition: color .15s var(--ease); }
   display: flex; align-items: center; justify-content: center;
   font-size: 16px; font-weight: 700;
 }
-.bp-summary strong { display: block; font-size: 13px; color: #fff; margin-bottom: 3px; }
-.bp-summary span { font-size: 11px; color: rgba(255,255,255,.55); line-height: 1.5; }
+.bp-summary strong { display: block; font-size: 13px; color: #1A1814; margin-bottom: 3px; }
+.bp-summary span { font-size: 12px; color: #555; line-height: 1.6; }
 .billing-action-btn:disabled { pointer-events: none; }
 
 
@@ -4717,12 +4893,12 @@ details summary { transition: color .15s var(--ease); }
 
 
 /* ── Modal de registro de câmera ────────────────────────── */
-.cam-overlay { display: none; position: fixed; inset: 0; z-index: 720; background: rgba(20,18,14,.55); backdrop-filter: blur(3px); align-items: center; justify-content: center; padding: 20px; }
-.cam-modal { position: relative; background: var(--paper); max-width: 460px; width: 100%; border-radius: 14px; padding: 30px 28px; box-shadow: 0 20px 60px rgba(0,0,0,.35); max-height: 90vh; overflow-y: auto; }
-.cam-modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 24px; color: var(--muted); cursor: pointer; line-height: 1; }
-.cam-modal-close:hover { color: var(--ink); }
-.cam-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: .03em; color: var(--ink); margin: 0 0 6px; }
-.cam-modal-sub { font-size: 12px; color: var(--muted); line-height: 1.5; margin: 0 0 20px; }
+
+
+
+
+
+
 
 
 /* ── Modal moderno de exclusão de conta ─────────────────── */
@@ -5638,7 +5814,7 @@ details summary { transition: color .15s var(--ease); }
   <div class="demo-banner" id="demo-banner">
     <span class="demo-banner-pulse"></span>
     <p><strong>Modo demonstração</strong> — Você está visualizando dados de exemplo da Grande Florianópolis. Crie sua conta para acessar dados reais da sua organização.</p>
-    <button class="demo-banner-cta" onclick="showPage('register')">Criar conta grátis →</button>
+    <button class="demo-banner-cta" onclick="showPage('register')">Começar grátis →</button>
     <button class="demo-banner-close" onclick="document.getElementById('demo-banner').classList.remove('show')" title="Fechar">×</button>
   </div>
 
@@ -5646,12 +5822,12 @@ details summary { transition: color .15s var(--ease); }
 
 
     <aside class="sidebar" role="navigation" aria-label="Menu principal">
-      <div class="sidebar-logo" onclick="setNav(document.querySelector('.nav-item[data-view=dashboard]'))" style="flex-direction:column;align-items:flex-start;gap:2px;padding:16px 18px 14px;cursor:pointer" title="Ir para o Dashboard">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span class="logo-dot"></span>
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em;color:var(--paper)">Comunidade Alerta</span>
-        </div>
-        <div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.08em;padding-left:22px">Inteligência Urbana · SC</div>
+      <button class="sb-toggle" onclick="alternarMenu()" title="Recolher / expandir menu" aria-label="Alternar menu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+      </button>
+      <div class="sidebar-logo" onclick="setNav(document.querySelector('.nav-item[data-view=dashboard]'))" title="Ir para o Dashboard">
+        <span class="logo-dot" style="flex-shrink:0"></span>
+        <span class="sidebar-logo-text">Comunidade Alerta</span>
       </div>
 
       <nav style="flex:1;padding:6px 0;overflow-y:auto;overflow-x:hidden">
@@ -5660,48 +5836,48 @@ details summary { transition: color .15s var(--ease); }
         <div class="sidebar-group-label">Monitor</div>
         <a class="nav-item active" data-view="dashboard" aria-current="page" data-label="Dashboard" data-sub="Resumo de hoje · Mapa · Ocorrências recentes" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-          Dashboard
+          <span class="nav-item-label">Dashboard</span>
         </a>
         <a class="nav-item" data-view="mapa" data-label="Mapa ao Vivo" data-sub="Todos os incidentes no mapa · Filtros por tipo · PRF e INMET" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1C5.8 1 4 2.8 4 5c0 3.5 4 9 4 9s4-5.5 4-9c0-2.2-1.8-4-4-4z"/><circle cx="8" cy="5" r="1.5"/></svg>
-          Mapa ao Vivo
+          <span class="nav-item-label">Mapa ao Vivo</span>
           <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:10px;background:rgba(67,160,71,.2);color:#4CAF50;letter-spacing:.04em;margin-left:auto;text-transform:uppercase">AO VIVO</span>
         </a>
         <a class="nav-item" data-view="alertas" data-label="Alertas" data-sub="Registrar · acompanhar · monitorar ocorrências" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l.5 1M8 2l-.5 1M13 10H3l2-5.5h6L13 10z"/><path d="M6 10v1a2 2 0 004 0v-1"/></svg>
-          Alertas
-          <span class="nav-badge" id="nb-alertas">7</span>
+          <span class="nav-item-label">Alertas</span>
+          <span class="nav-badge" id="nb-alertas">—</span>
         </a>
         <a class="nav-item" data-view="delegacias" data-label="Delegacias" data-sub="25 delegacias · Mapa e contatos" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 14V6l6-4 6 4v8"/><path d="M6 14v-4h4v4"/><path d="M6.5 6.5h3"/></svg>
-          Delegacias
+          <span class="nav-item-label">Delegacias</span>
         </a>
 
         <a class="nav-item" data-view="cameras" data-label="Câmeras" data-sub="Rede de câmeras parceiras · Registro" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 5h2l1-1.5h4L10 5h4v8H2z"/><circle cx="8" cy="9" r="2.5"/></svg>
-          Câmeras
+          <span class="nav-item-label">Câmeras</span>
         </a>
 
 
         <div class="sidebar-group-label" style="margin-top:4px">Gestão</div>
         <a class="nav-item" data-view="relatorios" data-label="Relatórios" data-sub="PDF mensal · Exportar CSV · Histórico completo" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M5 6h6M5 9h4M5 12h2"/></svg>
-          Relatórios
+          <span class="nav-item-label">Relatórios</span>
         </a>
         <a class="nav-item" data-view="webhooks" data-label="Integrações" data-sub="Enviar alertas para WhatsApp · Slack · outros sistemas" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="3" cy="13" r="1.5"/><path d="M3 11.5C3 7 6 4.5 9 4.5M11 1.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/><path d="M11 4.5C11 9 8 11.5 5 11.5"/><circle cx="13" cy="8" r="1.5"/><path d="M13 9.5c0 4.5-3 6.5-6 5.5"/></svg>
-          Webhooks
+          <span class="nav-item-label">Webhooks</span>
         </a>
         <a class="nav-item" data-view="faturamento" data-label="Faturamento" data-sub="Plano atual · Faturas · Método de pagamento" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 7.5h14"/><path d="M4.5 11h3"/><circle cx="11.5" cy="11" r="1.5" stroke-width="1.2"/></svg>
-          Faturamento
+          <span class="nav-item-label">Faturamento</span>
         </a>
 
 
         <div class="sidebar-group-label" style="margin-top:4px">Sistema</div>
         <a class="nav-item" data-view="config" data-label="Configurações" data-sub="Perfil · Notificações · Segurança · Integrações" onclick="setNav(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="2.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3 3l.7.7M12.3 12.3l.7.7M3 13l.7-.7M12.3 3.7l.7-.7"/></svg>
-          Configurações
+          <span class="nav-item-label">Configurações</span>
         </a>
 
       </nav>
@@ -5714,9 +5890,9 @@ details summary { transition: color .15s var(--ease); }
           <span class="sys-uptime" id="sys-uptime">99.9%</span>
         </div>
         <div class="sys-sources">
-          <div class="sys-src"><span class="sys-dot ok"></span>PRF <span class="sys-src-time">15min</span></div>
-          <div class="sys-src"><span class="sys-dot ok"></span>INMET <span class="sys-src-time">10min</span></div>
-          <div class="sys-src"><span class="sys-dot ok"></span>CEMADEN <span class="sys-src-time">10min</span></div>
+          <div class="sys-src"><span class="sys-dot ok"></span><span class="sys-src-label">PRF</span><span class="sys-src-time" id="sd-prf-age">15min</span></div>
+          <div class="sys-src"><span class="sys-dot ok"></span><span class="sys-src-label">INMET</span><span class="sys-src-time" id="sd-inmet-age">5min</span></div>
+          <div class="sys-src"><span class="sys-dot" style="background:#7986CB"></span><span class="sys-src-label">Delegacias</span><span class="sys-src-time">25 ativas</span></div>
         </div>
       </div>
 
@@ -5759,9 +5935,6 @@ details summary { transition: color .15s var(--ease); }
 
           <button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema claro/escuro" aria-label="Alternar tema" style="background:none;border:1px solid var(--border);border-radius:3px;padding:6px 8px;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:5px;font-size:11px;font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--ink)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
             <svg id="theme-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="3"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M3 3l1 1M10 10l1 1M3 11l1-1M10 4l1-1"/></svg>
-          </button>
-          <button id="tv-mode-btn" onclick="enterTVMode()" title="Modo apresentação (telão) — Esc para sair" aria-label="Modo TV" style="background:none;border:1px solid var(--border);border-radius:3px;padding:6px 8px;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:5px;font-size:11px;font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--ink)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2.5" width="12" height="8" rx="1"/><path d="M5 12.5h4"/></svg>
           </button>
           <div class="icon-btn-wrap">
             <button class="icon-btn" id="notif-btn" title="Notificações" aria-label="Abrir notificações" aria-haspopup="true" onclick="toggleNotifPanel(event)">
@@ -5826,18 +5999,19 @@ details summary { transition: color .15s var(--ease); }
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:2px">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.04em;color:var(--muted)">Visão geral</div>
           <div class="period-filter" role="group" aria-label="Filtrar período">
-            <button class="period-pill active" data-period="hoje"  onclick="setPeriod(this)">Hoje</button>
+            <button class="period-pill"        data-period="hoje"  onclick="setPeriod(this)">Hoje</button>
             <button class="period-pill"        data-period="7d"    onclick="setPeriod(this)">7 dias</button>
             <button class="period-pill"        data-period="30d"   onclick="setPeriod(this)">30 dias</button>
+            <button class="period-pill active" data-period="tudo"  onclick="setPeriod(this)">Tudo</button>
           </div>
         </div>
 
         <div class="stats-row">
           <div class="stat-card" tabindex="0" role="figure">
-            <div class="stat-label">Incidentes hoje</div>
+            <div class="stat-label" id="ds-hoje-label">Incidentes</div>
             <div class="stat-num" id="ds-hoje">0</div>
-            <div class="stat-delta up" id="ds-hoje-delta">↑ +18% vs ontem</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:2px">Todos os tipos combinados</div>
+            <div class="stat-delta neu" id="ds-hoje-delta">todo o histórico</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">PRF · INMET · Delegacias</div>
             <div class="stat-sparkline" id="spark-hoje"></div>
             <div class="stat-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3l2.5 5 5.5.8-4 3.9 1 5.4L14 16l-5 2.6 1-5.4-4-3.9 5.5-.8z"/></svg></div>
             <div class="stat-accent acc-red"></div>
@@ -5845,8 +6019,8 @@ details summary { transition: color .15s var(--ease); }
           <div class="stat-card" tabindex="0" role="figure">
             <div class="stat-label">Aguardando resolução</div>
             <div class="stat-num" id="ds-abertos">0</div>
-            <div class="stat-delta down" id="ds-abertos-delta">↑ +5 na última hora</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:2px">Requerem ação da equipe</div>
+            <div class="stat-delta down" id="ds-abertos-delta">↑ abertos ou em andamento</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">abertos ou em andamento</div>
             <div class="stat-sparkline" id="spark-abertos"></div>
             <div class="stat-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="11"/><path d="M14 8v6l4 4"/></svg></div>
             <div class="stat-accent acc-gold"></div>
@@ -5854,8 +6028,8 @@ details summary { transition: color .15s var(--ease); }
           <div class="stat-card" tabindex="0" role="figure">
             <div class="stat-label">Encerrados hoje</div>
             <div class="stat-num" id="ds-resolvidos">0</div>
-            <div class="stat-delta up" id="ds-resolvidos-delta">↑ Taxa de resolução: 81%</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:2px">Tempo médio: 1h 42min</div>
+            <div class="stat-delta up" id="ds-resolvidos-delta">↑ calculando...</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">Taxa de resolução calculada</div>
             <div class="stat-sparkline" id="spark-resolvidos"></div>
             <div class="stat-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 14l7 7 11-12"/></svg></div>
             <div class="stat-accent acc-green"></div>
@@ -5864,7 +6038,7 @@ details summary { transition: color .15s var(--ease); }
             <div class="stat-label">Cobertura ativa</div>
             <div class="stat-num" id="ds-municipios">22</div>
             <div class="stat-delta neu" id="ds-municipios-label">Municípios monitorados</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:2px">PRF + INMET + CEMADEN ao vivo</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">PRF · INMET · 25 delegacias</div>
             <div class="stat-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3C9 3 5 7 5 12c0 7 9 13 9 13s9-6 9-13c0-5-4-9-9-9z"/><circle cx="14" cy="12" r="3"/></svg></div>
             <div class="stat-accent acc-navy"></div>
           </div>
@@ -6005,7 +6179,7 @@ details summary { transition: color .15s var(--ease); }
       <div style="display:flex;gap:14px;margin-top:14px;flex-wrap:wrap">
         <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#FF8F00"></span>PRF</span>
         <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#0288D1"></span>INMET</span>
-        <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#8E24AA"></span>CEMADEN</span>
+        <span style="font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#7986CB"></span>Polícia Civil SC</span>
       </div>
     </div>
     <div class="footer-col">
@@ -6014,7 +6188,7 @@ details summary { transition: color .15s var(--ease); }
       <a href="#precos" onclick="smoothScroll('precos')">Preços</a>
       <a onclick="showPage('publico')">Mapa público</a>
       <a onclick="openModal('api-docs')">API Docs</a>
-      <a onclick="openModal('changelog')">Changelog</a>
+      <a onclick="openModal('changelog')">Novidades</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
@@ -6032,139 +6206,116 @@ details summary { transition: color .15s var(--ease); }
   </footer>
   <div class="footer-bottom">
     <p>© 2026 Comunidade Alerta · Todos os direitos reservados</p>
-    <p>Dados oficiais PRF · INMET · CEMADEN · Grande Florianópolis · Santa Catarina · Brasil</p>
+    <p>Dados oficiais PRF · INMET · Polícia Civil SC · Grande Florianópolis · Santa Catarina · Brasil</p>
   </div>
         </div>
 
       </div>
 
       <!-- ── VIEW: MAPA AO VIVO ── -->
-      <div id="view-mapa" class="dash-view" style="flex:1;min-height:0">
+      <div id="view-mapa" class="dash-view" style="flex:1;min-height:0;gap:0;padding:0">
 
-        <div style="background:var(--paper);border:1px solid var(--border);padding:16px 20px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
-          <div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:var(--ink)">Mapa ao Vivo</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px">Clique em qualquer marcador para ver detalhes · Use os filtros para focar em um tipo de ocorrência</div>
+        <!-- KPI Row -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px 20px 14px;flex-shrink:0">
+
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8201A,#E8443E)"></div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#999;font-weight:600;margin-bottom:10px">Incidentes hoje</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#1A1814;margin-bottom:4px" id="mv-hoje">—</div>
+            <div style="font-size:11px;color:#999">total no período</div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <span style="font-size:10px;color:var(--muted)">Fontes:</span>
-            <span style="font-size:9px;padding:2px 7px;background:rgba(255,143,0,.12);color:#FF8F00;border-radius:2px;font-weight:600" title="Polícia Rodoviária Federal — atualizado a cada 15 min">PRF</span>
-            <span style="font-size:9px;padding:2px 7px;background:rgba(2,136,209,.12);color:#0288D1;border-radius:2px;font-weight:600" title="INMET — Instituto Nacional de Meteorologia · API oficial, atualizado a cada 10 min">INMET</span>
-            <span style="font-size:9px;padding:2px 7px;background:rgba(20,18,14,.06);color:var(--muted);border-radius:2px;font-weight:500">Manual</span>
+
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E65100,#FF9800)"></div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#999;font-weight:600;margin-bottom:10px">Aguardando resolução</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#E65100;margin-bottom:4px" id="mv-abertos">—</div>
+            <div style="font-size:11px;color:#999">abertos ou em andamento</div>
           </div>
+
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2E7D32,#43A047)"></div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#999;font-weight:600;margin-bottom:10px">Resolvidos hoje</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#2E7D32;margin-bottom:4px" id="mv-resolvidos">—</div>
+            <div style="font-size:11px;color:#999">encerrados no período</div>
+          </div>
+
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px 20px 16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0277BD,#0288D1)"></div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#999;font-weight:600;margin-bottom:10px">Municípios ativos</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#0277BD;margin-bottom:4px">22</div>
+            <div style="font-size:11px;color:#999">Grande Florianópolis</div>
+          </div>
+
         </div>
-        <div style="display:grid;grid-template-columns:1fr 320px;gap:14px;flex:1;min-height:0" class="mapa-live-grid">
 
-          <!-- MAPA FULLSCREEN -->
-          <div class="map-card" style="display:flex;flex-direction:column;min-height:0;height:auto">
-            <div class="card-header">
-              <div>
-                <div>
-                <span class="card-title">Mapa ao Vivo — Grande Florianópolis</span>
-                <div style="display:flex;gap:8px;margin-top:5px;flex-wrap:wrap">
-                  <span style="font-size:9px;padding:2px 7px;background:rgba(255,143,0,.15);color:#FF8F00;border-radius:2px;font-weight:600;letter-spacing:.06em" title="Dados da Polícia Rodoviária Federal atualizados automaticamente a cada 15 minutos">● PRF — automático</span>
-                  <span style="font-size:9px;padding:2px 7px;background:rgba(2,136,209,.15);color:#0288D1;border-radius:2px;font-weight:600;letter-spacing:.06em" title="Avisos meteorológicos do INMET (Instituto Nacional de Meteorologia) atualizados a cada 10 minutos via API oficial">● INMET — automático</span>
-                  <span style="font-size:9px;padding:2px 7px;background:rgba(20,18,14,.08);color:var(--muted);border-radius:2px;font-weight:500;letter-spacing:.06em" title="Ocorrências registradas manualmente pela sua equipe">● Manual — sua equipe</span>
-                </div>
+        <!-- Mapa + Feed -->
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:12px;flex:1;min-height:0;padding:0 20px 18px">
+
+          <!-- MAPA -->
+          <div style="background:#1B2D52;border:1px solid rgba(255,255,255,.06);border-radius:16px;display:flex;flex-direction:column;min-height:0;overflow:hidden;box-shadow:0 4px 20px rgba(12,20,40,.12)">
+            <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="width:7px;height:7px;background:#4CAF50;border-radius:50%;animation:blink 2s ease-in-out infinite;display:inline-block"></span>
+                <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">Mapa ao Vivo — Grande Florianópolis</span>
               </div>
-                <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;display:flex;align-items:center;gap:5px">
-                  <span style="width:6px;height:6px;background:#4CAF50;border-radius:50%;animation:blink 2s ease-in-out infinite;display:inline-block"></span>
-                  <span id="map-full-update">Atualizado agora</span>
-                </div>
-              </div>
-              <div class="card-actions" style="flex-wrap:wrap">
-                <button class="map-filter-btn on" onclick="toggleFilter(this,'crime')" title="Filtrar: crimes e violência" aria-pressed="true" role="button">Crime</button>
-                <button class="map-filter-btn on" onclick="toggleFilter(this,'transito')" title="Filtrar: acidentes e congestionamentos">Trânsito</button>
-                <button class="map-filter-btn on" onclick="toggleFilter(this,'infra')" title="Filtrar: buracos, alagamentos, queda de energia">Infra</button>
-                <button class="map-filter-btn on" onclick="toggleFilter(this,'furto')" title="Filtrar: furtos e roubos">Furto</button>
-                <button class="map-filter-btn on" onclick="toggleFilter(this,'feminicidio')" style="border-color:rgba(156,39,176,.4);color:#CE93D8">Feminicídio</button>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <button class="map-filter-btn on" onclick="toggleFilter(this,'crime')">Crime</button>
+                <button class="map-filter-btn on" onclick="toggleFilter(this,'transito')">Trânsito</button>
+                <button class="map-filter-btn on" onclick="toggleFilter(this,'infra')">Infra</button>
+                <button class="map-filter-btn on" onclick="toggleFilter(this,'furto')">Furto</button>
                 <button class="map-filter-btn on" onclick="toggleFilter(this,'prf')" style="border-color:rgba(255,143,0,.4);color:#FFB74D">PRF</button>
                 <button class="map-filter-btn on" onclick="toggleFilter(this,'inmet')" style="border-color:rgba(2,136,209,.4);color:#4FC3F7">INMET</button>
-                <button class="map-filter-btn" onclick="toggleFilter(this,'heatmap')" title="Heatmap: mapa de calor mostrando concentração de ocorrências — áreas vermelhas têm mais incidentes">Heatmap</button>
+                <button class="map-filter-btn on" onclick="toggleFilter(this,'delegacia')" style="border-color:rgba(121,134,203,.4);color:#9FA8DA">Delegacias</button>
               </div>
             </div>
-            <div class="map-area" style="flex:1;min-height:0" id="map-area-full">
+            <div class="map-area" style="flex:1;min-height:0;position:relative" id="map-area-full">
               <div id="map-full" style="position:absolute;inset:0;width:100%;height:100%"></div>
-              <div class="map-approx-notice">
+              <div class="map-approx-notice" style="bottom:10px;left:10px">
                 <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5M8 11h.01"/></svg>
-                Os marcadores são aproximados e não exibem a localização exata do incidente.
+                Marcadores aproximados — não exibem a localização exata.
               </div>
             </div>
           </div>
 
-
-          <div class="mapa-side-panel" style="background:var(--paper);border:1px solid var(--border);display:flex;flex-direction:column;min-height:0;overflow:hidden">
-            <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-              <div>
-                <div style="font-weight:600;font-size:13px;color:var(--ink)">Incidentes ativos</div>
-                <div style="font-size:10px;color:var(--muted);margin-top:1px" id="map-panel-count">Carregando...</div>
+          <!-- FEED LATERAL -->
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;display:flex;flex-direction:column;min-height:0;overflow:hidden;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="background:#1B2D52;padding:14px 18px;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;background:#E53935;border-radius:50%;animation:blink 2s ease-in-out infinite;display:inline-block"></span>
+                <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7)">Ocorrências ao vivo</span>
               </div>
-              <button class="btn-primary" style="padding:5px 12px;font-size:11px" onclick="openResolvePanel()">+ Reportar</button>
+              <button onclick="openResolvePanel()" style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;background:rgba(229,57,53,.9);border:none;border-radius:8px;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif">+ Reportar</button>
             </div>
 
-            <!-- Filtro de período / dia da semana -->
-            <div style="padding:10px 16px;border-bottom:1px solid var(--border);background:var(--paper-dark)">
-              <div style="display:flex;gap:5px;margin-bottom:8px">
-                <button class="mp-period-btn active" onclick="setMapPeriod('all',this)">Tudo</button>
-                <button class="mp-period-btn" onclick="setMapPeriod('week',this)">Semana</button>
-                <button class="mp-period-btn" onclick="setMapPeriod('today',this)">Hoje</button>
-              </div>
-              <div style="display:flex;gap:3px" id="mp-weekdays">
-                <button class="mp-wd-btn active" onclick="toggleWeekday(0,this)" title="Domingo">D</button>
-                <button class="mp-wd-btn active" onclick="toggleWeekday(1,this)" title="Segunda">S</button>
-                <button class="mp-wd-btn active" onclick="toggleWeekday(2,this)" title="Terça">T</button>
-                <button class="mp-wd-btn active" onclick="toggleWeekday(3,this)" title="Quarta">Q</button>
-                <button class="mp-wd-btn active" onclick="toggleWeekday(4,this)" title="Quinta">Q</button>
-                <button class="mp-wd-btn active" onclick="toggleWeekday(5,this)" title="Sexta">S</button>
-                <button class="mp-wd-btn active" onclick="toggleWeekday(6,this)" title="Sábado">S</button>
+            <div style="flex:1;overflow-y:auto" id="mv-feed-list">
+              <div style="padding:40px 20px;text-align:center;color:#bbb">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1.5" style="margin-bottom:12px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <div style="font-size:13px;font-weight:500;color:#999;margin-bottom:4px">Sem ocorrências recentes</div>
+                <div style="font-size:11px;color:#bbb">Sua região está tranquila por enquanto</div>
               </div>
             </div>
 
-
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-bottom:1px solid var(--border)">
-              <div style="padding:10px 8px;text-align:center;border-right:1px solid var(--border)">
-                <div style="font-size:18px;font-weight:700;color:#E53935" id="mp-crime">0</div>
-                <div style="font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Crime</div>
+            <!-- Mini stats no rodapé -->
+            <div style="padding:12px 16px;border-top:1px solid rgba(20,18,14,.06);display:grid;grid-template-columns:repeat(3,1fr);gap:0;flex-shrink:0">
+              <div style="text-align:center;border-right:1px solid rgba(20,18,14,.06)">
+                <div style="font-size:18px;font-weight:700;color:#E53935" id="mv-mp-crime">—</div>
+                <div style="font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#bbb">Crime</div>
               </div>
-              <div style="padding:10px 8px;text-align:center;border-right:1px solid var(--border)">
-                <div style="font-size:18px;font-weight:700;color:#F57C00" id="mp-transito">0</div>
-                <div style="font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Trânsito</div>
+              <div style="text-align:center;border-right:1px solid rgba(20,18,14,.06)">
+                <div style="font-size:18px;font-weight:700;color:#F57C00" id="mv-mp-transito">—</div>
+                <div style="font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#bbb">Trânsito</div>
               </div>
-              <div style="padding:10px 8px;text-align:center">
-                <div style="font-size:18px;font-weight:700;color:#43A047" id="mp-infra">0</div>
-                <div style="font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Infra</div>
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:700;color:#43A047" id="mv-mp-infra">—</div>
+                <div style="font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#bbb">Infra</div>
               </div>
-            </div>
-
-
-            <!-- Busca + ordenação da lista -->
-            <div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:6px;align-items:center">
-              <div style="flex:1;position:relative;display:flex;align-items:center">
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="var(--muted)" stroke-width="1.6" style="position:absolute;left:8px;pointer-events:none"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
-                <input id="map-list-search" type="text" placeholder="Buscar local ou tipo..." oninput="renderMapPanel()" style="width:100%;padding:6px 8px 6px 26px;font-size:11px;border:1px solid var(--border);border-radius:5px;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;outline:none">
-              </div>
-              <select id="map-list-sort" onchange="renderMapPanel()" style="font-size:11px;padding:6px 4px;border:1px solid var(--border);border-radius:5px;background:var(--paper);color:var(--muted);font-family:'DM Sans',sans-serif;cursor:pointer">
-                <option value="status">Status</option>
-                <option value="tipo">Tipo</option>
-                <option value="local">Local</option>
-              </select>
-            </div>
-
-            <div style="flex:1;overflow-y:auto" id="map-panel-list">
-
-            </div>
-
-            <div style="padding:10px 16px;border-top:1px solid var(--border)">
-              <button onclick="setNav(document.querySelector('.nav-item[data-view=alertas]'))" style="width:100%;padding:8px;font-size:12px;background:none;border:1px solid var(--border);cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
-                Ver todos os alertas →
-              </button>
             </div>
           </div>
 
         </div>
       </div>
 
-      <!-- ── VIEW: ALERTAS ── -->
+
       <div id="view-alertas" class="dash-view">
 
         <div style="background:var(--paper);border:1px solid var(--border);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:4px">
@@ -6286,90 +6437,205 @@ details summary { transition: color .15s var(--ease); }
 
       <!-- ── VIEW: CÂMERAS ── -->
       <div id="view-cameras" class="dash-view">
-        <div style="background:var(--paper);border:1px solid var(--border);padding:18px 20px;margin-bottom:14px">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
-            <div style="max-width:560px">
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.03em;color:var(--ink)">Rede de Câmeras Parceiras</div>
-              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin:6px 0 0">Condomínios e empresas podem registrar suas câmeras de segurança. Em uma ocorrência próxima, a equipe de segurança pública sabe quais câmeras podem ter registrado imagens — agilizando investigações. O acesso às imagens é sempre solicitado ao responsável, nunca automático.</p>
+
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap">
+          <div style="max-width:620px">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:4px">Monitor</div>
+            <h2 style="font-size:22px;font-weight:700;color:#1A1814;letter-spacing:-.02em;line-height:1;font-family:'DM Sans',sans-serif">Rede de Câmeras Parceiras</h2>
+            <p style="font-size:13px;color:#999;margin-top:6px;line-height:1.6">
+              Condomínios e comércios cadastram a <strong>localização</strong> de câmeras voltadas para a via pública.
+              Quando ocorre um incidente próximo, a autoridade sabe quais câmeras podem ter registrado — e solicita a imagem pelo canal formal.
+            </p>
+          </div>
+          <span style="flex-shrink:0;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(230,81,0,.08);color:#E65100;padding:6px 12px;border-radius:20px">Em implantação</span>
+        </div>
+
+        <!-- Como funciona -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px">
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="width:34px;height:34px;border-radius:9px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;margin-bottom:12px">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#3949AB">1</span>
             </div>
-            <button class="btn-primary" style="padding:10px 18px;white-space:nowrap" onclick="openCameraForm()">+ Registrar câmera</button>
+            <div style="font-size:13.5px;font-weight:700;color:#1A1814;margin-bottom:5px">O ponto é cadastrado</div>
+            <p style="font-size:12px;color:#888;line-height:1.6">Endereço, direção da lente e responsável pelo contato. <strong>Nenhuma imagem</strong> é enviada ou armazenada por nós.</p>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="width:34px;height:34px;border-radius:9px;background:#FFF6E8;display:flex;align-items:center;justify-content:center;margin-bottom:12px">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#E65100">2</span>
+            </div>
+            <div style="font-size:13.5px;font-weight:700;color:#1A1814;margin-bottom:5px">Um incidente acontece perto</div>
+            <p style="font-size:12px;color:#888;line-height:1.6">O sistema cruza a ocorrência com os pontos num raio próximo e lista quais câmeras podem ter captado a cena.</p>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:14px;padding:20px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="width:34px;height:34px;border-radius:9px;background:#E8F7F0;display:flex;align-items:center;justify-content:center;margin-bottom:12px">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#00A868">3</span>
+            </div>
+            <div style="font-size:13.5px;font-weight:700;color:#1A1814;margin-bottom:5px">A imagem é solicitada formalmente</div>
+            <p style="font-size:12px;color:#888;line-height:1.6">O pedido segue pelo canal oficial da autoridade. O proprietário decide se entrega — nada é automático.</p>
           </div>
         </div>
 
-        <div class="cam-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px">
-          <div style="background:var(--paper);border:1px solid var(--border);padding:16px 18px"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--ink)" id="cam-total">0</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">câmeras registradas</div></div>
-          <div style="background:var(--paper);border:1px solid var(--border);padding:16px 18px"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--success)" id="cam-online">0</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">ativas</div></div>
-          <div style="background:var(--paper);border:1px solid var(--border);padding:16px 18px"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--navy)" id="cam-coverage">0</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">bairros cobertos</div></div>
+        <!-- LGPD -->
+        <div style="background:#EEF4FF;border:1px solid rgba(2,119,189,.15);border-radius:14px;padding:18px 20px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0277BD" stroke-width="2" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <div style="font-size:12.5px;color:#01579B;line-height:1.65">
+            <strong>Proteção de dados.</strong> Cadastramos apenas a <strong>existência e a posição</strong> do equipamento — nunca vídeo, nunca imagem, nunca acesso remoto.
+            O compartilhamento de gravação ocorre entre o proprietário e a autoridade, fora da plataforma, conforme a LGPD.
+          </div>
         </div>
 
-        <div style="background:var(--paper);border:1px solid var(--border)">
-          <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-            <span style="font-weight:600;font-size:13px;color:var(--ink)">Câmeras da sua organização</span>
-            <input type="text" id="cam-search" placeholder="Buscar por local..." oninput="renderCameras()" style="font-size:11px;padding:6px 10px;border:1px solid var(--border);border-radius:5px;background:var(--paper);color:var(--ink);width:180px;font-family:'DM Sans',sans-serif"/>
-          </div>
-          <div id="cam-list"></div>
-        </div>
-      </div>
+        <!-- Cadastro -->
+        <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:24px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:18px">Indicar uma câmera</div>
 
-      <!-- ── VIEW: RELATÓRIOS ── -->
-      <div id="view-relatorios" class="dash-view">
-        <div style="background:var(--paper);border:1px solid var(--border);padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
-          <div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.05em;color:var(--ink)">Relatórios e Exportações</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px">Relatórios mensais em PDF · Exportação CSV · Histórico completo disponível</div>
-          </div>
-          <button class="btn-primary" style="padding:8px 18px;font-size:12px;display:flex;align-items:center;gap:6px" onclick="exportDashboardPDF()">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v7M2 5l4 4 4-4M1 11h10"/></svg>
-            Gerar PDF agora
-          </button>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
-          <div class="stat-card" tabindex="0" role="figure" style="cursor:pointer" onclick="showToast('Gerando relatório PDF…')">
-            <div class="stat-label">Relatório mensal</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ink);margin:8px 0">Maio 2026</div>
-            <div style="font-size:12px;color:var(--muted)">284 alertas · PDF · 3.2 MB</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5">KPIs, top incidentes e taxa de resolução — pronto para apresentar à gestão</div>
-            <div style="margin-top:10px;font-size:11px;color:var(--red);font-weight:500;letter-spacing:.04em">⬇ BAIXAR PDF</div>
-            <div class="stat-accent acc-red"></div>
-          </div>
-          <div class="stat-card" tabindex="0" role="figure" style="cursor:pointer" onclick="showToast('Gerando planilha CSV…')" title="Exporta todos os alertas em planilha compatível com Excel e Power BI">
-            <div class="stat-label">Exportar alertas</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ink);margin:8px 0">Todos os dados</div>
-            <div style="font-size:12px;color:var(--muted)">2.340 registros · CSV</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5">Todos os campos: tipo, local, horário, status, responsável — para análise em Excel ou Power BI</div>
-            <div style="margin-top:10px;font-size:11px;color:var(--success);font-weight:500;letter-spacing:.04em">⬇ EXPORTAR CSV</div>
-            <div class="stat-accent acc-green"></div>
-          </div>
-          <div class="stat-card" tabindex="0" role="figure" style="cursor:pointer" onclick="showToast('Gerando relatório executivo…')">
-            <div class="stat-label">Relatório executivo</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ink);margin:8px 0">Trimestral</div>
-            <div style="font-size:12px;color:var(--muted)">Q1 2026 · PDF · 4.8 MB</div>
-            <div style="margin-top:12px;font-size:11px;color:var(--navy);font-weight:500;letter-spacing:.04em">⬇ BAIXAR PDF</div>
-            <div class="stat-accent acc-navy"></div>
-          </div>
-        </div>
-        <div style="background:var(--paper);border:1px solid var(--border)">
-          <div class="card-header" style="border-color:var(--border)">
-            <span class="card-title" style="color:var(--ink)">Histórico de relatórios</span>
-            <div style="display:flex;gap:6px">
-              <select style="height:30px;border:1px solid var(--border-strong);border-radius:2px;padding:0 8px;font-size:11px;font-family:'DM Sans',sans-serif;background:var(--paper-dark);outline:none">
-                <option>Últimos 30 dias</option><option>Últimos 90 dias</option><option>Este ano</option>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Endereço do ponto</label>
+              <input id="cmp-end" class="cc-input" placeholder="Rua, número — bairro">
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Município</label>
+              <select id="cmp-muni" class="cc-input" style="height:44px">
+                <option>Florianópolis</option><option>São José</option><option>Palhoça</option>
+                <option>Biguaçu</option><option>Garopaba</option><option>Tijucas</option>
+                <option>Santo Amaro da Imperatriz</option><option>Outro município</option>
               </select>
             </div>
           </div>
-          <table class="activity-table">
-            <thead><tr><th>Relatório</th><th>Período</th><th>Alertas</th><th>Gerado em</th><th>Formato</th><th>Baixar</th></tr></thead>
-            <tbody>
-              <tr><td>Mensal — Maio 2026</td><td style="color:var(--muted)">01/05 – 31/05</td><td>143</td><td style="color:var(--muted)">01/06/2026</td><td><span class="status-pill" style="background:rgba(200,32,26,.1);color:var(--red)">PDF</span></td><td><button style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:500" onclick="exportDashboardPDF()">Baixar PDF</button></td></tr>
-              <tr><td>Mensal — Abril 2026</td><td style="color:var(--muted)">01/04 – 30/04</td><td>118</td><td style="color:var(--muted)">01/05/2026</td><td><span class="status-pill" style="background:rgba(200,32,26,.1);color:var(--red)">PDF</span></td><td><button style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:500" onclick="exportDashboardPDF()">Baixar PDF</button></td></tr>
-              <tr><td>Exportação — Grande Florianópolis</td><td style="color:var(--muted)">01/04 – 30/04</td><td>67</td><td style="color:var(--muted)">15/05/2026</td><td><span class="status-pill" style="background:rgba(46,125,50,.1);color:var(--success)">CSV</span></td><td><button style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:500" onclick="exportDashboardPDF()">Baixar PDF</button></td></tr>
-              <tr><td>Executivo — Q1 2026</td><td style="color:var(--muted)">01/01 – 31/03</td><td>412</td><td style="color:var(--muted)">02/04/2026</td><td><span class="status-pill" style="background:rgba(200,32,26,.1);color:var(--red)">PDF</span></td><td><button style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:500" onclick="exportDashboardPDF()">Baixar PDF</button></td></tr>
-            </tbody>
-          </table>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Tipo de equipamento</label>
+              <select id="cmp-tipo" class="cc-input" style="height:44px">
+                <option>Fixa externa</option><option>Dome</option>
+                <option>PTZ (móvel)</option><option>Campainha / interfone</option>
+                <option>LPR (leitura de placas)</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Para onde a câmera aponta</label>
+              <select id="cmp-dir" class="cc-input" style="height:44px">
+                <option>Via pública em frente</option><option>Esquina / cruzamento</option>
+                <option>Entrada de garagem</option><option>Calçada lateral</option>
+                <option>Estacionamento aberto</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom:16px">
+            <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Responsável pelo contato</label>
+            <input id="cmp-resp" class="cc-input" placeholder="Nome e telefone">
+          </div>
+
+          <label style="display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;cursor:pointer">
+            <input type="checkbox" id="cmp-lgpd" style="width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:#C8201A;cursor:pointer">
+            <span style="font-size:12px;color:#666;line-height:1.6">
+              Autorizo o cadastro da <strong>localização</strong> deste equipamento e entendo que
+              eventuais imagens serão solicitadas <strong>mediante contato e minha autorização</strong>, conforme a LGPD.
+            </span>
+          </label>
+
+          <button onclick="indicarCamera()" style="width:100%;padding:14px;background:#1A1814;border:none;border-radius:12px;color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s" onmouseover="this.style.background='#C8201A'" onmouseout="this.style.background='#1A1814'">
+            Enviar indicação
+          </button>
+          <p style="font-size:11.5px;color:#aaa;margin-top:12px;line-height:1.6;text-align:center">
+            A indicação é revisada pela equipe antes de entrar no mapa. O cadastro definitivo depende de aceite do proprietário.
+          </p>
+        </div>
+
+        <!-- Indicacoes desta sessao -->
+        <div id="cmp-lista-box" style="display:none;background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:24px;margin-top:16px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:16px">Indicações enviadas nesta sessão</div>
+          <div id="cmp-lista"></div>
+        </div>
+
+      </div>
+
+      <div id="view-relatorios" class="dash-view">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:4px">Gestão</div>
+            <h2 style="font-size:22px;font-weight:700;color:#1A1814;letter-spacing:-.02em;line-height:1;font-family:'DM Sans',sans-serif">Relatórios e Exportações</h2>
+            <p style="font-size:13px;color:#999;margin-top:4px">Gere relatórios a partir dos dados reais da sua organização</p>
+          </div>
+        </div>
+
+        <!-- Gerador -->
+        <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:18px">Gerar novo relatório</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Período</label>
+              <select id="rel-periodo" style="width:100%;height:42px;border:1.5px solid rgba(20,18,14,.12);border-radius:10px;padding:0 12px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:#1A1814;outline:none">
+                <option value="7">Últimos 7 dias</option>
+                <option value="30" selected>Últimos 30 dias</option>
+                <option value="90">Últimos 90 dias</option>
+                <option value="0">Todo o histórico</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Fonte</label>
+              <select id="rel-fonte" style="width:100%;height:42px;border:1.5px solid rgba(20,18,14,.12);border-radius:10px;padding:0 12px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:#1A1814;outline:none">
+                <option value="">Todas as fontes</option>
+                <option value="prf">PRF — acidentes</option>
+                <option value="inmet">INMET — meteorologia</option>
+                <option value="delegacia">Delegacias</option>
+                <option value="manual">Registros da equipe</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Formato</label>
+              <select id="rel-formato" style="width:100%;height:42px;border:1.5px solid rgba(20,18,14,.12);border-radius:10px;padding:0 12px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:#1A1814;outline:none">
+                <option value="csv">CSV — planilha</option>
+                <option value="pdf">PDF — impressão</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="rel-preview" style="background:#F7F6F4;border:1px solid rgba(20,18,14,.06);border-radius:12px;padding:16px 18px;margin-bottom:18px;display:flex;align-items:center;gap:18px">
+            <div>
+              <div style="font-size:11px;color:#999;margin-bottom:2px">Registros no filtro</div>
+              <div id="rel-count" style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;color:#1A1814">—</div>
+            </div>
+            <div style="width:1px;height:36px;background:rgba(20,18,14,.1)"></div>
+            <div id="rel-quebra" style="font-size:12px;color:#666;line-height:1.6">Selecione os filtros acima</div>
+          </div>
+
+          <button onclick="gerarRelatorio()" style="width:100%;padding:14px;background:#1A1814;border:none;border-radius:12px;color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .2s" onmouseover="this.style.background='#C8201A'" onmouseout="this.style.background='#1A1814'">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1v9M4 7l4 4 4-4M2 14h12"/></svg>
+            Gerar e baixar
+          </button>
+        </div>
+
+        <!-- Resumo real -->
+        <div style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:24px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:18px">Resumo da base</div>
+          <div id="rel-resumo" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+            <div style="text-align:center;padding:16px;background:#F7F6F4;border-radius:12px">
+              <div id="rel-tot" style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#1A1814;line-height:1">—</div>
+              <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-top:5px">Total</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:#F7F6F4;border-radius:12px">
+              <div id="rel-prf" style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#FF8F00;line-height:1">—</div>
+              <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-top:5px">PRF</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:#F7F6F4;border-radius:12px">
+              <div id="rel-inmet" style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#0288D1;line-height:1">—</div>
+              <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-top:5px">INMET</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:#F7F6F4;border-radius:12px">
+              <div id="rel-del" style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#7986CB;line-height:1">—</div>
+              <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-top:5px">Delegacias</div>
+            </div>
+          </div>
+          <p style="font-size:11.5px;color:#aaa;margin-top:16px;line-height:1.6">
+            Os relatórios são gerados no momento do clique, a partir dos alertas reais da sua organização. Não há arquivos pré-fabricados.
+          </p>
         </div>
       </div>
 
-      <!-- ── VIEW: WEBHOOKS ── -->
       <div id="view-webhooks" class="dash-view">
         <div style="background:var(--paper);border:1px solid var(--border);padding:18px 20px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between">
           <div>
@@ -6502,37 +6768,141 @@ details summary { transition: color .15s var(--ease); }
 
 
         <div id="fat-metodo" class="fat-panel" style="display:none">
-          <div id="fat-no-card" style="background:var(--paper);border:1px solid var(--border);padding:48px;text-align:center">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--muted)" stroke-width="1.5" style="margin:0 auto 16px;display:block"><rect x="4" y="12" width="40" height="28" rx="3"/><path d="M4 22h40"/><path d="M12 32h8M34 32h2"/></svg>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;color:var(--ink);margin-bottom:8px">NENHUM CARTÃO CADASTRADO</div>
-            <div style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6">Adicione uma forma de pagamento para continuar após o período de trial.<br/>Seus dados de cartão são processados pela <strong>Stripe</strong> — nunca armazenamos números de cartão.</div>
-            <button class="btn-primary" onclick="startStripeCheckout()" style="display:inline-flex;align-items:center;gap:8px">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="12" height="9" rx="1"/><path d="M1 7h12"/></svg>
-              Adicionar forma de pagamento via Stripe
-            </button>
-            <div style="margin-top:16px;font-size:11px;color:var(--muted)">🔒 Conexão segura via Stripe · PCI-DSS Level 1 · Dados nunca passam pelo nosso servidor</div>
+
+          <!-- Escolha do metodo -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px">
+            <div class="pay-opt active" data-pay="pix" onclick="selecionarPagamento(this)">
+              <div class="pay-ico" style="background:#E8F7F0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A868" stroke-width="2"><path d="M12 2l4 4-4 4-4-4 4-4zM2 12l4-4 4 4-4 4-4-4zM14 12l4-4 4 4-4 4-4-4zM12 14l4 4-4 4-4-4 4-4z"/></svg></div>
+              <div class="pay-nome">PIX</div>
+              <div class="pay-desc">Aprovação imediata</div>
+              <span class="pay-tag" style="background:#E8F7F0;color:#00A868">Sem taxa</span>
+            </div>
+            <div class="pay-opt" data-pay="cartao" onclick="selecionarPagamento(this)">
+              <div class="pay-ico" style="background:#EEF2FF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3949AB" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+              <div class="pay-nome">Cartão</div>
+              <div class="pay-desc">Renovação automática</div>
+              <span class="pay-tag" style="background:#EEF2FF;color:#3949AB">Recorrente</span>
+            </div>
+            <div class="pay-opt" data-pay="boleto" onclick="selecionarPagamento(this)">
+              <div class="pay-ico" style="background:#FFF6E8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E65100" stroke-width="2"><path d="M3 5v14M7 5v14M11 5v14M14 5v14M18 5v14M21 5v14"/></svg></div>
+              <div class="pay-nome">Boleto</div>
+              <div class="pay-desc">Compensa em 1–3 dias</div>
+              <span class="pay-tag" style="background:#FFF6E8;color:#E65100">Empenho</span>
+            </div>
           </div>
-          <div id="fat-has-card" style="display:none">
-            <div style="background:var(--paper);border:1px solid var(--border);margin-bottom:12px">
-              <div class="card-header" style="border-color:var(--border)">
-                <span class="card-title" style="color:var(--ink)">Cartão principal</span>
-                <button style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:500;font-family:'DM Sans',sans-serif" onclick="openStripePortal()">Gerenciar no Stripe →</button>
+
+          <!-- PIX -->
+          <div id="pay-pix" class="pay-painel" style="background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:28px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center">
+              <div style="text-align:center">
+                <div id="pix-qr" style="width:180px;height:180px;background:#fff;border:1px solid rgba(20,18,14,.1);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:10px"></div>
+                <div style="font-size:11px;color:#aaa;margin-top:10px">Aponte a câmera do seu banco</div>
               </div>
-              <div style="padding:20px;display:flex;align-items:center;gap:16px">
-                <div id="fat-card-brand-icon" style="width:48px;height:32px;background:var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.06em;color:#fff">VISA</div>
-                <div>
-                  <div style="font-size:14px;font-weight:500;color:var(--ink)" id="fat-card-last4">•••• •••• •••• ••••</div>
-                  <div style="font-size:11px;color:var(--muted)" id="fat-card-expiry">Expira em 12/2027</div>
+              <div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#00A868;margin-bottom:8px">Pagar com PIX</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;color:#1A1814;margin-bottom:4px">R$ 297,00</div>
+                <div style="font-size:12px;color:#999;margin-bottom:20px">Plano Profissional · 1 mês</div>
+
+                <div style="font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">PIX copia e cola</div>
+                <div style="display:flex;gap:8px;margin-bottom:16px">
+                  <input id="pix-codigo" readonly value="00020126580014BR.GOV.BCB.PIX0136comunidade-alerta-cobranca-exemplo5204000053039865802BR6009SAO PAULO62070503***6304"
+                    style="flex:1;height:42px;border:1.5px solid rgba(20,18,14,.12);border-radius:10px;padding:0 12px;font-size:11px;font-family:var(--mono);color:#666;background:#F7F6F4;outline:none;text-overflow:ellipsis">
+                  <button onclick="copiarPix()" style="padding:0 18px;background:#00A868;border:none;border-radius:10px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">Copiar</button>
                 </div>
-                <div style="margin-left:auto;display:flex;gap:8px">
-                  <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(67,160,71,.1);color:#2E7D32;padding:3px 8px;border-radius:2px;font-weight:600">Principal</span>
+
+                <div style="display:flex;align-items:center;gap:8px;padding:11px 14px;background:#E8F7F0;border-radius:10px">
+                  <span style="width:7px;height:7px;border-radius:50%;background:#00A868;display:inline-block;animation:blink 1.6s infinite"></span>
+                  <span style="font-size:12px;color:#00733F">Aguardando pagamento — a liberação é automática</span>
                 </div>
               </div>
             </div>
-            <button style="width:100%;padding:11px;background:transparent;border:1px solid var(--border-strong);border-radius:2px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s" onclick="openStripePortal()">+ Adicionar outro cartão no portal Stripe</button>
           </div>
-        </div>
 
+          <!-- CARTAO (com preenchimento animado) -->
+          <div id="pay-cartao" class="pay-painel" style="display:none;background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:28px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="display:grid;grid-template-columns:340px 1fr;gap:32px;align-items:start">
+
+              <div class="cc-cena">
+                <div class="cc" id="cc-flip">
+                  <div class="cc-face cc-frente">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                      <div class="cc-chip"></div>
+                      <div id="cc-bandeira" style="font-size:13px;font-weight:800;letter-spacing:.08em;opacity:.9"></div>
+                    </div>
+                    <div class="cc-num" id="cc-num">•••• •••• •••• ••••</div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+                      <div>
+                        <div class="cc-rot">Titular</div>
+                        <div class="cc-val" id="cc-nome">NOME NO CARTÃO</div>
+                      </div>
+                      <div>
+                        <div class="cc-rot">Validade</div>
+                        <div class="cc-val" id="cc-val">MM/AA</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cc-face cc-verso">
+                    <div class="cc-tarja"></div>
+                    <div style="padding:0 22px">
+                      <div class="cc-rot" style="text-align:right;margin-bottom:5px">CVV</div>
+                      <div class="cc-cvv" id="cc-cvv">•••</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:16px">Dados do cartão</div>
+                <div style="margin-bottom:14px">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Número</label>
+                  <input id="in-cc-num" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" oninput="ccDigitou()" class="cc-input">
+                </div>
+                <div style="margin-bottom:14px">
+                  <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Nome do titular</label>
+                  <input id="in-cc-nome" placeholder="Como está impresso" oninput="ccDigitou()" class="cc-input">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+                  <div>
+                    <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Validade</label>
+                    <input id="in-cc-val" inputmode="numeric" maxlength="5" placeholder="MM/AA" oninput="ccDigitou()" class="cc-input">
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">CVV</label>
+                    <input id="in-cc-cvv" inputmode="numeric" maxlength="4" placeholder="000" oninput="ccDigitou()" onfocus="ccVirar(true)" onblur="ccVirar(false)" class="cc-input">
+                  </div>
+                </div>
+                <button onclick="startStripeCheckout()" style="width:100%;padding:14px;background:#1A1814;border:none;border-radius:12px;color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s" onmouseover="this.style.background='#C8201A'" onmouseout="this.style.background='#1A1814'">
+                  Continuar no ambiente seguro
+                </button>
+                <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;font-size:11px;color:#aaa">
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#bbb" stroke-width="2"><rect x="3" y="7" width="10" height="7" rx="1"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/></svg>
+                  A cobrança é processada pela Stripe — não armazenamos o número do cartão
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOLETO -->
+          <div id="pay-boleto" class="pay-painel" style="display:none;background:#fff;border:1px solid rgba(20,18,14,.07);border-radius:16px;padding:28px;box-shadow:0 1px 4px rgba(20,18,14,.04)">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E65100;margin-bottom:8px">Boleto bancário</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;color:#1A1814;margin-bottom:4px">R$ 297,00</div>
+            <div style="font-size:12px;color:#999;margin-bottom:22px">Vencimento em 3 dias úteis · compensação em até 3 dias</div>
+
+            <div style="background:#FFF8EE;border:1px solid rgba(230,81,0,.15);border-radius:12px;padding:16px 18px;margin-bottom:20px">
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#E65100" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5M8 11h.01"/></svg>
+                <div style="font-size:12.5px;color:#8a4a00;line-height:1.6">
+                  Ideal para <strong>órgãos públicos</strong> que pagam por empenho. Emitimos nota fiscal e o boleto sai em nome da sua organização, com CNPJ.
+                </div>
+              </div>
+            </div>
+
+            <button onclick="showToast('Boleto será enviado para o e-mail da organização')" style="width:100%;padding:14px;background:#E65100;border:none;border-radius:12px;color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
+              Emitir boleto
+            </button>
+          </div>
+
+        </div>
 
         <div id="fat-faturas" class="fat-panel" style="display:none">
           <div style="background:var(--paper);border:1px solid var(--border)">
@@ -6918,7 +7288,7 @@ details summary { transition: color .15s var(--ease); }
       <button class="close-btn" onclick="closeBillingModal(null,true)" style="color:rgba(255,255,255,.4)">×</button>
     </div>
     <div class="billing-modal-body">
-      <p style="font-size:13px;color:var(--muted);line-height:1.6">Todos os planos cobrem os <strong style="color:var(--ink)">22 municípios</strong> da Grande Florianópolis. A diferença está nos recursos. Mudanças entram em vigor no próximo ciclo de faturamento.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6">O mapa público cobre os <strong style="color:var(--ink)">22 municípios</strong> e é gratuito. Os planos pagos liberam a gestão de ocorrências da sua organização. Mudanças entram em vigor no próximo ciclo de faturamento.</p>
 
       <div class="bp-card" data-plan="free" onclick="selectBillingPlan(this,'free')">
         <div class="bp-card-head">
@@ -6929,9 +7299,9 @@ details summary { transition: color .15s var(--ease); }
           <div class="bp-price"><span class="bp-price-val">R$0</span><span class="bp-price-per">/mês</span></div>
         </div>
         <div class="bp-features">
-          <span class="bp-feat ok">Alertas ilimitados</span>
-          <span class="bp-feat ok">22 municípios</span>
-          <span class="bp-feat ok">Mapa ao vivo</span>
+          <span class="bp-feat ok">Mapa público — 22 municípios</span>
+          <span class="bp-feat ok">Até 50 alertas por mês</span>
+          <span class="bp-feat ok">Push notifications</span>
           <span class="bp-feat no">Relatórios PDF/CSV</span>
           <span class="bp-feat no">Webhooks &amp; API</span>
           <span class="bp-feat">1 usuário · histórico 7 dias</span>
@@ -7086,28 +7456,6 @@ details summary { transition: color .15s var(--ease); }
 </div>
 
 <!-- ═══ MODO TV / APRESENTAÇÃO ═══ -->
-<div id="tv-mode">
-  <div class="tv-header">
-    <div class="tv-logo"><span class="tv-logo-dot"></span>COMUNIDADE ALERTA · GRANDE FLORIANÓPOLIS</div>
-    <div style="display:flex;align-items:center;gap:20px">
-      <div class="tv-clock" id="tv-clock">--:--</div>
-      <button class="tv-exit" onclick="exitTVMode()">✕ Sair (Esc)</button>
-    </div>
-  </div>
-  <div class="tv-grid">
-    <div class="tv-kpi"><div class="tv-kpi-num" id="tv-hoje" style="color:#fff">0</div><div class="tv-kpi-label">Incidentes hoje</div><div class="tv-kpi-accent" style="background:#C8201A"></div></div>
-    <div class="tv-kpi"><div class="tv-kpi-num" id="tv-abertos" style="color:#F57C00">0</div><div class="tv-kpi-label">Aguardando resolução</div><div class="tv-kpi-accent" style="background:#F57C00"></div></div>
-    <div class="tv-kpi"><div class="tv-kpi-num" id="tv-resolvidos" style="color:#2E7D32">0</div><div class="tv-kpi-label">Resolvidos hoje</div><div class="tv-kpi-accent" style="background:#2E7D32"></div></div>
-    <div class="tv-kpi"><div class="tv-kpi-num" style="color:#7FA0DC">22</div><div class="tv-kpi-label">Municípios ativos</div><div class="tv-kpi-accent" style="background:#1B2D52"></div></div>
-  </div>
-  <div class="tv-map-row">
-    <div class="tv-map-box"><div id="tv-map" style="position:absolute;inset:0"></div><div class="map-approx-notice"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5M8 11h.01"/></svg>Marcadores aproximados — não exibem a localização exata.</div></div>
-    <div class="tv-feed-box">
-      <div class="tv-feed-title"><span class="tv-logo-dot" style="width:8px;height:8px"></span>OCORRÊNCIAS AO VIVO</div>
-      <div id="tv-feed"></div>
-    </div>
-  </div>
-</div>
 
 <div class="toast" id="toast">✓ Alerta atualizado com sucesso</div>
 
@@ -7251,7 +7599,7 @@ function updatePlanBadge(plan) {
   const badgeEl = document.getElementById('plan-coverage-badge');
   if (!badgeEl) return;
   const labels = {
-    free:       '3 municípios · 50 alertas/mês',
+    free:       '22 municípios · mapa público (visualização)',
     pro:        '22 municípios · Alertas ilimitados',
     enterprise: 'SC inteiro · Ilimitado',
   };
@@ -7259,11 +7607,24 @@ function updatePlanBadge(plan) {
 }
 
 async function initDashboard() {
+  // GUARDA: sem token nao ha como chamar a API. Mostrar o painel zerado engana
+  // o usuario (parece "sem dados" quando na verdade e "sem sessao").
+  const _s = loadSession();
+  if (!_s || !_s.token) {
+    try { showToast('Faça login para acessar o painel.'); } catch(_) {}
+    showPage('login');
+    return;
+  }
   syncUserToDash();
   // Carrega os alertas reais do tenant ANTES de renderizar (degrada para demo se a API falhar)
   await refreshLiveData();
   // Liga o tempo real (Socket.io) — atualiza mapa/feed/tabela sem reload
   initRealtime();
+  // Atualiza stats com dados reais agora que dashAlerts está populado
+  try { animateDashStats(); } catch(_) {}
+  try { renderInsights(); } catch(_) {}
+  try { renderDashFeed(); } catch(_) {}
+  try { updateSidebarBadge(); } catch(_) {}
   const plan = selectedBillingPlan || 'pro';
 
   // ── Atualiza badge de cobertura ──────────────
@@ -7271,8 +7632,12 @@ async function initDashboard() {
   checkApiStatus();
   setInterval(checkApiStatus, 30000);
   startPollingIndicator();
+  aplicarPeriodo();
   renderSparklines();
   updateMapCounters();
+  updateSidebarBadge();
+  renderInsights();
+  renderDashFeed();
   setTimeout(startOnboarding, 1200); // verifica a cada 30s
 
   // ── Aviso de plano básico ──────────────────
@@ -7431,8 +7796,11 @@ function syncUserToDash() {
                 || 'Usuário';
   const initials = (full.split(/\s+/).map(w => w[0]).filter(Boolean).slice(0,2).join('') || 'CA').toUpperCase();
 
-  // Salva sessão persistente (preserva o nome do login)
+  // Salva sessao preservando o que ja existia.
+  // ATENCAO: saveSession SUBSTITUI o objeto inteiro. Sem o "...sess" abaixo,
+  // o token do login era apagado aqui — e toda chamada autenticada virava 401.
   saveSession({
+    ...sess,
     authenticated: true,
     name: full,
     email, org: org || 'Minha Organização',
@@ -7460,20 +7828,53 @@ function syncUserToDash() {
   }
 }
 
+function calcPeriodStats(days) {
+  const alerts = typeof dashAlerts !== 'undefined' ? dashAlerts : [];
+  // days === null/0  -> sem recorte (todo o historico)
+  const cutoff = days ? Date.now() - days * 24 * 60 * 60 * 1000 : null;
+  let filtered = cutoff ? alerts.filter(a => {
+    const d = new Date(a._created || a.created_at);
+    return !isNaN(d) && d.getTime() >= cutoff;
+  }) : alerts;
+  // NAO usar fallback aqui: exibir a base inteira sob o rotulo "hoje" seria
+  // apresentar dado historico como se fosse do dia. Se o periodo nao tem
+  // registros, o numero correto e zero — a interface explica o motivo.
+  return {
+    hoje: filtered.length,
+    abertos: filtered.filter(a => a.status !== 'resolved' && a.status !== 'closed').length,
+    resolvidos: filtered.filter(a => a.status === 'resolved' || a.status === 'closed').length,
+  };
+}
+
 function animateDashStats() {
-  const targets = { 'ds-hoje': 143, 'ds-abertos': 27, 'ds-resolvidos': 116 };
+  const _dias = (typeof PERIODO_DIAS !== 'undefined' && typeof periodoAtual !== 'undefined')
+    ? PERIODO_DIAS[periodoAtual] : null;
+  const s = typeof calcPeriodStats === 'function' ? calcPeriodStats(_dias) : { hoje: 0, abertos: 0, resolvidos: 0 };
+  const targets = { 'ds-hoje': s.hoje, 'ds-abertos': s.abertos, 'ds-resolvidos': s.resolvidos };
   Object.entries(targets).forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (!el) return;
     let n = 0;
-    const step = Math.ceil(val / 40);
+    const step = Math.max(1, Math.ceil(val / 40));
     const t = setInterval(() => {
       n = Math.min(n + step, val);
       el.textContent = n;
       if (n >= val) clearInterval(t);
     }, 28);
   });
+  // Update resolve rate
+  const rate = s.hoje > 0 ? Math.round(s.resolvidos / s.hoje * 100) : 0;
+  const rateEl = document.getElementById('ds-resolvidos-delta');
+  if (rateEl) rateEl.textContent = 'Taxa de resolução: ' + rate + '%';
+  // Update sources label
+  const alerts = typeof dashAlerts !== 'undefined' ? dashAlerts : [];
+  const prf = alerts.filter(a => a.source === 'prf').length;
+  const inmet = alerts.filter(a => a.source === 'inmet').length;
+  const del = alerts.filter(a => a.source === 'delegacia').length;
+  const srcEl = document.getElementById('ds-sources-label');
+  if (srcEl) srcEl.textContent = 'PRF ' + prf + ' · INMET ' + inmet + ' · Del. ' + del;
 }
+
 
 function calcTrialDays() {
   const el = document.getElementById('trial-days');
@@ -7540,23 +7941,462 @@ function setNav(el) {
   if (view === 'config')      syncCfgFields();
   if (view === 'faturamento') syncFaturamento();
   if (view === 'dashboard')   { if (mapDash) setTimeout(() => mapDash.invalidateSize(), 100); }
-  if (view === 'mapa') {
-    // Update map panel
-    setTimeout(() => renderMapPanel(), 200);
-    // Update last update text
-    const mu = document.getElementById('map-full-update');
-    if (mu) {
-      const d = new Date();
-      mu.textContent = `Atualizado às ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-    }
-  }
+  if (view === 'relatorios') { try { renderRelatorios(); } catch(_) {} }
   if (view === 'mapa') {
     setTimeout(() => {
       if (!mapFull) initLeafletMap('map-full', 11.5);
       else mapFull.invalidateSize();
+      initMapView();
     }, 150);
   }
 }
+
+// ── MAPA AO VIVO — KPIs e feed ────────────────────────────
+function initMapView() {
+  // Popula KPIs com dados reais de dashAlerts
+  const alerts = typeof dashAlerts !== 'undefined' ? dashAlerts : [];
+  const s = typeof calcPeriodStats === 'function' ? calcPeriodStats(1) : { hoje: alerts.length, abertos: 0, resolvidos: 0 };
+
+  const hoje     = document.getElementById('mv-hoje');
+  const abertos  = document.getElementById('mv-abertos');
+  const resolv   = document.getElementById('mv-resolvidos');
+  if (hoje)    animateCount('mv-hoje',     s.hoje);
+  if (abertos) animateCount('mv-abertos',  s.abertos);
+  if (resolv)  animateCount('mv-resolvidos', s.resolvidos);
+
+  // Mini stats por tipo
+  const crime   = alerts.filter(a => a.type === 'crime' || a.type === 'furto').length;
+  const transit = alerts.filter(a => a.type === 'transito' || a.source === 'prf').length;
+  const infra   = alerts.filter(a => a.source === 'inmet' || a.type === 'infra').length;
+  const mpCrime   = document.getElementById('mv-mp-crime');
+  const mpTransit = document.getElementById('mv-mp-transito');
+  const mpInfra   = document.getElementById('mv-mp-infra');
+  if (mpCrime)   mpCrime.textContent   = crime;
+  if (mpTransit) mpTransit.textContent = transit;
+  if (mpInfra)   mpInfra.textContent   = infra;
+
+  // Feed lateral — mostra os 20 mais recentes
+  const feedEl = document.getElementById('mv-feed-list');
+  if (!feedEl) return;
+  const recent = [...alerts].sort((a, b) => new Date(b._created||b.created_at) - new Date(a._created||a.created_at)).slice(0, 20);
+  if (!recent.length) return;
+
+  const typeColors = { crime:'#E53935', transito:'#F57C00', furto:'#EF5350', infra:'#43A047', prf:'#FF8F00', inmet:'#0288D1', delegacia:'#7986CB' };
+  const typeLabels = { crime:'Crime', transito:'Trânsito', furto:'Furto', infra:'Infra', prf:'PRF', inmet:'INMET', delegacia:'Delegacia' };
+
+  feedEl.innerHTML = recent.map(a => {
+    const type  = a.source === 'prf' ? 'prf' : (a.source === 'inmet' ? 'inmet' : (a.type || 'outro'));
+    const color = typeColors[type] || '#888';
+    const label = typeLabels[type] || type;
+    const desc  = (a.description || '').split(' — ').pop().split(' · ')[0].substring(0, 60);
+    const loc   = a.location || '';
+    const time  = typeof fmtRelative === 'function' ? fmtRelative(a._created || a.created_at) : '';
+    return `<div style="padding:12px 16px;border-bottom:1px solid rgba(20,18,14,.05);transition:background .15s;cursor:default" onmouseover="this.style.background='#F9F8F6'" onmouseout="this.style.background='none'">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:6px;background:${color}18;color:${color}">${escapeHtml(label)}</span>
+        <span style="margin-left:auto;font-size:10.5px;color:#bbb">${escapeHtml(time)}</span>
+      </div>
+      <div style="font-size:12.5px;color:#333;line-height:1.4;margin-bottom:3px">${escapeHtml(desc)}</div>
+      ${loc ? `<div style="font-size:11px;color:#aaa;display:flex;align-items:center;gap:4px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>${escapeHtml(loc)}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  // Invalidate map after render
+  setTimeout(() => { if (typeof mapFull !== 'undefined' && mapFull) mapFull.invalidateSize(); }, 200);
+}
+
+
+// ── RELATORIOS: numeros e historico a partir dos dados reais ──
+function renderRelatorios() {
+  const alerts = (typeof dashAlerts !== 'undefined' ? dashAlerts : []);
+
+  // Cards
+  const agora = new Date();
+  const mesNome = agora.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+  const doMes = alerts.filter(a => {
+    const d = new Date(a._created || a.created_at);
+    return !isNaN(d) && d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
+  });
+  const elMes  = document.getElementById('rel-mes');
+  const elQtd  = document.getElementById('rel-mes-qtd');
+  const elCsv  = document.getElementById('rel-csv-qtd');
+  if (elMes) elMes.textContent = mesNome.charAt(0).toUpperCase() + mesNome.slice(1);
+  if (elQtd) elQtd.textContent = doMes.length;
+  if (elCsv) elCsv.textContent = alerts.length;
+
+  // Historico agrupado por mes (dados reais)
+  const tb = document.getElementById('rel-historico');
+  if (!tb) return;
+
+  const porMes = {};
+  alerts.forEach(a => {
+    const d = new Date(a._created || a.created_at);
+    if (isNaN(d)) return;
+    const chave = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    if (!porMes[chave]) porMes[chave] = { data: d, total: 0 };
+    porMes[chave].total++;
+  });
+
+  const meses = Object.entries(porMes).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 12);
+
+  if (!meses.length) {
+    tb.innerHTML = '<tr><td colspan="6" style="padding:32px;text-align:center;color:var(--muted);font-size:12px">' +
+      'Nenhum alerta registrado ainda — os relatórios aparecem aqui conforme os dados chegam.</td></tr>';
+    return;
+  }
+
+  tb.innerHTML = meses.map(function (par) {
+    const chave = par[0], info = par[1];
+    const nome = info.data.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+    const ini = new Date(info.data.getFullYear(), info.data.getMonth(), 1);
+    const fim = new Date(info.data.getFullYear(), info.data.getMonth() + 1, 0);
+    const fmt = function (x) { return String(x.getDate()).padStart(2, '0') + '/' + String(x.getMonth() + 1).padStart(2, '0'); };
+    return '<tr>' +
+      '<td>Mensal — ' + nome.charAt(0).toUpperCase() + nome.slice(1) + '</td>' +
+      '<td style="color:var(--muted)">' + fmt(ini) + ' – ' + fmt(fim) + '</td>' +
+      '<td>' + info.total + '</td>' +
+      '<td style="color:var(--muted)">sob demanda</td>' +
+      '<td><span class="status-pill" style="background:rgba(200,32,26,.1);color:var(--red)">PDF</span></td>' +
+      '<td><button style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:500" onclick="exportDashboardPDF()">Baixar PDF</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+
+// ── RELATORIOS — geracao real a partir de dashAlerts ──────────
+function relFiltrar() {
+  const dias  = parseInt(document.getElementById('rel-periodo')?.value || '30', 10);
+  const fonte = document.getElementById('rel-fonte')?.value || '';
+  const base  = (typeof dashAlerts !== 'undefined' ? dashAlerts : []);
+  const corte = dias > 0 ? Date.now() - dias * 864e5 : null;
+  return base.filter(a => {
+    if (fonte && a.source !== fonte) return false;
+    if (!corte) return true;
+    const d = new Date(a._created || a.created_at);
+    return !isNaN(d) && d.getTime() >= corte;
+  });
+}
+
+function relAtualizarPreview() {
+  const linhas = relFiltrar();
+  const elC = document.getElementById('rel-count');
+  if (elC) elC.textContent = linhas.length;
+  const cont = {};
+  linhas.forEach(a => { const s = a.source || 'outro'; cont[s] = (cont[s] || 0) + 1; });
+  const rotulo = { prf:'PRF', inmet:'INMET', delegacia:'Delegacias', manual:'Equipe' };
+  const elQ = document.getElementById('rel-quebra');
+  if (elQ) {
+    const partes = Object.entries(cont).map(([k, v]) => (rotulo[k] || k) + ': ' + v);
+    elQ.textContent = partes.length ? partes.join('  ·  ') : 'Nenhum registro neste filtro';
+  }
+}
+
+function relAtualizarResumo() {
+  const base = (typeof dashAlerts !== 'undefined' ? dashAlerts : []);
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  set('rel-tot',   base.length);
+  set('rel-prf',   base.filter(a => a.source === 'prf').length);
+  set('rel-inmet', base.filter(a => a.source === 'inmet').length);
+  set('rel-del',   base.filter(a => a.source === 'delegacia').length);
+}
+
+function gerarRelatorio() {
+  const linhas = relFiltrar();
+  if (!linhas.length) { showToast('Nenhum registro no filtro selecionado'); return; }
+  const formato = document.getElementById('rel-formato')?.value || 'csv';
+
+  if (formato === 'pdf') {
+    if (typeof exportDashboardPDF === 'function') exportDashboardPDF();
+    else window.print();
+    return;
+  }
+
+  const cab = ['id','fonte','tipo','descricao','local','severidade','status','data'];
+  const esc = v => {
+    let s = (v == null ? '' : String(v));
+    // Protecao contra CSV injection: campo comecando com = + - @ e interpretado
+    // como FORMULA pelo Excel/LibreOffice. Um alerta com =HYPERLINK(...) ou
+    // =cmd|... executaria na maquina de quem abrisse a planilha.
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+    s = s.replace(/"/g, '""');
+    return '"' + s + '"';
+  };
+  const corpo = linhas.map(a => [
+    a.external_id || a.id || '',
+    a.source || '',
+    a.type || '',
+    a.description || '',
+    a.location || a.loc || '',
+    a.severity || '',
+    a.status || '',
+    a._created || a.created_at || ''
+  ].map(esc).join(','));
+
+  // BOM para o Excel abrir acentos corretamente
+  const csv  = '\ufeff' + cab.join(',') + '\n' + corpo.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const hoje = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = 'comunidade-alerta-' + hoje + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast(linhas.length + ' registros exportados');
+}
+
+function renderRelatoriosView() {
+  relAtualizarResumo();
+  relAtualizarPreview();
+  ['rel-periodo','rel-fonte'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.dataset.wired) {
+      el.dataset.wired = '1';
+      el.addEventListener('change', relAtualizarPreview);
+    }
+  });
+}
+
+
+function renderFaturamentoView() { try { desenharQRPix(); } catch(_) {} }
+
+// ── PAGAMENTO — troca de metodo ───────────────────────────
+function selecionarPagamento(el) {
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  const alvo = el.dataset.pay;
+  document.querySelectorAll('.pay-painel').forEach(pnl => pnl.style.display = 'none');
+  const pnl = document.getElementById('pay-' + alvo);
+  if (pnl) pnl.style.display = 'block';
+  if (alvo === 'pix') desenharQRPix();
+}
+
+function copiarPix() {
+  const el = document.getElementById('pix-codigo');
+  if (!el) return;
+  el.select();
+  navigator.clipboard.writeText(el.value)
+    .then(() => showToast('Código PIX copiado'))
+    .catch(() => { try { document.execCommand('copy'); showToast('Código PIX copiado'); } catch(_) {} });
+}
+
+// QR meramente ilustrativo: em producao o payload vem do backend (Stripe/PSP).
+function desenharQRPix() {
+  const box = document.getElementById('pix-qr');
+  if (!box || box.dataset.pronto) return;
+  const N = 25, cel = 6.4;
+  let r = 7;
+  const rnd = () => { r = (r * 1103515245 + 12345) % 2147483648; return r / 2147483648; };
+  let svg = '<svg viewBox="0 0 160 160" width="100%" height="100%">';
+  svg += '<rect width="160" height="160" fill="#fff"/>';
+  for (let y = 0; y < N; y++) {
+    for (let x = 0; x < N; x++) {
+      const cantoFixo = (x < 7 && y < 7) || (x > N - 8 && y < 7) || (x < 7 && y > N - 8);
+      if (cantoFixo) continue;
+      if (rnd() > 0.52) svg += '<rect x="' + (x * cel) + '" y="' + (y * cel) + '" width="' + cel + '" height="' + cel + '" fill="#0C1F3E"/>';
+    }
+  }
+  // marcadores de posicao
+  [[0,0],[N-7,0],[0,N-7]].forEach(([mx,my]) => {
+    const px = mx * cel, py = my * cel, t = 7 * cel;
+    svg += '<rect x="' + px + '" y="' + py + '" width="' + t + '" height="' + t + '" fill="#0C1F3E"/>';
+    svg += '<rect x="' + (px+cel) + '" y="' + (py+cel) + '" width="' + (t-2*cel) + '" height="' + (t-2*cel) + '" fill="#fff"/>';
+    svg += '<rect x="' + (px+2*cel) + '" y="' + (py+2*cel) + '" width="' + (t-4*cel) + '" height="' + (t-4*cel) + '" fill="#0C1F3E"/>';
+  });
+  svg += '</svg>';
+  box.innerHTML = svg;
+  box.dataset.pronto = '1';
+}
+
+// ── CARTAO — preenchimento em tempo real ──────────────────
+function ccVirar(v) {
+  const cc = document.getElementById('cc-flip');
+  if (cc) cc.classList.toggle('virado', !!v);
+}
+
+function ccDigitou() {
+  const num = document.getElementById('in-cc-num');
+  if (num) {
+    let d = num.value.replace(/\D/g, '').slice(0, 16);
+    num.value = (d.match(/.{1,4}/g) || []).join(' ');
+    const alvo = document.getElementById('cc-num');
+    if (alvo) {
+      const mostra = (d + '••••••••••••••••'.slice(d.length)).slice(0, 16);
+      alvo.textContent = (mostra.match(/.{1,4}/g) || []).join(' ');
+    }
+    const b = document.getElementById('cc-bandeira');
+    if (b) {
+      b.textContent = d.startsWith('4') ? 'VISA'
+        : /^5[1-5]/.test(d) ? 'MASTERCARD'
+        : /^3[47]/.test(d) ? 'AMEX'
+        : /^(36|38|30)/.test(d) ? 'DINERS'
+        : d.length >= 2 ? 'CARTÃO' : '';
+    }
+  }
+
+  const nome = document.getElementById('in-cc-nome');
+  const cn = document.getElementById('cc-nome');
+  if (nome && cn) cn.textContent = nome.value.trim() ? nome.value.toUpperCase() : 'NOME NO CARTÃO';
+
+  const val = document.getElementById('in-cc-val');
+  if (val) {
+    let d = val.value.replace(/\D/g, '').slice(0, 4);
+    if (d.length >= 3) d = d.slice(0, 2) + '/' + d.slice(2);
+    val.value = d;
+    const cv = document.getElementById('cc-val');
+    if (cv) cv.textContent = d || 'MM/AA';
+  }
+
+  const cvv = document.getElementById('in-cc-cvv');
+  if (cvv) {
+    cvv.value = cvv.value.replace(/\D/g, '').slice(0, 4);
+    const cc = document.getElementById('cc-cvv');
+    if (cc) cc.textContent = cvv.value ? '•'.repeat(cvv.value.length) : '•••';
+  }
+}
+
+
+// ── Indicador de tempo real: so diz "LIVE" se o socket estiver mesmo conectado.
+// Antes o rotulo era fixo e prometia atualizacao automatica que nao acontecia.
+function marcarTempoReal(conectado) {
+  document.querySelectorAll('.live-dot, [data-live-label]').forEach(el => {
+    el.style.opacity = conectado ? '1' : '.45';
+  });
+  document.querySelectorAll('[data-live-label]').forEach(el => {
+    el.textContent = conectado ? 'AO VIVO' : 'ATUALIZA AO RECARREGAR';
+    el.title = conectado
+      ? 'Conectado — novos alertas chegam sozinhos'
+      : 'Tempo real indisponível no momento; os dados vêm do último carregamento';
+  });
+}
+
+window.addEventListener('load', () => {
+  if (window.__socketIndisponivel || typeof io === 'undefined') {
+    marcarTempoReal(false);
+  }
+});
+
+
+// ── CAMERAS PARCEIRAS ─────────────────────────────────────
+// Indicacoes ficam na sessao atual. A persistencia definitiva depende de um
+// endpoint no backend (POST /api/cameras) — por isso a pagina avisa que a
+// indicacao passa por revisao, em vez de fingir que ja esta cadastrada.
+let _camerasIndicadas = [];
+
+function indicarCamera() {
+  const end  = (document.getElementById('cmp-end')?.value  || '').trim();
+  const muni = document.getElementById('cmp-muni')?.value  || '';
+  const dir  = document.getElementById('cmp-dir')?.value   || '';
+  const resp = (document.getElementById('cmp-resp')?.value || '').trim();
+
+  const tipo = document.getElementById('cmp-tipo')?.value || '';
+  const lgpd = document.getElementById('cmp-lgpd')?.checked;
+
+  if (!end)  { showToast('Informe o endereço do ponto'); document.getElementById('cmp-end')?.focus();  return; }
+  if (!resp) { showToast('Informe um responsável para contato'); document.getElementById('cmp-resp')?.focus(); return; }
+  if (!lgpd) { showToast('É necessário autorizar o cadastro (LGPD)'); document.getElementById('cmp-lgpd')?.focus(); return; }
+
+  _camerasIndicadas.unshift({
+    end, muni, dir, resp, tipo,
+    quando: new Date().toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })
+  });
+
+  document.getElementById('cmp-end').value  = '';
+  document.getElementById('cmp-resp').value = '';
+  const _chk = document.getElementById('cmp-lgpd'); if (_chk) _chk.checked = false;
+  renderCamerasIndicadas();
+  showToast('Indicação registrada — nossa equipe entrará em contato');
+}
+
+function renderCamerasIndicadas() {
+  const box   = document.getElementById('cmp-lista-box');
+  const lista = document.getElementById('cmp-lista');
+  if (!box || !lista) return;
+  if (!_camerasIndicadas.length) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+
+  lista.innerHTML = _camerasIndicadas.map(cam => `
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid rgba(20,18,14,.06)">
+      <div style="width:32px;height:32px;border-radius:9px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3949AB" stroke-width="2"><path d="M2 6h3l1.5-2h5L13 6h9v12H2z"/><circle cx="12" cy="12" r="3.2"/></svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:#1A1814;margin-bottom:2px">${escapeHtml(cam.end)}</div>
+        <div style="font-size:11.5px;color:#999">${escapeHtml(cam.muni)} · ${escapeHtml(cam.tipo || '')} · ${escapeHtml(cam.dir)}</div>
+        <div style="font-size:11.5px;color:#bbb;margin-top:2px">Contato: ${escapeHtml(cam.resp)}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <span style="font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(230,81,0,.08);color:#E65100;padding:3px 9px;border-radius:20px">Em revisão</span>
+        <div style="font-size:10.5px;color:#bbb;margin-top:5px">${cam.quando}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderCamerasView() { renderCamerasIndicadas(); }
+
+
+// ── FILTRO DE PERIODO — fonte unica da verdade ────────────
+// Antes, so os cards do topo respeitavam o periodo escolhido; mapa, feed,
+// grafico e tabela continuavam mostrando a base inteira. Resultado: escolher
+// "Hoje" e ver 3 nos cards e 116 no feed, o que confunde.
+// Agora todo componente le daqui.
+function dentroDoPeriodo(a) {
+  const dias = (typeof PERIODO_DIAS !== 'undefined' && typeof periodoAtual !== 'undefined')
+    ? PERIODO_DIAS[periodoAtual] : null;
+  if (!dias) return true;                       // "Tudo"
+  const d = new Date(a._created || a.created_at || a.properties?.created);
+  // Sem data valida: fica de fora quando ha recorte de tempo — mesmo criterio
+  // usado em calcPeriodStats. Antes um incluia e o outro excluia, e os cards
+  // discordavam do feed na mesma tela.
+  if (isNaN(d)) return false;
+  return d.getTime() >= Date.now() - dias * 864e5;
+}
+
+// Alertas ja filtrados pelo periodo ativo
+function alertasDoPeriodo() {
+  const base = (typeof dashAlerts !== 'undefined' ? dashAlerts : []);
+  return base.filter(dentroDoPeriodo);
+}
+
+// Features do mapa filtradas pelo periodo ativo (delegacias sempre visiveis:
+// sao pontos de referencia fixos, nao ocorrencias datadas)
+function featuresDoPeriodo(feats) {
+  return (feats || []).filter(f => {
+    const p = f.properties || {};
+    if (p.type === 'delegacia' || p.source === 'delegacia') return true;
+    const d = new Date(p.created || p.created_at);
+    const dias = (typeof PERIODO_DIAS !== 'undefined' && typeof periodoAtual !== 'undefined')
+      ? PERIODO_DIAS[periodoAtual] : null;
+    if (!dias) return true;
+    if (isNaN(d)) return false;   // mesmo criterio dos cards
+    return d.getTime() >= Date.now() - dias * 864e5;
+  });
+}
+
+
+// ── MENU LATERAL — controlado por clique, nao por hover ───
+// O hover fazia o menu abrir/fechar sozinho ao passar o mouse. Agora o
+// usuario decide, e a preferencia vale para a sessao inteira.
+function alternarMenu() {
+  const sb = document.querySelector('.sidebar');
+  if (!sb) return;
+  const aberto = sb.classList.toggle('expandida');
+  try { sessionStorage.setItem('ca_menu', aberto ? '1' : '0'); } catch(_) {}
+  // O mapa precisa recalcular o tamanho quando a largura muda
+  setTimeout(() => {
+    try { if (typeof mapDash !== 'undefined' && mapDash) mapDash.invalidateSize(); } catch(_) {}
+    try { if (typeof mapFull !== 'undefined' && mapFull) mapFull.invalidateSize(); } catch(_) {}
+  }, 280);
+}
+
+function restaurarMenu() {
+  const sb = document.querySelector('.sidebar');
+  if (!sb) return;
+  let pref = '1';                                  // padrao: aberto
+  try { pref = sessionStorage.getItem('ca_menu') ?? '1'; } catch(_) {}
+  sb.classList.toggle('expandida', pref === '1');
+}
+window.addEventListener('load', restaurarMenu);
 
 // ── ALERTAS VIEW ──
 
@@ -8115,7 +8955,6 @@ const ONBOARD_STEPS = [
   { sel: '.nav-item[data-view="mapa"]', title: 'Mapa ao vivo', text: 'Todos os incidentes da Grande Florianópolis em tempo real, com lista sincronizada, filtros por tipo, fonte e período.' },
   { sel: '.nav-item[data-view="alertas"]', title: 'Alertas e ocorrências', text: 'Gerencie ocorrências, filtre por status e resolva diretamente da lista, com trilha de auditoria.' },
   { sel: '.nav-item[data-view="cameras"]', title: 'Rede de câmeras', text: 'Condomínios e empresas registram suas câmeras. Em uma ocorrência, a equipe sabe quais câmeras podem ter imagens.' },
-  { sel: '#tv-mode-btn', title: 'Modo apresentação', text: 'Exiba o painel num telão da central de monitoramento 24h. Ideal para salas de operação.' },
 ];
 let onboardIdx = 0;
 function startOnboarding() {
@@ -8165,60 +9004,54 @@ function skipOnboarding() {
 
 // ── FEATURE 3: Modo TV / Apresentação ───────────────────────
 let tvClockInterval = null, tvMapInstance = null;
-function enterTVMode() {
-  const tv = document.getElementById('tv-mode');
-  if (!tv) return;
-  tv.classList.add('active');
-  // KPIs
-  const copy = (from,to) => { const f=document.getElementById(from),t=document.getElementById(to); if(f&&t) t.textContent=f.textContent; };
-  copy('ds-hoje','tv-hoje'); copy('ds-abertos','tv-abertos'); copy('ds-resolvidos','tv-resolvidos');
-  // Relógio
-  const tick = () => { const el=document.getElementById('tv-clock'); if(el) el.textContent = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); };
-  tick(); tvClockInterval = setInterval(tick, 1000);
-  // Feed
-  const feed = document.getElementById('tv-feed');
-  if (feed && typeof dashAlerts !== 'undefined') {
-    feed.innerHTML = dashAlerts.filter(a=>a.status==='open').slice(0,8).map(a =>
-      `<div class="tv-feed-item"><div class="tv-feed-desc">${a.desc}</div><div class="tv-feed-loc">📍 ${a.loc} · há ${a.time}</div></div>`
-    ).join('');
-  }
-  // Mapa TV
-  setTimeout(() => {
-    if (typeof L !== 'undefined' && !tvMapInstance) {
-      try {
-        tvMapInstance = L.map('tv-map', { zoomControl:false, attributionControl:false }).setView([-27.595,-48.548], 10);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd'}).addTo(tvMapInstance);
-        const COLORS={crime:'#E53935',transito:'#F57C00',furto:'#EF5350',infra:'#43A047',feminicidio:'#9C27B0',prf:'#FF8F00',inmet:'#0288D1',cemaden:'#6A1B9A'};
-        (incidentGeoJSON?.features||[]).forEach(f=>{const p=f.properties;if(p.type==='delegacia')return;L.circleMarker([f.geometry.coordinates[1],f.geometry.coordinates[0]],{radius:7,fillColor:COLORS[p.type]||'#888',color:'#fff',weight:2,fillOpacity:.9}).addTo(tvMapInstance);});
-      } catch(e){}
-    }
-    if (tvMapInstance) setTimeout(()=>tvMapInstance.invalidateSize(),200);
-  }, 300);
-}
-function exitTVMode() {
-  document.getElementById('tv-mode')?.classList.remove('active');
-  if (tvClockInterval) { clearInterval(tvClockInterval); tvClockInterval = null; }
-}
+
+
 
 // ── FEATURE 4: Filtro de período ────────────────────────────
-const PERIOD_DATA = {
-  hoje: { hoje:143, abertos:43, resolvidos:26, mult:1 },
-  '7d': { hoje:892, abertos:118, resolvidos:241, mult:7 },
-  '30d':{ hoje:3604, abertos:287, resolvidos:1156, mult:30 },
-};
+const PERIODO_DIAS   = { hoje: 1, '7d': 7, '30d': 30, tudo: null };
+const PERIODO_ROTULO = { hoje: 'último dia', '7d': 'últimos 7 dias',
+                         '30d': 'últimos 30 dias', tudo: 'todo o histórico' };
+const PERIODO_TITULO = { hoje: 'Incidentes hoje', '7d': 'Incidentes (7 dias)',
+                         '30d': 'Incidentes (30 dias)', tudo: 'Incidentes' };
+let periodoAtual = 'tudo';
+
 function setPeriod(btn) {
-  document.querySelectorAll('.period-pill').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.period-pill').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const p = btn.dataset.period;
-  const d = PERIOD_DATA[p] || PERIOD_DATA.hoje;
+  periodoAtual = btn.dataset.period || 'tudo';
+  aplicarPeriodo();
+  showToast('Período: ' + (PERIODO_ROTULO[periodoAtual] || periodoAtual));
+}
+
+function aplicarPeriodo() {
+  const d = calcPeriodStats(PERIODO_DIAS[periodoAtual]);
   animateCount('ds-hoje', d.hoje);
   animateCount('ds-abertos', d.abertos);
   animateCount('ds-resolvidos', d.resolvidos);
-  const labels = { hoje:'vs ontem', '7d':'vs semana anterior', '30d':'vs mês anterior' };
+
+  // O titulo acompanha o periodo — nunca dizer "hoje" mostrando historico.
+  const t = document.getElementById('ds-hoje-label');
+  if (t) t.textContent = PERIODO_TITULO[periodoAtual] || 'Incidentes';
+
   const dl = document.getElementById('ds-hoje-delta');
-  if (dl) dl.textContent = '↑ ' + (p==='hoje'?'+18% ':p==='7d'?'+12% ':'+8% ') + (labels[p]||'');
-  showToast('Período: ' + (p==='hoje'?'hoje':p==='7d'?'últimos 7 dias':'últimos 30 dias'));
+  if (dl) {
+    const base = (typeof dashAlerts !== 'undefined' ? dashAlerts : []).length;
+    dl.textContent = (d.hoje === 0 && base > 0)
+      ? 'nenhum registro neste período'
+      : (PERIODO_ROTULO[periodoAtual] || '');
+  }
   renderSparklines();
+
+  // Redesenha todos os componentes para o mesmo recorte de tempo.
+  try { chartData = buildChartData(alertasDoPeriodo()); } catch(_) {}
+  try { renderChart?.(); }        catch(_) {}
+  try { renderDashFeed?.(); }     catch(_) {}
+  try { renderMapPanel?.(); }     catch(_) {}
+  try { updateMapCounters?.(); }  catch(_) {}
+  try { renderInsights?.(); }     catch(_) {}
+  try { renderRecentes?.(); }     catch(_) {}
+  try { drawMarkers?.(); }        catch(_) {}
+  try { renderAlertasTable?.(typeof activeFilter !== 'undefined' ? activeFilter : 'all'); } catch(_) {}
 }
 
 // ── FEATURE 5: Ranking de municípios ────────────────────────
@@ -8355,7 +9188,6 @@ document.addEventListener('keydown', e => {
   const tag = (e.target.tagName||'').toLowerCase();
   if (tag === 'input' || tag === 'textarea') return;
   // Esc sai do modo TV
-  if (e.key === 'Escape' && document.getElementById('tv-mode')?.classList.contains('active')) { exitTVMode(); return; }
   // "/" abre busca
   if (e.key === '/') { e.preventDefault(); if (typeof openSearchOverlay==='function') openSearchOverlay(); return; }
   // 1-8 troca de view
@@ -8781,14 +9613,20 @@ function liveToFeature(a) {
 // Fonte de features para os mapas DO DASHBOARD (delegacias sempre do dataset de
 // referência; incidentes vêm da API quando carregados).
 function mapSource() {
-  return (liveIncidentGeoJSON && Array.isArray(liveIncidentGeoJSON.features)) ? liveIncidentGeoJSON : incidentGeoJSON;
+  const base = (liveIncidentGeoJSON && Array.isArray(liveIncidentGeoJSON.features))
+    ? liveIncidentGeoJSON : incidentGeoJSON;
+  // Aplica o periodo escolhido para o mapa nao contradizer os cards do topo.
+  if (typeof featuresDoPeriodo === 'function' && base && Array.isArray(base.features)) {
+    return { type: 'FeatureCollection', features: featuresDoPeriodo(base.features) };
+  }
+  return base;
 }
 
 // Busca os alertas reais do tenant e repopula os datasets do dashboard IN PLACE.
 // Mantém as 22 delegacias (dados de referência, sem tabela no backend).
 async function refreshLiveData() {
   let data = null;
-  try { data = await apiGet('/alerts?limit=200', null); } catch(_) { data = null; }
+  try { data = await apiGet('/alerts?limit=1000', null); } catch(_) { data = null; }
   if (!data || !Array.isArray(data.alerts)) return false; // mantém demo
   const rows  = data.alerts.map(liveToRow);
   const feats = data.alerts.map(liveToFeature).filter(Boolean);
@@ -8798,6 +9636,9 @@ async function refreshLiveData() {
   try {
     allAlerts.length  = 0; rows.forEach(r => allAlerts.push(r));
     dashAlerts.length = 0; rows.forEach(r => dashAlerts.push({ ...r, time: fmtRelative(r._created) }));
+    // Rebuild chart with real data
+    if (typeof buildChartData === 'function') chartData = buildChartData(rows);
+    if (typeof periodoAtual !== 'undefined') { /* grafico e recalculado em aplicarPeriodo() */ }
   } catch(_) {}
   return true;
 }
@@ -8809,6 +9650,9 @@ function rerenderDashboard() {
   try { renderAlertasTable?.(typeof activeFilter !== 'undefined' ? activeFilter : 'all'); } catch(_) {}
   try { renderMapPanel?.(); } catch(_) {}
   try { renderInsights?.(); } catch(_) {}
+  try { renderSparklines?.(); } catch(_) {}
+  try { animateDashStats?.(); } catch(_) {}
+  try { updateSidebarBadge?.(); } catch(_) {}
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -8974,6 +9818,18 @@ function buildPopupHTML(p) {
 function initLeafletMap(containerId, zoom, plan) {
   const el = document.getElementById(containerId);
   if (!el || typeof L === 'undefined') return null;
+
+  // Leaflet lanca "Map container is already initialized" se o mesmo elemento
+  // for inicializado duas vezes (acontecia ao alternar de aba e voltar).
+  // Descarta a instancia anterior antes de criar a nova.
+  if (el._leaflet_id) {
+    try {
+      if (containerId === 'map-full' && typeof mapFull !== 'undefined' && mapFull) { mapFull.remove(); mapFull = null; }
+      else if (typeof mapDash !== 'undefined' && mapDash) { mapDash.remove(); mapDash = null; }
+      else { el._leaflet_id = null; el.innerHTML = ''; }
+    } catch(_) { el._leaflet_id = null; el.innerHTML = ''; }
+  }
+
   const activePlan = plan || selectedBillingPlan || 'pro';
 
   // ── 1. MaxBounds: trava navegação na Grande Florianópolis ──
@@ -9326,31 +10182,9 @@ function renderCameras() {
   }).join('');
 }
 
-function openCameraForm() {
-  const ov = document.getElementById('cam-overlay');
-  if (ov) { ov.style.display = 'flex'; }
-}
-function closeCameraForm(ev, force) {
-  if (ev && ev.target !== ev.currentTarget && !force) return;
-  const ov = document.getElementById('cam-overlay');
-  if (ov) ov.style.display = 'none';
-}
-function saveCamera() {
-  const name = (document.getElementById('cam-name')?.value || '').trim();
-  const addr = (document.getElementById('cam-addr')?.value || '').trim();
-  const type = document.getElementById('cam-type')?.value || 'Fixa externa';
-  const dir  = document.getElementById('cam-dir')?.value || 'Via pública';
-  const contact = (document.getElementById('cam-contact')?.value || '').trim();
-  const consent = document.getElementById('cam-consent')?.checked;
-  if (!name || !addr) { showToast('Preencha identificação e endereço'); return; }
-  if (!consent) { showToast('É necessário aceitar a autorização (LGPD)'); return; }
-  _cameras.unshift({ name, addr, type, dir, contact: contact||'—', status:'online' });
-  ['cam-name','cam-addr','cam-contact'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-  const cons = document.getElementById('cam-consent'); if (cons) cons.checked = false;
-  closeCameraForm(null, true);
-  renderCameras();
-  showToast('✅ Câmera registrada na rede de parceiros');
-}
+
+
+
 
 function renderMapPanel() {
   const listEl    = document.getElementById('map-panel-list');
@@ -9649,7 +10483,7 @@ function renderInsights() {
   // 2) Tipo predominante
   const porTipo = {};
   feats.forEach(f => { const t = f.properties.type; porTipo[t] = (porTipo[t]||0)+1; });
-  const TIPO_LBL = { crime:'crimes', transito:'ocorrências de trânsito', furto:'furtos', infra:'alertas de infraestrutura', cemaden:'alertas de risco', inmet:'avisos meteorológicos' };
+  const TIPO_LBL = { crime:'crimes', transito:'ocorrências de trânsito', furto:'furtos', infra:'alertas de infraestrutura', cemaden:'alertas de risco', inmet:'avisos meteorológicos', prf:'acidentes PRF', delegacia:'delegacias monitoradas' };
   const topTipo = Object.entries(porTipo).sort((a,b)=>b[1]-a[1])[0] || ['crime',0];
   const pctTipo = feats.length ? Math.round((topTipo[1]/feats.length)*100) : 0;
 
@@ -9686,8 +10520,12 @@ function renderInsights() {
   } else {
     insights.push({
       cor: 'var(--gold)', icon: 'M2 13V3 M2 13h11 M5 10l3-3 2 2 3-4',
-      titulo: `${TIPO_LBL[topTipo[0]]||topTipo[0]} são ${pctTipo}% do total`,
-      texto: `Tipo predominante esta semana. Considere ação direcionada para reduzir a recorrência.`,
+      titulo: `${(TIPO_LBL[topTipo[0]]||topTipo[0])} são ${pctTipo}% do total`,
+      texto: topTipo[0] === 'prf' || topTipo[0] === 'transito'
+        ? `${topTipo[1]} acidentes na BR-101 e rodovias da Grande Florianópolis. Dados históricos importados da PRF.`
+        : topTipo[0] === 'inmet'
+        ? `${topTipo[1]} aviso${topTipo[1]>1?'s':''} meteorológico${topTipo[1]>1?'s':''} ativo${topTipo[1]>1?'s':''} do INMET para a região.`
+        : `Tipo predominante. Considere ação direcionada para reduzir a recorrência.`,
       cta: 'Ver detalhes', action: "setNav(document.querySelector('.nav-item[data-view=alertas]'))"
     });
   }
@@ -9695,10 +10533,12 @@ function renderInsights() {
   // Insight 3 — desempenho de resolução
   insights.push({
     cor: 'var(--success)', icon: 'M3 8l3.5 3.5L13 4',
-    titulo: `Taxa de resolução em ${taxaResol || 81}%`,
+    titulo: `Taxa de resolução em ${taxaResol || 0}%`,
     texto: taxaResol >= 70
-      ? `Bom desempenho da equipe. Tempo médio de resposta: 1h 42min.`
-      : `Abaixo da meta de 70%. Vale revisar o fluxo de atendimento da equipe.`,
+      ? `Bom desempenho da equipe. Continue acompanhando o fluxo de atendimento.`
+      : taxaResol > 0
+      ? `Abaixo da meta de 70%. Vale revisar o fluxo de atendimento da equipe.`
+      : `Nenhum alerta resolvido no período. Registre ocorrências para acompanhar a taxa.`,
     cta: 'Ver relatório', action: "setNav(document.querySelector('.nav-item[data-view=relatorios]'))"
   });
 
@@ -9734,7 +10574,7 @@ function renderDashFeed() {
     return `<span style="width:5px;height:5px;border-radius:50%;background:${colors[s]||'var(--muted)'};display:inline-block;flex-shrink:0"></span>`;
   };
 
-  const planAlerts = filterAlertsByPlan(dashAlerts, selectedBillingPlan || 'pro');
+  const planAlerts = filterAlertsByPlan(alertasDoPeriodo(), selectedBillingPlan || 'pro');
   if (!planAlerts.length) {
     list.innerHTML = `<div style="padding:32px 16px;text-align:center;color:var(--muted)">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.3;margin:0 auto 10px;display:block"><path d="M16 4C9.4 4 4 9.4 4 16s5.4 12 12 12 12-5.4 12-12S22.6 4 16 4z"/><path d="M16 12v4l3 3"/></svg>
@@ -9799,9 +10639,31 @@ function renderDashFeed() {
 }
 
 // Chart — tendência 7 dias (dados realistas Grande Florianópolis)
-const chartData = [
-  { day:'Seg', crime:38, transito:29, furto:18 }, { day:'Ter', crime:51, transito:33, furto:24 }, { day:'Qua', crime:32, transito:41, furto:17 }, { day:'Qui', crime:62, transito:28, furto:31 }, { day:'Sex', crime:79, transito:47, furto:38 }, { day:'Sáb', crime:65, transito:19, furto:32 }, { day:'Dom', crime:41, transito:15, furto:22 },
+let chartData = [
+  { day:'Seg', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
+  { day:'Ter', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
+  { day:'Qua', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
+  { day:'Qui', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
+  { day:'Sex', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
+  { day:'Sáb', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
+  { day:'Dom', crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0 },
 ];
+function buildChartData(alerts) {
+  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const map = {};
+  days.forEach(d => { map[d] = { day:d, crime:0, transito:0, furto:0, infra:0, prf:0, inmet:0, total:0 }; });
+  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  alerts.forEach(a => {
+    const d = new Date(a._created || a.created_at);
+    if (isNaN(d) || d.getTime() < cutoff) return;
+    const dayName = days[d.getDay()];
+    if (!map[dayName]) return;
+    const type = a.source === 'prf' ? 'prf' : (a.source === 'inmet' ? 'inmet' : (a.type || 'outro'));
+    if (map[dayName][type] !== undefined) map[dayName][type]++;
+    map[dayName].total++;
+  });
+  return ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(d => map[d]);
+}
 
 // ── Sparklines nos cards de métricas ─────────────────────────
 function makeSparkline(data, color) {
@@ -9828,11 +10690,27 @@ function makeSparkline(data, color) {
 }
 
 function renderSparklines() {
-  // Dados das últimas 12 horas (simulados — em produção viriam da API)
+  function hoursData(filterFn) {
+    const buckets = new Array(12).fill(0);
+    const now = Date.now();
+    const alerts = typeof dashAlerts !== 'undefined' ? dashAlerts : [];
+    alerts.forEach(a => {
+      if (!filterFn(a)) return;
+      const d = new Date(a._created || a.created_at);
+      if (isNaN(d)) return;
+      const hoursAgo = Math.floor((now - d.getTime()) / 3600000);
+      if (hoursAgo >= 0 && hoursAgo < 12) buckets[11 - hoursAgo]++;
+    });
+    if (buckets.every(v => v === 0)) {
+      const total = alerts.filter(filterFn).length;
+      return buckets.map((_, i) => Math.round((total / 12) * (0.5 + i / 12)));
+    }
+    return buckets;
+  }
   const sparks = {
-    'spark-hoje':       { data: [12,18,15,22,28,24,31,27,35,42,38,45], color: '#C8201A' },
-    'spark-abertos':    { data: [8,12,10,15,13,18,16,20,17,22,19,23],  color: '#F57C00' },
-    'spark-resolvidos': { data: [3,5,8,7,12,15,14,18,20,19,24,26],    color: '#2E7D32' },
+    'spark-hoje':       { data: hoursData(() => true), color: '#C8201A' },
+    'spark-abertos':    { data: hoursData(a => a.status !== 'resolved'), color: '#F57C00' },
+    'spark-resolvidos': { data: hoursData(a => a.status === 'resolved'), color: '#2E7D32' },
   };
   Object.entries(sparks).forEach(([id, cfg]) => {
     const el = document.getElementById(id);
@@ -9845,7 +10723,7 @@ function renderChart() {
   if (!wrap) return;
 
   const today  = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'][new Date().getDay()];
-  const totals = chartData.map(d => d.crime + d.transito + d.furto);
+  const totals = chartData.map(d => (d.crime||0) + (d.transito||0) + (d.furto||0) + (d.infra||0) + (d.prf||0) + (d.inmet||0));
   const rawMax = Math.max(...totals);
   const maxVal = Math.ceil(rawMax / 20) * 20;
   const media  = Math.round(totals.reduce((a,b)=>a+b,0) / totals.length);
@@ -10459,26 +11337,6 @@ function exportDashboardPDF() {
 </div>
 
 <!-- Modal de registro de câmera -->
-<div class="cam-overlay" id="cam-overlay" onclick="closeCameraForm(event)">
-  <div class="cam-modal" onclick="event.stopPropagation()">
-    <button class="cam-modal-close" onclick="closeCameraForm(null,true)" aria-label="Fechar">×</button>
-    <h2 class="cam-modal-title">Registrar câmera de segurança</h2>
-    <p class="cam-modal-sub">Os dados ajudam a segurança pública a localizar câmeras próximas a ocorrências. As imagens permanecem com você.</p>
-    <div class="field" style="margin-bottom:12px"><label>Identificação / Apelido</label><input type="text" id="cam-name" placeholder="Ex.: Portaria — entrada principal"/></div>
-    <div class="field" style="margin-bottom:12px"><label>Endereço</label><input type="text" id="cam-addr" placeholder="Rua, número, bairro"/></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-      <div class="field"><label>Tipo</label><select id="cam-type"><option value="Fixa externa">Fixa externa</option><option value="Dome">Dome</option><option value="PTZ (móvel)">PTZ (móvel)</option><option value="Campainha/Interfone">Campainha/Interfone</option><option value="LPR (placas)">LPR (placas)</option></select></div>
-      <div class="field"><label>Direção da imagem</label><select id="cam-dir"><option value="Via pública">Via pública</option><option value="Entrada/Portaria">Entrada/Portaria</option><option value="Estacionamento">Estacionamento</option><option value="Perímetro">Perímetro interno</option></select></div>
-    </div>
-    <div class="field" style="margin-bottom:12px"><label>Responsável (contato)</label><input type="text" id="cam-contact" placeholder="Nome e telefone do responsável"/></div>
-    <label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--muted);margin-bottom:16px;cursor:pointer">
-      <input type="checkbox" id="cam-consent" style="margin-top:2px"/>
-      <span>Autorizo o registro destes dados. Entendo que as imagens só serão solicitadas mediante contato e minha autorização, conforme a LGPD.</span>
-    </label>
-    <button class="login-submit" onclick="saveCamera()">Registrar câmera</button>
-  </div>
-</div>
-
 <div class="welcome-overlay" id="welcome-overlay" onclick="closeWelcome(event)">
   <div class="welcome-box" onclick="event.stopPropagation()">
     <button class="welcome-close" onclick="closeWelcome(null,true)" aria-label="Fechar">×</button>
