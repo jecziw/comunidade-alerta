@@ -8,7 +8,7 @@ exports.list = async (req, res) => {
   if (!tenantId) return res.status(401).json({ error: 'Não autenticado.' });
   const { status, type, source } = req.query;
   const page  = Math.max(parseInt(req.query.page)  || 1, 1);
-  const limit = Math.min(Math.max(parseInt(req.query.limit) || 50, 1), 200);
+  const limit = Math.min(Math.max(parseInt(req.query.limit) || 50, 1), 2000);
   const params = [tenantId]; let where = 'WHERE a.tenant_id=$1';
   if (status) { params.push(status); where+=` AND a.status=$${params.length}`; }
   if (type)   { params.push(type);   where+=` AND a.type=$${params.length}`; }

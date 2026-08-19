@@ -1,6 +1,8 @@
 const express  = require('express');
 const router   = express.Router();
 const auth     = require('../controllers/authController');
+const account  = require('../controllers/accountController');
+const citizen  = require('../controllers/citizenController');
 const alerts   = require('../controllers/alertsController');
 const workflow = require('../controllers/workflowController');
 const billing  = require('../controllers/billingController');
@@ -28,6 +30,17 @@ router.post  ('/auth/2fa/disable',     authenticateToken, twofa.disable);
 
 // Alerts
 router.get   ('/alerts',             authenticateToken, alerts.list);
+
+// ── Canal do cidadão (denúncia pública com triagem) ──
+router.post  ('/public/report',            citizen.receberDenuncia);
+router.get   ('/public/report/:protocolo', citizen.consultarProtocolo);
+router.get   ('/reports/pending',          authenticateToken, citizen.listarPendentes);
+router.post  ('/reports/:id/review',       authenticateToken, citizen.revisarDenuncia);
+
+// ── LGPD — direitos do titular (art. 18) ──
+router.get   ('/account/export',          authenticateToken, account.exportarDados);
+router.post  ('/account/delete',          authenticateToken, account.solicitarExclusao);
+router.get   ('/account/deletion-status', authenticateToken, account.statusExclusao);
 router.post  ('/alerts',             authenticateToken, checkPlanLimit, alerts.create);
 router.patch ('/alerts/:id/status',  authenticateToken, workflow.updateStatus);
 router.post  ('/alerts/:id/assign',  authenticateToken, workflow.assignAlert);
